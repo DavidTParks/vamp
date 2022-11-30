@@ -1,0 +1,10 @@
+.git
+.svn
+.hg
+node_modules
+.next
+public
+design
+contracts
+.github
+*.lock
