@@ -15,8 +15,6 @@ export default async function MarketingLayout({
 }: MarketingLayoutProps) {
     const user = await getCurrentUser()
 
-    console.log("User", user)
-
     return (
         <div className="flex min-h-screen flex-col">
             <header className="container z-40 ">

@@ -1,9 +1,9 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-    name: "Vamp",
+    name: "Vamp.sh",
     links: {
-        twitter: "https://twitter.com/shadcn",
-        github: "https://github.com/shadcn/taxonomy",
+        twitter: "https://twitter.com/dparksdev",
+        github: "https://github.com/DavidTParks/vamp",
     },
 }
