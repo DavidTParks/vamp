@@ -1,5 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority"
-import { ButtonOrLink, Props as ButtonOrLinkProps } from "./button-or-link"
+import { ComponentProps } from "react"
+
+type ButtonProps = ComponentProps<"button">
 
 const buttonStyles = cva(
     "button flex items-center justify-center shadow-lg transition-all text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed",
@@ -33,9 +35,7 @@ const buttonStyles = cva(
     }
 )
 
-export interface Props
-    extends ButtonOrLinkProps,
-        VariantProps<typeof buttonStyles> {}
+export interface Props extends ButtonProps, VariantProps<typeof buttonStyles> {}
 
 export function Button({
     intent = "primary",
@@ -45,7 +45,7 @@ export function Button({
     ...props
 }: Props) {
     return (
-        <ButtonOrLink
+        <button
             className={buttonStyles({ intent, fullWidth, borderRadius, size })}
             {...props}
         />

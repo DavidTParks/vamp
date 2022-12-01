@@ -1,14 +1,12 @@
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { PostCreateButton } from "@/components/dashboard/project-create-button"
 import { DashboardShell } from "@/components/dashboard/shell"
-import { redirect } from "next/navigation"
-import { cache } from "react"
-import { DashboardHeader } from "@/components/dashboard/header"
+import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { User } from "@prisma/client"
-import { authOptions } from "@/lib/auth"
-import { Button } from "@/ui/button"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { PostCreateButton } from "@/components/dashboard/project-create-button"
+import { redirect } from "next/navigation"
+import { cache } from "react"
 
 const getProjectsForUser = cache(async (userId: User["id"]) => {
     return await db.projectUsers.findMany({

@@ -22,21 +22,17 @@ export default async function MarketingLayout({
                     <MainNav items={marketingConfig.mainNav} />
                     <nav className="flex gap-4">
                         {user ? (
-                            <Button
-                                intent="primary"
-                                href="/login"
-                                borderRadius="full"
-                            >
-                                Dashboard
-                            </Button>
+                            <Link href="/dashboard">
+                                <Button intent="primary" borderRadius="full">
+                                    Dashboard
+                                </Button>
+                            </Link>
                         ) : (
-                            <Button
-                                intent="primary"
-                                href="/login"
-                                borderRadius="full"
-                            >
-                                Login
-                            </Button>
+                            <Link href="/login">
+                                <Button intent="primary" borderRadius="full">
+                                    Login
+                                </Button>
+                            </Link>
                         )}
                     </nav>
                 </div>

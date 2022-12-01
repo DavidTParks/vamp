@@ -1,14 +1,9 @@
-import { notFound } from "next/navigation"
-import { cache } from "react"
+import { PostCreateButton } from "@/components/dashboard/project-create-button"
+import { UserAccountNav } from "@/components/dashboard/user-account-nav"
+import { MainNav } from "@/components/main-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
-import { MainNav } from "@/components/main-nav"
-import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { Button } from "@/ui/button"
-import { PostCreateButton } from "@/components/dashboard/project-create-button"
-import { User } from "@prisma/client"
-import { db } from "@/lib/db"
-import { getRepos } from "@/lib/github"
+import { notFound } from "next/navigation"
 
 export default async function DashboardLayout({
     children,

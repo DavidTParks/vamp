@@ -7,12 +7,14 @@ export default function LoginPage() {
     return (
         <div className="container flex h-screen w-screen flex-col items-center justify-center">
             <div className="absolute top-4 left-4 focus:z-10 focus:outline-none md:top-8 md:left-8">
-                <Button intent="tertiary" href="/">
-                    <>
-                        <Icons.chevronLeft className="mr-2 h-4 w-4" />
-                        Back
-                    </>
-                </Button>
+                <Link href="/">
+                    <Button intent="tertiary">
+                        <>
+                            <Icons.chevronLeft className="mr-2 h-4 w-4" />
+                            Back
+                        </>
+                    </Button>
+                </Link>
             </div>
             <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                 <div className="flex flex-col space-y-2 text-center">
