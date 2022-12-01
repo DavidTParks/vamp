@@ -41,19 +41,22 @@ model Session {
 }
 
 model User {
-  id                     String    @id @default(cuid())
+  id                     String             @id @default(cuid())
   name                   String?
-  email                  String?   @unique
+  email                  String?            @unique
   emailVerified          DateTime?
   image                  String?
-  createdAt              DateTime  @default(now()) @map(name: "created_at")
-  updatedAt              DateTime  @default(now()) @map(name: "updated_at")
+  createdAt              DateTime           @default(now()) @map(name: "created_at")
+  updatedAt              DateTime           @default(now()) @map(name: "updated_at")
   accounts               Account[]
   sessions               Session[]
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  projects               ProjectUsers[]
+  bountySubmissions      BountySubmission[]
+  comments               Comment[]
+  stripeCustomerId       String?            @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?            @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?            @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime?          @map(name: "stripe_current_period_end")
 
   @@map(name: "users")
 }
@@ -65,4 +68,110 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map(name: "verification_tokens")
+}
+
+model Project {
+  id         String            @id @default(cuid())
+  name       String
+  slug       String            @unique
+  logo       String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  githubRepo GithubRepository?
+  bounties   Bounty[]
+  users      ProjectUsers[]
+  invites    ProjectInvite[]
+}
+
+model ProjectInvite {
+  email     String
+  expires   DateTime
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  createdAt DateTime @default(now())
+
+  @@unique([email, projectId])
+}
+
+model ProjectUsers {
+  id           String             @id @default(cuid())
+  role         ProjectUserRoles   @default(MEMBER)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  project      Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId    String
+  bountiesSeen BountySubmission[]
+
+  @@unique([userId, projectId])
+}
+
+enum ProjectUserRoles {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model GithubRepository {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  project      Project  @relation(fields: [projectId], references: [id])
+  projectId    String   @unique
+  githubRepoId String
+  name         String
+  url          String
+  owner        String
+
+  @@unique([projectId, githubRepoId])
+}
+
+model Bounty {
+  id                String             @id @default(cuid())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  resolvedAt        DateTime?
+  title             String
+  description       String?            @db.LongText
+  issueLink         String?
+  bountyPrice       Float?
+  deadline          DateTime?
+  resolved          Boolean            @default(false)
+  project           Project            @relation(fields: [projectId], references: [id])
+  projectId         String             @unique
+  bountySubmissions BountySubmission[]
+  upvotes           Int                @default(0)
+  downvotes         Int                @default(0)
+  comments          Comment[]
+}
+
+model BountySubmission {
+  id           String         @id @default(cuid())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  bounty       Bounty         @relation(fields: [bountyId], references: [id])
+  bountyId     String         @unique
+  solutionLink String?
+  comments     String?
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String         @unique
+  accepted     Boolean        @default(false)
+  hidden       Boolean        @default(false)
+  seenBy       ProjectUsers[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  bounty    Bounty   @relation(fields: [bountyId], references: [id])
+  bountyId  String   @unique
+  comment   String   @db.LongText
+  upvotes   Int      @default(0)
+  downvotes Int      @default(0)
+  deleted   Boolean  @default(false)
+  hidden    Boolean  @default(false)
 }

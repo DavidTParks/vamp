@@ -30,7 +30,7 @@ DropdownMenu.Content = React.forwardRef<
                 ref={ref}
                 align="end"
                 className={cn(
-                    "overflow-hidden rounded-md border border-slate-800 bg-appbg shadow-lg animate-in slide-in-from-top-1 md:w-32",
+                    "overflow-hidden rounded-md border border-slate-700 bg-appbg shadow-lg animate-in slide-in-from-top-1 md:w-32",
                     className
                 )}
                 {...props}
@@ -47,7 +47,7 @@ DropdownMenu.Item = React.forwardRef<
         <DropdownMenuPrimitive.Item
             ref={ref}
             className={cn(
-                "flex cursor-default select-none items-center py-2 px-3 text-sm text-slate-100 outline-none focus:bg-slate-900 focus:text-white",
+                "flex cursor-default select-none items-center py-2 px-3 text-sm text-slate-100 outline-none focus:bg-slate-700 focus:text-white",
                 className
             )}
             {...props}

@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority"
 import { ButtonOrLink, Props as ButtonOrLinkProps } from "./button-or-link"
 
 const buttonStyles = cva(
-    "button flex items-center justify-center shadow-lg transition-all text-sm font-medium disabled:opacity-60 disabled:pointer-events-none ",
+    "button flex items-center justify-center shadow-lg transition-all text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed",
     {
         variants: {
             intent: {
@@ -17,7 +17,7 @@ const buttonStyles = cva(
                 true: "w-full",
             },
             size: {
-                small: "px-5 py-2.5",
+                small: "px-5 py-2 text-xs",
                 regular: "px-5 py-2.5 text-sm",
             },
             borderRadius: {

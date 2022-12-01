@@ -1,9 +1,10 @@
 import { Inter as FontSans } from "@next/font/google"
 import localFont from "@next/font/local"
-import Background from "@/components/background"
 import "./globals.css"
 
 import { cn } from "@/lib/utils"
+
+import { Providers } from "./providers"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",
@@ -37,7 +38,9 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
             <head />
-            <body className="min-h-screen">{children}</body>
+            <body className="min-h-screen">
+                <Providers>{children}</Providers>
+            </body>
         </html>
     )
 }

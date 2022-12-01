@@ -21,7 +21,7 @@ export default function LoginPage() {
                         Create an account
                     </h1>
                     <p className="text-sm text-slate-200">
-                        Enter your email below to create your account
+                        Continue with Github to create your account
                     </p>
                 </div>
                 <UserAuthForm />

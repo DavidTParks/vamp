@@ -44,7 +44,7 @@ export default async function IndexPage() {
                 </h1>
                 <h2 className="mt-5 text-lg text-slate-400 sm:text-xl">
                     Vamp is an open-source platform for projects to post issue
-                    bounties and feature requests for money, and for os
+                    bounties and feature requests, and for open-source
                     contributors to feed on them.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">

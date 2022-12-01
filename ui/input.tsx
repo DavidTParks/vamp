@@ -1,11 +1,11 @@
 import { cva, VariantProps } from "class-variance-authority"
 import { ComponentProps } from "react"
 import { UseFormRegister, FieldValues } from "react-hook-form"
-
+import { capitalize } from "@/lib/utils"
 type InputProps = ComponentProps<"input">
 
 const inputStyles = cva(
-    "form-input my-0 mb-2 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100",
+    "form-input my-0 mb-2 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none",
     {
         variants: {
             intent: {
@@ -25,10 +25,12 @@ export interface Props extends InputProps, VariantProps<typeof inputStyles> {
 
 export function Input({ intent = "primary", register, name, ...props }: Props) {
     return (
-        <input
-            {...register(name)}
-            className={inputStyles({ intent })}
-            {...props}
-        />
+        <>
+            <input
+                {...register(name)}
+                className={inputStyles({ intent })}
+                {...props}
+            />
+        </>
     )
 }

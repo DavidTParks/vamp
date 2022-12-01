@@ -23,7 +23,7 @@ import {
     X,
 } from "lucide-react"
 
-import { GiBatWing as BatWing } from "react-icons/gi"
+import { GiVampireDracula as Dracula } from "react-icons/gi"
 
 import { GiBat as Bat } from "react-icons/gi"
 

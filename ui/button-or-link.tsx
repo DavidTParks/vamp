@@ -15,10 +15,14 @@ export function ButtonOrLink({ href, ...props }: Props) {
     const isLink = typeof href !== "undefined"
     const ButtonOrLink = isLink ? "a" : "button"
 
-    let content = <ButtonOrLink href={href} {...props} />
+    let content = <ButtonOrLink {...props} />
 
     if (isLink) {
-        return <>{content}</>
+        return (
+            <Link legacyBehavior href={href}>
+                {content}
+            </Link>
+        )
     }
 
     return content

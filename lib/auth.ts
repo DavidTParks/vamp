@@ -1,8 +1,6 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
-import EmailProvider from "next-auth/providers/email"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { Client } from "postmark"
 
 import { db } from "@/lib/db"
 
@@ -29,22 +27,21 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async session({ token, session }) {
-            if (token) {
-                session.user.name = token.name
-                session.user.email = token.email
-                session.user.image = token.picture
-            }
-
-            return session
-        },
         async jwt({ token, user }) {
-            const dbUser = await db.user.findFirst({
-                where: {
-                    email: token.email,
-                },
-            })
-
+            const [dbUser, account] = await Promise.all([
+                db.user.findFirst({
+                    where: {
+                        email: token.email,
+                    },
+                }),
+                db.account.findFirst({
+                    where: {
+                        user: {
+                            email: token.email,
+                        },
+                    },
+                }),
+            ])
             if (!dbUser) {
                 token.id = user.id
                 return token
@@ -55,7 +52,24 @@ export const authOptions: NextAuthOptions = {
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image,
+                accessToken: account.access_token,
+                refreshToken: account.refresh_token,
             }
+        },
+        async session({ token, session }) {
+            if (token) {
+                // @ts-ignore
+                session.user.accessToken = token.accessToken
+                // @ts-ignore
+                session.user.refreshToken = token.refreshToken
+                // @ts-ignore
+                session.user.id = token.id
+                session.user.name = token.name
+                session.user.email = token.email
+                session.user.image = token.picture
+            }
+
+            return session
         },
     },
 }

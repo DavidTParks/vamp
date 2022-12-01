@@ -1,11 +1,14 @@
 import { notFound } from "next/navigation"
-
+import { cache } from "react"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { MainNav } from "@/components/main-nav"
-import { DashboardNav } from "@/components/dashboard/nav"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import Background from "@/components/background"
+import { Button } from "@/ui/button"
+import { PostCreateButton } from "@/components/dashboard/project-create-button"
+import { User } from "@prisma/client"
+import { db } from "@/lib/db"
+import { getRepos } from "@/lib/github"
 
 export default async function DashboardLayout({
     children,
@@ -14,11 +17,10 @@ export default async function DashboardLayout({
 }) {
     const user = await getCurrentUser()
 
-    console.log("USer", user)
-
     if (!user) {
         return notFound()
     }
+
     return (
         <>
             <div className="mx-auto flex flex-col min-h-screen relative">
@@ -43,6 +45,14 @@ export default async function DashboardLayout({
                                     <p className="text-sm">Projects</p>
                                 </div>
                             </a>
+                            <a
+                                className="border-b-2 border-transparent p-1  text-slate-200 "
+                                href="/"
+                            >
+                                <div className="rounded-md px-3 py-2 ">
+                                    <p className="text-sm">Settings</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </header>
@@ -53,13 +63,14 @@ export default async function DashboardLayout({
                                 <h1 className="text-2xl font-medium text-white">
                                     My Projects
                                 </h1>
-                                <button className="rounded-md border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-all duration-75 hover:bg-white hover:text-black active:scale-95">
-                                    Add
-                                </button>
+                                <PostCreateButton />
                             </div>
                         </div>
                     </div>
                 </div>
+                <main className="flex w-full flex-1 flex-col overflow-hidden mx-auto max-w-screen-xl px-2.5 md:px-20">
+                    {children}
+                </main>
             </div>
         </>
     )

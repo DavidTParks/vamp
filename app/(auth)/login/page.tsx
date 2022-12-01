@@ -21,7 +21,7 @@ export default function LoginPage() {
                         Welcome back
                     </h1>
                     <p className="text-sm text-slate-200">
-                        Enter your email to sign in to your account
+                        Sign in with Github to login
                     </p>
                 </div>
                 <UserAuthForm />
