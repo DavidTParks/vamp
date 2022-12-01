@@ -1,60 +1,40 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { userAuthSchema } from "@/lib/validations/auth"
+import { cn, dateToNow } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
-import { toast } from "@/ui/toast"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { signIn } from "next-auth/react"
-import { useSearchParams } from "next/navigation"
+import { ScrollArea } from "@/ui/scroll-area"
 import * as React from "react"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-import { GithubRepoList } from "@/components/dashboard/github-repo-list"
+import { UseFormReturn } from "react-hook-form"
+import { GithubRepository } from "types"
+import { CreateProjectFormData } from "./project-create-button"
 
-type FormData = z.infer<typeof userAuthSchema>
+export type SelectGithubRepoEvent = React.Dispatch<
+    React.SetStateAction<GithubRepository>
+>
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
+    repositories: GithubRepository[]
+    projectName: UseFormReturn<CreateProjectFormData>
+    onSubmit: any
+    onProjectSelect: SelectGithubRepoEvent
+}
 
-export function NewProjectForm({ className, ...props }: UserAuthFormProps) {
+export function NewProjectForm({
+    repositories,
+    onProjectSelect,
+    className,
+    projectName,
+    onSubmit,
+    ...props
+}: UserAuthFormProps) {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>({
-        resolver: zodResolver(userAuthSchema),
-    })
+    } = projectName
 
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const searchParams = useSearchParams()
-
-    async function onSubmit(data: FormData) {
-        setIsLoading(true)
-
-        const signInResult = await signIn("email", {
-            email: data.email.toLowerCase(),
-            redirect: false,
-            callbackUrl: searchParams.get("from") || "/dashboard",
-        })
-
-        setIsLoading(false)
-
-        if (!signInResult?.ok) {
-            return toast({
-                title: "Something went wrong.",
-                message: "Your sign in request failed. Please try again.",
-                type: "error",
-            })
-        }
-
-        return toast({
-            title: "Check your email",
-            message:
-                "We sent you a login link. Be sure to check your spam too.",
-            type: "success",
-        })
-    }
 
     return (
         <>
@@ -74,9 +54,9 @@ export function NewProjectForm({ className, ...props }: UserAuthFormProps) {
                                 disabled={isLoading}
                                 register={register}
                             />
-                            {errors?.email && (
+                            {errors?.name && (
                                 <p className="px-1 text-xs text-red-600">
-                                    {errors.email.message}
+                                    {errors.name.message}
                                 </p>
                             )}
                         </div>
@@ -86,7 +66,54 @@ export function NewProjectForm({ className, ...props }: UserAuthFormProps) {
             <p className="text-slate-200 mt-4">Select git repository</p>
 
             <div className="mt-0">
-                <GithubRepoList />
+                <ScrollArea
+                    type="auto"
+                    className="h-72 w-full rounded-md overflow-hidden border border-slate-700"
+                >
+                    <ScrollArea.Viewport>
+                        <div className="flex flex-col relative divide-y divide-slate-800">
+                            {repositories?.map((repo) => (
+                                <div
+                                    className="p-4 flex justify-between items-center"
+                                    key={repo.id}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <a
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            href={repo.html_url}
+                                            className="text-white text-sm font-medium hover:underline"
+                                        >
+                                            {repo.name}
+                                        </a>
+                                        <div className="text-slate-500 text-2xl">
+                                            &middot;
+                                        </div>
+                                        <div className="text-xs text-slate-500">
+                                            {dateToNow(
+                                                new Date(repo.pushed_at)
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="pr-4">
+                                        <Button
+                                            onClick={() =>
+                                                onProjectSelect(repo)
+                                            }
+                                            intent="secondary"
+                                            size="small"
+                                        >
+                                            Select
+                                        </Button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </ScrollArea.Viewport>
+                    <ScrollArea.ScrollBar orientation="vertical">
+                        <ScrollArea.Thumb />
+                    </ScrollArea.ScrollBar>
+                </ScrollArea>
             </div>
         </>
     )

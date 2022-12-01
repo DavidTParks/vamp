@@ -1,9 +1,10 @@
-import { PostCreateButton } from "@/components/dashboard/project-create-button"
+import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { MainNav } from "@/components/main-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import GithubRepoList from "@/components/dashboard/github-repo-list"
 
 export default async function DashboardLayout({
     children,
@@ -58,7 +59,10 @@ export default async function DashboardLayout({
                                 <h1 className="text-2xl font-medium text-white">
                                     My Projects
                                 </h1>
-                                <PostCreateButton />
+                                <ProjectCreateButton>
+                                    {/* @ts-ignore */}
+                                    <GithubRepoList />
+                                </ProjectCreateButton>
                             </div>
                         </div>
                     </div>
