@@ -1,9 +1,11 @@
 "use client"
 
-import { NewProjectForm } from "@/components/dashboard/new-project-form"
 import { Icons } from "@/components/icons"
-import { projectSchema } from "@/lib/validations/project"
+import { cn } from "@/lib/utils"
+import { projectCreateSchema } from "@/lib/validations/project"
 import { Button } from "@/ui/button"
+import { Input } from "@/ui/input"
+import { Label } from "@/ui/label"
 import { Modal } from "@/ui/modal"
 import { toast } from "@/ui/toast"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -12,22 +14,22 @@ import * as React from "react"
 import { useForm } from "react-hook-form"
 import { GithubRepository } from "types"
 import * as z from "zod"
-import { cn } from "@/lib/utils"
-import { dateToNow } from "@/lib/utils"
-import { Input } from "@/ui/input"
-import { Label } from "@/ui/label"
-import { ScrollArea } from "@/ui/scroll-area"
-import GithubRepoList from "./github-repo-list"
+import { TextArea } from "@/ui/textarea"
+import { UserAvatar } from "@/components/dashboard/user-avatar"
+import { UserAccountNavProps } from "./user-account-nav"
+import { TUser } from "./user-account-nav"
 interface ProjectCreateButton extends React.HTMLAttributes<HTMLButtonElement> {
     repositories?: GithubRepository[]
+    user: TUser
 }
 
-export type CreateProjectFormData = z.infer<typeof projectSchema>
+export type CreateProjectFormData = z.infer<typeof projectCreateSchema>
 
 export function ProjectCreateButton({
     className,
     repositories,
     children,
+    user,
     ...props
 }: ProjectCreateButton) {
     const router = useRouter()
@@ -36,18 +38,22 @@ export function ProjectCreateButton({
     const [githubRepo, setSelectedGithubRepo] =
         React.useState<GithubRepository | null>(null)
 
-    console.log("repos in create button", repositories)
     const {
+        getValues,
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<CreateProjectFormData>({
-        resolver: zodResolver(projectSchema),
+        resolver: zodResolver(projectCreateSchema),
     })
+
+    console.log(getValues("description"))
 
     async function onClick(data: CreateProjectFormData) {
         setShowModal(true)
         setIsLoading(true)
+
+        console.log("Data", data)
 
         const response = await fetch("/api/project", {
             method: "POST",
@@ -55,7 +61,8 @@ export function ProjectCreateButton({
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                title: "Untitled Post",
+                name: data.name,
+                description: data.description,
             }),
         })
 
@@ -69,12 +76,12 @@ export function ProjectCreateButton({
             })
         }
 
-        const post = await response.json()
+        const project = await response.json()
 
         // This forces a cache invalidation.
         router.refresh()
 
-        router.push(`/project/${post.id}`)
+        setShowModal(false)
     }
 
     return (
@@ -94,21 +101,19 @@ export function ProjectCreateButton({
             <Modal onOpenChange={setShowModal} open={showModal}>
                 <Modal.Content>
                     <Modal.Title>Create new project</Modal.Title>
-                    <div className={cn("grid gap-6", className)}>
+                    <div className={cn("grid gap-6 mt-4", className)}>
                         <form onSubmit={handleSubmit(onClick)}>
-                            <div className="grid gap-2">
+                            <div className="grid gap-8">
                                 <div className="grid gap-1">
-                                    <Label htmlFor="projectName">
-                                        Project name *
-                                    </Label>
+                                    <Label htmlFor="name">Project name *</Label>
                                     <Input
-                                        id="projectName"
+                                        id="name"
                                         placeholder="Ex. Next.js "
                                         type="text"
                                         autoCapitalize="none"
-                                        autoComplete="projectName"
+                                        autoComplete="name"
                                         autoCorrect="off"
-                                        name="projectName"
+                                        name="name"
                                         disabled={isLoading}
                                         register={register}
                                     />
@@ -118,42 +123,46 @@ export function ProjectCreateButton({
                                         </p>
                                     )}
                                 </div>
+                                <div className="grid gap-1">
+                                    <Label htmlFor="description">
+                                        Project description
+                                    </Label>
+                                    <TextArea
+                                        maxLength={320}
+                                        id="description"
+                                        placeholder="Ex. The sickest project to exist in Open Source "
+                                        autoCapitalize="none"
+                                        autoComplete="description"
+                                        autoCorrect="off"
+                                        name="description"
+                                        disabled={isLoading}
+                                        register={register}
+                                    />
+                                    {errors?.description && (
+                                        <p className="px-1 text-xs text-red-600">
+                                            {errors.description.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="mt-4 flex gap-4">
+                                <Button
+                                    onClick={() => setShowModal(false)}
+                                    fullWidth={true}
+                                    intent="secondary"
+                                    type="submit"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    fullWidth={true}
+                                    intent="primary"
+                                    type="submit"
+                                >
+                                    Create
+                                </Button>
                             </div>
                         </form>
-                    </div>
-                    <p className="text-slate-200 mt-4">Select git repository</p>
-
-                    <div className="mt-0">
-                        <ScrollArea
-                            type="auto"
-                            className="h-72 w-full rounded-md overflow-hidden border border-slate-700"
-                        >
-                            <ScrollArea.Viewport>
-                                {/* @ts-ignore */}
-                                {children}
-                            </ScrollArea.Viewport>
-                            <ScrollArea.ScrollBar orientation="vertical">
-                                <ScrollArea.Thumb />
-                            </ScrollArea.ScrollBar>
-                        </ScrollArea>
-                    </div>
-                    <div className="mt-4 flex gap-4">
-                        <Button
-                            onClick={() => setShowModal(false)}
-                            fullWidth={true}
-                            intent="secondary"
-                            type="submit"
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            fullWidth={true}
-                            intent="primary"
-                            type="submit"
-                            disabled={true}
-                        >
-                            Create
-                        </Button>
                     </div>
                 </Modal.Content>
             </Modal>

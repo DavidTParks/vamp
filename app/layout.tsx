@@ -4,8 +4,6 @@ import "./globals.css"
 
 import { cn } from "@/lib/utils"
 
-import { Providers } from "./providers"
-
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",
     variable: "--font-satoshi",
@@ -38,9 +36,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
             <head />
-            <body className="min-h-screen">
-                <Providers>{children}</Providers>
-            </body>
+            <body className="min-h-screen">{children}</body>
         </html>
     )
 }

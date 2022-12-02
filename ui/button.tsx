@@ -4,16 +4,15 @@ import { ComponentProps } from "react"
 type ButtonProps = ComponentProps<"button">
 
 const buttonStyles = cva(
-    "button flex items-center justify-center shadow-lg transition-all text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed",
+    "button flex items-center justify-center shadow-sm transition-all duration-300 text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed",
     {
         variants: {
             intent: {
-                primary:
-                    "bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:from-violet-600 hover:to-fuchsia-600",
+                primary: "bg-fuchsia-600 text-white hover:bg-fuchsia-500",
                 secondary:
-                    "bg-slate-800 text-white border border-transparent hover:border-slate-700",
+                    "bg-palette-300 text-white border border-transparent hover:border-slate-600 ",
                 tertiary: "text-white",
-                danger: "bg-red-500 text-white focus:ring-red-500",
+                danger: "bg-red-600 text-white border border-transparent hover:bg-red-700",
             },
             fullWidth: {
                 true: "w-full",

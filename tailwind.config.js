@@ -27,10 +27,25 @@ module.exports = {
             },
             colors: {
                 ...colors,
-                appbg: "rgb(0, 2, 18)",
-                brand: {
-                    50: "#f3f3f3",
+                appbg: "#14141b",
+                palette: {
+                    100: "#232530",
+                    150: "#1e1e26",
+                    200: "#22222e",
+                    300: "#2b2b3c",
+                    400: "#1c1d25",
+                    500: "#161620",
+                    600: "#14141b",
                 },
+                brandtext: {
+                    200: "#eaebfc",
+                    300: "#c8c9d9",
+                    400: "#c8c9d9",
+                    500: "#eaebfc",
+                    600: "#737388",
+                },
+                default: "#eaebfc",
+                placeholder: "#3c3e58",
             },
         },
     },

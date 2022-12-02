@@ -1,43 +1,34 @@
 import { withMethods } from "@/lib/api-middlewares/with-methods"
+import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
 import { NextApiRequest, NextApiResponse } from "next"
+import { unstable_getServerSession } from "next-auth"
 import * as z from "zod"
 
-const projectCreateSchema = z.object({
-    name: z.string().optional(),
-    slug: z.string().optional(),
-    githubRepo: z.object({
-        githubRepoId: z.string(),
-        name: z.string(),
-        url: z.string(),
-        owner: z.string(),
-    }),
-})
+import { projectCreateSchema } from "@/lib/validations/project"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const user = await getCurrentUser()
+    const session = await unstable_getServerSession(req, res, authOptions)
 
-    if (!user) {
+    if (!session) {
         return res.status(403).end()
     }
 
+    const { user } = session
+
     if (req.method === "POST") {
         try {
-            const { name, slug, githubRepo } = projectCreateSchema.parse(
-                req.body
-            )
+            console.log("Parsing body")
+            const { name, description } = projectCreateSchema.parse(req.body)
 
             const project = await db.project.create({
                 data: {
                     name: name,
-                    slug: slug,
-                    githubRepo: {
+                    description: description,
+                    users: {
                         create: {
-                            name: githubRepo.name,
-                            url: githubRepo.url,
-                            githubRepoId: githubRepo.githubRepoId,
-                            owner: githubRepo.owner,
+                            userId: user.id,
+                            role: "ADMIN",
                         },
                     },
                 },
@@ -48,6 +39,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.json(project)
         } catch (error) {
+            console.log("ERror", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }

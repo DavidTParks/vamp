@@ -8,8 +8,10 @@ import { siteConfig } from "@/config/site"
 import { DropdownMenu } from "@/ui/dropdown"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 
-interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-    user: Pick<User, "name" | "image" | "email">
+export type TUser = Pick<User, "name" | "image" | "email">
+export interface UserAccountNavProps
+    extends React.HTMLAttributes<HTMLDivElement> {
+    user: TUser
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {

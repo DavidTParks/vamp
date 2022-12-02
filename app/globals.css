@@ -3,16 +3,24 @@
 @tailwind utilities;
 
 @layer utilities {
-  .red-glow {
-    text-shadow: 0px 0px 8px hsla(300, 98%, 60%, 0.6);
-  }
+    .red-glow {
+        text-shadow: 0px 0px 8px hsla(300, 98%, 60%, 0.6);
+    }
 
-  .button {
-    transition: border 120ms ease 0s, background-color, color, box-shadow, opacity;
-  }
+    .button {
+        transition: border 120ms ease 0s, background-color, color, box-shadow,
+            opacity;
+    }
 
-  .primary-button-hover {
-      text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
-      box-shadow: rgba(253, 52, 88, 0.6) 0px 1px 40px;
-  }
+    .primary-button-hover {
+        text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
+        box-shadow: rgba(253, 52, 88, 0.6) 0px 1px 40px;
+    }
+
+    .dropdown {
+        backdrop-filter: blur(10px) saturate(190%) contrast(70%) brightness(80%);
+        background-color: rgba(29, 30, 43, 0.498);
+        border: 0.5px solid rgba(82, 82, 111, 0.44);
+        box-shadow: rgb(0 0 0 / 20%) 0px 4px 24px;
+    }
 }

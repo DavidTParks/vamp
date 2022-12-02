@@ -20,7 +20,15 @@
 
 .main:after {
     content: "";
-    background-image: url("/public/_static/grid.svg");
+    background-image: url("/_static/grid.svg");
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    inset: 0;
+    opacity: 1;
+    filter: invert(1);
 }
 
 .content {
@@ -28,9 +36,11 @@
     z-index: 3;
     width: 100%;
     max-width: 640px;
-    background-image: radial-gradient(at 27% 37%,
+    background-image: radial-gradient(
+            at 27% 37%,
             hsla(215, 98%, 61%, 1) 0px,
-            transparent 0%),
+            transparent 0%
+        ),
         radial-gradient(at 97% 21%, #d946ef 0px, transparent 50%),
         radial-gradient(at 52% 99%, #d946ef 0px, transparent 50%),
         radial-gradient(at 10% 29%, #6366f1 0px, transparent 50%),
@@ -46,8 +56,8 @@
     opacity: 0.15;
 }
 
-/* @media screen and (max-width: 640px) {
+@media screen and (max-width: 640px) {
     .content {
         display: none;
     }
-} */
+}

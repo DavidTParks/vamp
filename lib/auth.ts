@@ -4,11 +4,6 @@ import GitHubProvider from "next-auth/providers/github"
 
 import { db } from "@/lib/db"
 
-// const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN)
-
-// const POSTMARK_SIGN_IN_TEMPLATE = 29559329
-// const POSTMARK_ACTIVATION_TEMPLATE = 29559329
-
 export const authOptions: NextAuthOptions = {
     // huh any! I know.
     // This is a temporary fix for prisma client.
@@ -27,21 +22,23 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
+        async session({ token, session }) {
+            if (token) {
+                session.user.id = token.id
+                session.user.name = token.name
+                session.user.email = token.email
+                session.user.image = token.picture
+            }
+
+            return session
+        },
         async jwt({ token, user }) {
-            const [dbUser, account] = await Promise.all([
-                db.user.findFirst({
-                    where: {
-                        email: token.email,
-                    },
-                }),
-                db.account.findFirst({
-                    where: {
-                        user: {
-                            email: token.email,
-                        },
-                    },
-                }),
-            ])
+            const dbUser = await db.user.findFirst({
+                where: {
+                    email: token.email,
+                },
+            })
+
             if (!dbUser) {
                 token.id = user.id
                 return token
@@ -52,24 +49,7 @@ export const authOptions: NextAuthOptions = {
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image,
-                accessToken: account.access_token,
-                refreshToken: account.refresh_token,
             }
-        },
-        async session({ token, session }) {
-            if (token) {
-                // @ts-ignore
-                session.user.accessToken = token.accessToken
-                // @ts-ignore
-                session.user.refreshToken = token.refreshToken
-                // @ts-ignore
-                session.user.id = token.id
-                session.user.name = token.name
-                session.user.email = token.email
-                session.user.image = token.picture
-            }
-
-            return session
         },
     },
 }

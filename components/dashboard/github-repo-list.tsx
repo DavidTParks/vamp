@@ -1,8 +1,11 @@
 import { getRepos } from "@/lib/github"
-import { Button } from "@/ui/button"
 import { dateToNow } from "@/lib/utils"
+import GithubRepoSelect, { TOnSelectRepo } from "./github-repo-select"
 
-export default async function GithubRepoList() {
+type TGithubRepoList = {
+    onSelect: TOnSelectRepo
+}
+export default async function GithubRepoList({ onSelect }: TGithubRepoList) {
     const repositories = await getRepos()
 
     return (
@@ -27,9 +30,7 @@ export default async function GithubRepoList() {
                         </div>
                     </div>
                     <div className="pr-4">
-                        <Button intent="secondary" size="small">
-                            Select
-                        </Button>
+                        <GithubRepoSelect repo={repo} onSelect={onSelect} />
                     </div>
                 </div>
             ))}

@@ -5,6 +5,7 @@ import { MainNav } from "@/components/main-nav"
 import { SiteFooter } from "@/components/site-footer"
 import Background from "@/components/background"
 import { getCurrentUser } from "@/lib/session"
+import { preloadProjects } from "@/lib/projects"
 
 interface MarketingLayoutProps {
     children: React.ReactNode
@@ -14,6 +15,10 @@ export default async function MarketingLayout({
     children,
 }: MarketingLayoutProps) {
     const user = await getCurrentUser()
+
+    if (user) {
+        preloadProjects(user.id)
+    }
 
     return (
         <div className="flex min-h-screen flex-col">
