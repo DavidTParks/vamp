@@ -5,7 +5,7 @@ import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
 
-export default async function DashboardLayout({
+export default async function ProjectLayout({
     children,
 }: {
     children: React.ReactNode
@@ -44,7 +44,15 @@ export default async function DashboardLayout({
                                 href="/"
                             >
                                 <div className="rounded-md px-3 py-2 ">
-                                    <p className="text-sm">Projects</p>
+                                    <p className="text-sm">Bounties</p>
+                                </div>
+                            </a>
+                            <a
+                                className="border-b-2 p-1 border-transparent text-brandtext-400 font-bold"
+                                href="/"
+                            >
+                                <div className="rounded-md px-3 py-2 ">
+                                    <p className="text-sm">Settings</p>
                                 </div>
                             </a>
                         </div>
@@ -55,7 +63,7 @@ export default async function DashboardLayout({
                         <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 undefined">
                             <div className="flex items-center justify-between">
                                 <h1 className="text-2xl font-medium text-brandtext-500">
-                                    My Projects
+                                    Bounties
                                 </h1>
                                 <ProjectCreateButton user={user} />
                             </div>

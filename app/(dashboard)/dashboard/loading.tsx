@@ -1,7 +1,19 @@
-import { DashboardHeader } from "@/components/dashboard/header"
+import { ProjectItem } from "@/components/dashboard/project-item"
 import { DashboardShell } from "@/components/dashboard/shell"
-import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
 
 export default function DashboardLoading() {
-    return <p className="text-white">LOADINGGGGG</p>
+    return (
+        <DashboardShell>
+            <div className="mt-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <ProjectItem.Skeleton />
+                    <ProjectItem.Skeleton />
+                    <ProjectItem.Skeleton />
+                    <ProjectItem.Skeleton />
+                    <ProjectItem.Skeleton />
+                    <ProjectItem.Skeleton />
+                </div>
+            </div>
+        </DashboardShell>
+    )
 }

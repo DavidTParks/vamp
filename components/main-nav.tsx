@@ -13,9 +13,14 @@ import { MobileNav } from "@/components/mobile-nav"
 interface MainNavProps {
     items?: MainNavItem[]
     children?: React.ReactNode
+    showBrandText?: boolean
 }
 
-export function MainNav({ items, children }: MainNavProps) {
+export function MainNav({
+    items,
+    children,
+    showBrandText = true,
+}: MainNavProps) {
     const segment = useSelectedLayoutSegment()
     const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
@@ -26,9 +31,11 @@ export function MainNav({ items, children }: MainNavProps) {
                 className="hidden items-center space-x-2 md:flex text-2xl"
             >
                 <Icons.logo size={32} color="white" />
-                <span className="hidden font-bold sm:inline-block">
-                    {siteConfig.name}
-                </span>
+                {showBrandText && (
+                    <span className="hidden font-bold sm:inline-block">
+                        {siteConfig.name}
+                    </span>
+                )}
             </Link>
 
             <Button

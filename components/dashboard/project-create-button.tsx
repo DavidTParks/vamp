@@ -39,7 +39,6 @@ export function ProjectCreateButton({
         React.useState<GithubRepository | null>(null)
 
     const {
-        getValues,
         register,
         handleSubmit,
         formState: { errors },
@@ -47,13 +46,9 @@ export function ProjectCreateButton({
         resolver: zodResolver(projectCreateSchema),
     })
 
-    console.log(getValues("description"))
-
     async function onClick(data: CreateProjectFormData) {
         setShowModal(true)
         setIsLoading(true)
-
-        console.log("Data", data)
 
         const response = await fetch("/api/project", {
             method: "POST",
@@ -155,10 +150,14 @@ export function ProjectCreateButton({
                                     Cancel
                                 </Button>
                                 <Button
+                                    disabled={isLoading}
                                     fullWidth={true}
                                     intent="primary"
                                     type="submit"
                                 >
+                                    {isLoading ? (
+                                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                    ) : null}
                                     Create
                                 </Button>
                             </div>
