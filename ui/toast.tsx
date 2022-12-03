@@ -46,7 +46,12 @@ Toast.Icon = function ToastIcon({ name, className, ...props }: ToastIconProps) {
 interface ToastTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 Toast.Title = function ToastTitle({ className, ...props }: ToastTitleProps) {
-    return <p className={cn("text-sm font-medium", className)} {...props} />
+    return (
+        <p
+            className={cn("text-sm font-medium text-primary", className)}
+            {...props}
+        />
+    )
 }
 
 interface ToastDescriptionProps
@@ -56,7 +61,12 @@ Toast.Description = function ToastDescription({
     className,
     ...props
 }: ToastDescriptionProps) {
-    return <p className={cn("text-sm opacity-80", className)} {...props} />
+    return (
+        <p
+            className={cn("text-sm opacity-80 text-brandtext-300", className)}
+            {...props}
+        />
+    )
 }
 
 interface ToastOpts {
@@ -73,11 +83,17 @@ export function toast(opts: ToastOpts) {
         ({ visible }) => (
             <Toast
                 visible={visible}
-                className={cn({
+                className={cn("relative pl-10", {
                     "bg-red-600 text-white": type === "error",
-                    "bg-black text-white": type === "success",
+                    "bg-raised border border-raised-border text-primary dropdown":
+                        type === "success",
                 })}
             >
+                {type === "success" && (
+                    <div className="absolute top-3 left-2 m-2">
+                        <Icons.check size={16} />
+                    </div>
+                )}
                 <Toast.Title>{title}</Toast.Title>
                 {message && <Toast.Description>{message}</Toast.Description>}
             </Toast>

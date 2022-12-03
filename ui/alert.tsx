@@ -26,18 +26,17 @@ Alert.Content = React.forwardRef<
 >(function AlertContent({ className, ...props }, ref) {
     return (
         <Alert.Portal>
-            <AlertDialogPrimitives.Overlay className="fixed inset-0 z-40 bg-slate-700/50  opacity-100 transition-opacity animate-in fade-in">
-                <div className="fixed inset-0 z-40 flex items-center justify-center">
-                    <AlertDialogPrimitives.Content
-                        ref={ref}
-                        className={cn(
-                            "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-lg bg-appbg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 md:w-full",
-                            className
-                        )}
-                        {...props}
-                    />
-                </div>
-            </AlertDialogPrimitives.Overlay>
+            {/* <AlertDialogPrimitives.Overlay className="fixed inset-0 z-40 bg-slate-800/50 opacity-100 transition-opacity animate-in fade-in backdrop-blur"></AlertDialogPrimitives.Overlay> */}
+            <div className="fixed inset-0 z-40 flex items-center justify-center">
+                <AlertDialogPrimitives.Content
+                    ref={ref}
+                    className={cn(
+                        "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-lg dropdown p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 md:w-full",
+                        className
+                    )}
+                    {...props}
+                />
+            </div>
         </Alert.Portal>
     )
 })

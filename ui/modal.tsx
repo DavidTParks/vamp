@@ -35,18 +35,17 @@ Modal.Content = React.forwardRef<HTMLDivElement, Dialog.DialogContentProps>(
     function ModalContent({ className, ...props }, ref) {
         return (
             <Dialog.Portal>
-                <Dialog.Overlay className="fixed inset-0 z-40 bg-slate-700/50 opacity-100 transition-opacity animate-in fade-in ">
-                    <div className="fixed inset-0 z-40 flex items-center justify-center">
-                        <Dialog.Content
-                            ref={ref}
-                            className={cn(
-                                "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl bg-appbg shadow-lg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-fuchsia-500 focus-visible:ring-opacity-75 md:w-full",
-                                className
-                            )}
-                            {...props}
-                        />
-                    </div>
-                </Dialog.Overlay>
+                <Dialog.Overlay className="fixed inset-0 z-40 opacity-100 transition-opacity animate-in fade-in backdrop-blur-sm	" />
+                <div className="fixed inset-0 z-40 flex items-center justify-center">
+                    <Dialog.Content
+                        ref={ref}
+                        className={cn(
+                            "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl dropdown shadow-lg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-fuchsia-500 focus-visible:ring-opacity-75 md:w-full",
+                            className
+                        )}
+                        {...props}
+                    />
+                </div>
             </Dialog.Portal>
         )
     }

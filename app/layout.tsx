@@ -1,7 +1,7 @@
 import { Inter as FontSans } from "@next/font/google"
 import localFont from "@next/font/local"
 import "./globals.css"
-
+import { Toaster } from "@/ui/toast"
 import { cn } from "@/lib/utils"
 
 const satoshi = localFont({
@@ -36,7 +36,10 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
             <head />
-            <body className="min-h-screen">{children}</body>
+            <body className="min-h-screen">
+                {children}
+                <Toaster position="bottom-right" />
+            </body>
         </html>
     )
 }

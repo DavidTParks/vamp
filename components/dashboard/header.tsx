@@ -1,23 +1,34 @@
+"use client"
+
+import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
+import { User } from "@/lib/session"
+import { useSelectedLayoutSegment } from "next/navigation"
 interface DashboardHeaderProps {
-    heading: string
-    text?: string
-    children?: React.ReactNode
+    user: User
 }
 
-export function DashboardHeader({
-    heading,
-    text,
-    children,
-}: DashboardHeaderProps) {
+export function DashboardHeader({ user }: DashboardHeaderProps) {
+    const segment = useSelectedLayoutSegment()
+
+    console.log("Segment", segment)
     return (
-        <div className="flex justify-between px-2">
-            <div className="grid gap-1">
-                <h1 className="text-2xl font-bold tracking-wide text-slate-200">
-                    {heading}
-                </h1>
-                {text && <p className="text-neutral-400">{text}</p>}
-            </div>
-            {children}
-        </div>
+        <>
+            {!segment ? (
+                <>
+                    <h1 className="text-2xl font-medium text-brandtext-500">
+                        My Projects
+                    </h1>
+                    <ProjectCreateButton user={user} />
+                </>
+            ) : null}
+
+            {segment === "settings" ? (
+                <>
+                    <h1 className="text-2xl font-medium text-brandtext-500">
+                        Settings
+                    </h1>
+                </>
+            ) : null}
+        </>
     )
 }

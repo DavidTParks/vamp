@@ -5,7 +5,7 @@ import { ProjectOperations } from "./project-operations"
 import { Button } from "@/ui/button"
 import { Skeleton } from "@/ui/skeleton"
 
-interface DashboardHeaderProps {
+interface TProjectItem {
     projectUser: ProjectUsers & {
         project: Project & {
             users: ProjectUsers[]
@@ -16,7 +16,7 @@ interface DashboardHeaderProps {
     }
 }
 
-export function ProjectItem({ projectUser }: DashboardHeaderProps) {
+export function ProjectItem({ projectUser }: TProjectItem) {
     return (
         <div key={projectUser.id} className="relative ">
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease hover:border-brandtext-500 hover:shadow-xl">

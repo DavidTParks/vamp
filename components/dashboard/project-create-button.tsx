@@ -73,6 +73,12 @@ export function ProjectCreateButton({
 
         const project = await response.json()
 
+        toast({
+            title: "Project created",
+            message: "Start posting issue bounties",
+            type: "success",
+        })
+
         // This forces a cache invalidation.
         router.refresh()
 

@@ -48,6 +48,10 @@ export type DashboardConfig = {
     sidebarNav: SidebarNavItem[]
 }
 
+export type SettingsConfig = {
+    sidebarNav: SidebarNavItem[]
+}
+
 export type SubscriptionPlan = {
     name: string
     description: string

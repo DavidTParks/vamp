@@ -1,7 +1,7 @@
 import { unstable_getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 
-interface User {
+export interface User {
     id?: string | null
     name?: string | null
     email?: string | null

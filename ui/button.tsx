@@ -10,7 +10,7 @@ const buttonStyles = cva(
             intent: {
                 primary: "bg-fuchsia-600 text-white hover:bg-fuchsia-500",
                 secondary:
-                    "bg-palette-300 text-white border border-transparent hover:border-slate-600 ",
+                    "bg-secondary-button text-white border border-secondary-border brightness-150 hover:brightness-200",
                 tertiary: "text-white",
                 danger: "bg-red-600 text-white border border-transparent hover:bg-red-700",
             },
