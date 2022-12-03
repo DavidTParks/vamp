@@ -6,7 +6,7 @@ interface HeadlineProps {
 
 export function Headline({ heading, text, children }: HeadlineProps) {
     return (
-        <div className="flex justify-between px-2">
+        <div className="flex justify-between">
             <div className="grid gap-1">
                 <h1 className="text-2xl font-bold tracking-wide text-brandtext-500">
                     {heading}

@@ -3,6 +3,7 @@ import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 
 import { db } from "@/lib/db"
+import { getGithubUser } from "./github"
 
 export const authOptions: NextAuthOptions = {
     // huh any! I know.

@@ -119,7 +119,7 @@ model GithubRepository {
   updatedAt    DateTime @updatedAt
   project      Project  @relation(fields: [projectId], references: [id])
   projectId    String   @unique
-  githubRepoId String
+  githubRepoId Int
   name         String
   url          String
   owner        String

@@ -2,7 +2,7 @@ import "server-only"
 
 import { db } from "./db"
 import { cache } from "react"
-import { User } from "@prisma/client"
+import { Project, User } from "@prisma/client"
 
 export const preloadProjects = (userId: User["id"]) => {
     void getProjectsForUser(userId)
@@ -17,6 +17,7 @@ export const getProjectsForUser = cache(async (userId: User["id"]) => {
             project: {
                 include: {
                     users: true,
+                    githubRepo: true,
                 },
             },
             user: {
@@ -27,6 +28,23 @@ export const getProjectsForUser = cache(async (userId: User["id"]) => {
         },
         orderBy: {
             updatedAt: "desc",
+        },
+    })
+})
+
+export const preloadProject = (projectId: User["id"]) => {
+    void getProject(projectId)
+}
+
+export const getProject = cache(async (projectId: Project["id"]) => {
+    return await db.project.findUnique({
+        where: {
+            id: projectId,
+        },
+        include: {
+            users: true,
+            githubRepo: true,
+            bounties: true,
         },
     })
 })

@@ -1,15 +1,24 @@
 import { Skeleton } from "@/ui/skeleton"
-import { Account, Project, ProjectUsers, User } from "@prisma/client"
+import {
+    Account,
+    GithubRepository,
+    Project,
+    ProjectUsers,
+    User,
+} from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
 import { Icons } from "../icons"
 import { ProjectOperations } from "./project-operations"
 import { Button } from "@/ui/button"
+import { preloadProject } from "@/lib/projects"
+import project from "pages/api/project"
 
 interface TProjectItem {
     projectUser: ProjectUsers & {
         project: Project & {
             users: ProjectUsers[]
+            githubRepo: GithubRepository
         }
         user: User & {
             accounts: Account[]
@@ -18,6 +27,8 @@ interface TProjectItem {
 }
 
 export function ProjectItem({ projectUser }: TProjectItem) {
+    preloadProject(projectUser.project.id)
+
     return (
         <div key={projectUser.id} className="relative ">
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease  hover:shadow-xl">
@@ -56,10 +67,15 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             }}
                         />
                     </div>
-                    <Button intent="tertiary" className="mt-6">
-                        <span className="flex text-brandtext-600 gap-2 text-sm items-center">
-                            <Icons.gitHub size={16} />
-                            Github not linked
+                    <Button
+                        intent="secondary"
+                        size="small"
+                        className="mt-8 inline-flex gap-2"
+                    >
+                        <Icons.gitHub size={16} />
+                        <span className="max-w-[128px] truncate">
+                            {projectUser.project.githubRepo.owner}/
+                            {projectUser.project.githubRepo.name}
                         </span>
                     </Button>
                     {/* <Link

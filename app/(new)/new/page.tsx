@@ -1,13 +1,12 @@
 import { redirect } from "next/navigation"
 
 import GithubRepoList from "@/components/dashboard/github-repo-list"
+import { Icons } from "@/components/icons"
 import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
+import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
-import { Button } from "@/ui/button"
-import { Icons } from "@/components/icons"
-import { Skeleton } from "@/ui/skeleton"
 
 export default async function SettingsPage() {
     const user = await getCurrentUser()

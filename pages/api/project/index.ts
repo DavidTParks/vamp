@@ -5,7 +5,14 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { unstable_getServerSession } from "next-auth"
 import * as z from "zod"
 
-import { projectCreateSchema } from "@/lib/validations/project"
+export const newProjectSchema = z.object({
+    repoId: z.number(),
+    name: z.string().min(3).max(32),
+    description: z.string().max(320).optional().nullable(),
+    repoName: z.string(),
+    url: z.string(),
+    owner: z.string(),
+})
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const session = await unstable_getServerSession(req, res, authOptions)
@@ -18,13 +25,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "POST") {
         try {
-            console.log("Parsing body")
-            const { name, description } = projectCreateSchema.parse(req.body)
+            const { name, description, repoId, repoName, url, owner } =
+                newProjectSchema.parse(req.body)
 
             const project = await db.project.create({
                 data: {
                     name: name,
                     description: description,
+                    githubRepo: {
+                        create: {
+                            githubRepoId: repoId,
+                            name: repoName,
+                            url,
+                            owner: owner,
+                        },
+                    },
                     users: {
                         create: {
                             userId: user.id,

@@ -1,5 +1,5 @@
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
+import { ProjectCreateForm } from "@/components/dashboard/project-create-form"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
@@ -65,7 +65,6 @@ export default async function ProjectLayout({
                                 <h1 className="text-2xl font-medium text-brandtext-500">
                                     Bounties
                                 </h1>
-                                <ProjectCreateButton user={user} />
                             </div>
                         </div>
                     </div>
