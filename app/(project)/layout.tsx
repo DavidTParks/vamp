@@ -1,4 +1,4 @@
-import { DashboardNav } from "@/components/dashboard-nav"
+import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"

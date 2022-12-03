@@ -1,11 +1,10 @@
-import { DashboardNav } from "@/components/dashboard-nav"
-import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
+import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { DashboardSecondaryNav } from "@/components/dashboard/secondary-nav"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
-import { DashboardSecondaryNav } from "@/components/dashboard/secondary-nav"
-import { DashboardHeader } from "@/components/dashboard/header"
 
 export default async function DashboardLayout({
     children,

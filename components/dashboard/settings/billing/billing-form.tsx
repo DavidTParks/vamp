@@ -120,7 +120,7 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
                         </Button>
                     ) : (
                         <>
-                            <Button>
+                            <Button disabled={isLoading}>
                                 {isLoading ? (
                                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                                 ) : (

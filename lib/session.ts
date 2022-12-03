@@ -11,8 +11,8 @@ export async function getSession() {
     return await unstable_getServerSession(authOptions)
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<User> {
     const session = await getSession()
 
-    return session?.user as User
+    return session?.user
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { SettingsNav } from "@/components/dashboard/settings/nav"
 import { settingsConfig } from "@/config/settings"
 import { getCurrentUser } from "@/lib/session"
-
+import { preloadStripeDetails } from "@/lib/stripe"
 interface SettingsLayoutProps {
     children?: React.ReactNode
 }
@@ -16,6 +16,8 @@ export default async function DashboardLayout({
     if (!user) {
         return notFound()
     }
+
+    preloadStripeDetails(user.id)
 
     return (
         <div className="grid gap-12 md:grid-cols-[200px_1fr] mt-12">

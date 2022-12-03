@@ -55,7 +55,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             }}
                         />
                     </div>
-                    <Link
+                    {/* <Link
                         href={`/project/${projectUser.project.id}`}
                         className="mt-6 w-full"
                     >
@@ -68,7 +68,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                                 Dashboard
                             </p>
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ import { Alert } from "@/ui/alert"
 import { toast } from "@/ui/toast"
 
 async function deletePost(postId: string) {
-    const response = await fetch(`/api/posts/${postId}`, {
+    const response = await fetch(`/api/project/${postId}`, {
         method: "DELETE",
     })
 
@@ -22,6 +22,12 @@ async function deletePost(postId: string) {
             type: "error",
         })
     }
+
+    toast({
+        title: "Project deleted",
+        message: "Your project has been deleted.",
+        type: "success",
+    })
 
     return true
 }
