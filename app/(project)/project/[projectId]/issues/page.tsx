@@ -7,10 +7,7 @@ interface ProjectPageProps {
     searchParams: { id: string }
 }
 
-export default async function ProjectPage({
-    params,
-    searchParams,
-}: ProjectPageProps) {
+export default async function ProjectPage({ params }: ProjectPageProps) {
     const user = await getCurrentUser()
 
     if (!user) {
@@ -23,9 +20,5 @@ export default async function ProjectPage({
         notFound()
     }
 
-    return (
-        <div>
-            <p>{JSON.stringify(project)}</p>
-        </div>
-    )
+    return <div>ISSUES</div>
 }

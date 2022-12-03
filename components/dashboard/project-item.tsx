@@ -42,7 +42,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                                     src={`https://avatar.vercel.sh/${projectUser.project.id}`}
                                 />
                             </div>
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-col gap-2">
                                 <Link
                                     href={`/project/${projectUser.project.id}`}
                                     className="hover:underline"
@@ -51,11 +51,11 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                                         {projectUser.project.name}
                                     </span>
                                 </Link>
-                                <span className="text-brandtext-600 text-sm">
-                                    {projectUser.project.users.length} Team{" "}
-                                    {projectUser.project.users.length === 1
-                                        ? "Member"
-                                        : "Members"}
+                                <span className="items-center text-sm inline-flex gap-2 text-brandtext-600">
+                                    <Icons.gitHub size={16} />
+                                    <span className="max-w-[156px] truncate">
+                                        {projectUser.project.githubRepo.name}
+                                    </span>
                                 </span>
                             </div>
                         </div>
@@ -67,17 +67,6 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             }}
                         />
                     </div>
-                    <Button
-                        intent="secondary"
-                        size="small"
-                        className="mt-8 inline-flex gap-2"
-                    >
-                        <Icons.gitHub size={16} />
-                        <span className="max-w-[128px] truncate">
-                            {projectUser.project.githubRepo.owner}/
-                            {projectUser.project.githubRepo.name}
-                        </span>
-                    </Button>
                     {/* <Link
                         href={`/project/${projectUser.project.id}`}
                         className="mt-6 w-full"
@@ -104,7 +93,7 @@ ProjectItem.Skeleton = function ProjectItemSkeleton() {
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease hover:border-brandtext-500 hover:shadow-xl p-4 space-y-4">
                 <Skeleton className="h-5 w-2/5" />
                 <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-10 w-full" />
+                {/* <Skeleton className="h-10 w-full" /> */}
             </div>
         </div>
     )

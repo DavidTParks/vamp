@@ -45,8 +45,6 @@ export function ProjectCreateForm({
         },
     })
 
-    console.log("Repo", repo)
-
     async function onClick(data: CreateProjectFormData) {
         setIsLoading(true)
 
@@ -85,7 +83,7 @@ export function ProjectCreateForm({
 
         // This forces a cache invalidation.
         router.refresh()
-
+        router.prefetch(`/dashboard`)
         router.push(`/project/${project.id}`)
     }
 

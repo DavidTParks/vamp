@@ -9,7 +9,7 @@ import { Button } from "@/ui/button"
 import { siteConfig } from "@/config/site"
 import { Icons } from "@/components/icons"
 import { MobileNav } from "@/components/mobile-nav"
-import { TUser } from "./dashboard/user-account-nav"
+import { TUser } from "./user-account-nav"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 
 interface MainNavProps {

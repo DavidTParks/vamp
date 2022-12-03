@@ -4,17 +4,25 @@ import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import { ProjectHeader } from "@/components/project/header"
+import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
+import { getProject } from "@/lib/projects"
 
 export default async function ProjectLayout({
     children,
+    params,
 }: {
     children: React.ReactNode
+    params: { projectId: string }
 }) {
     const user = await getCurrentUser()
 
+    console.log("Params", params)
     if (!user) {
         return notFound()
     }
+
+    const project = await getProject(params.projectId)
 
     return (
         <>
@@ -38,33 +46,14 @@ export default async function ProjectLayout({
                                 }}
                             />
                         </div>
-                        <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
-                            <a
-                                className="border-b-2 p-1 border-fuchsia-600 text-white font-bold"
-                                href="/"
-                            >
-                                <div className="rounded-md px-3 py-2 ">
-                                    <p className="text-sm">Bounties</p>
-                                </div>
-                            </a>
-                            <a
-                                className="border-b-2 p-1 border-transparent text-brandtext-400 font-bold"
-                                href="/"
-                            >
-                                <div className="rounded-md px-3 py-2 ">
-                                    <p className="text-sm">Settings</p>
-                                </div>
-                            </a>
-                        </div>
+                        <ProjectSecondaryNav project={project} />
                     </div>
                 </header>
                 <div>
                     <div className="flex h-36 items-center border-b border-palette-300 bg-palette-400 z-10 relative px-4 lg:px-8">
                         <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 undefined">
                             <div className="flex items-center justify-between">
-                                <h1 className="text-2xl font-medium text-brandtext-500">
-                                    Bounties
-                                </h1>
+                                <ProjectHeader user={user} />
                             </div>
                         </div>
                     </div>

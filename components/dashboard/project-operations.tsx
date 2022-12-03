@@ -86,6 +86,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                     <Alert.Footer>
                         <Alert.Cancel>Cancel</Alert.Cancel>
                         <Alert.Action
+                            disabled={isDeleteLoading}
                             onClick={async (event) => {
                                 event.preventDefault()
                                 setIsDeleteLoading(true)
