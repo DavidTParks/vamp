@@ -1,7 +1,8 @@
 "use client"
 
-import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
+import Link from "next/link"
 import { User } from "@/lib/session"
+import { Button } from "@/ui/button"
 import { useSelectedLayoutSegment } from "next/navigation"
 interface DashboardHeaderProps {
     user: User
@@ -10,7 +11,6 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ user }: DashboardHeaderProps) {
     const segment = useSelectedLayoutSegment()
 
-    console.log("Segment", segment)
     return (
         <>
             {!segment ? (
@@ -18,7 +18,9 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                     <h1 className="text-2xl font-medium text-brandtext-500">
                         My Projects
                     </h1>
-                    <ProjectCreateButton user={user} />
+                    <Link href="/new">
+                        <Button>New Project</Button>
+                    </Link>
                 </>
             ) : null}
 

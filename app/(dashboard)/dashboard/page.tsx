@@ -1,11 +1,12 @@
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { ProjectCreateButton } from "@/components/dashboard/project-create-button"
 import { ProjectItem } from "@/components/dashboard/project-item"
 import { DashboardShell } from "@/components/dashboard/shell"
 import { authOptions } from "@/lib/auth"
 import { preloadRepos } from "@/lib/github"
 import { getProjectsForUser } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
+import { Button } from "@/ui/button"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 export default async function DashboardPage() {
@@ -41,7 +42,9 @@ export default async function DashboardPage() {
                             You don't have any projects yet. Start posting
                             bounties.
                         </EmptyPlaceholder.Description>
-                        <ProjectCreateButton user={user} />
+                        <Link href={`/new`}>
+                            <Button>New Project</Button>
+                        </Link>
                     </EmptyPlaceholder>
                 )}
             </div>

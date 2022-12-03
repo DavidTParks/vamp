@@ -1,5 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority"
 import { ComponentProps } from "react"
+import { cn } from "@/lib/utils"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -11,7 +12,7 @@ const buttonStyles = cva(
                 primary: "bg-fuchsia-600 text-white hover:bg-fuchsia-500",
                 secondary:
                     "bg-secondary-button text-white border border-secondary-border brightness-150 hover:brightness-200",
-                tertiary: "text-white",
+                tertiary: "text-white hover:bg-palette-150",
                 danger: "bg-red-600 text-white border border-transparent hover:bg-red-700",
             },
             fullWidth: {
@@ -41,11 +42,15 @@ export function Button({
     borderRadius,
     size,
     fullWidth,
+    className,
     ...props
 }: Props) {
     return (
         <button
-            className={buttonStyles({ intent, fullWidth, borderRadius, size })}
+            className={cn(
+                className,
+                buttonStyles({ intent, fullWidth, borderRadius, size })
+            )}
             {...props}
         />
     )

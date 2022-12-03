@@ -1,6 +1,5 @@
-"use client"
-
 import { Button } from "@/ui/button"
+import Link from "next/link"
 import { GithubRepository } from "types"
 
 export type TOnSelectRepo = React.Dispatch<
@@ -9,16 +8,14 @@ export type TOnSelectRepo = React.Dispatch<
 
 type TGithubRepoSelect = {
     repo: GithubRepository
-    onSelect: TOnSelectRepo
 }
 
-export default function GithubRepoSelect({
-    repo,
-    onSelect,
-}: TGithubRepoSelect) {
+export default function GithubRepoSelect({ repo }: TGithubRepoSelect) {
     return (
-        <Button onClick={() => onSelect(repo)} intent="secondary" size="small">
-            Select
-        </Button>
+        <Link href={`/new/import/${repo.id}`}>
+            <Button intent="secondary" size="small">
+                Select
+            </Button>
+        </Link>
     )
 }

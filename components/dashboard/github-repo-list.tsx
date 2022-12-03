@@ -1,18 +1,16 @@
 import { getRepos } from "@/lib/github"
 import { dateToNow } from "@/lib/utils"
-import GithubRepoSelect, { TOnSelectRepo } from "./github-repo-select"
+import GithubRepoSelect from "./github-repo-select"
+import { Skeleton } from "@/ui/skeleton"
 
-type TGithubRepoList = {
-    onSelect: TOnSelectRepo
-}
-export default async function GithubRepoList({ onSelect }: TGithubRepoList) {
+export default async function GithubRepoList() {
     const repositories = await getRepos()
 
     return (
-        <div className="flex flex-col relative divide-y divide-slate-800">
+        <div className="flex flex-col relative divide-y divide-palette-300">
             {repositories?.map((repo) => (
                 <div
-                    className="p-4 flex justify-between items-center"
+                    className="p-4 pr-0 flex justify-between items-center"
                     key={repo.id}
                 >
                     <div className="flex items-center gap-2">
@@ -20,7 +18,7 @@ export default async function GithubRepoList({ onSelect }: TGithubRepoList) {
                             target="_blank"
                             rel="noreferrer"
                             href={repo.html_url}
-                            className="text-white text-sm font-medium hover:underline"
+                            className="text-white text-sm font-medium hover:underline max-w-[128px] md:max-w-[256px] truncate"
                         >
                             {repo.name}
                         </a>
@@ -29,9 +27,7 @@ export default async function GithubRepoList({ onSelect }: TGithubRepoList) {
                             {dateToNow(new Date(repo.pushed_at))}
                         </div>
                     </div>
-                    <div className="pr-4">
-                        <GithubRepoSelect repo={repo} onSelect={onSelect} />
-                    </div>
+                    <GithubRepoSelect repo={repo} />
                 </div>
             ))}
         </div>

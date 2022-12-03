@@ -1,9 +1,10 @@
-import { Project, ProjectUsers, User, Account } from "@prisma/client"
+import { Skeleton } from "@/ui/skeleton"
+import { Account, Project, ProjectUsers, User } from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
+import { Icons } from "../icons"
 import { ProjectOperations } from "./project-operations"
 import { Button } from "@/ui/button"
-import { Skeleton } from "@/ui/skeleton"
 
 interface TProjectItem {
     projectUser: ProjectUsers & {
@@ -19,7 +20,7 @@ interface TProjectItem {
 export function ProjectItem({ projectUser }: TProjectItem) {
     return (
         <div key={projectUser.id} className="relative ">
-            <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease hover:border-brandtext-500 hover:shadow-xl">
+            <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease  hover:shadow-xl">
                 <div className="p-4 h-full flex flex-col">
                     <div className="flex items-center w-full justify-between h-full">
                         <div className="flex items-center gap-4">
@@ -55,6 +56,12 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             }}
                         />
                     </div>
+                    <Button intent="tertiary" className="mt-6">
+                        <span className="flex text-brandtext-600 gap-2 text-sm items-center">
+                            <Icons.gitHub size={16} />
+                            Github not linked
+                        </span>
+                    </Button>
                     {/* <Link
                         href={`/project/${projectUser.project.id}`}
                         className="mt-6 w-full"

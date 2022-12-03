@@ -45,7 +45,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
         <>
             <DropdownMenu>
                 <DropdownMenu.Trigger>
-                    <div className="h-8 w-8 rounded-full overflow-hidden border border-palette-300 hover:border-brandtext-200 p-1 inline-flex items-center justify-center transition-all duration-100 cursor-pointer focus:outline-none">
+                    <div className="h-8 w-8 rounded-full overflow-hidden border border-raised-border hover:brightness-200 p-1 inline-flex items-center justify-center transition-all duration-100 cursor-pointer focus:outline-none">
                         <Icons.ellipsis
                             size={16}
                             className="text-brandtext-400"

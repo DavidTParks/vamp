@@ -19,6 +19,7 @@ import {
     Settings,
     Trash,
     Twitter,
+    ChevronLast,
     User,
     Star,
     Edit,
