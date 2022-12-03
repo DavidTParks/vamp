@@ -8,12 +8,37 @@ import { Card } from "@/ui/card"
 import { toast } from "@/ui/toast"
 import { User } from "@prisma/client"
 import { Icons } from "@/components/icons"
+import { useSearchParams } from "next/navigation"
+import { returnUrlQueryParams } from "pages/api/users/stripe"
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
     user: Pick<User, "stripeCustomerId">
 }
 
 export function BillingForm({ className, user, ...props }: BillingFormProps) {
+    const searchParams = useSearchParams()
+
+    // If we are returning from Stripe either from editing or creating our account
+    const from = searchParams.get("from") as returnUrlQueryParams
+
+    React.useEffect(() => {
+        if (from === "stripeAccountUpdate") {
+            toast({
+                title: "Stripe details updated",
+                message: "Your account information has been updated.",
+                type: "success",
+            })
+        }
+
+        if (from === "stripeAccountCreation") {
+            toast({
+                title: "Stripe details updated",
+                message: "Your account information has been updated.",
+                type: "success",
+            })
+        }
+    }, [from])
+
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     async function onSubmit(event) {
@@ -94,7 +119,16 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
                             Setup Stripe
                         </Button>
                     ) : (
-                        <Button>Edit Stripe details</Button>
+                        <>
+                            <Button>
+                                {isLoading ? (
+                                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                ) : (
+                                    <Icons.edit className="mr-2 h-4 w-4" />
+                                )}
+                                Edit Stripe details
+                            </Button>
+                        </>
                     )}
                 </Card.Footer>
             </Card>

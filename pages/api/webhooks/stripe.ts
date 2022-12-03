@@ -35,6 +35,7 @@ export default async function handler(
     const session = event.data.object as Stripe.Account
 
     if (event.type === "account.updated") {
+        console.log("Account updated triggers", session)
         // Retrieve the subscription details from Stripe.
         const account = await stripe.accounts.retrieve(session.id)
 

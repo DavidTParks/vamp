@@ -21,6 +21,7 @@ import {
     Twitter,
     User,
     Star,
+    Edit,
     X,
 } from "lucide-react"
 
@@ -33,6 +34,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    edit: Edit,
     logo: Bat,
     close: X,
     spinner: Loader2,

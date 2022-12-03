@@ -10,6 +10,11 @@ import { authOptions } from "@/lib/auth"
 import { stripe } from "@/lib/stripe"
 import { getCurrentUser } from "@/lib/session"
 
+export type returnUrlQueryParams =
+    | "stripeAccountUpdate"
+    | "stripeAccountCreation"
+    | null
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log("Have session")
     if (req.method === "GET") {
@@ -29,18 +34,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             })
 
             if (userAccount?.stripeCustomerId) {
-                const account = await stripe.accounts.retrieve(
-                    userAccount.stripeCustomerId
-                )
-
-                console.log("Account", account)
-
                 const accountLink = await stripe.accountLinks.create({
-                    account: account.id,
+                    account: userAccount?.stripeCustomerId,
                     refresh_url:
-                        "http://localhost:3000/dashboard/settings/billing",
+                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountUpdate",
                     return_url:
-                        "http://localhost:3000/dashboard/settings/billing",
+                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountUpdate",
                     type: "account_onboarding",
                 })
                 res.json(accountLink)
@@ -48,14 +47,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const account = await stripe.accounts.create({
                     type: "express",
                     business_type: "individual",
+                    metadata: {
+                        userId: user.id,
+                    },
                 })
 
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
                     refresh_url:
-                        "http://localhost:3000/dashboard/settings/billing",
+                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountCreation",
                     return_url:
-                        "http://localhost:3000/dashboard/settings/billing",
+                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountCreation",
                     type: "account_onboarding",
                 })
                 res.json(accountLink)
