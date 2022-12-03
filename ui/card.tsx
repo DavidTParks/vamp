@@ -7,7 +7,7 @@ export function Card({ className, ...props }: CardProps) {
     return (
         <div
             className={cn(
-                "overflow-hidden rounded-lg border border-palette-300",
+                "overflow-hidden rounded-lg border text-brandtext-300 border-palette-300",
                 className
             )}
             {...props}
@@ -60,7 +60,7 @@ Card.Description = function CardDescription({
     ...props
 }: CardDescriptionProps) {
     return (
-        <p className={cn("text-sm text-brandtext-400", className)} {...props} />
+        <p className={cn("text-sm text-brandtext-600", className)} {...props} />
     )
 }
 

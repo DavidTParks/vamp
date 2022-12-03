@@ -26,7 +26,7 @@ Alert.Content = React.forwardRef<
 >(function AlertContent({ className, ...props }, ref) {
     return (
         <Alert.Portal>
-            {/* <AlertDialogPrimitives.Overlay className="fixed inset-0 z-40 bg-slate-800/50 opacity-100 transition-opacity animate-in fade-in backdrop-blur"></AlertDialogPrimitives.Overlay> */}
+            <AlertDialogPrimitives.Overlay className="fixed inset-0 z-40 opacity-100 transition-opacity animate-in fade-in backdrop-blur-sm	"></AlertDialogPrimitives.Overlay>
             <div className="fixed inset-0 z-40 flex items-center justify-center">
                 <AlertDialogPrimitives.Content
                     ref={ref}

@@ -6,10 +6,14 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { Card } from "@/ui/card"
 import { toast } from "@/ui/toast"
+import { User } from "@prisma/client"
+import { Icons } from "@/components/icons"
 
-interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {}
+interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
+    user: Pick<User, "stripeCustomerId">
+}
 
-export function BillingForm({ className, ...props }: BillingFormProps) {
+export function BillingForm({ className, user, ...props }: BillingFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     async function onSubmit(event) {
@@ -36,22 +40,62 @@ export function BillingForm({ className, ...props }: BillingFormProps) {
         }
     }
 
+    async function setupStripe() {
+        setIsLoading(true)
+
+        const response = await fetch("/api/users/stripe", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+
+        setIsLoading(false)
+
+        if (!response?.ok) {
+            return toast({
+                title: "Something went wrong.",
+                message: "Your project was not created. Please try again.",
+                type: "error",
+            })
+        }
+
+        const stripeAccountLink = await response.json()
+
+        console.log("Stripe account link")
+    }
+
+    const isStripeLinked = !!user.stripeCustomerId
+
     return (
         <form className={cn(className)} onSubmit={onSubmit} {...props}>
             <Card>
                 <Card.Header>
                     <Card.Title>Stripe</Card.Title>
                     <Card.Description>
-                        Setup Stripe so you can start collecting bounties, paid
-                        out directly to your bank account.
+                        {!isStripeLinked
+                            ? "No Stripe account linked"
+                            : "Stripe account linked"}
                     </Card.Description>
                 </Card.Header>
                 <Card.Content>
-                    Link your Stripe account now to begin funding project
-                    balances
+                    {!isStripeLinked
+                        ? "Link your Stripe account now to accept payouts from Project owners"
+                        : "You can now accept payments from Open Source project owners for solving bounties!"}
                 </Card.Content>
                 <Card.Footer className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
-                    <Button>Setup Stripe</Button>
+                    {!isStripeLinked ? (
+                        <Button disabled={isLoading}>
+                            {isLoading ? (
+                                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                            ) : (
+                                <Icons.billing className="mr-2 h-4 w-4" />
+                            )}
+                            Setup Stripe
+                        </Button>
+                    ) : (
+                        <Button>Edit Stripe details</Button>
+                    )}
                 </Card.Footer>
             </Card>
         </form>
