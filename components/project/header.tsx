@@ -21,7 +21,7 @@ export function ProjectHeader({ user }: ProjectHeaderProps) {
                     <h1 className="text-2xl font-medium text-brandtext-500">
                         Bounties
                     </h1>
-                    <Link href="/new">
+                    <Link href="/create">
                         <Button>New Bounty</Button>
                     </Link>
                 </>

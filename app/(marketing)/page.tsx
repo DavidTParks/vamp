@@ -43,7 +43,7 @@ export default async function IndexPage() {
                         Get Paid
                     </span>
                 </h1>
-                <h2 className="mt-5 text-lg text-slate-400 sm:text-xl">
+                <h2 className="mt-5 text-lg text-brandtext-400 sm:text-xl">
                     Vamp is an open-source platform for projects to post issue
                     bounties and feature requests, and for open-source
                     contributors to feed on them.
@@ -60,7 +60,6 @@ export default async function IndexPage() {
                     </ExternalLink>
                 </div>
             </div>
-            <hr className="border-slate-800" />
             <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
                 <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">

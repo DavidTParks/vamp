@@ -3,7 +3,7 @@ import "server-only"
 import urlcat from "urlcat"
 import { getCurrentUser } from "@/lib/session"
 import { db } from "./db"
-import { GithubRepository } from "types"
+import { GithubRepository, GithubIssue } from "types"
 import { cache } from "react"
 import { GithubUser } from "types"
 
@@ -61,6 +61,31 @@ export const getRepo = cache(
     async (repoId: number): Promise<GithubRepository> => {
         //api.github.com/repos/DavidTParks/aws-crypto-dynamodb-lambda
         const url = `${BASEURL}/repositories/${repoId}`
+
+        const user = await getCurrentUser()
+        const userRecord = await db.account.findFirst({
+            where: {
+                userId: user.id,
+            },
+        })
+
+        return await fetch(url, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userRecord.access_token}`,
+            },
+        }).then((res) => res.json())
+    }
+)
+
+export const preloadRepoIssues = (repoId: number) => {
+    void getRepoIssues(repoId)
+}
+
+export const getRepoIssues = cache(
+    async (repoId: number): Promise<GithubIssue[]> => {
+        //api.github.com/repos/DavidTParks/aws-crypto-dynamodb-lambda
+        const url = `${BASEURL}/repositories/${repoId}/issues`
 
         const user = await getCurrentUser()
         const userRecord = await db.account.findFirst({

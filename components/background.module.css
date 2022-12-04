@@ -28,7 +28,7 @@
     top: 0;
     inset: 0;
     opacity: 0.3;
-    /* filter: invert(1); */
+    filter: invert(0.5);
 }
 
 .content {
