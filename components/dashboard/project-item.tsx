@@ -45,15 +45,15 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             <div className="flex flex-col gap-2">
                                 <Link
                                     href={`/project/${projectUser.project.id}`}
-                                    className="hover:underline"
+                                    className="hover:underline inline-flex"
                                 >
-                                    <span className="text-white font-medium hover:underline">
+                                    <span className="text-white font-medium hover:underline max-w-[216px] truncate">
                                         {projectUser.project.name}
                                     </span>
                                 </Link>
                                 <span className="items-center text-sm inline-flex gap-2 text-brandtext-600">
                                     <Icons.gitHub size={16} />
-                                    <span className="max-w-[156px] truncate">
+                                    <span className="max-w-[216px] truncate">
                                         {projectUser.project.githubRepo.name}
                                     </span>
                                 </span>

@@ -46,7 +46,10 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
                         </Link>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item>
-                        <Link href="/dashboard/billing" className="w-full">
+                        <Link
+                            href="/dashboard/settings/billing"
+                            className="w-full"
+                        >
                             Billing
                         </Link>
                     </DropdownMenu.Item>

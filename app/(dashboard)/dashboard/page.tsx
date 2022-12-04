@@ -9,7 +9,9 @@ import { Button } from "@/ui/button"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-export default async function DashboardPage() {
+export const revalidate = false
+
+export default async function DashboardPage({}) {
     const user = await getCurrentUser()
 
     if (!user) {
@@ -24,7 +26,7 @@ export default async function DashboardPage() {
         <DashboardShell>
             <div className="mt-12">
                 {projectUsers?.length ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                         {projectUsers.map((projectUser) => (
                             <ProjectItem
                                 projectUser={projectUser}

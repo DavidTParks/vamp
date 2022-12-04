@@ -86,6 +86,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                     <Alert.Footer>
                         <Alert.Cancel>Cancel</Alert.Cancel>
                         <Alert.Action
+                            className="disabled:opacity-50 disabled:pointer-events-none"
                             disabled={isDeleteLoading}
                             onClick={async (event) => {
                                 event.preventDefault()

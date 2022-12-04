@@ -83,8 +83,8 @@ export function ProjectCreateForm({
 
         // This forces a cache invalidation.
         router.refresh()
-        router.prefetch(`/dashboard`)
-        router.push(`/project/${project.id}`)
+
+        router.push(`/dashboard?from=create`)
     }
 
     return (

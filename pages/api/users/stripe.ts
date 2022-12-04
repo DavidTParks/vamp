@@ -8,6 +8,7 @@ import { db } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
 
 export type returnUrlQueryParams =
+    | "create"
     | "stripeAccountUpdate"
     | "stripeAccountCreation"
     | null
