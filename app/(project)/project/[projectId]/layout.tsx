@@ -49,7 +49,9 @@ export default async function ProjectLayout({
                         </div>
                         <ProjectSecondaryNav
                             githubIssues={githubIssues}
-                            project={project}
+                            project={{
+                                id: project.id,
+                            }}
                         />
                     </div>
                 </header>

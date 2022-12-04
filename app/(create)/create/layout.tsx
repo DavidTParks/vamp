@@ -1,50 +1,11 @@
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { dashboardConfig } from "@/config/dashboard"
-import { getCurrentUser } from "@/lib/session"
-import { notFound } from "next/navigation"
+interface EditorProps {
+    children?: React.ReactNode
+}
 
-export default async function ProjectLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
-    const user = await getCurrentUser()
-
-    if (!user) {
-        return notFound()
-    }
-
+export default function CreateLayout({ children }: EditorProps) {
     return (
-        <>
-            <div className="mx-auto flex flex-col min-h-screen relative">
-                <header className=" sticky top-0 left-0 right-0 z-30  border-palette-300 bg-appbg px-4 lg:px-8">
-                    <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
-                        <div className="flex h-16 items-center justify-between">
-                            <DashboardNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                                items={dashboardConfig.mainNav}
-                            />
-                            <UserAccountNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                            />
-                        </div>
-                    </div>
-                </header>
-                <main className=" px-4 lg:px-8 z-10">
-                    <div className="mx-auto max-w-screen-xl px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
-                        {children}
-                    </div>
-                </main>
-            </div>
-        </>
+        <div className="container mx-auto grid items-start gap-10 py-8">
+            {children}
+        </div>
     )
 }
