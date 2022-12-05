@@ -13,9 +13,11 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
     const router = useRouter()
 
     const page = searchParams.get("page")
+        ? parseInt(searchParams.get("page"))
+        : 1
 
-    const previousPage = page ? parseInt(page) - 1 : null
-    const nextPage = page ? parseInt(page) + 1 : 2
+    const previousPage = page ? parseInt(page.toString()) - 1 : null
+    const nextPage = page ? parseInt(page.toString()) + 1 : 2
 
     return (
         <nav
@@ -24,9 +26,10 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
         >
             <div className="hidden sm:block">
                 <p className="text-sm text-brandtext-600">
-                    Showing <span className="font-medium">1</span> to{" "}
-                    <span className="font-medium">10</span> of{" "}
-                    <span className="font-medium">20</span> results
+                    Showing{" "}
+                    <span className="font-medium">{(page - 1) * 30 + 1}</span>{" "}
+                    to <span className="font-medium">{page * 30}</span> of
+                    results
                 </p>
             </div>
             <div className="flex flex-1 justify-between sm:justify-end gap-4">
