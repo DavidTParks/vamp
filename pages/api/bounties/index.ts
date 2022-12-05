@@ -5,11 +5,13 @@ import { unstable_getServerSession } from "next-auth/next"
 import { db } from "@/lib/db"
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { authOptions } from "@/lib/auth"
+import { withProject } from "@/lib/api-middlewares/with-project"
 
 const bountyCreateSchema = z.object({
     title: z.string().optional(),
-    content: z.string().optional(),
+    content: z.any().optional(),
     projectId: z.string().cuid(),
+    issue: z.any().optional(),
 })
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -19,29 +21,30 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         return res.status(403).end()
     }
 
-    const { user } = session
-
     if (req.method === "POST") {
         try {
             const body = bountyCreateSchema.parse(req.body)
 
-            const post = await db.bounty.create({
+            const bounty = await db.bounty.create({
                 data: {
                     title: body.title,
-                    content: body.content,
+                    content: body?.issue?.body ?? body.content,
+                    description: body?.issue?.description ?? "",
                     project: {
                         connect: {
                             id: body.projectId,
                         },
                     },
+                    githubIssue: body?.issue,
                 },
                 select: {
                     id: true,
                 },
             })
 
-            return res.json(post)
+            return res.json(bounty)
         } catch (error) {
+            console.log("Error", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }
@@ -51,4 +54,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default withMethods(["GET", "POST"], handler)
+export default withMethods(["GET", "POST"], withProject(handler))

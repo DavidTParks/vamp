@@ -1,11 +1,10 @@
 import "server-only"
 
-import urlcat from "urlcat"
 import { getCurrentUser } from "@/lib/session"
-import { db } from "./db"
-import { GithubRepository, GithubIssue, GithubIssueSearch } from "types"
 import { cache } from "react"
-import { GithubUser } from "types"
+import { GithubIssueSearch, GithubRepository, GithubUser } from "types"
+import urlcat from "urlcat"
+import { db } from "./db"
 
 const BASEURL: string = "https://api.github.com"
 
@@ -99,8 +98,6 @@ export const getRepoIssues = cache(
         )
 
         const url = `${BASEURL}/search/issues?q=${queryString}&page=${page}`
-
-        console.log("Url", url)
 
         const user = await getCurrentUser()
         const userRecord = await db.account.findFirst({

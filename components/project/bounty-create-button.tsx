@@ -6,61 +6,74 @@ import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 import { toast } from "@/ui/toast"
+import { Button } from "@/ui/button"
+import { TProject } from "./secondary-nav"
+import { GithubIssue } from "types"
+import { TButtonProps } from "@/ui/button"
 
-interface PostCreateButtonProps
-    extends React.HTMLAttributes<HTMLButtonElement> {}
+interface BountyCreateButtonProps extends TButtonProps {
+    issue?: GithubIssue
+    project: TProject
+}
 
 export function BountyCreateButton({
+    issue,
+    project,
     className,
+    intent,
+    size,
     ...props
-}: PostCreateButtonProps) {
+}: BountyCreateButtonProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     async function onClick() {
         setIsLoading(true)
 
-        const response = await fetch("/api/posts", {
+        const response = await fetch(`/api/bounties?projectId=${project.id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                title: "Untitled Post",
+                title: issue?.title ?? "Untitled bounty",
+                content: [],
+                projectId: project.id,
+                issueLink: issue?.html_url ?? null,
+                issue,
             }),
         })
 
         setIsLoading(false)
 
         if (!response?.ok) {
-            if (response.status === 402) {
-                return toast({
-                    title: "Limit of 3 posts reached.",
-                    message: "Please upgrade to the PRO plan.",
-                    type: "error",
-                })
-            }
-
             return toast({
                 title: "Something went wrong.",
-                message: "Your post was not created. Please try again.",
+                message: "Your bounty was not created. Please try again.",
                 type: "error",
             })
         }
 
-        const post = await response.json()
+        const bounty = await response.json()
 
         // This forces a cache invalidation.
         router.refresh()
 
-        router.push(`/editor/${post.id}`)
+        toast({
+            title: "Bounty draft created from issue",
+            message: "Redirecting...",
+            type: "success",
+        })
+
+        router.push(`/project/${project.id}/bounty/${bounty.id}`)
     }
 
     return (
-        <button
+        <Button
+            intent={intent}
+            size={size}
             onClick={onClick}
             className={cn(
-                "relative inline-flex h-9 items-center rounded-md border border-transparent bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2",
                 {
                     "cursor-not-allowed opacity-60": isLoading,
                 },
@@ -74,7 +87,7 @@ export function BountyCreateButton({
             ) : (
                 <Icons.add className="mr-2 h-4 w-4" />
             )}
-            New post
-        </button>
+            New bounty
+        </Button>
     )
 }

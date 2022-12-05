@@ -35,7 +35,9 @@ const buttonStyles = cva(
     }
 )
 
-export interface Props extends ButtonProps, VariantProps<typeof buttonStyles> {}
+export interface TButtonProps
+    extends ButtonProps,
+        VariantProps<typeof buttonStyles> {}
 
 export function Button({
     intent = "primary",
@@ -44,7 +46,7 @@ export function Button({
     fullWidth,
     className,
     ...props
-}: Props) {
+}: TButtonProps) {
     return (
         <button
             className={cn(

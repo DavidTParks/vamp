@@ -1,5 +1,7 @@
 "use client"
 
+import "./editor.css"
+
 import * as React from "react"
 import EditorJS from "@editorjs/editorjs"
 import { Bounty, Project } from "@prisma/client"
@@ -34,7 +36,6 @@ export function Editor({ bounty, project }: EditorProps) {
         const EditorJS = (await import("@editorjs/editorjs")).default
         const Header = (await import("@editorjs/header")).default
         const Embed = (await import("@editorjs/embed")).default
-        const Table = (await import("@editorjs/table")).default
         const List = (await import("@editorjs/list")).default
         const Code = (await import("@editorjs/code")).default
         const LinkTool = (await import("@editorjs/link")).default
@@ -53,11 +54,15 @@ export function Editor({ bounty, project }: EditorProps) {
                 data: body.content,
                 tools: {
                     header: Header,
-                    linkTool: LinkTool,
+                    linkTool: {
+                        class: LinkTool,
+                        config: {
+                            endpoint: "http://localhost:3001/api/edge/metatags", // Your backend endpoint for url data fetching,
+                        },
+                    },
                     list: List,
                     code: Code,
                     inlineCode: InlineCode,
-                    table: Table,
                     embed: Embed,
                 },
             })
@@ -146,7 +151,7 @@ export function Editor({ bounty, project }: EditorProps) {
                         <span>Save</span>
                     </button>
                 </div>
-                <div className="prose prose-stone mx-auto w-[800px]">
+                <div className="prose prose-white text-white mx-auto w-[800px]">
                     <TextareaAutosize
                         autoFocus
                         name="title"

@@ -1,12 +1,12 @@
-import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid"
-import { GithubIssue, GithubIssueSearch } from "types"
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { dateToNow } from "@/lib/utils"
 import { Button } from "@/ui/button"
+import { GithubIssueSearch } from "types"
 import { Icons } from "../icons"
+import { BountyCreateButton } from "./bounty-create-button"
 import IssueListPagination from "./issue-list-pagination"
 import { TProject } from "./secondary-nav"
-import { Skeleton } from "@/ui/skeleton"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+
 type TIssueList = {
     issues: GithubIssueSearch
     project: TProject
@@ -45,9 +45,16 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                                 </div>
                             </div>
 
-                            <Button size="small" intent="secondary">
+                            <BountyCreateButton
+                                size="small"
+                                project={{
+                                    id: project.id,
+                                }}
+                                issue={issue}
+                                intent="secondary"
+                            >
                                 New bounty
-                            </Button>
+                            </BountyCreateButton>
                         </div>
                     ))}
                 </>
@@ -62,7 +69,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                 </EmptyPlaceholder>
             )}
             {issues?.total_count > 30 && (
-                <div className="my-12">
+                <div className="mb-16 mt-8">
                     <IssueListPagination
                         totalCount={issues.total_count}
                         project={{

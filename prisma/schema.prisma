@@ -148,6 +148,7 @@ model Bounty {
   upvotes           Int                @default(0)
   downvotes         Int                @default(0)
   comments          Comment[]
+  githubIssue       Json?
 
   @@index([projectId])
 }

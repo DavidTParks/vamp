@@ -1,10 +1,9 @@
 "use client"
 
-import { Button } from "@/ui/button"
-import { useRouter } from "next/navigation"
-import { useSearchParams } from "next/navigation"
-import { TProject } from "./secondary-nav"
 import { issueSearchString } from "@/lib/utils"
+import { Button } from "@/ui/button"
+import { useRouter, useSearchParams } from "next/navigation"
+import { TProject } from "./secondary-nav"
 
 type TIssueListPagination = {
     project: TProject
@@ -25,11 +24,6 @@ export default function IssueListPagination({
 
     const previousPage = page ? parseInt(page.toString()) - 1 : null
     const nextPage = page ? parseInt(page.toString()) + 1 : 2
-
-    const previousPageParams = new URLSearchParams({
-        page: previousPage?.toString() ?? null,
-        search,
-    })
 
     const nextPageQueryString = issueSearchString(nextPage?.toString(), search)
     const previousPageQueryString = issueSearchString(
@@ -65,18 +59,20 @@ export default function IssueListPagination({
                         Previous
                     </Button>
                 )}
-                <Button
-                    onClick={() => {
-                        router.push(
-                            `/project/${project.id}/issues?${nextPageQueryString}`
-                        )
-                        router.refresh()
-                    }}
-                    intent="secondary"
-                    size="small"
-                >
-                    Next
-                </Button>
+                {page * 30 < totalCount && (
+                    <Button
+                        onClick={() => {
+                            router.push(
+                                `/project/${project.id}/issues?${nextPageQueryString}`
+                            )
+                            router.refresh()
+                        }}
+                        intent="secondary"
+                        size="small"
+                    >
+                        Next
+                    </Button>
+                )}
             </div>
         </nav>
     )

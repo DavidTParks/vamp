@@ -7,7 +7,7 @@ import { getCurrentUser } from "@/lib/session"
 import project from "pages/api/project"
 
 interface ProjectPageProps {
-    params: { projectId: string }
+    params: { projectId: string; bountyId: string }
     searchParams: { id: string }
 }
 
@@ -21,14 +21,18 @@ export default async function CreatePage({
         redirect(authOptions.pages.signIn)
     }
 
-    const bounty = await db.bounty.create({
-        data: {
-            project: {
-                connect: {
-                    id: params.projectId,
-                },
-            },
-            title: "New bounty",
+    const project = await db.project.findUnique({
+        where: {
+            id: params.projectId,
+        },
+    })
+
+    const bounty = await db.bounty.findUnique({
+        where: {
+            id: params.bountyId,
+        },
+        include: {
+            project: true,
         },
     })
 
@@ -36,7 +40,7 @@ export default async function CreatePage({
         <div className="max-w-lg mx-auto w-full">
             <Editor
                 project={{
-                    id: project.id,
+                    id: bounty.project.id,
                 }}
                 bounty={{
                     id: bounty.id,

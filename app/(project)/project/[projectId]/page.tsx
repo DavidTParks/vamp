@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
+import { BountyCreateButton } from "@/components/project/bounty-create-button"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string }
@@ -47,9 +48,11 @@ export default async function ProjectPage({
                             You don't have any feature requests or issue
                             bounties yet. Create one and reward contributors!
                         </EmptyPlaceholder.Description>
-                        <Link href={`/project/${project.id}/create`}>
-                            <Button>New Bounty</Button>
-                        </Link>
+                        <BountyCreateButton
+                            project={{
+                                id: project.id,
+                            }}
+                        />
                     </EmptyPlaceholder>
                 )}
             </div>
