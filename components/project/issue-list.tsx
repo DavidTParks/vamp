@@ -9,7 +9,7 @@ import { TProject } from "./secondary-nav"
 type TIssueList = {
     issues: GithubIssue[]
     project: TProject
-    page: number
+    page: number | string
 }
 
 export default function IssueList({ issues, project, page }: TIssueList) {

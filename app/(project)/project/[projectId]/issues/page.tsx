@@ -6,7 +6,7 @@ import { getRepo, getRepoIssues, preloadRepoIssues } from "@/lib/github"
 import IssueList from "@/components/project/issue-list"
 interface ProjectPageProps {
     params: { projectId: string }
-    searchParams: { id: string; page: number }
+    searchParams: { id: string; page: string }
 }
 
 export default async function ProjectPage({
@@ -22,17 +22,18 @@ export default async function ProjectPage({
     const project = await getProject(params.projectId)
     const issues = await getRepoIssues(
         project.githubRepo.githubRepoId,
-        searchParams.page ?? 1
+        searchParams.page ?? "1"
     )
 
     if (!project) {
         notFound()
     }
 
-    preloadRepoIssues(
-        project.githubRepo.githubRepoId,
-        searchParams.page + 1 ?? 1
-    )
+    const nextPreloadPage = searchParams.page
+        ? parseInt(searchParams.page) + 1
+        : 2
+
+    preloadRepoIssues(project.githubRepo.githubRepoId, nextPreloadPage)
 
     return (
         <div>

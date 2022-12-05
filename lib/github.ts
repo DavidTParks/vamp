@@ -78,12 +78,12 @@ export const getRepo = cache(
     }
 )
 
-export const preloadRepoIssues = (repoId: number, page: number) => {
+export const preloadRepoIssues = (repoId: number, page: string | number) => {
     void getRepoIssues(repoId, page)
 }
 
 export const getRepoIssues = cache(
-    async (repoId: number, page: number): Promise<GithubIssue[]> => {
+    async (repoId: number, page: string | number): Promise<GithubIssue[]> => {
         //api.github.com/repos/DavidTParks/aws-crypto-dynamodb-lambda
 
         const url = urlcat(`${BASEURL}/repositories/${repoId}/issues`, {
