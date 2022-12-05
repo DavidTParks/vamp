@@ -23,7 +23,11 @@ export default async function ProjectLayout({
     }
 
     const project = await getProject(params.projectId)
-    const githubIssues = await getRepoIssues(project.githubRepo.githubRepoId, 1)
+    const githubIssues = await getRepoIssues(
+        project.githubRepo.githubRepoId,
+        1,
+        null
+    )
 
     return (
         <>

@@ -1,13 +1,12 @@
-import { notFound, redirect } from "next/navigation"
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { DashboardShell } from "@/components/dashboard/shell"
 import { authOptions } from "@/lib/auth"
+import { getBountiesForProject } from "@/lib/bounties"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
-import { preloadRepoIssues } from "@/lib/github"
-import { DashboardShell } from "@/components/dashboard/shell"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import Link from "next/link"
 import { Button } from "@/ui/button"
-import { getBountiesForProject } from "@/lib/bounties"
+import Link from "next/link"
+import { notFound, redirect } from "next/navigation"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string }

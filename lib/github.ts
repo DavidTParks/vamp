@@ -78,22 +78,29 @@ export const getRepo = cache(
     }
 )
 
-export const preloadRepoIssues = (repoId: number, page: string | number) => {
-    void getRepoIssues(repoId, page)
+export const preloadRepoIssues = (
+    repoId: number,
+    page: string | number,
+    search: string | null
+) => {
+    void getRepoIssues(repoId, page, search)
 }
 
 export const getRepoIssues = cache(
     async (
         repoId: number,
-        page: string | number
+        page: string | number,
+        search: string | null
     ): Promise<GithubIssueSearch> => {
         const repo = await getRepo(repoId)
 
         const queryString = encodeURIComponent(
-            `repo:${repo.full_name} is:open is:issue`
+            `repo:${repo.full_name} is:open is:issue ${search ?? ""} in:body`
         )
 
         const url = `${BASEURL}/search/issues?q=${queryString}&page=${page}`
+
+        console.log("Url", url)
 
         const user = await getCurrentUser()
         const userRecord = await db.account.findFirst({

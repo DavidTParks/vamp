@@ -4,11 +4,16 @@ import { Button } from "@/ui/button"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { TProject } from "./secondary-nav"
+import { issueSearchString } from "@/lib/utils"
 
 type TIssueListPagination = {
     project: TProject
+    totalCount: number
 }
-export default function IssueListPagination({ project }: TIssueListPagination) {
+export default function IssueListPagination({
+    project,
+    totalCount,
+}: TIssueListPagination) {
     const searchParams = useSearchParams()
     const router = useRouter()
 
@@ -16,8 +21,21 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
         ? parseInt(searchParams.get("page"))
         : 1
 
+    const search = searchParams.get("search")
+
     const previousPage = page ? parseInt(page.toString()) - 1 : null
     const nextPage = page ? parseInt(page.toString()) + 1 : 2
+
+    const previousPageParams = new URLSearchParams({
+        page: previousPage?.toString() ?? null,
+        search,
+    })
+
+    const nextPageQueryString = issueSearchString(nextPage?.toString(), search)
+    const previousPageQueryString = issueSearchString(
+        previousPage?.toString(),
+        search
+    )
 
     return (
         <nav
@@ -28,8 +46,8 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
                 <p className="text-sm text-brandtext-600">
                     Showing{" "}
                     <span className="font-medium">{(page - 1) * 30 + 1}</span>{" "}
-                    to <span className="font-medium">{page * 30}</span> of
-                    results
+                    to <span className="font-medium">{page * 30}</span> of{" "}
+                    {totalCount} results
                 </p>
             </div>
             <div className="flex flex-1 justify-between sm:justify-end gap-4">
@@ -37,7 +55,7 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
                     <Button
                         onClick={() => {
                             router.push(
-                                `/project/${project.id}/issues?page=${previousPage}`
+                                `/project/${project.id}/issues?${previousPageQueryString}`
                             )
                             router.refresh()
                         }}
@@ -50,7 +68,7 @@ export default function IssueListPagination({ project }: TIssueListPagination) {
                 <Button
                     onClick={() => {
                         router.push(
-                            `/project/${project.id}/issues?page=${nextPage}`
+                            `/project/${project.id}/issues?${nextPageQueryString}`
                         )
                         router.refresh()
                     }}

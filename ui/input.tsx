@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons"
 type InputProps = ComponentProps<"input">
 
 const inputStyles = cva(
-    "my-0 mb-2 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none",
+    "my-0 mb-2 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none form-input focus:ring-0",
     {
         variants: {
             intent: {

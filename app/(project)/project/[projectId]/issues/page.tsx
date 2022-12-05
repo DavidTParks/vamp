@@ -7,7 +7,7 @@ import { notFound, redirect } from "next/navigation"
 import IssueSearch from "@/components/project/issue-search"
 interface ProjectPageProps {
     params: { projectId: string }
-    searchParams: { id: string; page: string }
+    searchParams: { id: string; page: string; search: string }
 }
 
 export default async function ProjectPage({
@@ -23,7 +23,8 @@ export default async function ProjectPage({
     const project = await getProject(params.projectId)
     const issues = await getRepoIssues(
         project.githubRepo.githubRepoId,
-        searchParams.page ?? "1"
+        searchParams.page ?? "1",
+        searchParams.search
     )
 
     if (!project) {
@@ -34,7 +35,11 @@ export default async function ProjectPage({
         ? parseInt(searchParams.page) + 1
         : 2
 
-    preloadRepoIssues(project.githubRepo.githubRepoId, nextPreloadPage)
+    preloadRepoIssues(
+        project.githubRepo.githubRepoId,
+        nextPreloadPage,
+        searchParams.search
+    )
 
     return (
         <div>
@@ -46,13 +51,17 @@ export default async function ProjectPage({
                     Reference an open issue on your repository in a new bounty
                 </p>
             </div>
-            <IssueSearch />
+            <IssueSearch
+                project={{
+                    id: project.id,
+                }}
+            />
             <IssueList
                 page={searchParams.page}
                 project={{
                     id: project.id,
                 }}
-                issues={issues.items}
+                issues={issues}
             />
         </div>
     )

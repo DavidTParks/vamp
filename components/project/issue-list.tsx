@@ -1,14 +1,14 @@
 import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid"
-import { GithubIssue } from "types"
+import { GithubIssue, GithubIssueSearch } from "types"
 import { dateToNow } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { Icons } from "../icons"
 import IssueListPagination from "./issue-list-pagination"
 import { TProject } from "./secondary-nav"
 import { Skeleton } from "@/ui/skeleton"
-
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 type TIssueList = {
-    issues: GithubIssue[]
+    issues: GithubIssueSearch
     project: TProject
     page: number | string
 }
@@ -16,42 +16,61 @@ type TIssueList = {
 export default function IssueList({ issues, project, page }: TIssueList) {
     return (
         <div className="flex flex-col relative divide-y divide-palette-300">
-            {issues?.map((issue) => (
-                <div
-                    className="p-4 pr-0 pl-0 flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0"
-                    key={issue.id}
-                >
-                    <div className="flex items-center gap-2">
-                        <Icons.circleDot size={16} className="text-green-400" />
-                        <a
-                            target="_blank"
-                            rel="noreferrer"
-                            href={issue.html_url}
-                            className="text-white font-medium text-sm hover:underline max-w-[128px] md:max-w-[256px] truncate"
+            {issues?.items?.length ? (
+                <>
+                    {issues?.items?.map((issue) => (
+                        <div
+                            className="p-4 pr-0 pl-0 flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0"
+                            key={issue.id}
                         >
-                            {issue.title}
-                        </a>
-                        <div className="text-brandtext-600 text-2xl">
-                            &middot;
-                        </div>
-                        <div className="text-sm text-slate-500">
-                            Last updated {dateToNow(new Date(issue.updated_at))}{" "}
-                            ago
-                        </div>
-                    </div>
+                            <div className="flex items-center gap-2">
+                                <Icons.circleDot
+                                    size={16}
+                                    className="text-green-400"
+                                />
+                                <a
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href={issue.html_url}
+                                    className="text-white font-medium text-sm hover:underline max-w-[128px] md:max-w-[256px] truncate"
+                                >
+                                    {issue.title}
+                                </a>
+                                <div className="text-brandtext-600 text-2xl">
+                                    &middot;
+                                </div>
+                                <div className="text-sm text-slate-500">
+                                    Last updated{" "}
+                                    {dateToNow(new Date(issue.updated_at))} ago
+                                </div>
+                            </div>
 
-                    <Button size="small" intent="secondary">
-                        New bounty
-                    </Button>
+                            <Button size="small" intent="secondary">
+                                New bounty
+                            </Button>
+                        </div>
+                    ))}
+                </>
+            ) : (
+                <EmptyPlaceholder>
+                    <EmptyPlaceholder.Icon name="gitHub" />
+                    <EmptyPlaceholder.Title>No issues</EmptyPlaceholder.Title>
+                    <EmptyPlaceholder.Description>
+                        This Github repository does not have any issues, or any
+                        issues that match this search query.
+                    </EmptyPlaceholder.Description>
+                </EmptyPlaceholder>
+            )}
+            {issues?.total_count > 30 && (
+                <div className="my-12">
+                    <IssueListPagination
+                        totalCount={issues.total_count}
+                        project={{
+                            id: project.id,
+                        }}
+                    />
                 </div>
-            ))}
-            <div className="my-12">
-                <IssueListPagination
-                    project={{
-                        id: project.id,
-                    }}
-                />
-            </div>
+            )}
         </div>
     )
 }

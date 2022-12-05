@@ -27,3 +27,26 @@ export function absoluteUrl(path: string) {
 export function capitalize(input: string) {
     return input.charAt(0).toUpperCase() + input.slice(1)
 }
+
+export function issueSearchString(
+    page: string | null | undefined,
+    search: string | null | undefined
+): string {
+    const searchWithOptionalPageParams = new URLSearchParams({
+        page,
+        search,
+    })
+
+    let keysForDel = []
+    searchWithOptionalPageParams.forEach((value, key) => {
+        if (value == "null") {
+            keysForDel.push(key)
+        }
+    })
+
+    keysForDel.forEach((key) => {
+        searchWithOptionalPageParams.delete(key)
+    })
+
+    return searchWithOptionalPageParams?.toString()
+}
