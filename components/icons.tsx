@@ -24,6 +24,7 @@ import {
     Star,
     Edit,
     X,
+    CircleDot,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
@@ -35,6 +36,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    circleDot: CircleDot,
     edit: Edit,
     logo: Bat,
     close: X,

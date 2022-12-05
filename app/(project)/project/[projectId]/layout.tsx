@@ -23,7 +23,7 @@ export default async function ProjectLayout({
     }
 
     const project = await getProject(params.projectId)
-    const githubIssues = await getRepoIssues(project.githubRepo.githubRepoId)
+    const githubIssues = await getRepoIssues(project.githubRepo.githubRepoId, 1)
 
     return (
         <>
@@ -59,7 +59,11 @@ export default async function ProjectLayout({
                     <div className="flex h-36 items-center border-b border-palette-300 bg-palette-400 z-10 relative px-4 lg:px-8">
                         <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 undefined">
                             <div className="flex items-center justify-between">
-                                <ProjectHeader user={user} />
+                                <ProjectHeader
+                                    project={{
+                                        id: project.id,
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>

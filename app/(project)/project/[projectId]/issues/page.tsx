@@ -2,13 +2,17 @@ import { notFound, redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
-import { getRepo, getRepoIssues } from "@/lib/github"
+import { getRepo, getRepoIssues, preloadRepoIssues } from "@/lib/github"
+import IssueList from "@/components/project/issue-list"
 interface ProjectPageProps {
     params: { projectId: string }
-    searchParams: { id: string }
+    searchParams: { id: string; page: number }
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectPage({
+    params,
+    searchParams,
+}: ProjectPageProps) {
     const user = await getCurrentUser()
 
     if (!user) {
@@ -16,11 +20,37 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     }
 
     const project = await getProject(params.projectId)
-    const issues = await getRepoIssues(project.githubRepo.githubRepoId)
+    const issues = await getRepoIssues(
+        project.githubRepo.githubRepoId,
+        searchParams.page ?? 1
+    )
 
     if (!project) {
         notFound()
     }
 
-    return <div>{JSON.stringify(issues)}</div>
+    preloadRepoIssues(
+        project.githubRepo.githubRepoId,
+        searchParams.page + 1 ?? 1
+    )
+
+    return (
+        <div>
+            <div className="w-full border border-raised-border rounded-md flex justify-center items-center p-4 flex-col gap-2 my-8">
+                <p className="text-brandtext-500 font-medium text-lg">
+                    Save time and import an existing Github issue.
+                </p>
+                <p className="text-brandtext-600 text-sm">
+                    Reference an open issue on your repository in a new bounty
+                </p>
+            </div>
+            <IssueList
+                page={searchParams.page}
+                project={{
+                    id: project.id,
+                }}
+                issues={issues}
+            />
+        </div>
+    )
 }

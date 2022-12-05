@@ -91,6 +91,7 @@ model ProjectInvite {
   createdAt DateTime @default(now())
 
   @@unique([email, projectId])
+  @@index([projectId])
 }
 
 model ProjectUsers {
@@ -105,6 +106,7 @@ model ProjectUsers {
   bountiesSeen BountySubmission[]
 
   @@unique([userId, projectId])
+  @@index([projectId])
 }
 
 enum ProjectUserRoles {
@@ -134,31 +136,38 @@ model Bounty {
   resolvedAt        DateTime?
   title             String
   description       String?            @db.LongText
+  content           Json?
   issueLink         String?
   bountyPrice       Float?
   deadline          DateTime?
+  published         Boolean            @default(false)
   resolved          Boolean            @default(false)
   project           Project            @relation(fields: [projectId], references: [id])
-  projectId         String             @unique
+  projectId         String
   bountySubmissions BountySubmission[]
   upvotes           Int                @default(0)
   downvotes         Int                @default(0)
   comments          Comment[]
+
+  @@index([projectId])
 }
 
 model BountySubmission {
   id           String         @id @default(cuid())
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  bounty       Bounty         @relation(fields: [bountyId], references: [id])
-  bountyId     String         @unique
+  bounty       Bounty         @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
+  bountyId     String
   solutionLink String?
   comments     String?
-  user         User           @relation(fields: [userId], references: [id])
-  userId       String         @unique
+  user         User           @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  userId       String
   accepted     Boolean        @default(false)
   hidden       Boolean        @default(false)
   seenBy       ProjectUsers[]
+
+  @@index([bountyId])
+  @@index([userId])
 }
 
 model Comment {
@@ -167,11 +176,13 @@ model Comment {
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @unique
-  bounty    Bounty   @relation(fields: [bountyId], references: [id])
-  bountyId  String   @unique
+  bounty    Bounty   @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
+  bountyId  String
   comment   String   @db.LongText
   upvotes   Int      @default(0)
   downvotes Int      @default(0)
   deleted   Boolean  @default(false)
   hidden    Boolean  @default(false)
+
+  @@index([bountyId])
 }

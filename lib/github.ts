@@ -78,14 +78,17 @@ export const getRepo = cache(
     }
 )
 
-export const preloadRepoIssues = (repoId: number) => {
-    void getRepoIssues(repoId)
+export const preloadRepoIssues = (repoId: number, page: number) => {
+    void getRepoIssues(repoId, page)
 }
 
 export const getRepoIssues = cache(
-    async (repoId: number): Promise<GithubIssue[]> => {
+    async (repoId: number, page: number): Promise<GithubIssue[]> => {
         //api.github.com/repos/DavidTParks/aws-crypto-dynamodb-lambda
-        const url = `${BASEURL}/repositories/${repoId}/issues`
+
+        const url = urlcat(`${BASEURL}/repositories/${repoId}/issues`, {
+            page,
+        })
 
         const user = await getCurrentUser()
         const userRecord = await db.account.findFirst({

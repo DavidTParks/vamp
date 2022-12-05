@@ -1,18 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { User } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { useSelectedLayoutSegment } from "next/navigation"
+import { TProject } from "./secondary-nav"
 
 interface ProjectHeaderProps {
-    user: User
+    project: TProject
 }
 
-export function ProjectHeader({ user }: ProjectHeaderProps) {
+export function ProjectHeader({ project }: ProjectHeaderProps) {
     const segment = useSelectedLayoutSegment()
-
-    console.log("Segment", segment)
 
     return (
         <>
@@ -21,7 +19,7 @@ export function ProjectHeader({ user }: ProjectHeaderProps) {
                     <h1 className="text-2xl font-medium text-brandtext-500">
                         Bounties
                     </h1>
-                    <Link href="/create">
+                    <Link href={`/project/${project.id}/create`}>
                         <Button>New Bounty</Button>
                     </Link>
                 </>
