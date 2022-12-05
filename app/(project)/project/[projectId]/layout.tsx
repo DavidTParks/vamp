@@ -48,7 +48,7 @@ export default async function ProjectLayout({
                             />
                         </div>
                         <ProjectSecondaryNav
-                            githubIssues={githubIssues}
+                            issueCount={githubIssues.total_count}
                             project={{
                                 id: project.id,
                             }}

@@ -287,3 +287,9 @@ export interface Reactions {
     rocket: number
     eyes: number
 }
+
+export interface GithubIssueSearch {
+    total_count: number
+    incomplete_results: boolean
+    items: GithubIssue[]
+}

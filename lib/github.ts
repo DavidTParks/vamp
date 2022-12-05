@@ -3,7 +3,7 @@ import "server-only"
 import urlcat from "urlcat"
 import { getCurrentUser } from "@/lib/session"
 import { db } from "./db"
-import { GithubRepository, GithubIssue } from "types"
+import { GithubRepository, GithubIssue, GithubIssueSearch } from "types"
 import { cache } from "react"
 import { GithubUser } from "types"
 
@@ -83,12 +83,17 @@ export const preloadRepoIssues = (repoId: number, page: string | number) => {
 }
 
 export const getRepoIssues = cache(
-    async (repoId: number, page: string | number): Promise<GithubIssue[]> => {
-        //api.github.com/repos/DavidTParks/aws-crypto-dynamodb-lambda
+    async (
+        repoId: number,
+        page: string | number
+    ): Promise<GithubIssueSearch> => {
+        const repo = await getRepo(repoId)
 
-        const url = urlcat(`${BASEURL}/repositories/${repoId}/issues`, {
-            page,
-        })
+        const queryString = encodeURIComponent(
+            `repo:${repo.full_name} is:open is:issue`
+        )
+
+        const url = `${BASEURL}/search/issues?q=${queryString}&page=${page}`
 
         const user = await getCurrentUser()
         const userRecord = await db.account.findFirst({

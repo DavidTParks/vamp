@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import EditorJS from "@editorjs/editorjs"
-import { Bounty } from "@prisma/client"
+import { Bounty, Project } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 import TextareaAutosize from "react-textarea-autosize"
@@ -16,11 +16,12 @@ import { Icons } from "@/components/icons"
 
 interface EditorProps {
     bounty: Pick<Bounty, "id" | "title" | "content" | "published">
+    project: Pick<Project, "id">
 }
 
 type FormData = z.infer<typeof bountyPatchSchema>
 
-export function Editor({ bounty }: EditorProps) {
+export function Editor({ bounty, project }: EditorProps) {
     const { register, handleSubmit } = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
     })
@@ -85,7 +86,7 @@ export function Editor({ bounty }: EditorProps) {
 
         const blocks = await ref.current.save()
 
-        const response = await fetch(`/api/posts/${bounty.id}`, {
+        const response = await fetch(`/api/bounties/${bounty.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -93,6 +94,7 @@ export function Editor({ bounty }: EditorProps) {
             body: JSON.stringify({
                 title: data.title,
                 content: blocks,
+                projectId: project.id,
             }),
         })
 
@@ -101,7 +103,7 @@ export function Editor({ bounty }: EditorProps) {
         if (!response?.ok) {
             return toast({
                 title: "Something went wrong.",
-                message: "Your post was not saved. Please try again.",
+                message: "Your bounty was not saved. Please try again.",
                 type: "error",
             })
         }
@@ -109,7 +111,7 @@ export function Editor({ bounty }: EditorProps) {
         router.refresh()
 
         return toast({
-            message: "Your post has been saved.",
+            message: "Your bounty has been saved.",
             type: "success",
         })
     }

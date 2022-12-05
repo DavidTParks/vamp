@@ -5,6 +5,7 @@ import { Button } from "@/ui/button"
 import { Icons } from "../icons"
 import IssueListPagination from "./issue-list-pagination"
 import { TProject } from "./secondary-nav"
+import { Skeleton } from "@/ui/skeleton"
 
 type TIssueList = {
     issues: GithubIssue[]

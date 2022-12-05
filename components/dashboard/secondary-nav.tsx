@@ -8,8 +8,6 @@ const activeClass = "border-fuchsia-600 text-white"
 export const DashboardSecondaryNav = () => {
     const segment = useSelectedLayoutSegment()
 
-    console.log("Segment", segment)
-
     return (
         <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
             <SecondaryLinkItem href="/dashboard" isActive={!segment}>
@@ -25,7 +23,20 @@ export const DashboardSecondaryNav = () => {
     )
 }
 
-export const SecondaryLinkItem = ({ children, isActive, href, ...props }) => {
+type TSecondaryLinkItem = {
+    children: React.ReactNode
+    badge?: React.ReactNode
+    isActive: boolean
+    href: string
+}
+
+export const SecondaryLinkItem = ({
+    children,
+    badge,
+    isActive,
+    href,
+    ...props
+}: TSecondaryLinkItem) => {
     return (
         <Link
             {...props}
@@ -35,8 +46,9 @@ export const SecondaryLinkItem = ({ children, isActive, href, ...props }) => {
             )}
             href={href}
         >
-            <div className="rounded-md px-3 py-2 ">
+            <div className="rounded-md px-3 py-2 inline-flex gap-2">
                 <p className="text-sm">{children}</p>
+                {badge}
             </div>
         </Link>
     )

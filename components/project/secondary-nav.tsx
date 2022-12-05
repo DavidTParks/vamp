@@ -3,19 +3,21 @@
 import { useSelectedLayoutSegment } from "next/navigation"
 import { Project } from "@prisma/client"
 import { SecondaryLinkItem } from "../dashboard/secondary-nav"
-import { GithubIssue } from "types"
+import { GithubIssue, GithubIssueSearch } from "types"
 
 export type TProject = Pick<Project, "id">
 
 type TProjectSecondaryNav = {
     project: TProject
-    githubIssues: GithubIssue[]
+    issueCount: number
 }
 export const ProjectSecondaryNav = ({
     project,
-    githubIssues,
+    issueCount,
 }: TProjectSecondaryNav) => {
     const segment = useSelectedLayoutSegment()
+
+    console.log("Issue count", issueCount)
 
     return (
         <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
@@ -26,15 +28,15 @@ export const ProjectSecondaryNav = ({
                 Bounties
             </SecondaryLinkItem>
             <SecondaryLinkItem
+                badge={
+                    <span className="inline-flex items-center rounded-full bg-palette-300 px-2.5 py-0.5 text-xs font-medium text-brandtext-500">
+                        {issueCount}
+                    </span>
+                }
                 href={`/project/${project.id}/issues`}
                 isActive={segment === "issues"}
             >
                 GitHub Issues
-                {/* {githubIssues?.length ? (
-                    <div className="inline-flex items-center rounded-md bg-palette-300 px-2.5 py-0.5 text-sm font-medium text-brandtext-300 ml-2">
-                        {githubIssues?.length}
-                    </div>
-                ) : null} */}
             </SecondaryLinkItem>
             <SecondaryLinkItem
                 href={`/project/${project.id}/settings`}

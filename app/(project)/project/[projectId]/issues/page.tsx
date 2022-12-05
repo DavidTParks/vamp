@@ -1,9 +1,10 @@
-import { notFound, redirect } from "next/navigation"
+import IssueList from "@/components/project/issue-list"
 import { authOptions } from "@/lib/auth"
+import { getRepoIssues, preloadRepoIssues } from "@/lib/github"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
-import { getRepo, getRepoIssues, preloadRepoIssues } from "@/lib/github"
-import IssueList from "@/components/project/issue-list"
+import { notFound, redirect } from "next/navigation"
+import IssueSearch from "@/components/project/issue-search"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string; page: string }
@@ -45,12 +46,13 @@ export default async function ProjectPage({
                     Reference an open issue on your repository in a new bounty
                 </p>
             </div>
+            <IssueSearch />
             <IssueList
                 page={searchParams.page}
                 project={{
                     id: project.id,
                 }}
-                issues={issues}
+                issues={issues.items}
             />
         </div>
     )

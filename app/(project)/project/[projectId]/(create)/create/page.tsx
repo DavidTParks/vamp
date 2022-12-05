@@ -1,14 +1,10 @@
 import { redirect } from "next/navigation"
 
-import GithubRepoList from "@/components/dashboard/github-repo-list"
-import { Icons } from "@/components/icons"
-import { authOptions } from "@/lib/auth"
-import { getCurrentUser } from "@/lib/session"
-import { Button } from "@/ui/button"
-import { Headline } from "@/ui/headline"
-import Link from "next/link"
 import { Editor } from "@/components/create/editor"
+import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
+import project from "pages/api/project"
 
 interface ProjectPageProps {
     params: { projectId: string }
@@ -39,6 +35,9 @@ export default async function CreatePage({
     return (
         <div className="max-w-lg mx-auto w-full">
             <Editor
+                project={{
+                    id: project.id,
+                }}
                 bounty={{
                     id: bounty.id,
                     title: bounty.title,
