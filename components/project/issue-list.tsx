@@ -18,7 +18,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
         <div className="flex flex-col relative divide-y divide-palette-300">
             {issues?.map((issue) => (
                 <div
-                    className="p-4 pr-0 pl-0 flex justify-between items-center"
+                    className="p-4 pr-0 pl-0 flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0"
                     key={issue.id}
                 >
                     <div className="flex items-center gap-2">
