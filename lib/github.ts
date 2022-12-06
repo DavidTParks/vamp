@@ -65,6 +65,7 @@ export const preloadRepoIssues = (
     page: string | number,
     search: string | null
 ) => {
+    console.log("Preloading", repoId, page, search)
     void getRepoIssues(repoId, page, search)
 }
 

@@ -234,7 +234,7 @@ export interface GithubIssue {
     node_id: string
     number: number
     title: string
-    user: User
+    user: GithubUser
     labels: any[]
     state: string
     locked: boolean
@@ -254,7 +254,7 @@ export interface GithubIssue {
     state_reason: any
 }
 
-export interface User {
+export interface GithubUser {
     login: string
     id: number
     node_id: string
