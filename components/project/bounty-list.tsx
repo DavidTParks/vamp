@@ -1,8 +1,10 @@
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { formatDate, formatDollars } from "@/lib/utils"
+import { Button } from "@/ui/button"
 import { Bounty } from "@prisma/client"
-import Link from "next/link"
-import { Icons } from "../icons"
 import { TProject } from "./secondary-nav"
+import { Icons } from "../icons"
+import { BountyOperations } from "./bounty-operations"
 
 type TBountyList = {
     bounties: Bounty[]
@@ -11,42 +13,117 @@ type TBountyList = {
 }
 
 export default function BountyList({ bounties, project, page }: TBountyList) {
+    const draftCount = bounties.filter(
+        (bounty) => bounty.published === false
+    ).length
+
+    const activeCount = bounties.filter(
+        (bounty) => bounty.published === true && bounty.resolved === false
+    ).length
+
     return (
-        <div className="flex flex-col relative divide-y divide-palette-300">
-            {bounties?.length ? (
-                <>
-                    {bounties?.map((bounty) => (
-                        <div
-                            className="p-4 pr-0 pl-0 flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0"
-                            key={bounty.id}
-                        >
-                            <div className="flex items-center gap-2">
-                                <Icons.circleDot
-                                    size={16}
-                                    className="text-green-400"
+        <>
+            <div className="divide-y divide-raised-border rounded-md overflow-hidden border border-raised-border">
+                <div className="flex items-center p-6 py-3 gap-6 bg-raised">
+                    <Button
+                        size="noPadding"
+                        intent="tertiary"
+                        className="text-white inline-flex gap-1 items-center"
+                    >
+                        <Icons.edit2 size={16} className="text-brandtext-600" />
+                        <span className="text-sm text-brandtext-600">
+                            {draftCount} Drafts
+                        </span>
+                    </Button>
+                    <Button
+                        size="noPadding"
+                        intent="tertiary"
+                        className="text-white inline-flex gap-1 items-center"
+                    >
+                        <Icons.circleDot
+                            size={16}
+                            className="text-brandtext-600"
+                        />
+                        <span className="text-sm text-brandtext-600">
+                            {activeCount} Active
+                        </span>
+                    </Button>
+                    <Button
+                        size="noPadding"
+                        intent="tertiary"
+                        className="text-white inline-flex gap-1 items-center"
+                    >
+                        <Icons.check size={16} className="text-brandtext-600" />
+                        <span className="text-sm text-brandtext-600">
+                            {activeCount} Resolved
+                        </span>
+                    </Button>
+                </div>
+                {bounties?.map((bounty) => (
+                    <div
+                        className=" hover:bg-palette-150 cursor-pointer"
+                        key={bounty.id}
+                    >
+                        <h3 className="sr-only">
+                            Bounty placed on{" "}
+                            <time dateTime={bounty.createdAt.toString()}>
+                                {formatDate(bounty.createdAt.toString())}
+                            </time>
+                        </h3>
+                        <div className="flex items-center p-4 pb-0 sm:grid sm:grid-cols-4 sm:gap-x-6 sm:p-6">
+                            <dl className="grid flex-1 grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-3">
+                                <div className="flex gap-4">
+                                    <Icons.edit2
+                                        size={24}
+                                        className="text-yellow-600 mt-2"
+                                    />
+                                    <div>
+                                        <dt className="font-medium text-brandtext-600">
+                                            Bounty
+                                        </dt>
+                                        <dd className="mt-1 text-brandtext-500">
+                                            {bounty.title}
+                                        </dd>
+                                    </div>
+                                </div>
+                                <div className="hidden sm:block">
+                                    <dt className="font-medium text-brandtext-600">
+                                        Date placed
+                                    </dt>
+                                    <dd className="mt-1 text-brandtext-500">
+                                        <time
+                                            dateTime={bounty.createdAt.toString()}
+                                        >
+                                            {formatDate(
+                                                bounty.createdAt.toString()
+                                            )}
+                                        </time>
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt className="font-medium text-brandtext-600">
+                                        Bounty reward
+                                    </dt>
+                                    <dd className="mt-1 text-brandtext-500">
+                                        {formatDollars(bounty.bountyPrice)}
+                                    </dd>
+                                </div>
+                            </dl>
+                            <div className="flex justify-end w-full">
+                                <BountyOperations
+                                    project={{
+                                        id: project.id,
+                                    }}
+                                    bounty={{
+                                        id: bounty.id,
+                                        title: bounty.title,
+                                    }}
                                 />
-                                <Link
-                                    href={`/project/${project.id}/bounty/${bounty.id}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="text-white font-medium text-sm hover:underline max-w-[128px] md:max-w-[256px] truncate"
-                                >
-                                    {bounty.title}
-                                </Link>
                             </div>
                         </div>
-                    ))}
-                </>
-            ) : (
-                <EmptyPlaceholder>
-                    <EmptyPlaceholder.Icon name="gitHub" />
-                    <EmptyPlaceholder.Title>No issues</EmptyPlaceholder.Title>
-                    <EmptyPlaceholder.Description>
-                        This Github repository does not have any issues, or any
-                        issues that match this search query.
-                    </EmptyPlaceholder.Description>
-                </EmptyPlaceholder>
-            )}
-        </div>
+                    </div>
+                ))}
+            </div>
+        </>
     )
 }

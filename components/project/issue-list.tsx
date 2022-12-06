@@ -16,11 +16,14 @@ type TIssueList = {
 
 export default function IssueList({ issues, project, page }: TIssueList) {
     return (
-        <div className="flex flex-col relative divide-y divide-palette-300">
+        <ul
+            role="list"
+            className="flex flex-col relative divide-y divide-palette-300"
+        >
             {issues?.items?.length ? (
                 <>
                     {issues?.items?.map((issue) => (
-                        <div className="p-4 pr-0 pl-0" key={issue.id}>
+                        <li className="p-4 pr-0 pl-0" key={issue.id}>
                             <div className="flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0">
                                 <div className="flex items-center gap-2">
                                     <Icons.circleDot
@@ -69,7 +72,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                                     {dateToNow(new Date(issue.updated_at))} ago
                                 </p>
                             </div>
-                        </div>
+                        </li>
                     ))}
                 </>
             ) : (
@@ -92,6 +95,6 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                     />
                 </div>
             )}
-        </div>
+        </ul>
     )
 }

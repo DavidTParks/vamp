@@ -60,12 +60,12 @@ export function BountyCreateButton({
         router.refresh()
 
         toast({
-            title: "Bounty draft created from issue",
+            title: "Bounty initialized",
             message: "Redirecting...",
             type: "success",
         })
 
-        router.push(`/project/${project.id}/bounty/${bounty.id}`)
+        router.push(`/bounty/${bounty.id}/edit`)
     }
 
     return (

@@ -44,7 +44,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.json(bounty)
         } catch (error) {
-            console.log("Error", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }

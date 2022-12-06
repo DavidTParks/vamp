@@ -3,27 +3,27 @@
 import Link from "next/link"
 import * as React from "react"
 
-import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Icons } from "@/components/icons"
 import { MobileNav } from "@/components/mobile-nav"
 import { Button } from "@/ui/button"
+import { Project } from "@prisma/client"
+import Image from "next/image"
 import { MainNavItem } from "types"
-import { TUser } from "./user-account-nav"
 
 interface MainNavProps {
     items?: MainNavItem[]
     children?: React.ReactNode
-    user: TUser
+    project: Pick<Project, "id" | "name">
 }
 
-export function DashboardNav({ items, children, user }: MainNavProps) {
+export function ProjectNav({ items, children, project }: MainNavProps) {
     const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
             <div className=" gap-4 items-center hidden md:flex">
                 <Link
-                    href="/"
+                    href="/dashboard"
                     className="hidden items-center space-x-2 md:flex text-2xl"
                 >
                     <Icons.logo size={32} color="white" />
@@ -43,14 +43,16 @@ export function DashboardNav({ items, children, user }: MainNavProps) {
                     <path d="M16.88 3.549L7.12 20.451"></path>
                 </svg>
                 <div className="flex items-center gap-4 w-56">
-                    <div className="w-8 h-8">
-                        <UserAvatar
-                            user={{ name: user.name, image: user.image }}
+                    <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                        <Image
+                            fill={true}
+                            alt="Avatar"
+                            src={`https://avatar.vercel.sh/${project.id}`}
                         />
                     </div>
                     <span className="text-sm text-brandtext-500 truncate">
                         {" "}
-                        {user.email}
+                        {project.name}
                     </span>
                 </div>
             </div>

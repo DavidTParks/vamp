@@ -44,10 +44,13 @@ export default withAuth(
 
 export const config = {
     matcher: [
+        "/bounty/:path*",
+        "/project/:path*",
         "/dashboard/:path*",
         "/editor/:path*",
         "/login",
         "/register",
         "/new",
+        "/new/:path*",
     ],
 }

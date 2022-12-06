@@ -28,14 +28,12 @@ export default async function handler(
             process.env.STRIPE_WEBHOOK_SECRET
         )
     } catch (error) {
-        console.log("error", error)
         return res.status(400).send(`Webhook Error: ${error.message}`)
     }
 
     const session = event.data.object as Stripe.Account
 
     if (event.type === "account.updated") {
-        console.log("Account updated triggers", session)
         // Retrieve the subscription details from Stripe.
         const account = await stripe.accounts.retrieve(session.id)
 

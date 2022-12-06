@@ -15,15 +15,17 @@ import { useRouter } from "next/navigation"
 import { bountyPatchSchema } from "@/lib/validations/bounty"
 import { toast } from "@/ui/toast"
 import { Icons } from "@/components/icons"
+import { Button } from "@/ui/button"
 
 interface EditorProps {
-    bounty: Pick<Bounty, "id" | "title" | "content" | "published">
-    project: Pick<Project, "id">
+    bounty: Pick<Bounty, "id" | "title" | "content" | "published"> & {
+        project: Pick<Project, "id">
+    }
 }
 
 type FormData = z.infer<typeof bountyPatchSchema>
 
-export function Editor({ bounty, project }: EditorProps) {
+export function Editor({ bounty }: EditorProps) {
     const { register, handleSubmit } = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
     })
@@ -99,7 +101,7 @@ export function Editor({ bounty, project }: EditorProps) {
             body: JSON.stringify({
                 title: data.title,
                 content: blocks,
-                projectId: project.id,
+                projectId: bounty,
             }),
         })
 
@@ -141,15 +143,12 @@ export function Editor({ bounty, project }: EditorProps) {
                         </Link>
                         <p className="text-sm text-slate-600">Draft</p>
                     </div>
-                    <button
-                        type="submit"
-                        className="relative inline-flex h-9 items-center rounded-md border border-transparent bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
-                    >
+                    <Button type="submit" intent="secondary">
                         {isSaving && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         <span>Save</span>
-                    </button>
+                    </Button>
                 </div>
                 <div className="prose prose-white text-white mx-auto w-[800px]">
                     <TextareaAutosize

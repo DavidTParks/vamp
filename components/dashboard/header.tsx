@@ -1,14 +1,10 @@
 "use client"
 
-import Link from "next/link"
-import { User } from "@/lib/session"
 import { Button } from "@/ui/button"
+import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
-interface DashboardHeaderProps {
-    user: User
-}
 
-export function DashboardHeader({ user }: DashboardHeaderProps) {
+export function DashboardHeader() {
     const segment = useSelectedLayoutSegment()
 
     return (

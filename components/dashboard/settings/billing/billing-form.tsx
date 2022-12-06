@@ -86,8 +86,6 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
         }
 
         const stripeAccountLink = await response.json()
-
-        console.log("Stripe account link")
     }
 
     const isStripeLinked = !!user.stripeCustomerId

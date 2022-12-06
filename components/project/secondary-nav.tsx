@@ -17,8 +17,6 @@ export const ProjectSecondaryNav = ({
 }: TProjectSecondaryNav) => {
     const segment = useSelectedLayoutSegment()
 
-    console.log("Issue count", issueCount)
-
     return (
         <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
             <SecondaryLinkItem

@@ -48,7 +48,7 @@ export default async function DashboardLayout({
                     <div className="flex h-36 items-center border-b border-palette-300 bg-palette-400 z-10 relative px-4 lg:px-8">
                         <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 undefined">
                             <div className="flex items-center justify-between">
-                                <DashboardHeader user={user} />
+                                <DashboardHeader />
                             </div>
                         </div>
                     </div>

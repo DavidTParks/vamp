@@ -21,10 +21,12 @@ import {
     Trash,
     Twitter,
     ChevronLast,
+    Edit2,
     User,
     Star,
     Edit,
     X,
+    Aperture,
     CircleDot,
 } from "lucide-react"
 
@@ -37,8 +39,10 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    active: Aperture,
     circleDot: CircleDot,
     edit: Edit,
+    edit2: File,
     logo: Bat,
     close: X,
     search: Search,

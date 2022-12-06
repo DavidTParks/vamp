@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/ui/button"
 import { useSelectedLayoutSegment } from "next/navigation"
 import { TProject } from "./secondary-nav"
+import { BountyCreateButton } from "./bounty-create-button"
 
 interface ProjectHeaderProps {
     project: TProject
@@ -12,6 +13,8 @@ interface ProjectHeaderProps {
 export function ProjectHeader({ project }: ProjectHeaderProps) {
     const segment = useSelectedLayoutSegment()
 
+    console.log("Segment", segment)
+
     return (
         <>
             {!segment ? (
@@ -19,9 +22,11 @@ export function ProjectHeader({ project }: ProjectHeaderProps) {
                     <h1 className="text-2xl font-medium text-brandtext-500">
                         Bounties
                     </h1>
-                    <Link href={`/project/${project.id}/create`}>
-                        <Button>New Bounty</Button>
-                    </Link>
+                    <BountyCreateButton
+                        project={{
+                            id: project.id,
+                        }}
+                    />
                 </>
             ) : null}
 
@@ -37,6 +42,14 @@ export function ProjectHeader({ project }: ProjectHeaderProps) {
                 <>
                     <h1 className="text-2xl font-medium text-brandtext-500">
                         Settings
+                    </h1>
+                </>
+            ) : null}
+
+            {segment === "bounty" ? (
+                <>
+                    <h1 className="text-2xl font-medium text-brandtext-500">
+                        Edit Bounty
                     </h1>
                 </>
             ) : null}

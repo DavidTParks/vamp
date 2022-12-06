@@ -8,6 +8,7 @@ import { ProjectHeader } from "@/components/project/header"
 import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
 import { getProject } from "@/lib/projects"
 import { getRepoIssues, preloadRepoIssues } from "@/lib/github"
+import { ProjectNav } from "@/components/project/project-nav"
 
 export default async function ProjectLayout({
     children,
@@ -35,11 +36,10 @@ export default async function ProjectLayout({
                 <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                     <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                         <div className="flex h-16 items-center justify-between">
-                            <DashboardNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
+                            <ProjectNav
+                                project={{
+                                    name: project.name,
+                                    id: project.id,
                                 }}
                                 items={dashboardConfig.mainNav}
                             />

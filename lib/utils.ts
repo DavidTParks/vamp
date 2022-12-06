@@ -15,6 +15,15 @@ export function formatDate(input: string | number): string {
     })
 }
 
+export function formatDollars(input: number): string {
+    const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "narrowSymbol",
+    }).format(input)
+    return formatted
+}
+
 export function dateToNow(input: number | Date): string {
     return formatDistanceToNow(input)
 }

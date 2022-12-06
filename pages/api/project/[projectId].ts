@@ -7,7 +7,6 @@ import { db } from "@/lib/db"
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "DELETE") {
         try {
-            console.log()
             await db.project.delete({
                 where: {
                     id: req.query.projectId as string,
@@ -16,7 +15,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.status(204).end()
         } catch (error) {
-            console.log("Error", error)
             return res.status(500).end()
         }
     }

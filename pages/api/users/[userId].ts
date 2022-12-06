@@ -9,7 +9,6 @@ import { userNameSchema } from "@/lib/validations/user"
 import { authOptions } from "@/lib/auth"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    console.log("Have session")
     if (req.method === "PATCH") {
         try {
             const session = await unstable_getServerSession(

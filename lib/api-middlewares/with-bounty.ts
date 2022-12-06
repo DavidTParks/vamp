@@ -36,8 +36,6 @@ export function withBounty(handler: NextApiHandler) {
                 },
             })
 
-            console.log("count", count)
-
             if (count < 1) {
                 return res.status(403).end()
             }
