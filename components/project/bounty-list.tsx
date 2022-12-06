@@ -70,23 +70,32 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                                 {formatDate(bounty.createdAt.toString())}
                             </time>
                         </h3>
-                        <div className="flex items-center p-4 pb-0 sm:grid sm:grid-cols-4 sm:gap-x-6 sm:p-6">
-                            <dl className="grid flex-1 grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-3">
+                        <div className="flex items-center p-4 pb-4 sm:pb-0 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6">
+                            <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
                                 <div className="flex gap-4">
-                                    <Icons.edit2
-                                        size={24}
-                                        className="text-yellow-600 mt-2"
-                                    />
+                                    <div className="flex-shrink-0 hidden sm:block">
+                                        <Icons.edit2
+                                            size={24}
+                                            className="text-yellow-600 mt-2"
+                                        />
+                                    </div>
+
                                     <div>
                                         <dt className="font-medium text-brandtext-600">
-                                            Bounty
+                                            Bounty{" "}
+                                            {!bounty.published &&
+                                            !bounty.resolved
+                                                ? "(Draft)"
+                                                : null}
                                         </dt>
-                                        <dd className="mt-1 text-brandtext-500">
-                                            {bounty.title}
+                                        <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
+                                            <span className=" line-clamp-1 flex">
+                                                {bounty.title}
+                                            </span>
                                         </dd>
                                     </div>
                                 </div>
-                                <div className="hidden sm:block">
+                                <div>
                                     <dt className="font-medium text-brandtext-600">
                                         Date placed
                                     </dt>
@@ -101,25 +110,27 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                                     </dd>
                                 </div>
                                 <div>
-                                    <dt className="font-medium text-brandtext-600">
-                                        Bounty reward
-                                    </dt>
-                                    <dd className="mt-1 text-brandtext-500">
-                                        {formatDollars(bounty.bountyPrice)}
-                                    </dd>
+                                    <div>
+                                        <dt className="font-medium text-brandtext-600">
+                                            Bounty reward
+                                        </dt>
+                                        <dd className="mt-1 text-brandtext-500">
+                                            {formatDollars(bounty.bountyPrice)}
+                                        </dd>
+                                    </div>
+                                </div>
+                                <div className="flex-shrink-0 items-center hidden sm:inline-flex w-full">
+                                    <BountyOperations
+                                        project={{
+                                            id: project.id,
+                                        }}
+                                        bounty={{
+                                            id: bounty.id,
+                                            title: bounty.title,
+                                        }}
+                                    />
                                 </div>
                             </dl>
-                            <div className="flex justify-end w-full">
-                                <BountyOperations
-                                    project={{
-                                        id: project.id,
-                                    }}
-                                    bounty={{
-                                        id: bounty.id,
-                                        title: bounty.title,
-                                    }}
-                                />
-                            </div>
                         </div>
                     </div>
                 ))}

@@ -132,14 +132,11 @@ export function Editor({ bounty }: EditorProps) {
             <div className="grid w-full gap-10">
                 <div className="flex w-full items-center justify-between">
                     <div className="flex items-center space-x-10">
-                        <Link
-                            href="/dashboard"
-                            className="inline-flex items-center rounded-lg border border-transparent bg-transparent py-2 pl-3 pr-5 text-sm font-medium text-slate-900 hover:border-slate-200 hover:bg-slate-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white dark:focus:ring-slate-700"
-                        >
-                            <>
+                        <Link href={`/project/${bounty.project.id}`}>
+                            <Button intent="tertiary">
                                 <Icons.chevronLeft className="mr-2 h-4 w-4" />
                                 Back
-                            </>
+                            </Button>
                         </Link>
                         <p className="text-sm text-slate-600">Draft</p>
                     </div>
