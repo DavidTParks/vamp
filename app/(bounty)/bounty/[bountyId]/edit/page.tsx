@@ -55,7 +55,7 @@ export default async function CreatePage({
                     </div>
                 </div>
             </header>
-            <main className=" px-4 lg:px-8 z-10">
+            <main className=" px-4 lg:px-8 z-10 mt-12">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
                     <div className="max-w-lg mx-auto w-full">
                         <Editor

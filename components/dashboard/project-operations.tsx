@@ -57,7 +57,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                     <DropdownMenu.Content className="mt-2 z-50 dropdown">
                         <DropdownMenu.Item>
                             <Link
-                                href={`/editor/${project.id}`}
+                                href={`/project/${project.id}/settings`}
                                 className="flex w-full"
                             >
                                 Edit

@@ -16,6 +16,7 @@ import { bountyPatchSchema } from "@/lib/validations/bounty"
 import { toast } from "@/ui/toast"
 import { Icons } from "@/components/icons"
 import { Button } from "@/ui/button"
+import { getBaseUrl } from "@/lib/utils"
 
 interface EditorProps {
     bounty: Pick<Bounty, "id" | "title" | "content" | "published"> & {
@@ -59,7 +60,7 @@ export function Editor({ bounty }: EditorProps) {
                     linkTool: {
                         class: LinkTool,
                         config: {
-                            endpoint: "http://localhost:3001/api/edge/metatags", // Your backend endpoint for url data fetching,
+                            endpoint: `${getBaseUrl()}/api/edge/metatags`, // Your backend endpoint for url data fetching,
                         },
                     },
                     list: List,
@@ -147,14 +148,14 @@ export function Editor({ bounty }: EditorProps) {
                         <span>Save</span>
                     </Button>
                 </div>
-                <div className="prose prose-white text-white mx-auto w-[800px]">
+                <div className="prose prose-white text-white mx-auto w-full">
                     <TextareaAutosize
                         autoFocus
                         name="title"
                         id="title"
                         defaultValue={bounty.title}
-                        placeholder="Post title"
-                        className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none bg-appbg border-transparent form-textarea text-white"
+                        placeholder="Bounty title"
+                        className="w-full resize-none appearance-none overflow-hidden text-2xl font-bold focus:outline-none bg-appbg border-transparent form-textarea p-0 focus:ring-0 focus:outline-none focus:ring-none text-white focus:border-fuchsia-500 rounded-md"
                         {...register("title")}
                     />
                     <div id="editor" className="min-h-[500px]" />

@@ -13,9 +13,11 @@
 .cdx-input,
 .link-tool__content,
 .link-tool__content--rendered,
+.ce-code__textarea,
+.cdx-input,
 .ce-toolbar__plus:hover {
-    position: relative;
-    @apply dropdown;
+    /* position: relative; */
+    @apply dropdown !important;
     color: inherit;
 }
 
@@ -63,7 +65,8 @@
     background-color: rgba(29, 30, 43, 0.498);
 }
 
-.cdx-search-field {
+.cdx-search-field,
+.ce-code__textarea {
     @apply bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-fuchsia-500;
 }
 
