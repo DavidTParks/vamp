@@ -6,6 +6,7 @@ import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
+import { getBaseUrl } from "@/lib/utils"
 
 export type returnUrlQueryParams =
     | "create"
@@ -14,7 +15,6 @@ export type returnUrlQueryParams =
     | null
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    console.log("Have session")
     if (req.method === "GET") {
         try {
             const session = await unstable_getServerSession(
@@ -34,10 +34,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             if (userAccount?.stripeCustomerId) {
                 const accountLink = await stripe.accountLinks.create({
                     account: userAccount?.stripeCustomerId,
-                    refresh_url:
-                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountUpdate",
-                    return_url:
-                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountUpdate",
+                    refresh_url: `${getBaseUrl()}/dashboard/settings/billing?from=stripeAccountUpdate`,
+                    return_url: `${getBaseUrl()}/dashboard/settings/billing?from=stripeAccountUpdate`,
                     type: "account_onboarding",
                 })
                 res.json(accountLink)
@@ -52,10 +50,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url:
-                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountCreation",
-                    return_url:
-                        "http://localhost:3000/dashboard/settings/billing?from=stripeAccountCreation",
+                    refresh_url: `${getBaseUrl()}/dashboard/settings/billing?from=stripeAccountCreation`,
+                    return_url: `${getBaseUrl()}/dashboard/settings/billing?from=stripeAccountCreation`,
                     type: "account_onboarding",
                 })
                 res.json(accountLink)

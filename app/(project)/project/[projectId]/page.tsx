@@ -8,6 +8,7 @@ import { Button } from "@/ui/button"
 import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
 import { BountyCreateButton } from "@/components/project/bounty-create-button"
+import BountyList from "@/components/project/bounty-list"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string }
@@ -35,9 +36,12 @@ export default async function ProjectPage({
         <DashboardShell>
             <div className="mt-12">
                 {bounties.length ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                        Bounties
-                    </div>
+                    <BountyList
+                        project={{
+                            id: project.id,
+                        }}
+                        bounties={bounties}
+                    />
                 ) : (
                     <EmptyPlaceholder>
                         <EmptyPlaceholder.Icon name="logo" />

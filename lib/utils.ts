@@ -1,7 +1,6 @@
 import { ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { string } from "zod"
 import { formatDistanceToNow } from "date-fns"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -71,4 +70,22 @@ export const getDomainWithoutWWW = (url: string) => {
     } catch (e) {
         return null
     }
+}
+
+export function getBaseUrl() {
+    if (typeof window !== "undefined") {
+        return ""
+    }
+    // reference for vercel.com
+    if (process.env.VERCEL_URL) {
+        return `https://${process.env.VERCEL_URL}`
+    }
+
+    // // reference for render.com
+    if (process.env.RENDER_INTERNAL_HOSTNAME) {
+        return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
+    }
+
+    // assume localhost
+    return `http://localhost:${process.env.PORT ?? 3000}`
 }

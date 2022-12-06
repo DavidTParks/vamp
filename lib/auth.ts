@@ -1,9 +1,7 @@
+import { db } from "@/lib/db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
-
-import { db } from "@/lib/db"
-import { getGithubUser } from "./github"
 
 export const authOptions: NextAuthOptions = {
     // huh any! I know.
@@ -23,8 +21,9 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async session({ token, session }) {
+        async session({ token, session, user }) {
             if (token) {
+                session.user.accessToken = token.accessToken
                 session.user.id = token.id
                 session.user.name = token.name
                 session.user.email = token.email
@@ -38,6 +37,9 @@ export const authOptions: NextAuthOptions = {
                 where: {
                     email: token.email,
                 },
+                include: {
+                    accounts: true,
+                },
             })
 
             if (!dbUser) {
@@ -45,11 +47,16 @@ export const authOptions: NextAuthOptions = {
                 return token
             }
 
+            const accessToken = dbUser.accounts.find(
+                (account) => account.access_token
+            )?.access_token
+
             return {
                 id: dbUser.id,
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image,
+                accessToken,
             }
         },
     },
