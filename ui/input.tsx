@@ -45,7 +45,7 @@ export function Input({
                 )}
                 <input
                     {...register(name)}
-                    className={cn(className, inputStyles({ intent }))}
+                    className={cn(inputStyles({ intent }), className)}
                     {...props}
                 />
             </div>

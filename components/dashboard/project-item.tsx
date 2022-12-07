@@ -39,7 +39,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                                 <Image
                                     fill={true}
                                     alt="Avatar"
-                                    src={`https://avatar.vercel.sh/${projectUser.project.id}`}
+                                    src={`https://avatar.vercel.sh/${projectUser.project.name}${projectUser.project.id}`}
                                 />
                             </div>
                             <div className="flex flex-col gap-2">

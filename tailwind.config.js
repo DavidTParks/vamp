@@ -28,6 +28,7 @@ module.exports = {
             colors: {
                 ...colors,
                 appbg: "#14141b",
+                toolbar: "#161721",
                 palette: {
                     100: "#232530",
                     150: "#1e1e26",

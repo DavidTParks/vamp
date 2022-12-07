@@ -3,6 +3,7 @@ import localFont from "@next/font/local"
 import "./globals.css"
 import { Toaster } from "@/ui/toast"
 import { cn } from "@/lib/utils"
+import { SiteFooter } from "@/components/site-footer"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",

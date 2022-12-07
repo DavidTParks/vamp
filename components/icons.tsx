@@ -28,17 +28,45 @@ import {
     X,
     Aperture,
     CircleDot,
+    Bold,
+    Italic,
+    Strikethrough,
+    Code,
+    Pilcrow,
+    List,
+    ListOrdered,
+    CurlyBraces,
+    Quote,
+    SeparatorHorizontal,
+    WrapText,
+    Undo2,
+    Redo2,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
 
 import { GiBat as Bat } from "react-icons/gi"
 
+import { FaMarkdown } from "react-icons/fa"
+
 import type { Icon as LucideIcon } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+    redo: Redo2,
+    undo: Undo2,
+    wrapText: WrapText,
+    separator: SeparatorHorizontal,
+    quote: Quote,
+    curlyBraces: CurlyBraces,
+    orderedList: ListOrdered,
+    list: List,
+    paragraph: Pilcrow,
+    code: Code,
+    strikeThrough: Strikethrough,
+    bold: Bold,
+    italic: Italic,
     active: Aperture,
     circleDot: CircleDot,
     edit: Edit,
@@ -57,6 +85,7 @@ export const Icons = {
     billing: CreditCard,
     ellipsis: MoreVertical,
     add: Plus,
+    markdown: FaMarkdown,
     warning: AlertTriangle,
     user: User,
     arrowRight: ArrowRight,
