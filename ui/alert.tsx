@@ -91,6 +91,10 @@ Alert.Cancel = React.forwardRef<
 >(function AlertCancel({ className, children, ...props }, ref) {
     return (
         <AlertDialogPrimitives.Cancel
+            onClick={(e) => {
+                e.stopPropagation()
+                e.nativeEvent.stopImmediatePropagation()
+            }}
             className={className}
             ref={ref}
             {...props}

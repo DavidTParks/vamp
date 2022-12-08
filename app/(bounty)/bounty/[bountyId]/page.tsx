@@ -18,6 +18,13 @@ import Paragraph from "@tiptap/extension-paragraph"
 import Text from "@tiptap/extension-text"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
+import { Chip } from "@/ui/chip"
+import project from "pages/api/project"
+import { KeyValue } from "@/ui/keyvalue"
+import { formatDate } from "@/lib/utils"
+import { ExternalLink } from "@/ui/external-link"
+import { formatDollars } from "@/lib/utils"
+import { getRepo } from "@/lib/github"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -39,9 +46,14 @@ export default async function CreatePage({
             id: params.bountyId,
         },
         include: {
-            project: true,
+            project: {
+                include: {
+                    githubRepo: true,
+                },
+            },
         },
     })
+    const repo = await getRepo(bounty.project.githubRepo.githubRepoId)
 
     return (
         <div className="mx-auto flex flex-col min-h-screen relative">
@@ -66,23 +78,79 @@ export default async function CreatePage({
                 </div>
             </header>
             <main className=" px-4 lg:px-8 z-10 mt-12">
-                <div className="mx-auto max-w-screen-xl px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
-                    <div className="max-w-2xl mx-auto w-full prose prose-invert">
-                        <h1>{bounty.title}</h1>
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: generateHTML(
-                                    bounty.content as JSONContent,
-                                    [
-                                        StarterKit,
-                                        Document,
-                                        Paragraph,
-                                        Text,
-                                        // other extensions …
-                                    ]
-                                ),
-                            }}
-                        ></div>
+                <div className="mx-auto max-w-screen-xl px-2.5 flex w-full flex-1 flex-col overflow-hidden">
+                    <div className="max-w-4xl mx-auto w-full">
+                        <div className="lg:flex">
+                            <div className="relative w-full lg:w-8/12 lg:pr-5">
+                                <Link href={`/project/${bounty.project.id}`}>
+                                    <Button
+                                        intent="tertiary"
+                                        className="inline-flex items-center justify-start gap-2 mb-8"
+                                        size="small"
+                                    >
+                                        <Icons.chevronLeft size={16} />
+                                        Back
+                                    </Button>
+                                </Link>
+                                <div className="text-brandtext-500 font-bold break-words text-xl leading-8 sm:text-2xl font-display">
+                                    <h1>{bounty.title}</h1>
+                                </div>
+                                <div className="my-8 inline-flex items-center gap-4">
+                                    <Chip intent="green">Open</Chip>
+                                    <ExternalLink href={repo.html_url}>
+                                        <Chip
+                                            className="inline-flex gap-2 items-center"
+                                            intent="default"
+                                        >
+                                            <Icons.gitHub size={16} />
+                                            {bounty.project.name}
+                                        </Chip>
+                                    </ExternalLink>
+                                </div>
+                                <div
+                                    className="prose prose-md prose-invert"
+                                    dangerouslySetInnerHTML={{
+                                        __html: generateHTML(
+                                            bounty.content as JSONContent,
+                                            [
+                                                StarterKit,
+                                                Document,
+                                                Paragraph,
+                                                Text,
+                                                // other extensions …
+                                            ]
+                                        ),
+                                    }}
+                                ></div>
+                            </div>
+                            <div className="w-full lg:w-4/12 lg:min-w-[321px]">
+                                <div className="border border-raised-border rounded-lg col-span-4">
+                                    <div className="p-4 border-b border-raised-border">
+                                        <p className="text-brandtext-500 font-bold text-lg">
+                                            Information
+                                        </p>
+                                    </div>
+                                    <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col">
+                                        <KeyValue
+                                            label="Project"
+                                            value={repo.name}
+                                        />
+                                        <KeyValue
+                                            label="Opened"
+                                            value={formatDate(
+                                                bounty.project.createdAt?.toString()
+                                            )}
+                                        />
+                                        <KeyValue
+                                            label="Bounty"
+                                            value={formatDollars(
+                                                bounty.bountyPrice
+                                            )}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

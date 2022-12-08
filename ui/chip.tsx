@@ -1,0 +1,28 @@
+import { cva, VariantProps } from "class-variance-authority"
+import { ComponentProps } from "react"
+import { cn } from "@/lib/utils"
+
+type ChipProps = ComponentProps<"span">
+
+const chipStyles = cva(
+    "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium",
+    {
+        variants: {
+            intent: {
+                green: " bg-green-900 text-green-100",
+                default: "bg-palette-150 text-brandtext-400",
+            },
+        },
+        defaultVariants: {
+            intent: "default",
+        },
+    }
+)
+
+export interface TChipProps
+    extends ChipProps,
+        VariantProps<typeof chipStyles> {}
+
+export function Chip({ intent = "default", className, ...props }: TChipProps) {
+    return <span className={cn(className, chipStyles({ intent }))} {...props} />
+}

@@ -208,7 +208,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
     } = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
         defaultValues: {
-            title: bounty.title,
+            title: bounty?.title,
             githubIssueLink: bounty?.issueLink,
             bountyPrice: bounty?.bountyPrice?.toString(),
         },
@@ -217,7 +217,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
     const [isSaving, setIsSaving] = useState<boolean>(false)
 
     const editor = useEditor({
-        content: (bounty?.content as Content) ?? null,
+        content: bounty?.content ? (bounty.content as Content) : null,
         extensions: [
             StarterKit,
             Document,
@@ -270,12 +270,16 @@ const Tiptap = ({ bounty }: TTipTap) => {
             })
         }
 
-        router.refresh()
-
-        return toast({
+        toast({
             message: "Your bounty has been saved.",
             type: "success",
         })
+
+        router.refresh()
+
+        const bountyResponse = await response.json()
+
+        router.push(`/bounty/${bountyResponse.id}`)
     }
 
     return (

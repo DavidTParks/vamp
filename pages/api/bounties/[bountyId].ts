@@ -34,7 +34,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             // TODO: Implement sanitization for content.
 
-            await db.bounty.update({
+            const bounty = await db.bounty.update({
                 where: {
                     id: post.id,
                 },
@@ -47,7 +47,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 },
             })
 
-            return res.end()
+            return res.json(bounty)
         } catch (error) {
             console.log("Error", error)
             if (error instanceof z.ZodError) {

@@ -45,6 +45,10 @@ DropdownMenu.Item = React.forwardRef<
 >(function DropdownMenuItem({ className, ...props }, ref) {
     return (
         <DropdownMenuPrimitive.Item
+            onClick={(e) => {
+                e.stopPropagation()
+                e.nativeEvent.stopImmediatePropagation()
+            }}
             ref={ref}
             className={cn(
                 "flex cursor-default select-none items-center py-2 px-3 m-1 rounded-md text-sm text-slate-100 outline-none focus:bg-palette-150 focus:text-white hover:brightness-200",

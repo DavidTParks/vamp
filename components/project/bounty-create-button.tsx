@@ -37,7 +37,7 @@ export function BountyCreateButton({
             },
             body: JSON.stringify({
                 title: issue?.title ?? "Untitled bounty",
-                content: [],
+                content: undefined,
                 projectId: project.id,
                 issueLink: issue?.html_url ?? null,
                 issue,

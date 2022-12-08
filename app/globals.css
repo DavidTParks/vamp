@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-display;
+    }
+}
+
 @layer utilities {
     .red-glow {
         text-shadow: 0px 0px 8px hsla(300, 98%, 60%, 0.6);

@@ -12,7 +12,7 @@ const bountyCreateSchema = z.object({
     content: z.any().optional(),
     projectId: z.string().cuid(),
     issue: z.any().optional(),
-    issueLink: z.string().optional(),
+    issueLink: z.string().optional().nullable(),
 })
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -46,6 +46,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.json(bounty)
         } catch (error) {
+            console.log("error", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }

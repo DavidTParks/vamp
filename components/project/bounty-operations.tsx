@@ -58,6 +58,7 @@ export function BountyOperations({ bounty, project }: PostOperationsProps) {
                     <DropdownMenu.Content className="mt-2 z-50 dropdown">
                         <DropdownMenu.Item>
                             <Link
+                                passHref
                                 href={`/bounty/${bounty.id}/edit`}
                                 className="flex w-full"
                             >
@@ -67,7 +68,9 @@ export function BountyOperations({ bounty, project }: PostOperationsProps) {
                         <DropdownMenu.Separator />
                         <DropdownMenu.Item
                             className="flex cursor-pointer items-center text-red-600 focus:text-red-700"
-                            onSelect={() => setShowDeleteAlert(true)}
+                            onSelect={(e) => {
+                                setShowDeleteAlert(true)
+                            }}
                         >
                             Delete
                         </DropdownMenu.Item>
