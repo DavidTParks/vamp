@@ -16,14 +16,14 @@ export default function DashboardLoading() {
             <main className=" px-4 lg:px-8 z-10 mt-12">
                 <div className="mx-auto max-w-screen-xl px-2.5 flex w-full flex-1 flex-col overflow-hidden">
                     <div className="max-w-4xl mx-auto w-full">
-                        <div className="lg:flex">
+                        <div className="lg:flex w-full">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
-                                <Skeleton className="w-full mb-8" />
+                                <Skeleton className="w-1/5 mb-8" />
                                 <div className="text-brandtext-500 font-bold break-words text-xl leading-8 sm:text-2xl font-display">
                                     <Skeleton className="w-full h-8" />
                                 </div>
-                                <div className="my-8 inline-flex items-center gap-4">
-                                    <Skeleton className="w-full" />
+                                <div className="my-8">
+                                    <Skeleton className="h-10 w-4/5" />
                                 </div>
                                 <Skeleton className="h-48 w-full" />
                             </div>
