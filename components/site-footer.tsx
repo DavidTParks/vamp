@@ -3,53 +3,19 @@ import { Icons } from "@/components/icons"
 
 export function SiteFooter() {
     return (
-        <footer className="bg-appbg text-slate-600">
-            <div className="flex  flex-col items-center justify-between gap-4 border-t border-t-slate-200 py-10 md:h-24 md:flex-row md:py-0">
-                <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0 mx-auto max-w-screen-xl px-2.5 md:px-20">
-                    <Icons.logo />
-                    <p className="text-center text-sm leading-loose md:text-left">
-                        Built by{" "}
-                        <a
-                            href={siteConfig.links.twitter}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="font-medium underline underline-offset-4"
-                        >
-                            shadcn
-                        </a>
-                        . Hosted on{" "}
-                        <a
-                            href="https://vercel.com"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="font-medium underline underline-offset-4"
-                        >
-                            Vercel
-                        </a>
-                        . Illustrations by{" "}
-                        <a
-                            href="https://popsy.co"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="font-medium underline underline-offset-4"
-                        >
-                            Popsy
-                        </a>
-                        .
-                    </p>
+        <footer className="mx-auto mt-32 w-full max-w-container px-4 sm:px-6 lg:px-8">
+            <div className="border-t border-raised-border py-10">
+                <div className="mx-auto max-w-sm h-5 w-auto text-center flex items-center justify-center text-brandtext-600 gap-2">
+                    <Icons.logo /> Vamp.sh
                 </div>
-                <p className="text-center text-sm md:text-left">
-                    The source code is available on{" "}
-                    <a
-                        href={siteConfig.links.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="font-medium underline underline-offset-4"
-                    >
-                        GitHub
-                    </a>
-                    .
+                <p className="mt-5 text-center text-sm leading-6 text-brandtext-600">
+                    © 2022 Vamp LLC. All rights reserved.
                 </p>
+                <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-brandtext-500">
+                    <a href="/privacy-policy">Privacy policy</a>
+                    <div className="h-4 w-px bg-brandtext-500/20"></div>
+                    <a href="/changelog">Changelog</a>
+                </div>
             </div>
         </footer>
     )

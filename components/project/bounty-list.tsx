@@ -21,6 +21,10 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
         (bounty) => bounty.published === true && bounty.resolved === false
     ).length
 
+    const resolvedCount = bounties.filter(
+        (bounty) => bounty.published === true && bounty.resolved === true
+    ).length
+
     return (
         <>
             <div className="divide-y divide-raised-border rounded-md overflow-hidden border border-raised-border">
@@ -55,7 +59,7 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                     >
                         <Icons.check size={16} className="text-brandtext-600" />
                         <span className="text-sm text-brandtext-600">
-                            {activeCount} Resolved
+                            {resolvedCount} Resolved
                         </span>
                     </Button>
                 </div>
@@ -74,10 +78,19 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                             <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
                                 <div className="flex gap-4">
                                     <div className="flex-shrink-0 hidden sm:block">
-                                        <Icons.edit2
-                                            size={24}
-                                            className="text-yellow-600 mt-2"
-                                        />
+                                        {!bounty?.published &&
+                                            !bounty?.resolved && (
+                                                <Icons.edit2
+                                                    size={24}
+                                                    className="text-yellow-600 mt-2"
+                                                />
+                                            )}
+                                        {bounty?.published && (
+                                            <Icons.circleDot
+                                                size={24}
+                                                className="text-green-600 mt-2"
+                                            />
+                                        )}
                                     </div>
 
                                     <div>

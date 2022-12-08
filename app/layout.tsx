@@ -40,6 +40,7 @@ export default function RootLayout({
             <body className="min-h-screen">
                 {children}
                 <Toaster position="bottom-right" />
+                <SiteFooter />
             </body>
         </html>
     )

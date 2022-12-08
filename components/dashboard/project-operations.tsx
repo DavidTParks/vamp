@@ -10,13 +10,13 @@ import { Icons } from "@/components/icons"
 import { Alert } from "@/ui/alert"
 import { toast } from "@/ui/toast"
 
-async function deletePost(postId: string) {
+async function deleteProject(postId: string) {
     const response = await fetch(`/api/project/${postId}`, {
         method: "DELETE",
     })
 
     if (!response?.ok) {
-        toast({
+        return toast({
             title: "Something went wrong.",
             message: "Your project was not deleted. Please try again.",
             type: "error",
@@ -80,7 +80,8 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                             Are you sure you want to delete this project?
                         </Alert.Title>
                         <Alert.Description>
-                            This action cannot be undone.
+                            This action cannot be undone. All project bounties
+                            will be deleted as well.
                         </Alert.Description>
                     </Alert.Header>
                     <Alert.Footer>
@@ -92,7 +93,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                                 event.preventDefault()
                                 setIsDeleteLoading(true)
 
-                                const deleted = await deletePost(project.id)
+                                const deleted = await deleteProject(project.id)
 
                                 if (deleted) {
                                     setIsDeleteLoading(false)

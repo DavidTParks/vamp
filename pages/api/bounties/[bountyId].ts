@@ -41,11 +41,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 data: {
                     title: body.title || post.title,
                     content: body.content,
+                    html: body.html,
+                    bountyPrice: parseFloat(body.bountyPrice),
+                    published: true,
                 },
             })
 
             return res.end()
         } catch (error) {
+            console.log("Error", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }

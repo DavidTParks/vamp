@@ -15,6 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.status(204).end()
         } catch (error) {
+            console.log("ERror", error)
             return res.status(500).end()
         }
     }

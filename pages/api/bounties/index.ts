@@ -12,6 +12,7 @@ const bountyCreateSchema = z.object({
     content: z.any().optional(),
     projectId: z.string().cuid(),
     issue: z.any().optional(),
+    issueLink: z.string().optional(),
 })
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -30,6 +31,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     title: body.title,
                     content: body?.issue?.body ?? body.content,
                     description: body?.issue?.description ?? "",
+                    issueLink: body?.issueLink,
                     project: {
                         connect: {
                             id: body.projectId,

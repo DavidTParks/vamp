@@ -1,6 +1,11 @@
 "use client"
 
-import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react"
+import {
+    useEditor,
+    EditorContent,
+    BubbleMenu,
+    JSONContent,
+} from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
@@ -16,6 +21,12 @@ import { Label } from "@/ui/label"
 import { Icons } from "../icons"
 import { cn } from "@/lib/utils"
 import { ComponentProps } from "react"
+import { Button } from "@/ui/button"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { toast } from "@/ui/toast"
+import { Content } from "@tiptap/react"
+import { Prisma } from "@prisma/client"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -26,7 +37,11 @@ interface TToolbarButton extends ButtonProps {
 
 const ToolbarButton = ({ children, isActive, ...props }: TToolbarButton) => {
     return (
-        <button className={cn(isActive ? "text-fuchsia-500" : "")} {...props}>
+        <button
+            type="button"
+            className={cn(isActive ? "text-fuchsia-500" : "")}
+            {...props}
+        >
             {children}
         </button>
     )
@@ -171,7 +186,12 @@ const MenuBar = ({ editor }) => {
     )
 }
 
-type TBounty = Pick<Bounty, "id" | "title" | "content">
+type TBounty = Pick<
+    Bounty,
+    "id" | "title" | "content" | "issueLink" | "bountyPrice" | "published"
+> & {
+    issue?: any
+}
 interface TTipTap {
     bounty: TBounty
 }
@@ -179,14 +199,25 @@ interface TTipTap {
 type FormData = z.infer<typeof bountyPatchSchema>
 
 const Tiptap = ({ bounty }: TTipTap) => {
-    const { register, handleSubmit } = useForm<FormData>({
+    const router = useRouter()
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isDirty },
+    } = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
         defaultValues: {
             title: bounty.title,
+            githubIssueLink: bounty?.issueLink,
+            bountyPrice: bounty?.bountyPrice?.toString(),
         },
     })
 
+    const [isSaving, setIsSaving] = useState<boolean>(false)
+
     const editor = useEditor({
+        content: (bounty?.content as Content) ?? null,
         extensions: [
             StarterKit,
             Document,
@@ -204,91 +235,148 @@ const Tiptap = ({ bounty }: TTipTap) => {
         },
     })
 
-    return (
-        <div className="border border-raised-border rounded-lg p-4 bg-palette-400">
-            <div className="grid gap-1">
-                <Label className="dropdown" htmlFor="title">
-                    Title
-                </Label>
-                <Input
-                    className="bg-appbg"
-                    name="title"
-                    placeholder="Enter a title for your Bounty"
-                    register={register}
-                />
-            </div>
-            <div className="grid gap-1 mt-4">
-                <Label className="dropdown" htmlFor="title">
-                    Github Issue link
-                </Label>
-                <Input
-                    className="bg-appbg"
-                    name="githubLink"
-                    placeholder="Enter a title for your Bounty"
-                    register={register}
-                />
-            </div>
+    async function onSubmit(data: FormData) {
+        if (!data.bountyPrice) {
+            return toast({
+                title: "Bounty price required",
+                message: "Please enter a bounty price greater than 0",
+                type: "error",
+            })
+        }
 
-            <div className="mt-4">
-                <MenuBar editor={editor} />
-                {editor && (
-                    <BubbleMenu
-                        className="dropdown text-white rounded-lg overflow-hidden p-2 px-3 py-1 text-sm flex gap-4 dropdown"
-                        editor={editor}
-                        tippyOptions={{ duration: 100 }}
-                    >
-                        <button
-                            onClick={() =>
-                                editor.chain().focus().toggleBold().run()
-                            }
-                            className={
-                                editor.isActive("bold") ? "is-active" : ""
-                            }
-                        >
-                            bold
-                        </button>
-                        <button
-                            onClick={() =>
-                                editor.chain().focus().toggleItalic().run()
-                            }
-                            className={
-                                editor.isActive("italic") ? "is-active" : ""
-                            }
-                        >
-                            italic
-                        </button>
-                        <button
-                            onClick={() =>
-                                editor.chain().focus().toggleStrike().run()
-                            }
-                            className={
-                                editor.isActive("strike") ? "is-active" : ""
-                            }
-                        >
-                            strike
-                        </button>
-                    </BubbleMenu>
-                )}
-                <EditorContent editor={editor} />
-            </div>
-            <small className="text-brandtext-600 mt-4 flex items-center gap-2">
-                <Icons.markdown size={16} />
-                Styling with Markdown supported
-            </small>
-            <div className="grid grid-cols-2 mt-6 gap-4">
+        setIsSaving(true)
+
+        const response = await fetch(`/api/bounties/${bounty.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                bountyPrice: data.bountyPrice?.toString(),
+                title: data.title,
+                content: editor.getJSON(),
+                html: editor.getHTML(),
+                projectId: bounty,
+            }),
+        })
+
+        setIsSaving(false)
+
+        if (!response?.ok) {
+            return toast({
+                title: "Something went wrong.",
+                message: "Your bounty was not saved. Please try again.",
+                type: "error",
+            })
+        }
+
+        router.refresh()
+
+        return toast({
+            message: "Your bounty has been saved.",
+            type: "success",
+        })
+    }
+
+    return (
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="border border-raised-border rounded-lg bg-palette-400"
+        >
+            <div className="p-4">
                 <div className="grid gap-1">
                     <Label className="dropdown" htmlFor="title">
-                        Bounty reward
+                        Title
                     </Label>
                     <Input
                         className="bg-appbg"
-                        name="number"
-                        placeholder="$50.00"
+                        name="title"
+                        placeholder="Enter a title for your Bounty"
                         register={register}
                     />
                 </div>
+                <div className="grid grid-cols-2 gap-4 my-6">
+                    <div className="grid gap-1">
+                        <Label className="dropdown" htmlFor="title">
+                            Github Issue link
+                        </Label>
+                        <Input
+                            className="bg-appbg"
+                            name="githubIssueLink"
+                            placeholder="https://www.github.com/issue..."
+                            register={register}
+                        />
+                    </div>
+                    <div className="grid gap-1">
+                        <Label htmlFor="bountyPrice">Bounty reward *</Label>
+                        <Input
+                            register={register}
+                            type="number"
+                            name="bountyPrice"
+                            id="bountyPrice"
+                            placeholder="0.00"
+                            className="bg-appbg"
+                            aria-describedby="bountyPrice"
+                        />
+                    </div>
+                </div>
+
+                <Label className="dropdown mb-4" htmlFor="details">
+                    Bounty Details
+                </Label>
+                <div className="mt-1">
+                    <MenuBar editor={editor} />
+                    {editor && (
+                        <BubbleMenu
+                            className="dropdown text-white rounded-lg overflow-hidden p-2 px-3 py-1 text-sm flex gap-4 dropdown"
+                            editor={editor}
+                            tippyOptions={{ duration: 100 }}
+                        >
+                            <button
+                                onClick={() =>
+                                    editor.chain().focus().toggleBold().run()
+                                }
+                                className={
+                                    editor.isActive("bold") ? "is-active" : ""
+                                }
+                            >
+                                bold
+                            </button>
+                            <button
+                                onClick={() =>
+                                    editor.chain().focus().toggleItalic().run()
+                                }
+                                className={
+                                    editor.isActive("italic") ? "is-active" : ""
+                                }
+                            >
+                                italic
+                            </button>
+                            <button
+                                onClick={() =>
+                                    editor.chain().focus().toggleStrike().run()
+                                }
+                                className={
+                                    editor.isActive("strike") ? "is-active" : ""
+                                }
+                            >
+                                strike
+                            </button>
+                        </BubbleMenu>
+                    )}
+                    <EditorContent editor={editor} />
+                </div>
+                <small className="text-brandtext-600 mt-4 flex items-center gap-2">
+                    <Icons.markdown size={16} />
+                    Styling with Markdown supported
+                </small>
             </div>
-        </div>
+            <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
+                <Button type="submit" disabled={isSaving}>
+                    {bounty.published ? "Save" : "Save and Publish"}
+                </Button>
+            </div>
+        </form>
     )
 }
 
