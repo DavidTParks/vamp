@@ -25,6 +25,7 @@ import { formatDate } from "@/lib/utils"
 import { ExternalLink } from "@/ui/external-link"
 import { formatDollars } from "@/lib/utils"
 import { getRepo } from "@/lib/github"
+import { Prisma } from "@prisma/client"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -54,6 +55,7 @@ export default async function CreatePage({
         },
     })
     const repo = await getRepo(bounty.project.githubRepo.githubRepoId)
+    const githubIssue = bounty.githubIssue as any
 
     return (
         <div className="mx-auto flex flex-col min-h-screen relative">
@@ -150,8 +152,7 @@ export default async function CreatePage({
                                                     href={bounty.issueLink}
                                                     className="truncate  max-w-[48px]"
                                                 >
-                                                    Issue #
-                                                    {bounty.githubIssue.number}
+                                                    Issue #{githubIssue.number}
                                                 </ExternalLink>
                                             }
                                         />
