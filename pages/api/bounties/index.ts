@@ -6,6 +6,7 @@ import { db } from "@/lib/db"
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { authOptions } from "@/lib/auth"
 import { withProject } from "@/lib/api-middlewares/with-project"
+import { getRenderedMarkdown } from "@/lib/markdown"
 
 const bountyCreateSchema = z.object({
     title: z.string().optional(),
@@ -26,10 +27,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         try {
             const body = bountyCreateSchema.parse(req.body)
 
+            let issueContent: any = undefined
+            try {
+                if (body?.issue) {
+                    console.log("Body issue", body.issue)
+                    issueContent = await getRenderedMarkdown(
+                        body.issue.body,
+                        session.user
+                    )
+                }
+            } catch (e) {
+                console.log(e)
+            }
+
             const bounty = await db.bounty.create({
                 data: {
                     title: body.title,
-                    content: body?.issue?.body ?? body.content,
+                    content: issueContent ?? undefined,
                     description: body?.issue?.description ?? "",
                     issueLink: body?.issueLink,
                     project: {
@@ -46,7 +60,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             return res.json(bounty)
         } catch (error) {
-            console.log("error", error)
+            console.log("Error", error)
             if (error instanceof z.ZodError) {
                 return res.status(422).json(error.issues)
             }

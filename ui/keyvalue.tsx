@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils"
+import { ReactNode } from "react"
 
 interface KeyValueProps extends React.HTMLAttributes<HTMLDivElement> {
     label: string
-    value: string
+    value: string | ReactNode
 }
 
 export function KeyValue({ className, label, value, ...props }: KeyValueProps) {
