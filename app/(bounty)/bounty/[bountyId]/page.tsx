@@ -130,10 +130,30 @@ export default async function CreatePage({
                                             Information
                                         </p>
                                     </div>
-                                    <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col">
+                                    <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col overflow-hidden">
                                         <KeyValue
                                             label="Project"
-                                            value={repo.name}
+                                            value={
+                                                <div className="max-w-[156px] truncate overflow-hidden">
+                                                    <ExternalLink
+                                                        href={repo.html_url}
+                                                    >
+                                                        {repo.name}
+                                                    </ExternalLink>
+                                                </div>
+                                            }
+                                        />
+                                        <KeyValue
+                                            label="Github Issue"
+                                            value={
+                                                <ExternalLink
+                                                    href={bounty.issueLink}
+                                                    className="truncate  max-w-[48px]"
+                                                >
+                                                    Issue #
+                                                    {bounty.githubIssue.number}
+                                                </ExternalLink>
+                                            }
                                         />
                                         <KeyValue
                                             label="Opened"
