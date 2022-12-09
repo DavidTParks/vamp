@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 
+import { BountySubmissionList } from "@/components/bounty/bounty-submission-list"
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { Icons } from "@/components/icons"
@@ -21,9 +22,8 @@ import Text from "@tiptap/extension-text"
 import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import Image from "next/image"
 import Link from "next/link"
-import { BountySubmissionList } from "@/components/bounty/bounty-submission-list"
+import { BountyShare } from "@/components/bounty/bounty-share"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -100,18 +100,28 @@ export default async function CreatePage({
                                 <div className="text-brandtext-500 font-bold break-words text-xl leading-8 sm:text-2xl font-display">
                                     <h1>{bounty.title}</h1>
                                 </div>
-                                <div className="my-8 inline-flex items-center gap-4">
-                                    <Chip intent="green">Open</Chip>
-                                    <ExternalLink href={repo.html_url}>
-                                        <Chip
-                                            className="inline-flex gap-2 items-center"
-                                            intent="default"
-                                        >
-                                            <Icons.gitHub size={16} />
-                                            {bounty.project.name}
-                                        </Chip>
-                                    </ExternalLink>
+                                <div className="my-8 flex justify-between">
+                                    <div className="inline-flex items-center gap-4">
+                                        <Chip intent="green">Open</Chip>
+                                        <ExternalLink href={repo.html_url}>
+                                            <Chip
+                                                className="inline-flex gap-2 items-center"
+                                                intent="default"
+                                            >
+                                                <Icons.gitHub size={16} />
+                                                {bounty.project.name}
+                                            </Chip>
+                                        </ExternalLink>
+                                    </div>
+                                    <div className="relative">
+                                        <BountyShare
+                                            bounty={{
+                                                id: bounty.id,
+                                            }}
+                                        />
+                                    </div>
                                 </div>
+
                                 <div
                                     className="prose prose-md prose-invert"
                                     dangerouslySetInnerHTML={{
@@ -132,13 +142,15 @@ export default async function CreatePage({
                                         <h3 className="text-brandtext-500 text-2xl font-bold">
                                             Activity
                                         </h3>
-                                        <SubmissionCreateButton
-                                            size="small"
-                                            bounty={{
-                                                id: bounty.id,
-                                                title: bounty.title,
-                                            }}
-                                        />
+                                        {bounty.bountySubmissions?.length ? (
+                                            <SubmissionCreateButton
+                                                size="small"
+                                                bounty={{
+                                                    id: bounty.id,
+                                                    title: bounty.title,
+                                                }}
+                                            />
+                                        ) : null}
                                     </div>
                                     {bounty.bountySubmissions?.length ? (
                                         <BountySubmissionList

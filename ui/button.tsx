@@ -13,7 +13,7 @@ const buttonStyles = cva(
                 secondary:
                     "bg-secondary-button text-white border border-secondary-border brightness-150 hover:brightness-200",
                 tertiary: "text-white hover:bg-palette-150",
-                text: "text-white",
+                text: "text-brandtext-500 hover:text-white",
                 danger: "bg-red-600 text-white border border-transparent hover:bg-red-700",
             },
             fullWidth: {

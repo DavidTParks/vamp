@@ -58,38 +58,36 @@ export function SubmissionCreateButton({
         resolver: zodResolver(bountySubmissionSchema),
     })
 
-    console.log("Errors", errors)
-
     async function onClick(data: CreateProjectFormData) {
-        // setIsLoading(true)
-        // const response = await fetch("/api/bounty-submissions", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         solutionLink: data.solutionLink,
-        //         comments: data.comments,
-        //         bountyId: bounty.id,
-        //     }),
-        // })
-        // setIsLoading(false)
-        // if (!response?.ok) {
-        //     return toast({
-        //         title: "Something went wrong.",
-        //         message: "Your project was not created. Please try again.",
-        //         type: "error",
-        //     })
-        // }
-        // toast({
-        //     title: "Submission posted",
-        //     message:
-        //         "Allow the project maintainer some time to review your submission.",
-        //     type: "success",
-        // })
-        // // This forces a cache invalidation.
-        // router.refresh()
-        // setIsModalOpen(false)
+        setIsLoading(true)
+        const response = await fetch("/api/bounty-submissions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                solutionLink: data.solutionLink,
+                comments: data.comments,
+                bountyId: bounty.id,
+            }),
+        })
+        setIsLoading(false)
+        if (!response?.ok) {
+            return toast({
+                title: "Something went wrong.",
+                message: "Your project was not created. Please try again.",
+                type: "error",
+            })
+        }
+        toast({
+            title: "Submission posted",
+            message:
+                "Allow the project maintainer some time to review your submission.",
+            type: "success",
+        })
+        // This forces a cache invalidation.
+        router.refresh()
+        setIsModalOpen(false)
     }
 
     return (

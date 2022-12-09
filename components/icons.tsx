@@ -20,6 +20,7 @@ import {
     Settings,
     Trash,
     Twitter,
+    Link,
     ChevronLast,
     Edit2,
     User,
@@ -42,6 +43,7 @@ import {
     WrapText,
     Undo2,
     Redo2,
+    Share,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
@@ -55,6 +57,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    share: Share,
     frown: Frown,
     redo: Redo2,
     undo: Undo2,
@@ -98,4 +101,5 @@ export const Icons = {
     check: Check,
     star: Star,
     activity: Activity,
+    link: Link,
 }

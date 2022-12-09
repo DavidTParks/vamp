@@ -8,7 +8,7 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 
 const bountyCreateSchema = z.object({
-    solutionLink: z.string().optional(),
+    solutionLink: z.string().min(1),
     comments: z.string().optional(),
     bountyId: z.string().cuid(),
 })
