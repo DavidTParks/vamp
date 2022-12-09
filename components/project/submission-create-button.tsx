@@ -37,13 +37,18 @@ async function deletePost(postId: string) {
 
 interface PostOperationsProps {
     bounty: Pick<Bounty, "id" | "title">
+    size?: "small" | "noPadding" | "regular"
 }
 
 export type CreateProjectFormData = z.infer<typeof bountySubmissionSchema>
 
-export function SubmissionCreateButton({ bounty }: PostOperationsProps) {
+export function SubmissionCreateButton({
+    bounty,
+    size = "regular",
+}: PostOperationsProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
     const {
         register,
@@ -53,47 +58,45 @@ export function SubmissionCreateButton({ bounty }: PostOperationsProps) {
         resolver: zodResolver(bountySubmissionSchema),
     })
 
+    console.log("Errors", errors)
+
     async function onClick(data: CreateProjectFormData) {
-        setIsLoading(true)
-
-        const response = await fetch("/api/bounty-submissions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                solutionLink: data.solutionLink,
-                comments: data.comments,
-                bountyId: bounty.id,
-            }),
-        })
-
-        setIsLoading(false)
-
-        if (!response?.ok) {
-            return toast({
-                title: "Something went wrong.",
-                message: "Your project was not created. Please try again.",
-                type: "error",
-            })
-        }
-
-        toast({
-            title: "Submission posted",
-            message:
-                "Allow the project maintainer some time to review your submission.",
-            type: "success",
-        })
-
-        // This forces a cache invalidation.
-        router.refresh()
+        // setIsLoading(true)
+        // const response = await fetch("/api/bounty-submissions", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         solutionLink: data.solutionLink,
+        //         comments: data.comments,
+        //         bountyId: bounty.id,
+        //     }),
+        // })
+        // setIsLoading(false)
+        // if (!response?.ok) {
+        //     return toast({
+        //         title: "Something went wrong.",
+        //         message: "Your project was not created. Please try again.",
+        //         type: "error",
+        //     })
+        // }
+        // toast({
+        //     title: "Submission posted",
+        //     message:
+        //         "Allow the project maintainer some time to review your submission.",
+        //     type: "success",
+        // })
+        // // This forces a cache invalidation.
+        // router.refresh()
+        // setIsModalOpen(false)
     }
 
     return (
         <>
-            <Modal>
+            <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Trigger asChild>
-                    <Button>New Submission</Button>
+                    <Button size={size}>New Submission</Button>
                 </Modal.Trigger>
                 <Modal.Content>
                     <Modal.Title>New Submission</Modal.Title>
@@ -114,6 +117,11 @@ export function SubmissionCreateButton({ bounty }: PostOperationsProps) {
                                     disabled={isLoading}
                                     register={register}
                                 />
+                                {errors?.solutionLink?.type === "too_small" && (
+                                    <small className="text-red-600">
+                                        Solution link is required
+                                    </small>
+                                )}
                             </div>
                             <div className="grid gap-1">
                                 <Label htmlFor="comments">Comments</Label>

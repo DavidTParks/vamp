@@ -1,33 +1,29 @@
 import { redirect } from "next/navigation"
 
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { UserAccountNav } from "@/components/dashboard/user-account-nav"
+import { Icons } from "@/components/icons"
+import { ProjectNav } from "@/components/project/project-nav"
+import { SubmissionCreateButton } from "@/components/project/submission-create-button"
+import { dashboardConfig } from "@/config/dashboard"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { getRepo } from "@/lib/github"
 import { getCurrentUser } from "@/lib/session"
-import { ProjectNav } from "@/components/project/project-nav"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { dashboardConfig } from "@/config/dashboard"
-import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import Tiptap from "@/components/create/tiptap"
-import { Headline } from "@/ui/headline"
-import Link from "next/link"
-import { Icons } from "@/components/icons"
+import { formatDate, formatDollars } from "@/lib/utils"
 import { Button } from "@/ui/button"
-import { generateHTML } from "@tiptap/html"
+import { Chip } from "@/ui/chip"
+import { ExternalLink } from "@/ui/external-link"
+import { KeyValue } from "@/ui/keyvalue"
 import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
 import Text from "@tiptap/extension-text"
+import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { Chip } from "@/ui/chip"
-import project from "pages/api/project"
-import { KeyValue } from "@/ui/keyvalue"
-import { formatDate } from "@/lib/utils"
-import { ExternalLink } from "@/ui/external-link"
-import { formatDollars } from "@/lib/utils"
-import { getRepo } from "@/lib/github"
-import { Prisma } from "@prisma/client"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { SubmissionCreateButton } from "@/components/project/submission-create-button"
+import Image from "next/image"
+import Link from "next/link"
+import { BountySubmissionList } from "@/components/bounty/bounty-submission-list"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -132,13 +128,24 @@ export default async function CreatePage({
                                     }}
                                 ></div>
                                 <div className="mt-24 flex flex-col">
-                                    <h3 className="text-brandtext-500 text-2xl font-bold mb-4">
-                                        Submissions
-                                    </h3>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h3 className="text-brandtext-500 text-2xl font-bold">
+                                            Activity
+                                        </h3>
+                                        <SubmissionCreateButton
+                                            size="small"
+                                            bounty={{
+                                                id: bounty.id,
+                                                title: bounty.title,
+                                            }}
+                                        />
+                                    </div>
                                     {bounty.bountySubmissions?.length ? (
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                                            We have submissions!
-                                        </div>
+                                        <BountySubmissionList
+                                            bountySubmissions={
+                                                bounty.bountySubmissions
+                                            }
+                                        />
                                     ) : (
                                         <EmptyPlaceholder className="min-h-[200px]">
                                             <EmptyPlaceholder.Icon name="frown" />
