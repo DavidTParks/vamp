@@ -23,7 +23,7 @@ export const ProjectSecondaryNav = ({
                 href={`/project/${project.id}`}
                 isActive={!segment}
             >
-                Bounties
+                Overview
             </SecondaryLinkItem>
             <SecondaryLinkItem
                 badge={

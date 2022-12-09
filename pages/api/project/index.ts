@@ -4,6 +4,7 @@ import { db } from "@/lib/db"
 import { NextApiRequest, NextApiResponse } from "next"
 import { unstable_getServerSession } from "next-auth"
 import * as z from "zod"
+import { stripe } from "@/lib/stripe"
 
 export const newProjectSchema = z.object({
     repoId: z.number(),
@@ -28,10 +29,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             const { name, description, repoId, repoName, url, owner } =
                 newProjectSchema.parse(req.body)
 
+            const projectBountyProduct = await stripe.products.create({
+                name: `${repoName} Bounties`,
+                metadata: {
+                    name,
+                    description,
+                    repoId,
+                    url,
+                    owner,
+                },
+            })
+
             const project = await db.project.create({
                 data: {
                     name: name,
                     description: description,
+                    stripeProductId: projectBountyProduct.id,
                     githubRepo: {
                         create: {
                             githubRepoId: repoId,

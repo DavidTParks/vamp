@@ -13,14 +13,12 @@ interface ProjectHeaderProps {
 export function ProjectHeader({ project }: ProjectHeaderProps) {
     const segment = useSelectedLayoutSegment()
 
-    console.log("Segment", segment)
-
     return (
         <>
             {!segment ? (
                 <>
                     <h1 className="text-2xl font-medium text-brandtext-500">
-                        Bounties
+                        Overview
                     </h1>
                     <BountyCreateButton
                         project={{

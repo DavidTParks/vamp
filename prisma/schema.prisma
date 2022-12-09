@@ -41,22 +41,19 @@ model Session {
 }
 
 model User {
-  id                     String             @id @default(cuid())
-  name                   String?
-  email                  String?            @unique
-  emailVerified          DateTime?
-  image                  String?
-  createdAt              DateTime           @default(now()) @map(name: "created_at")
-  updatedAt              DateTime           @default(now()) @map(name: "updated_at")
-  accounts               Account[]
-  sessions               Session[]
-  projects               ProjectUsers[]
-  bountySubmissions      BountySubmission[]
-  comments               Comment[]
-  stripeCustomerId       String?            @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?            @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?            @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime?          @map(name: "stripe_current_period_end")
+  id                String             @id @default(cuid())
+  name              String?
+  email             String?            @unique
+  emailVerified     DateTime?
+  image             String?
+  createdAt         DateTime           @default(now()) @map(name: "created_at")
+  updatedAt         DateTime           @default(now()) @map(name: "updated_at")
+  accounts          Account[]
+  sessions          Session[]
+  projects          ProjectUsers[]
+  bountySubmissions BountySubmission[]
+  comments          Comment[]
+  stripeCustomerId  String?            @unique @map(name: "stripe_customer_id")
 
   @@map(name: "users")
 }
@@ -71,16 +68,17 @@ model VerificationToken {
 }
 
 model Project {
-  id          String            @id @default(cuid())
-  name        String
-  description String?
-  logo        String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  githubRepo  GithubRepository?
-  bounties    Bounty[]
-  users       ProjectUsers[]
-  invites     ProjectInvite[]
+  id              String            @id @default(cuid())
+  name            String
+  description     String?
+  logo            String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  githubRepo      GithubRepository?
+  bounties        Bounty[]
+  users           ProjectUsers[]
+  invites         ProjectInvite[]
+  stripeProductId String?           @unique @map(name: "stripe_product_id")
 }
 
 model ProjectInvite {
@@ -150,6 +148,7 @@ model Bounty {
   downvotes         Int                @default(0)
   comments          Comment[]
   githubIssue       Json?
+  stripePriceId     String?            @unique @map(name: "stripe_price_id")
 
   @@index([projectId])
 }

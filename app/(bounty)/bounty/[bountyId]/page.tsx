@@ -97,7 +97,7 @@ export default async function CreatePage({
                                         Back
                                     </Button>
                                 </Link>
-                                <div className="text-brandtext-500 font-bold break-words text-xl leading-8 sm:text-2xl font-display">
+                                <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl font-display">
                                     <h1>{bounty.title}</h1>
                                 </div>
                                 <div className="my-8 flex justify-between">
@@ -123,7 +123,7 @@ export default async function CreatePage({
                                 </div>
 
                                 <div
-                                    className="prose prose-md prose-invert"
+                                    className="prose prose-invert"
                                     dangerouslySetInnerHTML={{
                                         __html: generateHTML(
                                             bounty.content as JSONContent,
@@ -154,6 +154,9 @@ export default async function CreatePage({
                                     </div>
                                     {bounty.bountySubmissions?.length ? (
                                         <BountySubmissionList
+                                            bountyStripePriceId={
+                                                bounty.stripePriceId
+                                            }
                                             bountySubmissions={
                                                 bounty.bountySubmissions
                                             }
@@ -200,17 +203,20 @@ export default async function CreatePage({
                                                 </div>
                                             }
                                         />
-                                        <KeyValue
-                                            label="Github Issue"
-                                            value={
-                                                <ExternalLink
-                                                    href={bounty.issueLink}
-                                                    className="truncate  max-w-[48px]"
-                                                >
-                                                    Issue #{githubIssue.number}
-                                                </ExternalLink>
-                                            }
-                                        />
+                                        {githubIssue && githubIssue?.number && (
+                                            <KeyValue
+                                                label="Github Issue"
+                                                value={
+                                                    <ExternalLink
+                                                        href={bounty.issueLink}
+                                                        className="truncate  max-w-[48px]"
+                                                    >
+                                                        Issue #
+                                                        {githubIssue.number}
+                                                    </ExternalLink>
+                                                }
+                                            />
+                                        )}
                                         <KeyValue
                                             label="Opened"
                                             value={formatDate(

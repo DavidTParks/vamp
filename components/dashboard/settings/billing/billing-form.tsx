@@ -10,12 +10,15 @@ import { User } from "@prisma/client"
 import { Icons } from "@/components/icons"
 import { useSearchParams } from "next/navigation"
 import { returnUrlQueryParams } from "pages/api/users/stripe"
+import { useRouter } from "next/navigation"
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
     user: Pick<User, "stripeCustomerId">
 }
 
 export function BillingForm({ className, user, ...props }: BillingFormProps) {
+    const router = useRouter()
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const searchParams = useSearchParams()
 
     // If we are returning from Stripe either from editing or creating our account
@@ -28,6 +31,8 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
                 message: "Your account information has been updated.",
                 type: "success",
             })
+
+            router.refresh()
         }
 
         if (from === "stripeAccountCreation") {
@@ -36,10 +41,10 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
                 message: "Your account information has been updated.",
                 type: "success",
             })
+
+            router.refresh()
         }
     }, [from])
-
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     async function onSubmit(event) {
         event.preventDefault()
@@ -63,29 +68,6 @@ export function BillingForm({ className, user, ...props }: BillingFormProps) {
         if (session) {
             window.location.href = session.url
         }
-    }
-
-    async function setupStripe() {
-        setIsLoading(true)
-
-        const response = await fetch("/api/users/stripe", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-
-        setIsLoading(false)
-
-        if (!response?.ok) {
-            return toast({
-                title: "Something went wrong.",
-                message: "Your project was not created. Please try again.",
-                type: "error",
-            })
-        }
-
-        const stripeAccountLink = await response.json()
     }
 
     const isStripeLinked = !!user.stripeCustomerId

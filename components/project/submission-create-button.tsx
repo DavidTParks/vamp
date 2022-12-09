@@ -94,10 +94,10 @@ export function SubmissionCreateButton({
         <>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Trigger asChild>
-                    <Button size={size}>New Submission</Button>
+                    <Button size={size}>Solve bounty</Button>
                 </Modal.Trigger>
                 <Modal.Content>
-                    <Modal.Title>New Submission</Modal.Title>
+                    <Modal.Title>Solve bounty</Modal.Title>
                     <form className="mt-4" onSubmit={handleSubmit(onClick)}>
                         <div className="grid gap-8">
                             <div className="grid gap-1">

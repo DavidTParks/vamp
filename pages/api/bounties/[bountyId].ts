@@ -5,6 +5,7 @@ import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { withBounty } from "@/lib/api-middlewares/with-bounty"
 import { db } from "@/lib/db"
 import { bountyPatchSchema } from "@/lib/validations/bounty"
+import { stripe } from "@/lib/stripe"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "DELETE") {
@@ -24,26 +25,34 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "PATCH") {
         try {
             const bountyId = req.query.bountyId as string
-            const post = await db.bounty.findUnique({
+            const existingBounty = await db.bounty.findUnique({
                 where: {
                     id: bountyId,
+                },
+                include: {
+                    project: true,
                 },
             })
 
             const body = bountyPatchSchema.parse(req.body)
 
-            // TODO: Implement sanitization for content.
+            const stripePrice = await stripe.prices.create({
+                unit_amount: parseFloat(body.bountyPrice) * 100,
+                currency: "usd",
+                product: existingBounty.project.stripeProductId,
+            })
 
             const bounty = await db.bounty.update({
                 where: {
-                    id: post.id,
+                    id: existingBounty.id,
                 },
                 data: {
-                    title: body.title || post.title,
+                    title: body.title || existingBounty.title,
                     content: body.content,
                     html: body.html,
                     bountyPrice: parseFloat(body.bountyPrice),
                     published: true,
+                    stripePriceId: stripePrice.id,
                 },
             })
 

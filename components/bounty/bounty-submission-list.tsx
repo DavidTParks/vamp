@@ -4,14 +4,19 @@ import { formatDate } from "@/lib/utils"
 import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
 import { Chip } from "@/ui/chip"
+import { BountyPayoutButton } from "./bounty-payout-button"
 
 interface MainNavProps {
+    bountyStripePriceId: string
     bountySubmissions: (BountySubmission & {
         user: User
     })[]
 }
 
-export function BountySubmissionList({ bountySubmissions }: MainNavProps) {
+export function BountySubmissionList({
+    bountySubmissions,
+    bountyStripePriceId,
+}: MainNavProps) {
     return (
         <div className="border border-raised-border rounded-lg col-span-4">
             <div className="p-4 border-b border-raised-border">
@@ -54,6 +59,12 @@ export function BountySubmissionList({ bountySubmissions }: MainNavProps) {
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}
                         </div>
+                        <BountyPayoutButton
+                            bountyId={submission.bountyId}
+                            submissionId={submission.id}
+                            bountyStripePriceId={bountyStripePriceId}
+                            stripeUserId={submission.user.stripeCustomerId}
+                        />
                     </div>
                 ))}
             </div>
