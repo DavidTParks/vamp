@@ -34,6 +34,7 @@ import {
     Code,
     Pilcrow,
     List,
+    Frown,
     ListOrdered,
     CurlyBraces,
     Quote,
@@ -54,6 +55,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    frown: Frown,
     redo: Redo2,
     undo: Undo2,
     wrapText: WrapText,

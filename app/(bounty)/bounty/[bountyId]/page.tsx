@@ -26,6 +26,8 @@ import { ExternalLink } from "@/ui/external-link"
 import { formatDollars } from "@/lib/utils"
 import { getRepo } from "@/lib/github"
 import { Prisma } from "@prisma/client"
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { SubmissionCreateButton } from "@/components/project/submission-create-button"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -50,6 +52,11 @@ export default async function CreatePage({
             project: {
                 include: {
                     githubRepo: true,
+                },
+            },
+            bountySubmissions: {
+                include: {
+                    user: true,
                 },
             },
         },
@@ -81,7 +88,7 @@ export default async function CreatePage({
             </header>
             <main className=" px-4 lg:px-8 z-10 mt-12">
                 <div className="mx-auto max-w-screen-xl px-2.5 flex w-full flex-1 flex-col overflow-hidden">
-                    <div className="max-w-4xl mx-auto w-full">
+                    <div className="max-w-[1012px] mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
                                 <Link href={`/project/${bounty.project.id}`}>
@@ -124,8 +131,37 @@ export default async function CreatePage({
                                         ),
                                     }}
                                 ></div>
+                                <div className="mt-24 flex flex-col">
+                                    <h3 className="text-brandtext-500 text-2xl font-bold mb-4">
+                                        Submissions
+                                    </h3>
+                                    {bounty.bountySubmissions?.length ? (
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                                            We have submissions!
+                                        </div>
+                                    ) : (
+                                        <EmptyPlaceholder className="min-h-[200px]">
+                                            <EmptyPlaceholder.Icon name="frown" />
+                                            <EmptyPlaceholder.Title>
+                                                No submissions yet!
+                                            </EmptyPlaceholder.Title>
+                                            <EmptyPlaceholder.Description>
+                                                Be the first to submit a
+                                                solution to this bug bounty. If
+                                                accepted by the project owners,
+                                                you get paid!
+                                            </EmptyPlaceholder.Description>
+                                            <SubmissionCreateButton
+                                                bounty={{
+                                                    id: bounty.id,
+                                                    title: bounty.title,
+                                                }}
+                                            />
+                                        </EmptyPlaceholder>
+                                    )}
+                                </div>
                             </div>
-                            <div className="w-full lg:w-4/12 lg:min-w-[321px]">
+                            <div className="w-full lg:w-4/12 lg:min-w-[321px] mt-12 sm:mt-0">
                                 <div className="border border-raised-border rounded-lg col-span-4">
                                     <div className="p-4 border-b border-raised-border">
                                         <p className="text-brandtext-500 font-bold text-lg">
