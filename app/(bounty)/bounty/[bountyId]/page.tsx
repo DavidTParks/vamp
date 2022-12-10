@@ -87,7 +87,7 @@ export default async function CreatePage({
                     <div className="max-w-[1012px] mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
-                                <Link href={`/project/${bounty.project.id}`}>
+                                {/* <Link href={`/project/${bounty.project.id}`}>
                                     <Button
                                         intent="tertiary"
                                         className="inline-flex items-center justify-start gap-2 mb-8"
@@ -96,7 +96,7 @@ export default async function CreatePage({
                                         <Icons.chevronLeft size={16} />
                                         Back
                                     </Button>
-                                </Link>
+                                </Link> */}
                                 <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl">
                                     <h1>{bounty.title}</h1>
                                 </div>
@@ -205,9 +205,11 @@ export default async function CreatePage({
                                             value={
                                                 <div className="max-w-[156px] truncate overflow-hidden">
                                                     <ExternalLink
+                                                        className="inline-flex gap-2 items-center"
                                                         href={repo.html_url}
                                                     >
-                                                        {repo.name}
+                                                        Github
+                                                        <Icons.link size={16} />
                                                     </ExternalLink>
                                                 </div>
                                             }

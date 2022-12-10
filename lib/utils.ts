@@ -86,6 +86,11 @@ export function getBaseUrl() {
     //     return ""
     // }
     // reference for vercel.com
+
+    if (process.env.NODE_ENV === "production") {
+        return `https://www.vamp.sh`
+    }
+
     if (process.env.VERCEL_URL) {
         return `https://${process.env.VERCEL_URL}`
     }
