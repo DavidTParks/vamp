@@ -37,6 +37,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         quantity: 1,
                     },
                 ],
+                after_completion: {
+                    type: "redirect",
+                    redirect: {
+                        url: `${getBaseUrl()}/bounty/${body.bountyId}`,
+                    },
+                },
                 transfer_data: {
                     destination: body.bountySubmissionUserStripeId,
                 },

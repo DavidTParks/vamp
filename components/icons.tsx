@@ -44,6 +44,7 @@ import {
     Undo2,
     Redo2,
     Share,
+    CheckCircle,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
@@ -98,7 +99,7 @@ export const Icons = {
     pizza: Pizza,
     gitHub: Github,
     twitter: Twitter,
-    check: Check,
+    check: CheckCircle,
     star: Star,
     activity: Activity,
     link: Link,

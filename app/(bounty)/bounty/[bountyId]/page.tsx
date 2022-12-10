@@ -102,7 +102,14 @@ export default async function CreatePage({
                                 </div>
                                 <div className="my-8 flex justify-between">
                                     <div className="inline-flex items-center gap-4">
-                                        <Chip intent="green">Open</Chip>
+                                        {!bounty.resolved && (
+                                            <Chip intent="green">Open</Chip>
+                                        )}
+                                        {bounty.resolved && (
+                                            <Chip intent="purple">
+                                                Resolved
+                                            </Chip>
+                                        )}
                                         <ExternalLink href={repo.html_url}>
                                             <Chip
                                                 className="inline-flex gap-2 items-center"
@@ -142,7 +149,8 @@ export default async function CreatePage({
                                         <h3 className="text-brandtext-500 text-2xl font-bold">
                                             Activity
                                         </h3>
-                                        {bounty.bountySubmissions?.length ? (
+                                        {bounty.bountySubmissions?.length &&
+                                        !bounty.resolved ? (
                                             <SubmissionCreateButton
                                                 size="small"
                                                 bounty={{
@@ -154,6 +162,7 @@ export default async function CreatePage({
                                     </div>
                                     {bounty.bountySubmissions?.length ? (
                                         <BountySubmissionList
+                                            resolved={bounty.resolved}
                                             bountyStripePriceId={
                                                 bounty.stripePriceId
                                             }
@@ -228,6 +237,19 @@ export default async function CreatePage({
                                             value={formatDollars(
                                                 bounty.bountyPrice
                                             )}
+                                        />
+                                        <KeyValue
+                                            label="Status"
+                                            value={
+                                                <>
+                                                    {!bounty.resolved && (
+                                                        <>Open</>
+                                                    )}
+                                                    {bounty.resolved && (
+                                                        <>Resolved</>
+                                                    )}
+                                                </>
+                                            }
                                         />
                                     </div>
                                 </div>

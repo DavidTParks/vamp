@@ -31,9 +31,8 @@ export default async function handler(
         return res.status(400).send(`Webhook Error: ${error.message}`)
     }
 
-    const session = event.data.object as Stripe.Account
-
     if (event.type === "account.updated") {
+        const session = event.data.object as Stripe.Account
         // Retrieve the subscription details from Stripe.
         const account = await stripe.accounts.retrieve(session.id)
 
@@ -46,6 +45,35 @@ export default async function handler(
             },
             data: {
                 stripeCustomerId: account.id as string,
+            },
+        })
+    }
+
+    if (event.type === "checkout.session.completed") {
+        // Retrieve the subscription details from Stripe.
+        const session = event.data.object as Stripe.Account
+        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+            session.id,
+            {
+                expand: ["line_items"],
+            }
+        )
+
+        await db.bounty.update({
+            where: {
+                id: sessionWithLineItems.metadata.bountyId,
+            },
+            data: {
+                resolved: true,
+            },
+        })
+
+        await db.bountySubmission.update({
+            where: {
+                id: sessionWithLineItems.metadata.submissionId,
+            },
+            data: {
+                accepted: true,
             },
         })
     }

@@ -11,6 +11,7 @@ const chipStyles = cva(
             intent: {
                 green: " bg-green-900 text-green-100",
                 default: "bg-palette-100 text-brandtext-400",
+                purple: "bg-purple-900 text-purple-100",
             },
         },
         defaultVariants: {

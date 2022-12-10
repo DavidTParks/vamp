@@ -84,17 +84,25 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                                 <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
                                     <div className="flex gap-4">
                                         <div className="flex-shrink-0 hidden sm:block">
-                                            {!bounty?.published &&
-                                                !bounty?.resolved && (
+                                            {!bounty.published &&
+                                                !bounty.resolved && (
                                                     <Icons.edit2
                                                         size={24}
                                                         className="text-yellow-600 mt-2"
                                                     />
                                                 )}
-                                            {bounty?.published && (
-                                                <Icons.circleDot
+                                            {bounty.published &&
+                                                !bounty.resolved && (
+                                                    <Icons.circleDot
+                                                        size={24}
+                                                        className="text-green-600 mt-2"
+                                                    />
+                                                )}
+
+                                            {bounty.resolved && (
+                                                <Icons.check
                                                     size={24}
-                                                    className="text-green-600 mt-2"
+                                                    className="text-purple-600 mt-2"
                                                 />
                                             )}
                                         </div>

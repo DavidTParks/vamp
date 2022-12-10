@@ -7,6 +7,7 @@ import { Chip } from "@/ui/chip"
 import { BountyPayoutButton } from "./bounty-payout-button"
 
 interface MainNavProps {
+    resolved: boolean
     bountyStripePriceId: string
     bountySubmissions: (BountySubmission & {
         user: User
@@ -14,6 +15,7 @@ interface MainNavProps {
 }
 
 export function BountySubmissionList({
+    resolved,
     bountySubmissions,
     bountyStripePriceId,
 }: MainNavProps) {
@@ -59,12 +61,14 @@ export function BountySubmissionList({
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}
                         </div>
-                        <BountyPayoutButton
-                            bountyId={submission.bountyId}
-                            submissionId={submission.id}
-                            bountyStripePriceId={bountyStripePriceId}
-                            stripeUserId={submission.user.stripeCustomerId}
-                        />
+                        {!resolved && (
+                            <BountyPayoutButton
+                                bountyId={submission.bountyId}
+                                submissionId={submission.id}
+                                bountyStripePriceId={bountyStripePriceId}
+                                stripeUserId={submission.user.stripeCustomerId}
+                            />
+                        )}
                     </div>
                 ))}
             </div>
