@@ -97,7 +97,7 @@ export default async function CreatePage({
                                         Back
                                     </Button>
                                 </Link>
-                                <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl font-display">
+                                <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl">
                                     <h1>{bounty.title}</h1>
                                 </div>
                                 <div className="my-8 flex justify-between">

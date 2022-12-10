@@ -52,7 +52,7 @@
         "framer-motion": "^7.6.15",
         "he": "^1.2.0",
         "lucide-react": "^0.102.0",
-        "next": "^13.0.7-canary.3",
+        "next": "^13.0.7-canary.4",
         "next-auth": "^4.18.0",
         "next-contentlayer": "^0.2.9",
         "postcss": "^8.4.19",
