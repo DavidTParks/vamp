@@ -56,25 +56,32 @@ export default async function handler(req: NextRequest) {
 
                     <div tw="flex flex-col flex-1 py-10">
                         <div
-                            tw="flex text-xl uppercase font-bold tracking-tight text-[#eaebfc] items-center"
+                            tw="flex text-xl uppercase font-bold tracking-tight text-[#737388] items-center"
                             style={{
                                 fontFamily: "Inter",
                                 fontWeight: "normal",
                             }}
                         >
                             <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 48 48"
                                 fill="none"
-                                stroke={paint}
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
                             >
-                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                                <path
+                                    d="M30 44v-8a9.6 9.6 0 0 0-2-7c6 0 12-4 12-11 .16-2.5-.54-4.96-2-7 .56-2.3.56-4.7 0-7 0 0-2 0-6 3-5.28-1-10.72-1-16 0-4-3-6-3-6-3-.6 2.3-.6 4.7 0 7a10.806 10.806 0 0 0-2 7c0 7 6 11 12 11a9.43 9.43 0 0 0-1.7 3.3c-.34 1.2-.44 2.46-.3 3.7v8"
+                                    stroke={"#737388"}
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M18 36c-9.02 4-10-4-14-4"
+                                    stroke={"#737388"}
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
                             </svg>
                             <span tw="ml-2">{values.type}</span>
                         </div>
@@ -113,35 +120,14 @@ export default async function handler(req: NextRequest) {
                             <span tw="ml-2">Vamp.sh</span>
                         </div>
                         <div
-                            tw="flex items-center text-xl"
+                            tw="flex items-center text-3xl"
                             style={{
                                 fontFamily: "Inter",
-                                fontWeight: "normal",
+                                fontWeight: "bold",
                             }}
                         >
-                            <svg
-                                width="32"
-                                height="32"
-                                viewBox="0 0 48 48"
-                                fill="none"
-                            >
-                                <path
-                                    d="M30 44v-8a9.6 9.6 0 0 0-2-7c6 0 12-4 12-11 .16-2.5-.54-4.96-2-7 .56-2.3.56-4.7 0-7 0 0-2 0-6 3-5.28-1-10.72-1-16 0-4-3-6-3-6-3-.6 2.3-.6 4.7 0 7a10.806 10.806 0 0 0-2 7c0 7 6 11 12 11a9.43 9.43 0 0 0-1.7 3.3c-.34 1.2-.44 2.46-.3 3.7v8"
-                                    stroke={paint}
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                                <path
-                                    d="M18 36c-9.02 4-10-4-14-4"
-                                    stroke={paint}
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
                             <div tw="flex ml-2 text-[#eaebfc]">
-                                github.com/DavidTParks/vamp
+                                ${values.bountyPrice}
                             </div>
                         </div>
                     </div>

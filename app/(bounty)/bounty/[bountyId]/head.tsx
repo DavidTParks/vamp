@@ -15,6 +15,7 @@ export default async function Head({ params }) {
     const ogUrl = new URL(`${getBaseUrl()}/api/og`)
     ogUrl.searchParams.set("heading", bounty.title)
     ogUrl.searchParams.set("type", bounty.project.name)
+    ogUrl.searchParams.set("bountyPrice", bounty.bountyPrice?.toString())
     // const bounty = await getPost(params.bountyId)
 
     return (
