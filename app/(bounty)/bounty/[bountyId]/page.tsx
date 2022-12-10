@@ -36,10 +36,6 @@ export default async function CreatePage({
 }: ProjectPageProps) {
     const user = await getCurrentUser()
 
-    if (!user) {
-        redirect(authOptions.pages.signIn)
-    }
-
     const bounty = await db.bounty.findUnique({
         where: {
             id: params.bountyId,
@@ -72,13 +68,21 @@ export default async function CreatePage({
                             }}
                             items={dashboardConfig.mainNav}
                         />
-                        <UserAccountNav
-                            user={{
-                                name: user.name,
-                                image: user.image,
-                                email: user.email,
-                            }}
-                        />
+                        {user ? (
+                            <UserAccountNav
+                                user={{
+                                    name: user.name,
+                                    image: user.image,
+                                    email: user.email,
+                                }}
+                            />
+                        ) : (
+                            <Link href="/login">
+                                <Button intent="primary" borderRadius="full">
+                                    Login
+                                </Button>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </header>
@@ -182,12 +186,20 @@ export default async function CreatePage({
                                                 accepted by the project owners,
                                                 you get paid!
                                             </EmptyPlaceholder.Description>
-                                            <SubmissionCreateButton
-                                                bounty={{
-                                                    id: bounty.id,
-                                                    title: bounty.title,
-                                                }}
-                                            />
+                                            {!user ? (
+                                                <Link href="/login">
+                                                    <Button intent="primary">
+                                                        Login to contribute
+                                                    </Button>
+                                                </Link>
+                                            ) : (
+                                                <SubmissionCreateButton
+                                                    bounty={{
+                                                        id: bounty.id,
+                                                        title: bounty.title,
+                                                    }}
+                                                />
+                                            )}
                                         </EmptyPlaceholder>
                                     )}
                                 </div>

@@ -49,12 +49,10 @@ export const getRepo = cache(
     async (repoId: number): Promise<GithubRepository> => {
         const url = `${BASEURL}/repositories/${repoId}`
 
-        const user = await getCurrentUser()
-
         return await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user.accessToken}`,
+                // Authorization: `Bearer ${user.accessToken}`,
             },
         }).then((res) => res.json())
     }

@@ -19,22 +19,6 @@ import { Label } from "@/ui/label"
 import { Input } from "@/ui/input"
 import { TextArea } from "@/ui/textarea"
 
-async function deletePost(postId: string) {
-    const response = await fetch(`/api/posts/${postId}`, {
-        method: "DELETE",
-    })
-
-    if (!response?.ok) {
-        toast({
-            title: "Something went wrong.",
-            message: "Your post was not deleted. Please try again.",
-            type: "error",
-        })
-    }
-
-    return true
-}
-
 interface PostOperationsProps {
     bounty: Pick<Bounty, "id" | "title">
     size?: "small" | "noPadding" | "regular"
