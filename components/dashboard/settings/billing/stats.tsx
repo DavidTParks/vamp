@@ -9,8 +9,12 @@ interface TStats {
 export default function Stats({ balance, payouts }: TStats) {
     const stats = [
         {
-            name: "Current balance",
-            stat: balance.available[0].amount,
+            name: "Available balance",
+            stat: (balance.available[0].amount / 100).toFixed(2),
+        },
+        {
+            name: "Pending balance",
+            stat: (balance.pending[0].amount / 100).toFixed(2),
         },
         { name: "Total paid out", stat: 0 },
     ]
