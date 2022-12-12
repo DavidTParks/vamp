@@ -1,13 +1,11 @@
-import { redirect } from "next/navigation"
-
+import { BountyNav } from "@/components/bounty/bounty-nav"
+import { BountyShare } from "@/components/bounty/bounty-share"
 import { BountySubmissionList } from "@/components/bounty/bounty-submission-list"
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { Icons } from "@/components/icons"
-import { ProjectNav } from "@/components/project/project-nav"
 import { SubmissionCreateButton } from "@/components/project/submission-create-button"
 import { dashboardConfig } from "@/config/dashboard"
-import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getRepo } from "@/lib/github"
 import { getCurrentUser } from "@/lib/session"
@@ -23,7 +21,6 @@ import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import Link from "next/link"
-import { BountyShare } from "@/components/bounty/bounty-share"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -34,25 +31,27 @@ export default async function CreatePage({
     params,
     searchParams,
 }: ProjectPageProps) {
-    const user = await getCurrentUser()
+    const [user, bounty] = await Promise.all([
+        getCurrentUser(),
+        db.bounty.findUnique({
+            where: {
+                id: params.bountyId,
+            },
+            include: {
+                project: {
+                    include: {
+                        githubRepo: true,
+                    },
+                },
+                bountySubmissions: {
+                    include: {
+                        user: true,
+                    },
+                },
+            },
+        }),
+    ])
 
-    const bounty = await db.bounty.findUnique({
-        where: {
-            id: params.bountyId,
-        },
-        include: {
-            project: {
-                include: {
-                    githubRepo: true,
-                },
-            },
-            bountySubmissions: {
-                include: {
-                    user: true,
-                },
-            },
-        },
-    })
     const repo = await getRepo(bounty.project.githubRepo.githubRepoId)
     const githubIssue = bounty.githubIssue as any
 
@@ -61,7 +60,7 @@ export default async function CreatePage({
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
-                        <ProjectNav
+                        <BountyNav
                             project={{
                                 name: bounty.project.name,
                                 id: bounty.project.id,
@@ -91,16 +90,6 @@ export default async function CreatePage({
                     <div className="max-w-[1012px] mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
-                                {/* <Link href={`/project/${bounty.project.id}`}>
-                                    <Button
-                                        intent="tertiary"
-                                        className="inline-flex items-center justify-start gap-2 mb-8"
-                                        size="small"
-                                    >
-                                        <Icons.chevronLeft size={16} />
-                                        Back
-                                    </Button>
-                                </Link> */}
                                 <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl">
                                     <h1>{bounty.title}</h1>
                                 </div>
