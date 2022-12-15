@@ -40,7 +40,7 @@ Modal.Content = React.forwardRef<HTMLDivElement, Dialog.DialogContentProps>(
                     <Dialog.Content
                         ref={ref}
                         className={cn(
-                            "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl dropdown shadow-lg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-fuchsia-500 focus-visible:ring-opacity-75 md:w-full",
+                            "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl dropdown shadow-lg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75 md:w-full",
                             className
                         )}
                         {...props}

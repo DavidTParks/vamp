@@ -14,9 +14,6 @@ interface TBountyInfoBox {
 export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
     const bounty = await getBountyById(bountyId)
 
-    const repo = await getRepo(bounty.project.githubRepo.githubRepoId)
-    const githubIssue = bounty.githubIssue as any
-
     return (
         <div className="border border-raised-border rounded-lg col-span-4 p-4 py-6">
             <div className="flex flex-col items-center">
@@ -34,11 +31,11 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
                 </div>
                 <div className="mt-2">
                     <span className="text-brandtext-600 inline-flex gap-2 items-center">
-                        {bounty.project.bounties.length} bounties
+                        {bounty.project.bounties.length} Bounties
                     </span>
                 </div>
                 <Button className="mt-4" borderRadius="full" intent="secondary">
-                    View Project profile
+                    View Project Profile
                 </Button>
             </div>
         </div>

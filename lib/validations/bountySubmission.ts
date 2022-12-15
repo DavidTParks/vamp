@@ -1,7 +1,7 @@
 import * as z from "zod"
 
 export const bountySubmissionSchema = z.object({
-    solutionLink: z.string().min(1),
+    solutionLink: z.string().url(),
     comments: z.string().optional(),
 })
 

@@ -15,7 +15,7 @@
 
 @layer utilities {
     .red-glow {
-        text-shadow: 0px 0px 8px hsla(300, 98%, 60%, 0.6);
+        text-shadow: 0px 0px 8px hsla(352, 98%, 60%, 0.6);
     }
 
     .button {

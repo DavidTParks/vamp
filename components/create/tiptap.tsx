@@ -39,7 +39,7 @@ const ToolbarButton = ({ children, isActive, ...props }: TToolbarButton) => {
     return (
         <button
             type="button"
-            className={cn(isActive ? "text-fuchsia-500" : "")}
+            className={cn(isActive ? "text-rose-500" : "")}
             {...props}
         >
             {children}
@@ -230,7 +230,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
         ],
         editorProps: {
             attributes: {
-                class: "prose prose-invert focus:outline-none bg-appbg border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-fuchsia-500 w-full rounded-md rounded-t-none border py-2 px-3 min-h-[300px]",
+                class: "prose prose-invert focus:outline-none bg-appbg border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500 w-full rounded-md rounded-t-none border py-2 px-3 min-h-[300px]",
             },
         },
     })

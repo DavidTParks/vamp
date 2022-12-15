@@ -9,7 +9,7 @@ const buttonStyles = cva(
     {
         variants: {
             intent: {
-                primary: "bg-fuchsia-600 text-white hover:bg-fuchsia-500",
+                primary: "bg-rose-600 text-white hover:bg-rose-500",
                 secondary:
                     "bg-secondary-button text-white border border-secondary-border brightness-150 hover:brightness-200",
                 tertiary: "text-white hover:bg-palette-150",

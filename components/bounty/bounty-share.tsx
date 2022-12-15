@@ -31,7 +31,7 @@ export function BountyShare({ bounty }: BountyShareProps) {
                     <div>
                         <Button className="inline-flex gap-2" intent="text">
                             <Icons.share size={16} />
-                            Share
+                            <span className="hidden sm:block">Share</span>
                         </Button>
                     </div>
                 </DropdownMenu.Trigger>

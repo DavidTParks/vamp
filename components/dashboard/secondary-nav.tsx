@@ -3,7 +3,7 @@ import { useSelectedLayoutSegment } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
-const activeClass = "border-fuchsia-600 text-white"
+const activeClass = "border-rose-600 text-white"
 
 export const DashboardSecondaryNav = () => {
     const segment = useSelectedLayoutSegment()

@@ -71,14 +71,16 @@ export function SubmissionCreateButton({
         setIsModalOpen(false)
     }
 
+    console.log("ERrors", errors)
+
     return (
         <>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Trigger asChild>
-                    <Button size={size}>Solve bounty</Button>
+                    <Button size={size}>Post solution</Button>
                 </Modal.Trigger>
                 <Modal.Content>
-                    <Modal.Title>Solve bounty</Modal.Title>
+                    <Modal.Title>Post solution</Modal.Title>
                     <form className="mt-4" onSubmit={handleSubmit(onClick)}>
                         <div className="grid gap-8">
                             <div className="grid gap-1">
@@ -99,6 +101,12 @@ export function SubmissionCreateButton({
                                 {errors?.solutionLink?.type === "too_small" && (
                                     <small className="text-red-600">
                                         Solution link is required
+                                    </small>
+                                )}
+                                {errors?.solutionLink?.type ===
+                                    "invalid_string" && (
+                                    <small className="text-red-600">
+                                        You must submit a valid URL
                                     </small>
                                 )}
                             </div>

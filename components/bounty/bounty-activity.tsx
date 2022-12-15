@@ -2,13 +2,19 @@ import { BountySubmissionList } from "@/components/bounty/bounty-submission-list
 import { BountySubmissionsEmpty } from "@/components/bounty/bounty-submissions-empty"
 import { SubmissionCreateButton } from "@/components/project/submission-create-button"
 import { getBountyById } from "@/lib/bounties"
+import { getCurrentUser } from "@/lib/session"
+import Link from "next/link"
+import { Button } from "@/ui/button"
 
 interface TBountyActivity {
     bountyId: string
 }
 
 export async function BountyActivity({ bountyId }: TBountyActivity) {
-    const bounty = await getBountyById(bountyId)
+    const [bounty, user] = await Promise.all([
+        getBountyById(bountyId),
+        getCurrentUser(),
+    ])
 
     return (
         <>
@@ -16,22 +22,35 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                 <h3 className="text-brandtext-500 text-2xl font-bold">
                     Activity
                 </h3>
-                {bounty.bountySubmissions?.length && !bounty.resolved ? (
+                {bounty.bountySubmissions?.length &&
+                !bounty.resolved &&
+                user ? (
                     <SubmissionCreateButton
                         size="small"
                         bounty={{
                             id: bountyId,
                         }}
                     />
-                ) : null}
+                ) : (
+                    <>
+                        <Link href="/login">
+                            <Button size="small" intent="primary">
+                                Login to participate
+                            </Button>
+                        </Link>
+                    </>
+                )}
             </div>
             {bounty.bountySubmissions?.length ? (
-                <BountySubmissionList
-                    bountyId={bounty.id}
-                    resolved={bounty.resolved}
-                    bountyStripePriceId={bounty.stripePriceId}
-                    bountySubmissions={bounty.bountySubmissions}
-                />
+                <>
+                    {/* @ts-expect-error Server Component */}
+                    <BountySubmissionList
+                        bountyId={bounty.id}
+                        resolved={bounty.resolved}
+                        bountyStripePriceId={bounty.stripePriceId}
+                        bountySubmissions={bounty.bountySubmissions}
+                    />
+                </>
             ) : (
                 <>
                     {/* @ts-expect-error Server Component */}

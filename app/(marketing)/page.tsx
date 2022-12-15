@@ -39,7 +39,7 @@ export default async function IndexPage() {
                 <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15]">
                     Contribute to Open Source
                     <br />
-                    <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent red-glow">
+                    <span className="bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent red-glow">
                         Get Paid
                     </span>
                 </h1>

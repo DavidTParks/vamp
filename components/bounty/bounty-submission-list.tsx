@@ -26,8 +26,6 @@ export async function BountySubmissionList({
 }: MainNavProps) {
     const isOwner = await isBountyOwner(bountyId)
 
-    console.log("Is owner", isOwner)
-
     return (
         <div className="border border-raised-border rounded-lg col-span-4">
             <div className="p-4 border-b border-raised-border">
@@ -70,14 +68,18 @@ export async function BountySubmissionList({
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}
                         </div>
-                        {!resolved && isOwner && (
-                            <BountyPayoutButton
-                                bountyId={submission.bountyId}
-                                submissionId={submission.id}
-                                bountyStripePriceId={bountyStripePriceId}
-                                stripeUserId={submission.user.stripeCustomerId}
-                            />
-                        )}
+                        {/* {!resolved && isOwner && (
+                            <div>
+                                <BountyPayoutButton
+                                    bountyId={submission.bountyId}
+                                    submissionId={submission.id}
+                                    bountyStripePriceId={bountyStripePriceId}
+                                    stripeUserId={
+                                        submission.user.stripeCustomerId
+                                    }
+                                />
+                            </div>
+                        )} */}
                     </div>
                 ))}
             </div>

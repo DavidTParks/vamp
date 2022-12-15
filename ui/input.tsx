@@ -13,8 +13,8 @@ const inputStyles = cva(
         variants: {
             intent: {
                 primary:
-                    "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-fuchsia-500",
-                search: "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-fuchsia-500 pl-8",
+                    "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500",
+                search: "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500 pl-8",
             },
         },
         defaultVariants: {
