@@ -1,5 +1,3 @@
-import { ProjectItem } from "@/components/dashboard/project-item"
-import { DashboardShell } from "@/components/dashboard/shell"
 import { Skeleton } from "@/ui/skeleton"
 
 export default function DashboardLoading() {

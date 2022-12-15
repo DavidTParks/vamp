@@ -1,26 +1,23 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Bounty } from "@prisma/client"
+import { useRouter } from "next/navigation"
+import * as React from "react"
 
-import { DropdownMenu } from "@/ui/dropdown"
 import { Icons } from "@/components/icons"
-import { Alert } from "@/ui/alert"
-import { Modal } from "@/ui/modal"
-import { toast } from "@/ui/toast"
-import { Button } from "@/ui/button"
-import { useForm } from "react-hook-form"
 import { bountySubmissionSchema } from "@/lib/validations/bountySubmission"
-import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Label } from "@/ui/label"
+import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
+import { Label } from "@/ui/label"
+import { Modal } from "@/ui/modal"
 import { TextArea } from "@/ui/textarea"
+import { toast } from "@/ui/toast"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 interface PostOperationsProps {
-    bounty: Pick<Bounty, "id" | "title">
+    bounty: Pick<Bounty, "id">
     size?: "small" | "noPadding" | "regular"
 }
 

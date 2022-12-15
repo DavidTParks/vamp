@@ -1,6 +1,6 @@
 import "server-only"
 
-import { Project } from "@prisma/client"
+import { Bounty, Project } from "@prisma/client"
 import { cache } from "react"
 import { db } from "./db"
 
@@ -9,7 +9,7 @@ export const preloadBounties = (projectId: Project["id"]) => {
 }
 
 export const getBountiesForProject = cache(async (projectId: Project["id"]) => {
-    return await db.bounty.findMany({
+    return db.bounty.findMany({
         where: {
             projectId,
         },
@@ -23,6 +23,30 @@ export const getBountiesForProject = cache(async (projectId: Project["id"]) => {
         },
         orderBy: {
             updatedAt: "desc",
+        },
+    })
+})
+
+export const preloadBountyById = (projectId: Project["id"]) => {
+    void getBountyById(projectId)
+}
+
+export const getBountyById = cache(async (bountyId: Bounty["id"]) => {
+    return db.bounty.findUnique({
+        where: {
+            id: bountyId,
+        },
+        include: {
+            project: {
+                include: {
+                    githubRepo: true,
+                },
+            },
+            bountySubmissions: {
+                include: {
+                    user: true,
+                },
+            },
         },
     })
 })

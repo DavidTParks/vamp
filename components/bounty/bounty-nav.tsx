@@ -13,10 +13,9 @@ import { MainNavItem } from "types"
 interface MainNavProps {
     items?: MainNavItem[]
     children?: React.ReactNode
-    project: Pick<Project, "id" | "name">
 }
 
-export function BountyNav({ items, children, project }: MainNavProps) {
+export function BountyNav({ items, children }: MainNavProps) {
     const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
     return (

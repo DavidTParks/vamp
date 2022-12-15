@@ -1,5 +1,6 @@
 import { db } from "@/lib/db"
 import { getBaseUrl } from "@/lib/utils"
+
 export default async function Head({ params }) {
     const bounty = await db.bounty.findUnique({
         where: {
@@ -35,6 +36,7 @@ export default async function Head({ params }) {
             <meta name="twitter:card" content="summary_large_image" />
             <meta property="twitter:url" content={url} />
             <meta name="twitter:image" content={ogUrl.toString()} />
+            <link rel="icon" href="/vamp.svg" />
         </>
     )
 }
