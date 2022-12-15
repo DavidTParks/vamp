@@ -1,13 +1,10 @@
-import * as React from "react"
-
+import { isBountyOwner } from "@/lib/bounties"
 import { formatDate } from "@/lib/utils"
+import { Button } from "@/ui/button"
+import { Chip } from "@/ui/chip"
 import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
-import { Chip } from "@/ui/chip"
 import { BountyPayoutButton } from "./bounty-payout-button"
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
-import { isBountyOwner } from "@/lib/bounties"
 
 interface MainNavProps {
     bountyId: string
@@ -68,8 +65,8 @@ export async function BountySubmissionList({
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}
                         </div>
-                        {/* {!resolved && isOwner && (
-                            <div>
+                        <div className="flex gap-4 items-center">
+                            {!resolved && isOwner && (
                                 <BountyPayoutButton
                                     bountyId={submission.bountyId}
                                     submissionId={submission.id}
@@ -78,8 +75,8 @@ export async function BountySubmissionList({
                                         submission.user.stripeCustomerId
                                     }
                                 />
-                            </div>
-                        )} */}
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>

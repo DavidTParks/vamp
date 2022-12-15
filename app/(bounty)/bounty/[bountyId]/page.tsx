@@ -53,16 +53,19 @@ export default async function CreatePage({
                     <div className="max-w-[1012px] mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
-                                <Link href={`/browse`}>
-                                    <Button
-                                        intent="tertiary"
-                                        className="inline-flex items-center justify-start gap-2 mb-8"
-                                        size="small"
-                                    >
-                                        <Icons.chevronLeft size={16} />
-                                        Backs to all Bounties
-                                    </Button>
-                                </Link>
+                                <div>
+                                    <Link href={`/browse`}>
+                                        <Button
+                                            intent="tertiary"
+                                            className="inline-flex items-center justify-start gap-2 mb-8"
+                                            size="small"
+                                        >
+                                            <Icons.chevronLeft size={16} />
+                                            Backs to All Bounties
+                                        </Button>
+                                    </Link>
+                                </div>
+
                                 {/* @ts-expect-error Server Component */}
                                 <BountyContent bountyId={params.bountyId} />
                                 <div className="mt-24 flex flex-col">

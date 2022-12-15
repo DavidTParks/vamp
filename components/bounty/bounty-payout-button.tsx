@@ -63,13 +63,18 @@ export function BountyPayoutButton({
 
     return (
         <>
-            <Button intent="secondary" onClick={onSubmit} disabled={isLoading}>
+            <Button
+                intent="secondary"
+                size="small"
+                onClick={onSubmit}
+                disabled={isLoading}
+            >
                 {isLoading ? (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                    <Icons.check className="mr-2 h-4 w-4" />
+                    <Icons.billing className="mr-2 h-4 w-4" />
                 )}
-                Accept solution
+                Accept and pay
             </Button>
         </>
     )

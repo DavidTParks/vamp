@@ -377,6 +377,11 @@ const Tiptap = ({ bounty }: TTipTap) => {
             </div>
             <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
                 <Button type="submit" disabled={isSaving}>
+                    {isSaving ? (
+                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Icons.edit className="mr-2 h-4 w-4" />
+                    )}
                     {bounty.published ? "Save" : "Save and Publish"}
                 </Button>
             </div>

@@ -12,6 +12,7 @@ const chipStyles = cva(
                 green: " bg-green-900 text-green-100",
                 default: "bg-palette-100 text-brandtext-400",
                 purple: "bg-purple-900 text-purple-100",
+                rose: "bg-rose-300 text-rose-900",
             },
         },
         defaultVariants: {

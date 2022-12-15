@@ -34,7 +34,12 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
                         {bounty.project.bounties.length} Bounties
                     </span>
                 </div>
-                <Button className="mt-4" borderRadius="full" intent="secondary">
+                <Button
+                    size="small"
+                    className="mt-4"
+                    borderRadius="full"
+                    intent="secondary"
+                >
                     View Project Profile
                 </Button>
             </div>

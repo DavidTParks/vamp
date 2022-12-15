@@ -20,7 +20,8 @@
 
 .main:after {
     content: "";
-    background-image: url("/_static/grid.svg");
+    /* background-image: url("/_static/grid.svg"); */
+
     z-index: 1;
     position: absolute;
     width: 100%;
@@ -41,12 +42,12 @@
             hsla(215, 98%, 61%, 1) 0px,
             transparent 0%
         ),
-        radial-gradient(at 97% 21%, #d80039 0px, transparent 50%),
-        radial-gradient(at 52% 99%, #d80039 0px, transparent 50%),
+        radial-gradient(at 97% 21%, #d80000 0px, transparent 50%),
+        radial-gradient(at 52% 99%, #bb248e 0px, transparent 50%),
         radial-gradient(at 10% 29%, #d80039 0px, transparent 50%),
-        radial-gradient(at 97% 96%, rgb(224, 149, 228) 0px, transparent 50%),
+        radial-gradient(at 97% 96%, rgb(228, 149, 149) 0px, transparent 50%),
         radial-gradient(at 33% 50%, #ec4899 0px, transparent 50%),
-        radial-gradient(at 79% 53%, #e9d70e 0px, transparent 50%);
+        radial-gradient(at 79% 53%, #e90e5e 0px, transparent 50%);
     position: absolute;
     content: "";
     width: 100%;
