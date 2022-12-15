@@ -5,6 +5,7 @@ import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import { Icons } from "@/components/icons"
 
 export const revalidate = 0
 
@@ -33,6 +34,9 @@ export default async function DashboardLayout({
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
+                            <div className="block md:hidden">
+                                <Icons.logo size={24} color="white" />
+                            </div>
                             <UserAccountNav
                                 user={{
                                     name: user.name,

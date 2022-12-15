@@ -1,24 +1,22 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 import { SidebarNavItem } from "types"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
-interface SettingsNavProps {
+interface ProjectSettingsNavProps {
     items: SidebarNavItem[]
 }
 
-export function SettingsNav({ items }: SettingsNavProps) {
+export function ProjectSettingsNav({ items }: ProjectSettingsNavProps) {
     const path = usePathname()
 
     if (!items?.length) {
         return null
     }
-
-    console.log("Path", path)
 
     return (
         <nav className="grid items-start gap-2">

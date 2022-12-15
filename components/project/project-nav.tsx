@@ -58,15 +58,16 @@ export function ProjectNav({ items, children, project }: MainNavProps) {
             </div>
 
             <Button
-                className="flex items-center space-x-2 md:hidden"
+                intent="tertiary"
+                size="small"
+                className="flex items-center space-x-2 md:hidden px-2"
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
                 {showMobileMenu ? (
                     <Icons.close />
                 ) : (
-                    <Icons.logo size={24} color="white" />
+                    <Icons.menu size={24} color="white" />
                 )}
-                <span className="font-bold">Menu</span>
             </Button>
             {showMobileMenu && <MobileNav items={items}>{children}</MobileNav>}
         </div>

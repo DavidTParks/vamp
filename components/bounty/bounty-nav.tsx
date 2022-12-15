@@ -6,8 +6,6 @@ import * as React from "react"
 import { Icons } from "@/components/icons"
 import { MobileNav } from "@/components/mobile-nav"
 import { Button } from "@/ui/button"
-import { Project } from "@prisma/client"
-import Image from "next/image"
 import { MainNavItem } from "types"
 
 interface MainNavProps {
@@ -33,15 +31,16 @@ export function BountyNav({ items, children }: MainNavProps) {
             </div>
 
             <Button
+                intent="tertiary"
+                size="small"
                 className="flex items-center space-x-2 md:hidden"
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
                 {showMobileMenu ? (
                     <Icons.close />
                 ) : (
-                    <Icons.logo size={24} color="white" />
+                    <Icons.menu size={24} color="white" />
                 )}
-                <span className="font-bold">Menu</span>
             </Button>
             {showMobileMenu && <MobileNav items={items}>{children}</MobileNav>}
         </div>

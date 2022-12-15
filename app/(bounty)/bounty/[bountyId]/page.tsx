@@ -7,6 +7,7 @@ import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
+import { Icons } from "@/components/icons"
 
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
@@ -25,6 +26,9 @@ export default async function CreatePage({
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
                         <BountyNav items={dashboardConfig.mainNav} />
+                        <div className="block md:hidden">
+                            <Icons.logo size={24} color="white" />
+                        </div>
                         {user ? (
                             <UserAccountNav
                                 user={{

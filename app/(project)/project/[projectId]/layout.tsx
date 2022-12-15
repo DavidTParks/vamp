@@ -1,14 +1,13 @@
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { ProjectCreateForm } from "@/components/dashboard/project-create-form"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
+import { Icons } from "@/components/icons"
+import { ProjectHeader } from "@/components/project/header"
+import { ProjectNav } from "@/components/project/project-nav"
+import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
 import { dashboardConfig } from "@/config/dashboard"
+import { getRepoIssues } from "@/lib/github"
+import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
-import { ProjectHeader } from "@/components/project/header"
-import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
-import { getProject } from "@/lib/projects"
-import { getRepoIssues, preloadRepoIssues } from "@/lib/github"
-import { ProjectNav } from "@/components/project/project-nav"
 
 export default async function ProjectLayout({
     children,
@@ -43,6 +42,9 @@ export default async function ProjectLayout({
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
+                            <div className="block md:hidden">
+                                <Icons.logo size={24} color="white" />
+                            </div>
                             <UserAccountNav
                                 user={{
                                     name: user.name,

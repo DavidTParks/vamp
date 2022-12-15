@@ -1,16 +1,13 @@
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { DashboardShell } from "@/components/dashboard/shell"
+import { BountyCreateButton } from "@/components/project/bounty-create-button"
+import BountyList from "@/components/project/bounty-list"
 import { authOptions } from "@/lib/auth"
 import { getBountiesForProject } from "@/lib/bounties"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
-import { Button } from "@/ui/button"
-import Link from "next/link"
-import { notFound, redirect } from "next/navigation"
-import { BountyCreateButton } from "@/components/project/bounty-create-button"
-import BountyList from "@/components/project/bounty-list"
 import { Headline } from "@/ui/headline"
-import { Icons } from "@/components/icons"
+import { notFound, redirect } from "next/navigation"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string }
