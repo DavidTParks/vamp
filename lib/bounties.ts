@@ -3,6 +3,7 @@ import "server-only"
 import { Bounty, Project } from "@prisma/client"
 import { cache } from "react"
 import { db } from "./db"
+import { getCurrentUser } from "./session"
 
 export const preloadBounties = (projectId: Project["id"]) => {
     void getBountiesForProject(projectId)
@@ -40,6 +41,7 @@ export const getBountyById = cache(async (bountyId: Bounty["id"]) => {
             project: {
                 include: {
                     githubRepo: true,
+                    bounties: true,
                 },
             },
             bountySubmissions: {
@@ -50,3 +52,24 @@ export const getBountyById = cache(async (bountyId: Bounty["id"]) => {
         },
     })
 })
+
+export const isBountyOwner = cache(
+    async (bountyId: Bounty["id"]): Promise<boolean> => {
+        const user = await getCurrentUser()
+
+        const count = await db.bounty.count({
+            where: {
+                id: bountyId,
+                project: {
+                    users: {
+                        some: {
+                            userId: user?.id,
+                        },
+                    },
+                },
+            },
+        })
+
+        return Boolean(user && count > 0)
+    }
+)

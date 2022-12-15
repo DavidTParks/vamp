@@ -23,17 +23,20 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
             </div>
             <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col overflow-hidden">
                 <KeyValue
-                    label="Project"
+                    label="Bounty"
+                    value={formatDollars(bounty.bountyPrice)}
+                />
+                <KeyValue
+                    label="Posted"
+                    value={formatDate(bounty.project.createdAt?.toString())}
+                />
+                <KeyValue
+                    label="Status"
                     value={
-                        <div className="max-w-[156px] truncate overflow-hidden">
-                            <ExternalLink
-                                className="inline-flex gap-2 items-center"
-                                href={repo.html_url}
-                            >
-                                Github
-                                <Icons.link size={16} />
-                            </ExternalLink>
-                        </div>
+                        <>
+                            {!bounty.resolved && <>Open</>}
+                            {bounty.resolved && <>Resolved</>}
+                        </>
                     }
                 />
                 {githubIssue && githubIssue?.number && (
@@ -49,23 +52,6 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
                         }
                     />
                 )}
-                <KeyValue
-                    label="Opened"
-                    value={formatDate(bounty.project.createdAt?.toString())}
-                />
-                <KeyValue
-                    label="Bounty"
-                    value={formatDollars(bounty.bountyPrice)}
-                />
-                <KeyValue
-                    label="Status"
-                    value={
-                        <>
-                            {!bounty.resolved && <>Open</>}
-                            {bounty.resolved && <>Resolved</>}
-                        </>
-                    }
-                />
             </div>
         </div>
     )

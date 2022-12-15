@@ -8,7 +8,8 @@ import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
 import { Icons } from "@/components/icons"
-
+import { BountyProjectInfo } from "@/components/bounty/bounty-project-info"
+import { Chip } from "@/ui/chip"
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
     searchParams: { id: string }
@@ -52,6 +53,16 @@ export default async function CreatePage({
                     <div className="max-w-[1012px] mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
+                                <Link href={`/browse`}>
+                                    <Button
+                                        intent="tertiary"
+                                        className="inline-flex items-center justify-start gap-2 mb-8"
+                                        size="small"
+                                    >
+                                        <Icons.chevronLeft size={16} />
+                                        Backs to all Bounties
+                                    </Button>
+                                </Link>
                                 {/* @ts-expect-error Server Component */}
                                 <BountyContent bountyId={params.bountyId} />
                                 <div className="mt-24 flex flex-col">
@@ -61,7 +72,9 @@ export default async function CreatePage({
                                     />
                                 </div>
                             </div>
-                            <div className="w-full lg:w-4/12 lg:min-w-[321px] mt-12 sm:mt-0">
+                            <div className="w-full lg:w-4/12 lg:min-w-[321px] mt-12 sm:mt-0 space-y-8">
+                                {/* @ts-expect-error Server Component */}
+                                <BountyProjectInfo bountyId={params.bountyId} />
                                 {/* @ts-expect-error Server Component */}
                                 <BountyInfoBox bountyId={params.bountyId} />
                             </div>

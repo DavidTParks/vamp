@@ -10,7 +10,7 @@ import Text from "@tiptap/extension-text"
 import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-
+import { formatDate, formatDollars } from "@/lib/utils"
 interface TBountyContent {
     bountyId: string
 }
@@ -21,7 +21,10 @@ export async function BountyContent({ bountyId }: TBountyContent) {
 
     return (
         <>
-            <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl">
+            <h3 className="text-lg text-green-500 mb-4 font-bold">
+                Earn {formatDollars(bounty.bountyPrice)}
+            </h3>
+            <div className="text-brandtext-500 font-bold break-words text-lg leading-8 sm:text-4xl">
                 <h1>{bounty.title}</h1>
             </div>
             <div className="my-8 flex justify-between">
@@ -34,7 +37,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                             intent="default"
                         >
                             <Icons.gitHub size={16} />
-                            {bounty.project.name}
+                            {repo.name}
                         </Chip>
                     </ExternalLink>
                 </div>

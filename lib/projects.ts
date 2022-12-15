@@ -9,6 +9,7 @@ import {
     GithubRepository,
     Bounty,
 } from "@prisma/client"
+import { getCurrentUser } from "./session"
 
 export const preloadProjects = (userId: User["id"]) => {
     void getProjectsForUser(userId)
@@ -59,5 +60,24 @@ export const getProject = cache(
                 bounties: true,
             },
         })
+    }
+)
+
+export const isProjectOwner = cache(
+    async (projectId: Project["id"]): Promise<boolean> => {
+        const user = await getCurrentUser()
+
+        const count = await db.project.count({
+            where: {
+                id: projectId,
+                users: {
+                    some: {
+                        userId: user?.id,
+                    },
+                },
+            },
+        })
+
+        return Boolean(user && count > 0)
     }
 )

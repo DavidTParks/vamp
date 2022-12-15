@@ -7,6 +7,8 @@ import urlcat from "urlcat"
 
 const BASEURL: string = "https://api.github.com"
 
+const FALLBACK_ACCESS_TOKEN = process.env.GITHUB_ACCESS_TOKEN
+
 export const getGithubUser = cache(async (): Promise<GithubUser> => {
     const url = `${BASEURL}/user`
 
@@ -15,7 +17,9 @@ export const getGithubUser = cache(async (): Promise<GithubUser> => {
     return await fetch(url, {
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${
+                user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+            }`,
         },
     }).then((res) => res.json())
 })
@@ -36,7 +40,9 @@ export const getRepos = cache(async (): Promise<GithubRepository[]> => {
     return await fetch(url, {
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${
+                user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+            }`,
         },
     }).then((res) => res.json())
 })
@@ -54,7 +60,9 @@ export const getRepo = cache(
         return await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user.accessToken}`,
+                Authorization: `Bearer ${
+                    user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+                }`,
             },
         }).then((res) => res.json())
     }
@@ -87,7 +95,9 @@ export const getRepoIssues = cache(
         return await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user.accessToken}`,
+                Authorization: `Bearer ${
+                    user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+                }`,
             },
         }).then((res) => res.json())
     }

@@ -1,29 +1,12 @@
 "use client"
 
-import { BountySubmission, User } from "@prisma/client"
-import { useRouter } from "next/navigation"
-import * as React from "react"
-import { Icons } from "../icons"
 import { bountySubmissionSchema } from "@/lib/validations/bountySubmission"
 import { Button } from "@/ui/button"
 import { toast } from "@/ui/toast"
+import { useRouter } from "next/navigation"
+import * as React from "react"
 import * as z from "zod"
-
-async function deletePost(postId: string) {
-    const response = await fetch(`/api/posts/${postId}`, {
-        method: "DELETE",
-    })
-
-    if (!response?.ok) {
-        toast({
-            title: "Something went wrong.",
-            message: "Your post was not deleted. Please try again.",
-            type: "error",
-        })
-    }
-
-    return true
-}
+import { Icons } from "../icons"
 
 interface BountyPayoutButton {
     bountyStripePriceId: string
@@ -80,7 +63,7 @@ export function BountyPayoutButton({
 
     return (
         <>
-            <Button onClick={onSubmit} disabled={isLoading}>
+            <Button intent="secondary" onClick={onSubmit} disabled={isLoading}>
                 {isLoading ? (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 ) : (

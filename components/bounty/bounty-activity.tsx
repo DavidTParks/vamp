@@ -27,6 +27,7 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
             </div>
             {bounty.bountySubmissions?.length ? (
                 <BountySubmissionList
+                    bountyId={bounty.id}
                     resolved={bounty.resolved}
                     bountyStripePriceId={bounty.stripePriceId}
                     bountySubmissions={bounty.bountySubmissions}

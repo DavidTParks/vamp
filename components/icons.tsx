@@ -46,6 +46,7 @@ import {
     Share,
     CheckCircle,
     Menu,
+    Verified,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
@@ -105,4 +106,5 @@ export const Icons = {
     activity: Activity,
     link: Link,
     menu: Menu,
+    verified: Verified,
 }

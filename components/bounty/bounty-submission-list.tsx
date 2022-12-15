@@ -5,8 +5,12 @@ import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
 import { Chip } from "@/ui/chip"
 import { BountyPayoutButton } from "./bounty-payout-button"
+import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
+import { isBountyOwner } from "@/lib/bounties"
 
 interface MainNavProps {
+    bountyId: string
     resolved: boolean
     bountyStripePriceId: string
     bountySubmissions: (BountySubmission & {
@@ -14,11 +18,16 @@ interface MainNavProps {
     })[]
 }
 
-export function BountySubmissionList({
+export async function BountySubmissionList({
     resolved,
     bountySubmissions,
     bountyStripePriceId,
+    bountyId,
 }: MainNavProps) {
+    const isOwner = await isBountyOwner(bountyId)
+
+    console.log("Is owner", isOwner)
+
     return (
         <div className="border border-raised-border rounded-lg col-span-4">
             <div className="p-4 border-b border-raised-border">
@@ -61,7 +70,7 @@ export function BountySubmissionList({
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}
                         </div>
-                        {!resolved && (
+                        {!resolved && isOwner && (
                             <BountyPayoutButton
                                 bountyId={submission.bountyId}
                                 submissionId={submission.id}
