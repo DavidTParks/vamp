@@ -73,3 +73,23 @@ export const isBountyOwner = cache(
         return Boolean(user && count > 0)
     }
 )
+
+type TFetchBountes = {
+    take: number
+    skip: number
+}
+
+export const fetchBounties = cache(
+    async ({ take = 10, skip = 0 }: TFetchBountes) => {
+        const bounties = await db.bounty.findMany({
+            take,
+            skip,
+            include: {
+                project: true,
+                bountySubmissions: true,
+            },
+        })
+
+        return bounties
+    }
+)

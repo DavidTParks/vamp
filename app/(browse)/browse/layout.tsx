@@ -3,6 +3,8 @@ import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/ui/button"
 
 export default async function ProjectLayout({
     children,
@@ -10,10 +12,6 @@ export default async function ProjectLayout({
     children: React.ReactNode
 }) {
     const user = await getCurrentUser()
-
-    if (!user) {
-        return notFound()
-    }
 
     return (
         <>
@@ -29,13 +27,24 @@ export default async function ProjectLayout({
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
-                            <UserAccountNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                            />
+                            {user ? (
+                                <UserAccountNav
+                                    user={{
+                                        name: user.name,
+                                        image: user.image,
+                                        email: user.email,
+                                    }}
+                                />
+                            ) : (
+                                <Link href="/login">
+                                    <Button
+                                        intent="primary"
+                                        borderRadius="full"
+                                    >
+                                        Login
+                                    </Button>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </header>
