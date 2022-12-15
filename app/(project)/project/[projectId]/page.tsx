@@ -37,7 +37,7 @@ export default async function ProjectPage({
                 <div className="mb-8">
                     <Headline
                         heading="Bounties"
-                        text="To create a new Bounty, import one from a Github issue or create one fresh."
+                        text="To create a new Bounty, import one from an existing Github issue or create one."
                     />
                 </div>
                 {bounties.length ? (

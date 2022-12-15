@@ -83,8 +83,7 @@ export function ProjectNameForm({
                 <Card.Header>
                     <Card.Title>Project Name</Card.Title>
                     <Card.Description>
-                        Please enter your project's name or a name you are
-                        comfortable with
+                        Update your Project Name
                     </Card.Description>
                 </Card.Header>
                 <Card.Content>
