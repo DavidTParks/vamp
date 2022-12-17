@@ -51,6 +51,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         },
                     },
                     githubIssue: body?.issue,
+                    submittedBy: {
+                        connect: {
+                            id: session?.user?.id,
+                        },
+                    },
                 },
                 select: {
                     id: true,

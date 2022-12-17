@@ -33,11 +33,13 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                     />
                 ) : (
                     <>
-                        <Link href="/login">
-                            <Button size="small" intent="primary">
-                                Login to participate
-                            </Button>
-                        </Link>
+                        {!user && (
+                            <Link href="/login">
+                                <Button size="small" intent="primary">
+                                    Login to participate
+                                </Button>
+                            </Link>
+                        )}
                     </>
                 )}
             </div>

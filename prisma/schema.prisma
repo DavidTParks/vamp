@@ -53,6 +53,7 @@ model User {
   projects          ProjectUsers[]
   bountySubmissions BountySubmission[]
   comments          Comment[]
+  bounties          Bounty[]
   stripeCustomerId  String?            @unique @map(name: "stripe_customer_id")
 
   @@map(name: "users")
@@ -149,8 +150,11 @@ model Bounty {
   comments          Comment[]
   githubIssue       Json?
   stripePriceId     String?            @unique @map(name: "stripe_price_id")
+  submittedBy       User               @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  userId            String
 
   @@index([projectId])
+  @@index([userId])
 }
 
 model BountySubmission {

@@ -13,6 +13,9 @@ export const DashboardSecondaryNav = () => {
             <SecondaryLinkItem href="/dashboard" isActive={!segment}>
                 Projects
             </SecondaryLinkItem>
+            <SecondaryLinkItem href="/browse" isActive={false}>
+                Browse
+            </SecondaryLinkItem>
             <SecondaryLinkItem
                 href="/dashboard/settings"
                 isActive={segment === "settings"}
