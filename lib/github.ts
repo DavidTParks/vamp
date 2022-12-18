@@ -2,7 +2,12 @@ import "server-only"
 
 import { getCurrentUser } from "@/lib/session"
 import { cache } from "react"
-import { GithubIssueSearch, GithubRepository, GithubUser } from "types"
+import {
+    GithubIssueSearch,
+    GithubRepository,
+    GithubUser,
+    GithubOrg,
+} from "types"
 import urlcat from "urlcat"
 
 const BASEURL: string = "https://api.github.com"
@@ -23,6 +28,45 @@ export const getGithubUser = cache(async (): Promise<GithubUser> => {
         },
     }).then((res) => res.json())
 })
+
+export const preloadUserGithubOrgs = () => {
+    void getUserGithubOrgs()
+}
+
+export const getUserGithubOrgs = cache(async (): Promise<GithubOrg[]> => {
+    const [user, githubUser] = await Promise.all([
+        getCurrentUser(),
+        getGithubUser(),
+    ])
+
+    return await fetch(`${BASEURL}/users/${githubUser.login}/orgs`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${
+                user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+            }`,
+        },
+    }).then((res) => res.json())
+})
+
+export const preloadOrgRepos = (orgId: number) => {
+    void getOrgRepos(orgId)
+}
+
+export const getOrgRepos = cache(
+    async (orgId: number): Promise<GithubRepository[]> => {
+        const user = await getCurrentUser()
+
+        return await fetch(`${BASEURL}/orgs/${orgId}/repos`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${
+                    user?.accessToken ?? FALLBACK_ACCESS_TOKEN
+                }`,
+            },
+        }).then((res) => res.json())
+    }
+)
 
 export const preloadRepos = () => {
     void getRepos()

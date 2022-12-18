@@ -16,7 +16,7 @@ export default function NewLoading() {
     return (
         <div className="max-w-lg mx-auto w-full">
             <div className="my-8">
-                <Link href={`/dashboard`}>
+                <Link href={`/new`}>
                     <Button
                         intent="tertiary"
                         className="inline-flex items-center justify-start gap-2 mb-8"
@@ -27,7 +27,7 @@ export default function NewLoading() {
                     </Button>
                 </Link>
                 <Headline
-                    heading="Select a Github repository or Org"
+                    heading="Select a Github repository"
                     text="Import a Github Repository to get started posting bounties"
                 />
             </div>

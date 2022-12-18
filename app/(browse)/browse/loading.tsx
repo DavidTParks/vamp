@@ -1,16 +1,4 @@
-import { Headline } from "@/ui/headline"
 import { Skeleton } from "@/ui/skeleton"
-import Link from "next/link"
-import { Button } from "@/ui/button"
-import { Icons } from "@/components/icons"
-
-const RepoLoadingItem = () => {
-    return (
-        <div className="p-4 pr-0 flex justify-between items-center">
-            <Skeleton className="w-full h-8" />
-        </div>
-    )
-}
 
 export default function NewLoading() {
     return (

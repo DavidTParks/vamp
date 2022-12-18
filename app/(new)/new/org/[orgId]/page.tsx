@@ -7,8 +7,17 @@ import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
+import GithubOrgRepoList from "@/components/dashboard/github-org-repo-list"
 
-export default async function SettingsPage() {
+interface OrgRepoPageProps {
+    params: { orgId: string }
+    searchParams: { id: string }
+}
+
+export default async function OrgRepoPage({
+    params,
+    searchParams,
+}: OrgRepoPageProps) {
     const user = await getCurrentUser()
 
     if (!user) {
@@ -18,7 +27,7 @@ export default async function SettingsPage() {
     return (
         <div className="max-w-lg mx-auto w-full">
             <div className="my-8">
-                <Link href={`/dashboard`}>
+                <Link href={`/new`}>
                     <Button
                         intent="tertiary"
                         className="inline-flex items-center justify-start gap-2 mb-8"
@@ -29,12 +38,12 @@ export default async function SettingsPage() {
                     </Button>
                 </Link>
                 <Headline
-                    heading="Select a Github repository or Org"
+                    heading="Select a Github repository"
                     text="Import a Github Repository to get started posting bounties"
                 />
             </div>
             {/* @ts-expect-error Server Component */}
-            <GithubRepoList />
+            <GithubOrgRepoList orgId={params.orgId} />
         </div>
     )
 }

@@ -1,37 +1,17 @@
-import { getRepos, getUserGithubOrgs } from "@/lib/github"
+import { getOrgRepos } from "@/lib/github"
 import { dateToNow } from "@/lib/utils"
 import GithubRepoSelect from "./github-repo-select"
-import { Skeleton } from "@/ui/skeleton"
-import { GithubOrgCard } from "./github-org-card"
 
-export default async function GithubRepoList() {
-    const repositories = getRepos()
-    const orgs = getUserGithubOrgs()
-
-    const [repos, organizations] = await Promise.all([repositories, orgs])
+interface TGithbOrgRepoList {
+    orgId: number
+}
+export default async function GithubOrgRepoList({ orgId }: TGithbOrgRepoList) {
+    const orgRepos = await getOrgRepos(orgId)
 
     return (
         <>
-            {organizations?.length ? (
-                <div className="mb-8">
-                    <h4 className="text-brandtext-500 font-medium text-lg">
-                        Your organizations
-                    </h4>
-                    <div className="flex flex-col space-y-4 mt-4">
-                        {organizations.map((org) => (
-                            <>
-                                {/* @ts-expect-error Server Component */}
-                                <GithubOrgCard key={org.id} org={org} />
-                            </>
-                        ))}
-                    </div>
-                </div>
-            ) : null}
-            <h4 className="text-brandtext-500 font-medium text-lg">
-                Your repositories
-            </h4>
             <div className="flex flex-col relative divide-y divide-palette-300">
-                {repos?.map((repo) => (
+                {orgRepos?.map((repo) => (
                     <div
                         className="p-4 pr-0 flex justify-between items-center"
                         key={repo.id}
