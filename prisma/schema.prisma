@@ -150,8 +150,8 @@ model Bounty {
   comments          Comment[]
   githubIssue       Json?
   stripePriceId     String?            @unique @map(name: "stripe_price_id")
-  submittedBy       User               @relation(fields: [userId], references: [id], onUpdate: NoAction)
-  userId            String
+  submittedBy       User?              @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  userId            String?
 
   @@index([projectId])
   @@index([userId])
