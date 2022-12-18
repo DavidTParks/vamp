@@ -4,6 +4,7 @@ import "./globals.css"
 import { Toaster } from "@/ui/toast"
 import { cn } from "@/lib/utils"
 import { SiteFooter } from "@/components/site-footer"
+import { AnalyticsWrapper } from "@/components/analytics"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",
@@ -41,6 +42,7 @@ export default function RootLayout({
                 {children}
                 <Toaster position="bottom-right" />
                 <SiteFooter />
+                <AnalyticsWrapper />
             </body>
         </html>
     )
