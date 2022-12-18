@@ -89,6 +89,9 @@ export const fetchBounties = cache(
                 bountySubmissions: true,
                 submittedBy: true,
             },
+            where: {
+                published: true,
+            },
         })
 
         return bounties
