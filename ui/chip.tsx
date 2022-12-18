@@ -26,5 +26,5 @@ export interface TChipProps
         VariantProps<typeof chipStyles> {}
 
 export function Chip({ intent = "default", className, ...props }: TChipProps) {
-    return <span className={cn(className, chipStyles({ intent }))} {...props} />
+    return <span className={cn(chipStyles({ intent }), className)} {...props} />
 }

@@ -6,7 +6,7 @@ export function SiteFooter() {
         <footer className="mx-auto mt-32 w-full max-w-container px-4 sm:px-6 lg:px-8 z-50 relative">
             <div className="border-t border-raised-border py-10">
                 <div className="mx-auto max-w-sm h-5 w-auto text-center flex items-center justify-center text-brandtext-500 gap-2">
-                    <Icons.logo /> Vamp.sh
+                    <Icons.logo /> Vamp
                 </div>
                 <p className="mt-5 text-center text-sm leading-6 text-brandtext-500">
                     © 2022 Vamp LLC. All rights reserved.

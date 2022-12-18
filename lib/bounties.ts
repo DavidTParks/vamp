@@ -87,6 +87,7 @@ export const fetchBounties = cache(
             include: {
                 project: true,
                 bountySubmissions: true,
+                submittedBy: true,
             },
         })
 
