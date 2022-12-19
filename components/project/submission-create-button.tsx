@@ -71,8 +71,6 @@ export function SubmissionCreateButton({
         setIsModalOpen(false)
     }
 
-    console.log("ERrors", errors)
-
     return (
         <>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>

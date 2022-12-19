@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.name = token.name
                 session.user.email = token.email
                 session.user.image = token.picture
+                session.user.stripeCustomerId = token.stripeCustomerId
             }
 
             return session
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
                 email: dbUser.email,
                 picture: dbUser.image,
                 accessToken,
+                stripeCustomerId: dbUser.stripeCustomerId,
             }
         },
     },

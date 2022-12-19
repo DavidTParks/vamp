@@ -1,13 +1,12 @@
 import { redirect } from "next/navigation"
 
-import GithubRepoList from "@/components/dashboard/github-repo-list"
+import GithubOrgRepoList from "@/components/dashboard/github-org-repo-list"
 import { Icons } from "@/components/icons"
 import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
-import GithubOrgRepoList from "@/components/dashboard/github-org-repo-list"
 
 interface OrgRepoPageProps {
     params: { orgId: string }

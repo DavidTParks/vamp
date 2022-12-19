@@ -4,6 +4,7 @@ import { Button } from "@/ui/button"
 import { SubmissionCreateButton } from "../project/submission-create-button"
 import { getCurrentUser } from "@/lib/session"
 import { getBountyById } from "@/lib/bounties"
+import { StripeNotConnectedModal } from "@/ui/stripe-not-connected-modal"
 
 interface TBountySubmissionsEmpty {
     bountyId: string
@@ -29,11 +30,20 @@ export async function BountySubmissionsEmpty({
                     <Button intent="primary">Login to contribute</Button>
                 </Link>
             ) : (
-                <SubmissionCreateButton
-                    bounty={{
-                        id: bounty.id,
-                    }}
-                />
+                <>
+                    {user.stripeCustomerId ? (
+                        <SubmissionCreateButton
+                            size="small"
+                            bounty={{
+                                id: bountyId,
+                            }}
+                        />
+                    ) : (
+                        <StripeNotConnectedModal>
+                            <Button>Post solution</Button>
+                        </StripeNotConnectedModal>
+                    )}
+                </>
             )}
         </EmptyPlaceholder>
     )

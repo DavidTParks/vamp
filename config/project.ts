@@ -18,6 +18,11 @@ export const dynamicProjectSidebar = (projectId: string): SettingsConfig => {
                 href: `/project/${projectId}/settings`,
                 icon: "settings",
             },
+            {
+                title: "Billing",
+                href: `/project/${projectId}/settings/billing`,
+                icon: "billing",
+            },
         ],
     }
 

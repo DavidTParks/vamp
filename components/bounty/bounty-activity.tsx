@@ -5,6 +5,7 @@ import { getBountyById } from "@/lib/bounties"
 import { getCurrentUser } from "@/lib/session"
 import Link from "next/link"
 import { Button } from "@/ui/button"
+import { StripeNotConnectedModal } from "@/ui/stripe-not-connected-modal"
 
 interface TBountyActivity {
     bountyId: string
@@ -25,12 +26,20 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                 {bounty.bountySubmissions?.length &&
                 !bounty.resolved &&
                 user ? (
-                    <SubmissionCreateButton
-                        size="small"
-                        bounty={{
-                            id: bountyId,
-                        }}
-                    />
+                    <>
+                        {user.stripeCustomerId ? (
+                            <SubmissionCreateButton
+                                size="small"
+                                bounty={{
+                                    id: bountyId,
+                                }}
+                            />
+                        ) : (
+                            <StripeNotConnectedModal>
+                                <Button>Post solution</Button>
+                            </StripeNotConnectedModal>
+                        )}
+                    </>
                 ) : (
                     <>
                         {!user && (

@@ -10,6 +10,7 @@ declare module "next-auth" {
             /** The user's postal address. */
             id: string
             accessToken: string
+            stripeCustomerId: string
         } & DefaultSession["user"]
     }
 }
@@ -20,5 +21,6 @@ declare module "next-auth/jwt" {
         /** OpenID ID Token */
         id: string
         accessToken: string
+        stripeCustomerId: string
     }
 }
