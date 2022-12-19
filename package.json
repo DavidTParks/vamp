@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "stripewebhooks": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
     },
     "dependencies": {
         "@editorjs/code": "^2.8.0",
@@ -53,7 +54,7 @@
         "framer-motion": "^7.6.15",
         "he": "^1.2.0",
         "lucide-react": "^0.102.0",
-        "next": "^13.0.7-canary.6",
+        "next": "^13.0.8-canary.0",
         "next-auth": "^4.18.0",
         "next-contentlayer": "^0.2.9",
         "postcss": "^8.4.19",

@@ -33,7 +33,6 @@ export async function BountySubmissionsEmpty({
                 <>
                     {user.stripeCustomerId ? (
                         <SubmissionCreateButton
-                            size="small"
                             bounty={{
                                 id: bountyId,
                             }}

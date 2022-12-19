@@ -29,7 +29,6 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                     <>
                         {user.stripeCustomerId ? (
                             <SubmissionCreateButton
-                                size="small"
                                 bounty={{
                                     id: bountyId,
                                 }}
