@@ -45,6 +45,7 @@ export async function BrowseBountyList({
                 title: {
                     search,
                 },
+                resolved: false,
             },
         }),
         db.bounty.count({

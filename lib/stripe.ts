@@ -73,6 +73,6 @@ export const getStripePayouts = cache(
 )
 
 // 5% plus .50C per transaction
-export const platformFee = (price: number) => {
+export const platformFee = (price: number): number => {
     return ((price / 100) * 0.05 + 0.5) * 100
 }
