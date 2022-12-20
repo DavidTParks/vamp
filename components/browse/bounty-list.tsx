@@ -26,6 +26,9 @@ export async function BrowseBountyList({
     const bounties = await db.bounty.findMany({
         take: pageSize,
         skip: page ?? 0 * 10,
+        orderBy: {
+            createdAt: "desc",
+        },
         include: {
             project: true,
             bountySubmissions: true,
