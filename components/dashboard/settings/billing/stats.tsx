@@ -1,5 +1,6 @@
 import { TStripeBalance, TStripeDetails, TStripePayouts } from "@/lib/stripe"
 import { Stripe } from "stripe"
+import { formatDollars } from "@/lib/utils"
 
 interface TStats {
     balance: Stripe.Balance
@@ -34,7 +35,7 @@ export default function Stats({ balance, payouts }: TStats) {
                             {item.name}
                         </dt>
                         <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                            ${item.stat}
+                            {formatDollars(parseFloat(item.stat.toString()))}
                         </dd>
                     </div>
                 ))}

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -155,6 +156,8 @@ model Bounty {
 
   @@index([projectId])
   @@index([userId])
+  @@fulltext([title])
+  @@fulltext([description])
 }
 
 model BountySubmission {

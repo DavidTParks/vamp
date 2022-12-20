@@ -1,21 +1,11 @@
-import { fetchBounties } from "@/lib/bounties"
+import { BrowseBountyList } from "@/components/browse/bounty-list"
 import { BrowseSearch } from "@/components/browse/browse-search"
-import Image from "next/image"
-import { formatDate, formatDollars } from "@/lib/utils"
-import { Chip } from "@/ui/chip"
-import Link from "next/link"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { Button } from "@/ui/button"
-import { getCurrentUser } from "@/lib/session"
 
-export default async function SettingsPage() {
-    const user = await getCurrentUser()
+interface BrowsePageProps {
+    searchParams: { page: string; search: string }
+}
 
-    const bounties = await fetchBounties({
-        take: 10,
-        skip: 0,
-    })
-
+export default async function BrowsePage({ searchParams }: BrowsePageProps) {
     return (
         <div className="max-w-4xl mx-auto w-full">
             <div className="my-8">
@@ -38,67 +28,11 @@ export default async function SettingsPage() {
                 <BrowseSearch />
             </div>
             <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8">
-                {bounties?.length ? (
-                    <>
-                        {bounties.map((bounty) => (
-                            <Link
-                                href={`/bounty/${bounty.id}`}
-                                key={bounty.id}
-                                className="group relative p-4 border border-raised-border rounded-lg  dropdown"
-                            >
-                                <div className="flex flex-col gap-2">
-                                    <span className="text-brandtext-500 text-sm flex gap-2 items-center">
-                                        <Chip
-                                            className="text-xs"
-                                            intent="green"
-                                        >
-                                            {formatDollars(bounty.bountyPrice)}
-                                        </Chip>
-                                        {bounty.title}
-                                    </span>
-                                    <div className="flex items-center gap-2">
-                                        <div className="h-6 w-6 rounded-full overflow-hidden relative inline-flex justify-center items-center">
-                                            <Image
-                                                alt={`${bounty.submittedBy.name} profile picture`}
-                                                fill
-                                                src={bounty.submittedBy.image}
-                                            />
-                                        </div>
-                                        <span className="text-brandtext-600">
-                                            &middot;
-                                        </span>
-                                        <span className="text-brandtext-600 text-sm">
-                                            Posted{" "}
-                                            {formatDate(
-                                                bounty.createdAt?.toString()
-                                            )}
-                                        </span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </>
-                ) : (
-                    <EmptyPlaceholder>
-                        <EmptyPlaceholder.Icon name="logo" />
-                        <EmptyPlaceholder.Title>
-                            No Bounties
-                        </EmptyPlaceholder.Title>
-                        <EmptyPlaceholder.Description>
-                            No bounties match your search query, or are open
-                            right now. Be the first to post!
-                        </EmptyPlaceholder.Description>
-                        {user ? (
-                            <Link href={`/dashboard`}>
-                                <Button>New Bounty</Button>
-                            </Link>
-                        ) : (
-                            <Link href={`/login`}>
-                                <Button>Login to post</Button>
-                            </Link>
-                        )}
-                    </EmptyPlaceholder>
-                )}
+                {/* @ts-expect-error Server Component */}
+                <BrowseBountyList
+                    search={searchParams.search}
+                    page={searchParams?.page ? parseInt(searchParams.page) : 0}
+                />
             </div>
         </div>
     )

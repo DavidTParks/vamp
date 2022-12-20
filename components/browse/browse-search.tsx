@@ -27,7 +27,9 @@ export function BrowseSearch() {
     })
 
     const onSubmit = (data: TSearch) => {
-        router.push(`/browse?search=${data.search}`)
+        const searchTrimmed = data?.search?.trim()
+        const searchQuery = !!searchTrimmed ? `?search=${searchTrimmed}` : ""
+        router.push(`/browse${searchQuery}`)
         router.refresh()
     }
 

@@ -52,8 +52,8 @@ export function Button({
     return (
         <button
             className={cn(
-                className,
-                buttonStyles({ intent, fullWidth, borderRadius, size })
+                buttonStyles({ intent, fullWidth, borderRadius, size }),
+                className
             )}
             {...props}
         />
