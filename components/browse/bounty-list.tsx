@@ -81,7 +81,7 @@ export async function BrowseBountyList({
                                     </h3>
                                     <div className="flex items-center p-4 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6 py-3">
                                         <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
-                                            <div className="flex gap-4 col-span-2 items-center">
+                                            <div className="flex gap-4 items-center">
                                                 <div className="flex-shrink-0 hidden sm:block">
                                                     <Icons.circleDot
                                                         size={24}
@@ -89,30 +89,29 @@ export async function BrowseBountyList({
                                                     />
                                                 </div>
                                                 <dl className="flex flex-col items-start">
-                                                    <dt className="font-medium text-brandtext-600 inline-flex items-center gap-1">
-                                                        {
-                                                            bounty.project
-                                                                .githubRepo.name
-                                                        }
-                                                    </dt>
-                                                    <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
-                                                        <span className="line-clamp-1 flex max-w-[256px]">
-                                                            {bounty.title}
-                                                        </span>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <div>
                                                     <dt className="font-medium text-brandtext-600">
-                                                        Price
+                                                        Bounty
                                                     </dt>
                                                     <dd className="mt-1 text-brandtext-500">
                                                         {formatDollars(
                                                             bounty.bountyPrice
                                                         )}
                                                     </dd>
-                                                </div>
+                                                </dl>
+                                            </div>
+                                            <div className="flex flex-col items-start col-span-2">
+                                                <dt className="font-medium text-brandtext-600 inline-flex items-center gap-1">
+                                                    <Icons.gitHub size={16} />
+                                                    {
+                                                        bounty.project
+                                                            .githubRepo.name
+                                                    }
+                                                </dt>
+                                                <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
+                                                    <span className="line-clamp-1 flex max-w-[300px]">
+                                                        {bounty.title}
+                                                    </span>
+                                                </dd>
                                             </div>
                                             <div className="flex items-center gap-2 place-items-end w-full justify-end">
                                                 <div className="h-6 w-6 rounded-full overflow-hidden relative inline-flex justify-center items-center flex-shrink-0">

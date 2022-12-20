@@ -8,6 +8,7 @@ import { db } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
 import { getBaseUrl } from "@/lib/utils"
 import { bountyAcceptSchema } from "@/lib/validations/bountySubmission"
+import { platformFee } from "@/lib/stripe"
 
 export type returnUrlQueryParams =
     | "create"
@@ -28,7 +29,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const price = await stripe.prices.retrieve(body.bountyStripePriceId)
 
-            const tenPercentFee = price.unit_amount * 0.1
+            const fee = platformFee(price.unit_amount)
+
+            console.log("Fee", fee)
 
             const paymentLink = await stripe.paymentLinks.create({
                 line_items: [
@@ -46,7 +49,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 transfer_data: {
                     destination: body.bountySubmissionUserStripeId,
                 },
-                application_fee_amount: tenPercentFee,
+                application_fee_amount: platformFee(price.unit_amount),
                 metadata: {
                     bountyId: body.bountyId,
                     submissionId: body.submissionId,
