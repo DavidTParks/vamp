@@ -37,6 +37,7 @@ export function BrowseSearch() {
         <div className="w-full relative">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
+                    className="bg-appbg"
                     intent="search"
                     id="search"
                     placeholder="Search all bounties"
