@@ -30,16 +30,17 @@ export async function BrowseBountyList({
             createdAt: "desc",
         },
         include: {
-            project: true,
+            project: {
+                include: {
+                    githubRepo: true,
+                },
+            },
             bountySubmissions: true,
             submittedBy: true,
         },
         where: {
             published: true,
             title: {
-                search,
-            },
-            description: {
                 search,
             },
         },
@@ -71,48 +72,27 @@ export async function BrowseBountyList({
                                             )}
                                         </time>
                                     </h3>
-                                    <div className="flex items-center p-4 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6 pb-0">
+                                    <div className="flex items-center p-4 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6 py-3">
                                         <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
-                                            <div className="flex gap-4">
-                                                <div className="flex-shrink-0 hidden sm:block">
-                                                    {!bounty.published &&
-                                                        !bounty.resolved && (
-                                                            <Icons.edit2
-                                                                size={24}
-                                                                className="text-yellow-600 mt-2"
-                                                            />
-                                                        )}
-                                                    {bounty.published &&
-                                                        !bounty.resolved && (
-                                                            <Icons.circleDot
-                                                                size={24}
-                                                                className="text-green-600 mt-2"
-                                                            />
-                                                        )}
-
-                                                    {bounty.resolved && (
-                                                        <Icons.check
-                                                            size={24}
-                                                            className="text-purple-600 mt-2"
-                                                        />
-                                                    )}
-                                                </div>
-
-                                                <div>
-                                                    <dt className="font-medium text-brandtext-600">
-                                                        {bounty.project.name}
+                                            <div className="flex gap-4 col-span-2">
+                                                <dl className="flex flex-col items-start">
+                                                    <dt className="font-medium text-brandtext-600 inline-flex items-center gap-1">
+                                                        {
+                                                            bounty.project
+                                                                .githubRepo.name
+                                                        }
                                                     </dt>
                                                     <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
-                                                        <span className=" line-clamp-1 flex">
+                                                        <span className="line-clamp-1 flex max-w-[256px]">
                                                             {bounty.title}
                                                         </span>
                                                     </dd>
-                                                </div>
+                                                </dl>
                                             </div>
                                             <div>
                                                 <div>
                                                     <dt className="font-medium text-brandtext-600">
-                                                        Bounty
+                                                        Price
                                                     </dt>
                                                     <dd className="mt-1 text-brandtext-500">
                                                         {formatDollars(
@@ -121,7 +101,7 @@ export async function BrowseBountyList({
                                                     </dd>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 place-items-end w-full justify-end">
                                                 <div className="h-6 w-6 rounded-full overflow-hidden relative inline-flex justify-center items-center flex-shrink-0">
                                                     <Image
                                                         alt={`${bounty.submittedBy.name} profile picture`}
@@ -136,7 +116,7 @@ export async function BrowseBountyList({
                                                     &middot;
                                                 </span>
                                                 <span className="text-brandtext-600 text-sm whitespace-nowrap">
-                                                    {bounty.submittedBy.name}{" "}
+                                                    Created{" "}
                                                     {dateToNow(
                                                         bounty.createdAt
                                                     )}{" "}

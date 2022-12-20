@@ -3,6 +3,7 @@ import { Button } from "@/ui/button"
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { ExternalLink } from "@/ui/external-link"
+import { getCurrentUser } from "@/lib/session"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -31,7 +32,10 @@ async function getGitHubStars(): Promise<string | null> {
 }
 
 export default async function IndexPage() {
-    const stars = await getGitHubStars()
+    const [stars, user] = await Promise.all([
+        getGitHubStars(),
+        getCurrentUser(),
+    ])
 
     return (
         <>
@@ -49,9 +53,15 @@ export default async function IndexPage() {
                     contributors to resolve them.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
-                    <Link href="/register">
-                        <Button>Start For Free</Button>
-                    </Link>
+                    {user ? (
+                        <Link href="/browse">
+                            <Button>Browse Bounties</Button>
+                        </Link>
+                    ) : (
+                        <Link href="/register">
+                            <Button>Start For Free</Button>
+                        </Link>
+                    )}
                     <ExternalLink href="https://github.com/DavidTParks/vamp">
                         <Button intent="secondary">
                             <p className="text-sm mr-2">Star on GitHub</p>

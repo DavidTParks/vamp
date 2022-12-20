@@ -157,6 +157,7 @@ model Bounty {
   @@index([projectId])
   @@index([userId])
   @@fulltext([title])
+  @@fulltext([title, description])
   @@fulltext([description])
 }
 

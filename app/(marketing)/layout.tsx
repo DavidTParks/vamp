@@ -25,7 +25,13 @@ export default async function MarketingLayout({
             <header className="container z-40 ">
                 <div className="flex h-16 items-center justify-between  py-4">
                     <MainNav items={marketingConfig.mainNav} />
+
                     <nav className="flex gap-4">
+                        <Link href="/browse">
+                            <Button intent="text" borderRadius="full">
+                                Bounties
+                            </Button>
+                        </Link>
                         {user ? (
                             <Link href="/dashboard">
                                 <Button intent="primary" borderRadius="full">
