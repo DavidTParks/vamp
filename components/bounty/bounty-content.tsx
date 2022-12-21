@@ -10,7 +10,6 @@ import Text from "@tiptap/extension-text"
 import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { formatDate, formatDollars } from "@/lib/utils"
 interface TBountyContent {
     bountyId: string
 }

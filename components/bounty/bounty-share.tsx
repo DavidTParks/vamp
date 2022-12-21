@@ -41,7 +41,7 @@ export function BountyShare({ bounty }: BountyShareProps) {
                             <a
                                 rel="noopener noreferrer"
                                 target="_blank"
-                                href={`https://twitter.com/intent/tweet?text=${bounty.title} on Vamp&url=${window.location}&via=vampdotsh`}
+                                href={`https://twitter.com/intent/tweet?text=${bounty.title} on Vamp&url=${bountyLink}&via=vampdotsh`}
                                 className="flex w-full items-center gap-2"
                             >
                                 <Icons.twitter size={16} />

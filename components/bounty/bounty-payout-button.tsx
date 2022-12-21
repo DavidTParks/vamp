@@ -23,9 +23,7 @@ export function BountyPayoutButton({
     submissionId,
     bountyId,
 }: BountyPayoutButton) {
-    const router = useRouter()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
     async function onSubmit(event) {
         event.preventDefault()

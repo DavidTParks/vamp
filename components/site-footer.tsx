@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site"
 import { Icons } from "@/components/icons"
+import Link from "next/link"
 
 export function SiteFooter() {
     return (
@@ -12,9 +13,9 @@ export function SiteFooter() {
                     © 2022 Vamp LLC. All rights reserved.
                 </p>
                 <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-brandtext-500">
-                    <a href="/privacy-policy">Privacy policy</a>
+                    <Link href="/privacy-policy">Privacy policy</Link>
                     <div className="h-4 w-px bg-brandtext-500/20"></div>
-                    <a href="/changelog">Changelog</a>
+                    <Link href="/tos">Terms of Service</Link>
                 </div>
             </div>
         </footer>

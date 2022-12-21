@@ -34,7 +34,7 @@ export default function LoginPage() {
                     </Link>{" "}
                     and{" "}
                     <Link
-                        href="/privacy"
+                        href="/privacy-policy"
                         className="underline hover:text-brand"
                     >
                         Privacy Policy

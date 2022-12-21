@@ -49,18 +49,6 @@ export default async function ProjectPage({
     return (
         <DashboardShell>
             <div className="mt-12">
-                <div>
-                    <Link href={`/browse`}>
-                        <Button
-                            intent="tertiary"
-                            className="inline-flex items-center justify-start gap-2 mb-8"
-                            size="small"
-                        >
-                            <Icons.chevronLeft size={16} />
-                            Backs to All Bounties
-                        </Button>
-                    </Link>
-                </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     <div className="w-full space-y-8 col-span-4 lg:col-span-1">
                         <div className="border border-raised-border rounded-lg p-4 py-6 w-full">

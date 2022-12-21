@@ -51,7 +51,7 @@ import {
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
 
-import { GiBat as Bat } from "react-icons/gi"
+import { GiBat as Bat, GiFangs } from "react-icons/gi"
 
 import { FaMarkdown } from "react-icons/fa"
 
@@ -60,6 +60,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    fangs: GiFangs,
     share: Share,
     frown: Frown,
     redo: Redo2,
