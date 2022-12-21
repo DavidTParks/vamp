@@ -6,10 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 interface TBountyListPagination {
     bountyCount: number
-    page: number
+    pageSize: number
 }
 
-export function BountyListPagination({ bountyCount }: TBountyListPagination) {
+export function BountyListPagination({
+    bountyCount,
+    pageSize,
+}: TBountyListPagination) {
     const searchParams = useSearchParams()
     const router = useRouter()
 
@@ -36,19 +39,35 @@ export function BountyListPagination({ bountyCount }: TBountyListPagination) {
             <div className="hidden sm:block">
                 <p className="text-sm text-brandtext-600">
                     Showing{" "}
-                    <span className="font-medium">{(page - 1) * 10 + 1}</span>{" "}
-                    to <span className="font-medium">{page * 10}</span> of{" "}
+                    <span className="font-medium">
+                        {(page - 1) * pageSize + 1}
+                    </span>{" "}
+                    to <span className="font-medium">{page * pageSize}</span> of{" "}
                     {bountyCount} results
                 </p>
             </div>
             <div className="flex flex-1 justify-between sm:justify-end gap-4">
-                {previousPage && (
-                    <Button intent="secondary" size="small">
+                {previousPage ? (
+                    <Button
+                        onClick={() => {
+                            router.push(`/browse?${previousPageQueryString}`)
+                            router.refresh()
+                        }}
+                        intent="secondary"
+                        size="small"
+                    >
                         Previous
                     </Button>
-                )}
-                {page * 10 < bountyCount && (
-                    <Button intent="secondary" size="small">
+                ) : null}
+                {page * pageSize < bountyCount && (
+                    <Button
+                        onClick={() => {
+                            router.push(`/browse?${nextPageQueryString}`)
+                            router.refresh()
+                        }}
+                        intent="secondary"
+                        size="small"
+                    >
                         Next
                     </Button>
                 )}

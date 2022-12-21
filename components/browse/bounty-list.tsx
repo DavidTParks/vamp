@@ -25,7 +25,7 @@ export async function BrowseBountyList({
     const [bounties, bountyCount] = await Promise.all([
         db.bounty.findMany({
             take: pageSize,
-            skip: page ?? 0 * pageSize,
+            skip: page ? page - 1 : 0 * pageSize,
             orderBy: {
                 createdAt: "desc",
             },
@@ -151,7 +151,10 @@ export async function BrowseBountyList({
                 </>
             )}
             {bountyCount > pageSize && (
-                <BountyListPagination page={page} bountyCount={bountyCount} />
+                <BountyListPagination
+                    pageSize={pageSize}
+                    bountyCount={bountyCount}
+                />
             )}
         </>
     )

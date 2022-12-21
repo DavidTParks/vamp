@@ -31,6 +31,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
             <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8">
                 {/* @ts-expect-error Server Component */}
                 <BrowseBountyList
+                    pageSize={25}
                     search={searchParams.search}
                     page={searchParams?.page ? parseInt(searchParams.page) : 0}
                 />
