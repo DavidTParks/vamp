@@ -39,6 +39,7 @@ export function BountyShare({ bounty }: BountyShareProps) {
                     <DropdownMenu.Content className="mt-2 z-50 dropdown">
                         <DropdownMenu.Item>
                             <a
+                                rel="noopener noreferrer"
                                 target="_blank"
                                 href={`https://twitter.com/intent/tweet?text=${bounty.title} on Vamp&url=${window.location}&via=vampdotsh`}
                                 className="flex w-full items-center gap-2"
