@@ -42,6 +42,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                     <BountyShare
                         bounty={{
                             id: bounty.id,
+                            title: bounty.title,
                         }}
                     />
                 </div>

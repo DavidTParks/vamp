@@ -9,7 +9,7 @@ import { DropdownMenu } from "@/ui/dropdown"
 import { toast } from "@/ui/toast"
 
 interface BountyShareProps {
-    bounty: Pick<Bounty, "id">
+    bounty: Pick<Bounty, "id" | "title">
 }
 
 export function BountyShare({ bounty }: BountyShareProps) {
@@ -38,10 +38,14 @@ export function BountyShare({ bounty }: BountyShareProps) {
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content className="mt-2 z-50 dropdown">
                         <DropdownMenu.Item>
-                            <div className="flex w-full items-center gap-2">
+                            <a
+                                target="_blank"
+                                href={`https://twitter.com/intent/tweet?text=${bounty.title} on Vamp&url=${window.location}&via=vampdotsh`}
+                                className="flex w-full items-center gap-2"
+                            >
                                 <Icons.twitter size={16} />
                                 Twitter
-                            </div>
+                            </a>
                         </DropdownMenu.Item>
                         <DropdownMenu.Separator />
                         <DropdownMenu.Item onSelect={() => copyBountyLink()}>
