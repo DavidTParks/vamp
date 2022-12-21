@@ -1,17 +1,17 @@
 "use client"
 
 import { Input } from "@/ui/input"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useTransition } from "react"
 import { useForm } from "react-hook-form"
-import { Icons } from "../icons"
-import { useRouter } from "next/navigation"
-import { useSearchParams } from "next/navigation"
-import { issueSearchString } from "@/lib/utils"
 
 type TSearch = {
     search?: string
 }
 
 export function BrowseSearch() {
+    const [isPending, startTransition] = useTransition()
+
     const searchParams = useSearchParams()
     const search = searchParams.get("search")
 
@@ -30,13 +30,17 @@ export function BrowseSearch() {
         const searchTrimmed = data?.search?.trim()
         const searchQuery = !!searchTrimmed ? `?search=${searchTrimmed}` : ""
         router.push(`/browse${searchQuery}`)
-        router.refresh()
+
+        startTransition(() => {
+            router.refresh()
+        })
     }
 
     return (
         <div className="w-full relative">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
+                    isPending={isPending}
                     className="bg-appbg"
                     intent="search"
                     id="search"

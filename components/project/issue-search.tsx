@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { TProject } from "./secondary-nav"
 import { useSearchParams } from "next/navigation"
 import { issueSearchString } from "@/lib/utils"
+import { useTransition } from "react"
 
 type TIssueSearch = {
     project: TProject
@@ -17,6 +18,7 @@ type TSearch = {
 }
 
 export default function IssueSearch({ project }: TIssueSearch) {
+    const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
     const search = searchParams.get("search")
 
@@ -38,13 +40,16 @@ export default function IssueSearch({ project }: TIssueSearch) {
                 data.search
             )}`
         )
-        router.refresh()
+        startTransition(() => {
+            router.refresh()
+        })
     }
 
     return (
         <div className="w-full relative">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
+                    isPending={isPending}
                     intent="search"
                     id="search"
                     placeholder="Search all issues"

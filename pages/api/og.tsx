@@ -120,13 +120,13 @@ export default async function handler(req: NextRequest) {
                             <span tw="ml-2">Vamp</span>
                         </div>
                         <div
-                            tw="flex items-center text-3xl"
+                            tw="flex items-center text-5xl text-rose-500"
                             style={{
                                 fontFamily: "Inter",
                                 fontWeight: "bold",
                             }}
                         >
-                            <div tw="flex ml-2 text-[#eaebfc]">
+                            <div tw="flex ml-2 text-green-500">
                                 ${values.bountyPrice}
                             </div>
                         </div>

@@ -14,7 +14,7 @@ const inputStyles = cva(
             intent: {
                 primary:
                     "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500",
-                search: "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500 pl-8",
+                search: "bg-appbg border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500 pl-8",
             },
         },
         defaultVariants: {
@@ -25,6 +25,7 @@ const inputStyles = cva(
 
 export interface Props extends InputProps, VariantProps<typeof inputStyles> {
     register: UseFormRegister<FieldValues>
+    isPending?: boolean
 }
 
 export function Input({
@@ -32,11 +33,17 @@ export function Input({
     register,
     className,
     name,
+    isPending = false,
     ...props
 }: Props) {
     return (
         <>
-            <div className="w-full">
+            <div className="w-full relative">
+                {isPending && (
+                    <div className="absolute right-0 my-auto  inline-flex items-center h-full z-10">
+                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin text-brandtext-600" />
+                    </div>
+                )}
                 {intent === "search" && (
                     <Icons.search
                         className="text-brandtext-600 absolute left-2 ml-1 top-0 bottom-0 m-auto h-full"
