@@ -1,11 +1,7 @@
 import { getBountyById } from "@/lib/bounties"
-import { getRepo } from "@/lib/github"
-import { formatDate, formatDollars } from "@/lib/utils"
-import { ExternalLink } from "@/ui/external-link"
-import { KeyValue } from "@/ui/keyvalue"
-import { Icons } from "../icons"
-import Image from "next/image"
 import { Button } from "@/ui/button"
+import Image from "next/image"
+import Link from "next/link"
 
 interface TBountyInfoBox {
     bountyId: string
@@ -34,14 +30,16 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
                         {bounty.project.bounties.length} Bounties
                     </span>
                 </div>
-                <Button
-                    size="small"
-                    className="mt-4"
-                    borderRadius="full"
-                    intent="secondary"
-                >
-                    View Project Profile
-                </Button>
+                <Link href={`/profile/${bounty.project.id}`}>
+                    <Button
+                        size="small"
+                        className="mt-4"
+                        borderRadius="full"
+                        intent="secondary"
+                    >
+                        View Project Profile
+                    </Button>
+                </Link>
             </div>
         </div>
     )

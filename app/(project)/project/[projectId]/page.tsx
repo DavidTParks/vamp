@@ -29,7 +29,7 @@ export default async function ProjectPage({
         notFound()
     }
 
-    const bounties = await getBountiesForProject(project.id)
+    const bounties = project.bounties
 
     return (
         <DashboardShell>

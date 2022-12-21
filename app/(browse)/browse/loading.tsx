@@ -10,11 +10,12 @@ export default function NewLoading() {
                             Browse
                         </h2>
                         <p className="mt-1 text-4xl font-bold tracking-tight text-brandtext-500 sm:text-5xl lg:text-6xl">
-                            Start solving bounties
+                            Make your mark
                         </p>
                         <p className="mx-auto mt-5 max-w-xl text-xl text-brandtext-600">
                             If your bounty resolution is accepted by an Open
-                            Source project, you get paid!
+                            Source project, you get paid! Plus, the street (web)
+                            cred.
                         </p>
                     </div>
                 </div>

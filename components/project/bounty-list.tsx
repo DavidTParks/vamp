@@ -10,10 +10,16 @@ import Link from "next/link"
 type TBountyList = {
     bounties: Bounty[]
     project: TProject
-    page?: number | string
+    showDrafts?: boolean
+    showControls?: boolean
 }
 
-export default function BountyList({ bounties, project, page }: TBountyList) {
+export default function BountyList({
+    bounties,
+    project,
+    showDrafts = true,
+    showControls = true,
+}: TBountyList) {
     const draftCount = bounties.filter(
         (bounty) => bounty.published === false
     ).length
@@ -30,21 +36,19 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
         <>
             <div className="divide-y divide-raised-border rounded-md overflow-hidden border-raised-border border">
                 <div className="flex items-center p-6 py-3 gap-6 bg-raised">
-                    <Button
-                        size="noPadding"
-                        intent="tertiary"
-                        className="text-white inline-flex gap-1 items-center"
-                    >
-                        <Icons.edit2 size={16} className="text-brandtext-600" />
-                        <span className="text-sm text-brandtext-600">
-                            {draftCount} Drafts
-                        </span>
-                    </Button>
-                    <Button
-                        size="noPadding"
-                        intent="tertiary"
-                        className="text-white inline-flex gap-1 items-center"
-                    >
+                    {showDrafts && (
+                        <div className="text-white inline-flex gap-1 items-center">
+                            <Icons.edit2
+                                size={16}
+                                className="text-brandtext-600"
+                            />
+                            <span className="text-sm text-brandtext-600">
+                                {draftCount} Drafts
+                            </span>
+                        </div>
+                    )}
+
+                    <div className="text-white inline-flex gap-1 items-center">
                         <Icons.circleDot
                             size={16}
                             className="text-brandtext-600"
@@ -52,17 +56,13 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                         <span className="text-sm text-brandtext-600">
                             {activeCount} Active
                         </span>
-                    </Button>
-                    <Button
-                        size="noPadding"
-                        intent="tertiary"
-                        className="text-white inline-flex gap-1 items-center"
-                    >
+                    </div>
+                    <div className="text-white inline-flex gap-1 items-center">
                         <Icons.check size={16} className="text-brandtext-600" />
                         <span className="text-sm text-brandtext-600">
                             {resolvedCount} Resolved
                         </span>
-                    </Button>
+                    </div>
                 </div>
                 <div className="divide-y divide divide-raised-border">
                     {bounties?.map((bounty) => (
@@ -89,7 +89,7 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                                 <div className="flex items-center p-4 pb-4 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6">
                                     <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
                                         <div className="flex gap-4">
-                                            <div className="flex-shrink-0 hidden sm:block">
+                                            <div className="flex-shrink-0 sm:block">
                                                 {!bounty.published &&
                                                     !bounty.resolved && (
                                                         <Icons.edit2
@@ -154,17 +154,19 @@ export default function BountyList({ bounties, project, page }: TBountyList) {
                                                 </dd>
                                             </div>
                                         </div>
-                                        <div className="flex-shrink-0 items-center hidden sm:inline-flex justify-end w-full">
-                                            <BountyOperations
-                                                project={{
-                                                    id: project.id,
-                                                }}
-                                                bounty={{
-                                                    id: bounty.id,
-                                                    title: bounty.title,
-                                                }}
-                                            />
-                                        </div>
+                                        {showControls && (
+                                            <div className="flex-shrink-0 items-center hidden sm:inline-flex justify-end w-full">
+                                                <BountyOperations
+                                                    project={{
+                                                        id: project.id,
+                                                    }}
+                                                    bounty={{
+                                                        id: bounty.id,
+                                                        title: bounty.title,
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
                                     </dl>
                                 </div>
                             </div>

@@ -1,29 +1,27 @@
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { formatDate, formatDollars, dateToNow } from "@/lib/utils"
-import { Button } from "@/ui/button"
-import { Bounty, Project, User, BountySubmission } from "@prisma/client"
-import { TProject } from "@/components/project/secondary-nav"
-import { Icons } from "../icons"
-import Image from "next/image"
-import { fetchBounties } from "@/lib/bounties"
-import { getCurrentUser } from "@/lib/session"
 import { db } from "@/lib/db"
+import { dateToNow, formatDate, formatDollars } from "@/lib/utils"
+import Image from "next/image"
+import { Icons } from "../icons"
 import { BountyEmptyPlaceholder } from "./bounty-empty-placeholder"
 import { BountyListPagination } from "./bounty-list-pagination"
 
 import Link from "next/link"
 
-type TIssueList = {
+type TBountyList = {
     page: number
     search?: string
     pageSize?: number
+    projectId?: string
+    includeResolved?: boolean
 }
 
 export async function BrowseBountyList({
     page,
     search,
     pageSize = 10,
-}: TIssueList) {
+    projectId,
+    includeResolved = false,
+}: TBountyList) {
     const [bounties, bountyCount] = await Promise.all([
         db.bounty.findMany({
             take: pageSize,
@@ -45,7 +43,8 @@ export async function BrowseBountyList({
                 title: {
                     search,
                 },
-                resolved: false,
+                resolved: includeResolved,
+                projectId,
             },
         }),
         db.bounty.count({
@@ -54,6 +53,8 @@ export async function BrowseBountyList({
                 title: {
                     search,
                 },
+                projectId,
+                resolved: includeResolved,
             },
         }),
     ])
@@ -83,7 +84,7 @@ export async function BrowseBountyList({
                                     <div className="flex items-center p-4 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:p-6 py-3">
                                         <dl className="grid flex-1 grid-cols-1 gap-4 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-4 lg:col-span-3">
                                             <div className="flex gap-4 items-center">
-                                                <div className="flex-shrink-0 hidden sm:block">
+                                                <div className="flex-shrink-0">
                                                     <Icons.circleDot
                                                         size={24}
                                                         className="text-green-600 mt-2"
@@ -114,7 +115,7 @@ export async function BrowseBountyList({
                                                     </span>
                                                 </dd>
                                             </div>
-                                            <div className="flex items-center gap-2 place-items-end w-full justify-end">
+                                            <div className="flex items-center gap-2 w-full justify-start sm:justify-end">
                                                 <div className="h-6 w-6 rounded-full overflow-hidden relative inline-flex justify-center items-center flex-shrink-0">
                                                     <Image
                                                         alt={`${bounty.submittedBy.name} profile picture`}
