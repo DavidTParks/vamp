@@ -27,7 +27,6 @@ export default async function ProjectLayout({
                                     image: user.image,
                                     email: user.email,
                                 }}
-                                items={dashboardConfig.mainNav}
                             />
                             <UserAccountNav
                                 user={{

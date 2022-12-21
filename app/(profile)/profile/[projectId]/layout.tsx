@@ -1,12 +1,8 @@
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { dashboardConfig } from "@/config/dashboard"
-import { getCurrentUser } from "@/lib/session"
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/ui/button"
-import { BrowseNav } from "@/components/browse/browse-nav"
 import { ProfileNav } from "@/components/profile/profile-nav"
+import { getCurrentUser } from "@/lib/session"
+import { Button } from "@/ui/button"
+import Link from "next/link"
 
 export default async function ProjectLayout({
     children,
@@ -21,7 +17,7 @@ export default async function ProjectLayout({
                 <header className=" sticky top-0 left-0 right-0 z-30  border-palette-300 bg-appbg px-4 lg:px-8">
                     <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                         <div className="flex h-16 items-center justify-between">
-                            <ProfileNav items={dashboardConfig.mainNav} />
+                            <ProfileNav />
                             {user ? (
                                 <UserAccountNav
                                     user={{

@@ -1,24 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import * as React from "react"
 
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Icons } from "@/components/icons"
-import { MobileNav } from "@/components/mobile-nav"
-import { Button } from "@/ui/button"
-import { MainNavItem } from "types"
+import { MobileNavButton } from "@/ui/mobile-nav-button"
 import { TUser } from "./user-account-nav"
-
 interface MainNavProps {
-    items?: MainNavItem[]
-    children?: React.ReactNode
     user: TUser
 }
 
-export function DashboardNav({ items, children, user }: MainNavProps) {
-    const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
-
+export function DashboardNav({ user }: MainNavProps) {
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
             <div className=" gap-4 items-center hidden md:flex">
@@ -55,20 +47,7 @@ export function DashboardNav({ items, children, user }: MainNavProps) {
                 </div>
             </div>
 
-            <Button
-                intent="tertiary"
-                size="small"
-                className="flex items-center space-x-2 md:hidden px-2"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-                {showMobileMenu ? (
-                    <Icons.close />
-                ) : (
-                    <Icons.menu size={24} color="white" />
-                )}
-            </Button>
-
-            {showMobileMenu && <MobileNav items={items}>{children}</MobileNav>}
+            <MobileNavButton />
         </div>
     )
 }

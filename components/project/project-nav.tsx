@@ -9,6 +9,7 @@ import { Button } from "@/ui/button"
 import { Project } from "@prisma/client"
 import Image from "next/image"
 import { MainNavItem } from "types"
+import { MobileNavButton } from "@/ui/mobile-nav-button"
 
 interface MainNavProps {
     items?: MainNavItem[]
@@ -16,9 +17,7 @@ interface MainNavProps {
     project: Pick<Project, "id" | "name">
 }
 
-export function ProjectNav({ items, children, project }: MainNavProps) {
-    const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
-
+export function ProjectNav({ project }: MainNavProps) {
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
             <div className=" gap-4 items-center hidden md:flex">
@@ -56,20 +55,7 @@ export function ProjectNav({ items, children, project }: MainNavProps) {
                     </span>
                 </div>
             </div>
-
-            <Button
-                intent="tertiary"
-                size="small"
-                className="flex items-center space-x-2 md:hidden px-2"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-                {showMobileMenu ? (
-                    <Icons.close />
-                ) : (
-                    <Icons.menu size={24} color="white" />
-                )}
-            </Button>
-            {showMobileMenu && <MobileNav items={items}>{children}</MobileNav>}
+            <MobileNavButton />
         </div>
     )
 }

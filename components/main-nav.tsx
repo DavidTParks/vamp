@@ -1,14 +1,12 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
+import * as React from "react"
 
-import { MainNavItem } from "types"
-import { Button } from "@/ui/button"
-import { siteConfig } from "@/config/site"
 import { Icons } from "@/components/icons"
-import { MobileNav } from "@/components/mobile-nav"
+import { siteConfig } from "@/config/site"
+import { MobileNavButton } from "@/ui/mobile-nav-button"
+import { MainNavItem } from "types"
 
 interface MainNavProps {
     items?: MainNavItem[]
@@ -16,14 +14,7 @@ interface MainNavProps {
     showBrandText?: boolean
 }
 
-export function MainNav({
-    items,
-    children,
-    showBrandText = true,
-}: MainNavProps) {
-    const segment = useSelectedLayoutSegment()
-    const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
-
+export function MainNav({ showBrandText = true }: MainNavProps) {
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
             <Link
@@ -38,18 +29,7 @@ export function MainNav({
                 )}
             </Link>
 
-            <Button
-                className="flex items-center space-x-2 md:hidden"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-                {showMobileMenu ? (
-                    <Icons.close />
-                ) : (
-                    <Icons.logo size={24} color="white" />
-                )}
-                <span className="font-bold">Menu</span>
-            </Button>
-            {showMobileMenu && <MobileNav items={items}>{children}</MobileNav>}
+            <MobileNavButton />
         </div>
     )
 }

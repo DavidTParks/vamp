@@ -26,7 +26,7 @@ export default async function CreatePage({
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
-                        <BountyNav items={dashboardConfig.mainNav} />
+                        <BountyNav />
                         <div className="block md:hidden">
                             <Icons.logo size={24} color="white" />
                         </div>

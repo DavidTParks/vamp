@@ -32,7 +32,6 @@ export default async function DashboardLayout({
                                     image: user.image,
                                     email: user.email,
                                 }}
-                                items={dashboardConfig.mainNav}
                             />
                             <div className="block md:hidden">
                                 <Icons.logo size={24} color="white" />
