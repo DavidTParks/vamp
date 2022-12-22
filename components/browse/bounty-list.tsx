@@ -4,7 +4,6 @@ import Image from "next/image"
 import { Icons } from "../icons"
 import { BountyEmptyPlaceholder } from "./bounty-empty-placeholder"
 import { BountyListPagination } from "./bounty-list-pagination"
-
 import Link from "next/link"
 
 type TBountyList = {
@@ -12,12 +11,29 @@ type TBountyList = {
     search?: string
     pageSize?: number
     projectId?: string
+    sortQuery?: string
     includeResolved?: boolean
+}
+
+const sortQueryToOrderBy = {
+    createdDesc: {
+        createdAt: "desc",
+    },
+    createdAsc: {
+        createdAt: "asc",
+    },
+    priceDesc: {
+        bountyPrice: "desc",
+    },
+    priceAsc: {
+        bountyPrice: "asc",
+    },
 }
 
 export async function BrowseBountyList({
     page,
     search,
+    sortQuery,
     pageSize = 10,
     projectId,
     includeResolved = false,
@@ -26,7 +42,7 @@ export async function BrowseBountyList({
         db.bounty.findMany({
             take: pageSize,
             skip: page ? page - 1 : 0 * pageSize,
-            orderBy: {
+            orderBy: sortQueryToOrderBy[sortQuery] ?? {
                 createdAt: "desc",
             },
             include: {

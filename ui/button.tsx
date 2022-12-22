@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 type ButtonProps = ComponentProps<"button">
 
 const buttonStyles = cva(
-    "button flex items-center justify-center shadow-sm transition-all duration-300 text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed",
+    "button flex items-center justify-center shadow-sm transition-all duration-300 text-sm font-medium disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed focus:outline-none focus:ring-0",
     {
         variants: {
             intent: {
@@ -13,6 +13,8 @@ const buttonStyles = cva(
                 secondary:
                     "bg-secondary-button text-white border border-secondary-border brightness-150 hover:brightness-200",
                 tertiary: "text-white hover:bg-palette-150 ",
+                outline:
+                    "text-white hover:bg-palette-150  border border-raised-border ",
                 text: "text-brandtext-500 hover:text-white",
                 danger: "bg-red-600 text-white border border-transparent hover:bg-red-700",
             },

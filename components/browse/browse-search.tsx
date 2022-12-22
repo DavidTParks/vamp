@@ -1,9 +1,12 @@
 "use client"
 
+import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
+import { Icons } from "../icons"
+import { BrowseFilterOptions } from "./browse-filter-options"
 
 type TSearch = {
     search?: string
@@ -37,11 +40,11 @@ export function BrowseSearch() {
     }
 
     return (
-        <div className="w-full relative">
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full relative flex">
+            <form className="flex-1" onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     isPending={isPending}
-                    className="bg-appbg"
+                    className="bg-appbg rounded-r-none"
                     intent="search"
                     id="search"
                     placeholder="Search all bounties"
@@ -53,6 +56,7 @@ export function BrowseSearch() {
                     register={register}
                 />
             </form>
+            <BrowseFilterOptions />
         </div>
     )
 }

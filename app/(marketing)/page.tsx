@@ -39,8 +39,22 @@ export default async function IndexPage() {
 
     return (
         <>
-            <div className="mx-auto mt-32 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0">
-                <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15]">
+            <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0">
+                <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                    <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-brandtext-500/10 hover:ring-white/20">
+                        <span className="text-brandtext-500">
+                            Announcing Vamp.sh.{" "}
+                            <a href="#" className="font-semibold text-rose-600">
+                                <span
+                                    className="absolute inset-0"
+                                    aria-hidden="true"
+                                />
+                                Read more <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text font-display text-5xl tracking-tight text-transparent">
                     Contribute to Open Source
                     <br />
                     <span className="bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent red-glow">

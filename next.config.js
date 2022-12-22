@@ -5,7 +5,11 @@ const nextConfig = {
         serverComponentsExternalPackages: ["@prisma/client"],
     },
     images: {
-        domains: ["avatars.githubusercontent.com", "avatar.vercel.sh"],
+        domains: [
+            "avatars.githubusercontent.com",
+            "avatar.vercel.sh",
+            "jpxwqgklwwytoznbpbmn.supabase.co",
+        ],
     },
     typescript: {
         // !! WARN !!

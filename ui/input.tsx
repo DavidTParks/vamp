@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons"
 type InputProps = ComponentProps<"input">
 
 const inputStyles = cva(
-    "my-0 mb-2 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none form-input focus:ring-0",
+    "my-0 block h-9 w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none form-input",
     {
         variants: {
             intent: {
@@ -41,7 +41,7 @@ export function Input({
             <div className="w-full relative">
                 {isPending && (
                     <div className="absolute right-0 my-auto  inline-flex items-center h-full z-10">
-                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin text-brandtext-600" />
+                        <Icons.spinner className="mr-3 h-4 w-4 animate-spin text-brandtext-600" />
                     </div>
                 )}
                 {intent === "search" && (

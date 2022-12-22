@@ -27,9 +27,9 @@ export default function LoginPage() {
                     </p>
                 </div>
                 <UserAuthForm />
-                <p className="px-8 text-center text-sm text-slate-600">
+                <p className="px-8 text-center text-sm text-brandtext-600">
                     By clicking continue, you agree to our{" "}
-                    <Link href="/terms" className="underline hover:text-brand">
+                    <Link href="/tos" className="underline hover:text-brand">
                         Terms of Service
                     </Link>{" "}
                     and{" "}

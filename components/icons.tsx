@@ -5,6 +5,8 @@ import {
     Check,
     ChevronLeft,
     ChevronRight,
+    ChevronDown,
+    ChevronUp,
     Command,
     CreditCard,
     File,
@@ -47,6 +49,8 @@ import {
     CheckCircle,
     Menu,
     Verified,
+    SortAsc,
+    SortDesc,
 } from "lucide-react"
 
 import { GiVampireDracula as Dracula } from "react-icons/gi"
@@ -60,6 +64,8 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    sortAsc: SortAsc,
+    sortDesc: SortDesc,
     fangs: GiFangs,
     share: Share,
     frown: Frown,
@@ -84,6 +90,8 @@ export const Icons = {
     close: X,
     search: Search,
     spinner: Loader2,
+    chevronUp: ChevronUp,
+    chevronDown: ChevronDown,
     chevronLeft: ChevronLeft,
     chevronRight: ChevronRight,
     trash: Trash,

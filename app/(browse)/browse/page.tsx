@@ -3,7 +3,7 @@ import { BrowseSearch } from "@/components/browse/browse-search"
 import { Icons } from "@/components/icons"
 
 interface BrowsePageProps {
-    searchParams: { page: string; search: string }
+    searchParams: { page: string; search: string; sort: string }
 }
 
 export default async function BrowsePage({ searchParams }: BrowsePageProps) {
@@ -32,6 +32,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
             <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8">
                 {/* @ts-expect-error Server Component */}
                 <BrowseBountyList
+                    sortQuery={searchParams.sort}
                     pageSize={25}
                     search={searchParams.search}
                     page={searchParams?.page ? parseInt(searchParams.page) : 0}
