@@ -76,7 +76,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                     ))}
                 </>
             ) : (
-                <EmptyPlaceholder>
+                <EmptyPlaceholder className="mt-4">
                     <EmptyPlaceholder.Icon name="gitHub" />
                     <EmptyPlaceholder.Title>No issues</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
