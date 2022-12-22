@@ -7,6 +7,8 @@ import * as React from "react"
 import { Icons } from "@/components/icons"
 import { DropdownMenu } from "@/ui/dropdown"
 import { useTransition } from "react"
+import { useSearchParams } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 const sortOptions = [
     {
@@ -34,6 +36,9 @@ const sortOptions = [
 export function BrowseFilterOptions() {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
+    const searchParams = useSearchParams()
+
+    const sort = searchParams.get("sort")
 
     return (
         <>
@@ -68,11 +73,21 @@ export function BrowseFilterOptions() {
                                         router.refresh()
                                     })
                                 }}
-                                className="flex gap-2"
+                                className={cn(
+                                    "flex gap-2",
+                                    option.query === sort
+                                        ? "text-rose-600"
+                                        : null
+                                )}
                             >
                                 <option.icon
                                     size={16}
-                                    className="text-brandtext-600"
+                                    className={cn(
+                                        "text-brandtext-600",
+                                        option.query === sort
+                                            ? "text-rose-600"
+                                            : null
+                                    )}
                                 />
                                 {option.name}
                             </DropdownMenu.Item>
