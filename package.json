@@ -21,6 +21,7 @@
         "@editorjs/table": "^2.1.2",
         "@heroicons/react": "^2.0.13",
         "@hookform/resolvers": "^2.9.10",
+        "@mux/mux-player-react": "^1.5.1",
         "@next-auth/prisma-adapter": "^1.0.5",
         "@next/font": "^13.1.0",
         "@prisma/client": "^4.8.0",
