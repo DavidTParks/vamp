@@ -1,15 +1,13 @@
 import { BountyActivity } from "@/components/bounty/bounty-activity"
 import { BountyContent } from "@/components/bounty/bounty-content"
 import { BountyInfoBox } from "@/components/bounty/bounty-info-box"
-import { BountyNav } from "@/components/bounty/bounty-nav"
+import { BountyProjectInfo } from "@/components/bounty/bounty-project-info"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { dashboardConfig } from "@/config/dashboard"
+import { Icons } from "@/components/icons"
+import { MainNav } from "@/components/main-nav"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
-import { Icons } from "@/components/icons"
-import { BountyProjectInfo } from "@/components/bounty/bounty-project-info"
-import { Chip } from "@/ui/chip"
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
     searchParams: { id: string }
@@ -26,10 +24,7 @@ export default async function CreatePage({
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
-                        <BountyNav />
-                        <div className="block md:hidden">
-                            <Icons.logo size={24} color="white" />
-                        </div>
+                        <MainNav />
                         {user ? (
                             <UserAccountNav
                                 user={{

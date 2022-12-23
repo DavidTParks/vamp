@@ -1,11 +1,9 @@
-import Link from "next/link"
-import { Button } from "@/ui/button"
-import { marketingConfig } from "@/config/marketing"
-import { MainNav } from "@/components/main-nav"
-import { SiteFooter } from "@/components/site-footer"
 import Background from "@/components/background"
-import { getCurrentUser } from "@/lib/session"
+import { MainNav } from "@/components/main-nav"
 import { preloadProjects } from "@/lib/projects"
+import { getCurrentUser } from "@/lib/session"
+import { Button } from "@/ui/button"
+import Link from "next/link"
 
 interface MarketingLayoutProps {
     children: React.ReactNode
@@ -24,7 +22,7 @@ export default async function MarketingLayout({
         <div className="flex min-h-screen flex-col">
             <header className="container z-40 ">
                 <div className="flex h-16 items-center justify-between  py-4">
-                    <MainNav items={marketingConfig.mainNav} />
+                    <MainNav />
 
                     <nav className="flex gap-4">
                         <Link href="/browse">

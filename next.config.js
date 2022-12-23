@@ -9,6 +9,7 @@ const nextConfig = {
             "avatars.githubusercontent.com",
             "avatar.vercel.sh",
             "jpxwqgklwwytoznbpbmn.supabase.co",
+            "contrib.rocks",
         ],
     },
     typescript: {

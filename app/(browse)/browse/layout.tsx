@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/ui/button"
-import { BrowseNav } from "@/components/browse/browse-nav"
+import { MainNav } from "@/components/main-nav"
 
 export default async function ProjectLayout({
     children,
@@ -20,7 +20,7 @@ export default async function ProjectLayout({
                 <header className=" sticky top-0 left-0 right-0 z-30  border-palette-300 bg-appbg px-4 lg:px-8">
                     <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                         <div className="flex h-16 items-center justify-between">
-                            <BrowseNav />
+                            <MainNav />
                             {user ? (
                                 <UserAccountNav
                                     user={{

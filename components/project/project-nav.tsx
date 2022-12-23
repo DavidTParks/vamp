@@ -20,10 +20,10 @@ interface MainNavProps {
 export function ProjectNav({ project }: MainNavProps) {
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
-            <div className=" gap-4 items-center hidden md:flex">
+            <div className=" gap-4 items-center flex">
                 <Link
                     href="/dashboard"
-                    className="hidden items-center space-x-2 md:flex text-2xl"
+                    className="items-center space-x-2 md:flex text-2xl"
                 >
                     <Icons.logo size={32} color="white" />
                 </Link>
@@ -49,13 +49,12 @@ export function ProjectNav({ project }: MainNavProps) {
                             src={`https://avatar.vercel.sh/${project.id}`}
                         />
                     </div>
-                    <span className="text-sm text-brandtext-500 truncate">
+                    <span className="hidden md:block text-sm text-brandtext-500 truncate">
                         {" "}
                         {project.name}
                     </span>
                 </div>
             </div>
-            <MobileNavButton />
         </div>
     )
 }

@@ -15,6 +15,9 @@ import { Icons } from "@/components/icons"
 import { Button } from "@/ui/button"
 import { BrowseSearch } from "@/components/browse/browse-search"
 import { db } from "@/lib/db"
+import { getRepo } from "@/lib/github"
+import { ExternalLink } from "@/ui/external-link"
+import { Chip } from "@/ui/chip"
 
 interface ProfilePageProps {
     params: { projectId: string }
@@ -30,7 +33,11 @@ export default async function ProjectPage({
             id: params.projectId,
         },
         include: {
-            users: true,
+            users: {
+                include: {
+                    user: true,
+                },
+            },
             githubRepo: true,
             bounties: {
                 where: {
@@ -45,6 +52,8 @@ export default async function ProjectPage({
     }
 
     const bounties = project.bounties
+
+    const repo = await getRepo(project.githubRepo.githubRepoId)
 
     return (
         <DashboardShell>
@@ -70,6 +79,24 @@ export default async function ProjectPage({
                                         {project.bounties.length} Bounties
                                     </span>
                                 </div>
+                                <div className="mt-4 flex justify-center gap-4">
+                                    <ExternalLink
+                                        className="text-brandtext-600 hover:text-white"
+                                        href={repo.html_url}
+                                    >
+                                        <Icons.gitHub
+                                            className="flex-shrink-0"
+                                            size={24}
+                                        />
+                                    </ExternalLink>
+                                </div>
+                                {/* <div>
+                                    <p>Owners</p>
+                                    <img
+                                        alt={`${repo.name} contributors`}
+                                        src={`https://contrib.rocks/image?repo=${repo.full_name}`}
+                                    />
+                                </div> */}
                             </div>
                         </div>
                     </div>

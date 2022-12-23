@@ -34,7 +34,7 @@ export const ProjectSecondaryNav = ({
                 href={`/project/${project.id}/issues`}
                 isActive={segment === "issues"}
             >
-                GitHub Issues
+                Issues
             </SecondaryLinkItem>
             <SecondaryLinkItem
                 href={`/project/${project.id}/settings`}

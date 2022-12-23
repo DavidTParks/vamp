@@ -11,7 +11,6 @@ import {
     CreditCard,
     File,
     FileText,
-    Github,
     HelpCircle,
     Image,
     Loader2,
@@ -57,7 +56,7 @@ import { GiVampireDracula as Dracula } from "react-icons/gi"
 
 import { GiBat as Bat, GiFangs } from "react-icons/gi"
 
-import { FaMarkdown } from "react-icons/fa"
+import { FaMarkdown, FaGithub } from "react-icons/fa"
 
 import type { Icon as LucideIcon } from "lucide-react"
 
@@ -108,7 +107,7 @@ export const Icons = {
     arrowRight: ArrowRight,
     help: HelpCircle,
     pizza: Pizza,
-    gitHub: Github,
+    gitHub: FaGithub,
     twitter: Twitter,
     check: CheckCircle,
     star: Star,

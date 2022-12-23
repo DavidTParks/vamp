@@ -33,9 +33,7 @@ export default async function DashboardLayout({
                                     email: user.email,
                                 }}
                             />
-                            <div className="block md:hidden">
-                                <Icons.logo size={24} color="white" />
-                            </div>
+
                             <UserAccountNav
                                 user={{
                                     name: user.name,

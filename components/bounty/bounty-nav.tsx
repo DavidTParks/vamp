@@ -1,9 +1,6 @@
-"use client"
-
 import Link from "next/link"
 
 import { Icons } from "@/components/icons"
-import { MobileNavButton } from "@/ui/mobile-nav-button"
 
 export function BountyNav() {
     return (
@@ -15,8 +12,6 @@ export function BountyNav() {
                 <Icons.logo size={32} color="white" />
                 <span className="hidden font-bold sm:inline-block">Vamp</span>
             </Link>
-
-            <MobileNavButton />
         </div>
     )
 }

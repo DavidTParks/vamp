@@ -42,9 +42,6 @@ export default async function ProjectLayout({
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
-                            <div className="block md:hidden">
-                                <Icons.logo size={24} color="white" />
-                            </div>
                             <UserAccountNav
                                 user={{
                                     name: user.name,
