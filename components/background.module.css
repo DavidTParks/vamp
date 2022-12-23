@@ -43,11 +43,11 @@
             transparent 0%
         ),
         radial-gradient(at 97% 21%, #d80000 0px, transparent 50%),
-        radial-gradient(at 52% 99%, #bb248e 0px, transparent 50%),
+        radial-gradient(at 52% 99%, #bb2424 0px, transparent 50%),
         radial-gradient(at 10% 29%, #d80039 0px, transparent 50%),
         radial-gradient(at 97% 96%, rgb(228, 149, 149) 0px, transparent 50%),
-        radial-gradient(at 33% 50%, #ec4899 0px, transparent 50%),
-        radial-gradient(at 79% 53%, #e90e5e 0px, transparent 50%);
+        radial-gradient(at 33% 50%, #ec4848 0px, transparent 50%),
+        radial-gradient(at 79% 53%, #e90e0e 0px, transparent 50%);
     position: absolute;
     content: "";
     width: 100%;

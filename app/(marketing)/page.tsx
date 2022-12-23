@@ -4,6 +4,7 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { ExternalLink } from "@/ui/external-link"
 import { getCurrentUser } from "@/lib/session"
+import VideoPlayer from "@/components/marketing/video-player"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -84,6 +85,21 @@ export default async function IndexPage() {
                     </ExternalLink>
                 </div>
             </div>
+            <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
+                <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
+                    <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
+                        Sync Github Issues with ease
+                    </h2>
+                    <p className="max-w-[85%] leading-normal text-slate-400 sm:text-lg sm:leading-7">
+                        Link existing Github repositories and post bounties by
+                        referencing issues directly.
+                    </p>
+                </div>
+                <div className="rounded-lg overflow-hidden">
+                    <VideoPlayer />
+                </div>
+            </section>
+
             <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
                 <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
