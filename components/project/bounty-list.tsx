@@ -187,7 +187,7 @@ export default async function BountyList({
                         No bounties created
                     </EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        You don't have any feature requests or issue bounties
+                        You do not have any feature requests or issue bounties
                         yet. Create one and reward contributors!
                     </EmptyPlaceholder.Description>
                     <BountyCreateButton
