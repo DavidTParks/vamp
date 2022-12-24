@@ -5,6 +5,9 @@ import MuxPlayer from "@mux/mux-player-react/lazy"
 export default function VideoPlayer() {
     return (
         <MuxPlayer
+            style={{
+                width: "100%",
+            }}
             autoPlay
             muted
             loop

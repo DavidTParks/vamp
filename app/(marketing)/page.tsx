@@ -40,7 +40,7 @@ export default async function IndexPage() {
 
     return (
         <>
-            <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0">
+            <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-brandtext-500/10 hover:ring-white/20">
                         <span className="text-brandtext-500">
@@ -55,17 +55,16 @@ export default async function IndexPage() {
                         </span>
                     </div>
                 </div>
-                <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text font-display text-5xl tracking-tight text-transparent">
+                <h1 className="mt-5 font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text font-display text-5xl tracking-tight text-transparent">
                     Contribute to Open Source
                     <br />
                     <span className="bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent red-glow">
                         Get Paid
                     </span>
                 </h1>
-                <h2 className="mt-5 text-lg text-brandtext-400 sm:text-xl">
-                    Vamp is an open-source platform for projects to post issue
-                    bounties and feature requests, and for open-source
-                    contributors to resolve them.
+                <h2 className="mt-5 text-lg text-brandtext-500 sm:text-xl">
+                    Vamp is a platform to empower open source projects, and the
+                    contributors that make them great.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
                     {user ? (
