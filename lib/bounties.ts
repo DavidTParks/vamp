@@ -9,7 +9,7 @@ export const preloadBounties = (projectId: Project["id"]) => {
     void getBountiesForProject(projectId)
 }
 
-export const getBountiesForProject = cache(async (projectId: Project["id"]) => {
+export const getBountiesForProject = async (projectId: Project["id"]) => {
     return db.bounty.findMany({
         where: {
             projectId,
@@ -26,7 +26,7 @@ export const getBountiesForProject = cache(async (projectId: Project["id"]) => {
             updatedAt: "desc",
         },
     })
-})
+}
 
 export const preloadBountyById = (projectId: Project["id"]) => {
     void getBountyById(projectId)
