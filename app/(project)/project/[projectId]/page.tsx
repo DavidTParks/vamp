@@ -1,15 +1,14 @@
 import { BountySearch } from "@/components/browse/bounty-search"
 import { DashboardShell } from "@/components/dashboard/shell"
 import BountyList from "@/components/project/bounty-list"
+import { TProject } from "@/components/project/secondary-nav"
 import { authOptions } from "@/lib/auth"
 import { getBountiesForProject, getBountyCount } from "@/lib/bounties"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { Headline } from "@/ui/headline"
+import { Pagination } from "@/ui/pagination"
 import { notFound, redirect } from "next/navigation"
-import { BountyListPagination } from "@/components/browse/bounty-list-pagination"
-import { PrismaPromise } from "@prisma/client"
-import { TProject } from "@/components/project/secondary-nav"
 
 interface ProjectPageProps {
     params: { projectId: string }
@@ -80,7 +79,7 @@ export default async function ProjectPage({
                             }}
                         ></BountyList>
                         {/* @ts-expect-error Server Component */}
-                        <Pagination
+                        <BountyPaginationWrapper
                             promise={bountyCount}
                             pageSize={pageSize}
                             project={{
@@ -100,7 +99,7 @@ type TBountyPaginationWrapper = {
     project: TProject
 }
 
-async function Pagination({
+async function BountyPaginationWrapper({
     promise,
     pageSize,
     project,
@@ -110,10 +109,10 @@ async function Pagination({
         <>
             {bountyCount > pageSize && (
                 <div className="mt-8">
-                    <BountyListPagination
+                    <Pagination
                         baseUrl={`/project/${project.id}`}
                         pageSize={pageSize}
-                        bountyCount={bountyCount}
+                        itemCount={bountyCount}
                     />
                 </div>
             )}

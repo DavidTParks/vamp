@@ -3,14 +3,15 @@
 import { searchString } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { useRouter, useSearchParams } from "next/navigation"
+
 interface TBountyListPagination {
-    bountyCount: number
+    itemCount: number
     pageSize: number
     baseUrl: string
 }
 
-export function BountyListPagination({
-    bountyCount,
+export function Pagination({
+    itemCount,
     pageSize,
     baseUrl,
 }: TBountyListPagination) {
@@ -46,7 +47,7 @@ export function BountyListPagination({
                         {(page - 1) * pageSize + 1}
                     </span>{" "}
                     to <span className="font-medium">{page * pageSize}</span> of{" "}
-                    {bountyCount} results
+                    {itemCount} results
                 </p>
             </div>
             <div className="flex flex-1 justify-between sm:justify-end gap-4">
@@ -62,7 +63,7 @@ export function BountyListPagination({
                         Previous
                     </Button>
                 ) : null}
-                {page * pageSize < bountyCount && (
+                {page * pageSize < itemCount && (
                     <Button
                         onClick={() => {
                             router.push(`${baseUrl}?${nextPageQueryString}`)

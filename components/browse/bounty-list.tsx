@@ -1,10 +1,10 @@
 import { db } from "@/lib/db"
 import { dateToNow, formatDate, formatDollars } from "@/lib/utils"
+import { Pagination } from "@/ui/pagination"
 import Image from "next/image"
+import Link from "next/link"
 import { Icons } from "../icons"
 import { BountyEmptyPlaceholder } from "./bounty-empty-placeholder"
-import { BountyListPagination } from "./bounty-list-pagination"
-import Link from "next/link"
 
 type TBountyList = {
     page: number
@@ -169,10 +169,10 @@ export async function BrowseBountyList({
                 </>
             )}
             {bountyCount > pageSize && (
-                <BountyListPagination
+                <Pagination
                     baseUrl="/browse"
                     pageSize={pageSize}
-                    bountyCount={bountyCount}
+                    itemCount={bountyCount}
                 />
             )}
         </>
