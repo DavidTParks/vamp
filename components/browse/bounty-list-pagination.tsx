@@ -3,7 +3,6 @@
 import { searchString } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { useRouter, useSearchParams } from "next/navigation"
-import { newSearchQueryString } from "@/lib/utils"
 interface TBountyListPagination {
     bountyCount: number
     pageSize: number
@@ -26,12 +25,8 @@ export function BountyListPagination({
     const previousPage = page ? parseInt(page.toString()) - 1 : null
     const nextPage = page ? parseInt(page.toString()) + 1 : 2
 
-    const nextPageQueryString = newSearchQueryString(
-        nextPage.toString(),
-        search,
-        sort
-    )
-    const previousPageQueryString = newSearchQueryString(
+    const nextPageQueryString = searchString(nextPage.toString(), search, sort)
+    const previousPageQueryString = searchString(
         previousPage.toString(),
         search,
         sort

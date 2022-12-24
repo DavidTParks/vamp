@@ -1,7 +1,6 @@
 import { ClassValue, clsx } from "clsx"
 import { formatDistanceToNowStrict } from "date-fns"
 import { twMerge } from "tailwind-merge"
-import urlcat from "urlcat"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -42,6 +41,7 @@ export function searchString(
     search: string | null | undefined,
     sort?: string | null | undefined
 ): string {
+    console.log("search", search)
     const searchWithOptionalPageParams = new URLSearchParams({
         page,
         search,
@@ -49,8 +49,9 @@ export function searchString(
     })
 
     let keysForDel = []
+
     searchWithOptionalPageParams.forEach((value, key) => {
-        if (value == "null") {
+        if (value == "null" || !value) {
             keysForDel.push(key)
         }
     })
@@ -60,18 +61,6 @@ export function searchString(
     })
 
     return searchWithOptionalPageParams?.toString()
-}
-
-export const newSearchQueryString = (
-    page: string | null = "1",
-    search: string | null | undefined,
-    sort: string | null | undefined
-): string => {
-    return urlcat("", {
-        search: search ? search?.trim() : null,
-        sort: sort,
-        page,
-    })
 }
 
 export const isValidUrl = (url: string) => {

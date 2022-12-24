@@ -9,7 +9,7 @@ import { DropdownMenu } from "@/ui/dropdown"
 import { useTransition } from "react"
 import { useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { newSearchQueryString } from "@/lib/utils"
+import { searchString } from "@/lib/utils"
 
 const sortOptions = [
     {
@@ -72,7 +72,7 @@ export function BrowseFilterOptions() {
                                 key={option.query}
                                 onSelect={() => {
                                     router.push(
-                                        `/browse?${newSearchQueryString(
+                                        `/browse?${searchString(
                                             page,
                                             search,
                                             option.query

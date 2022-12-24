@@ -1,6 +1,6 @@
 "use client"
 
-import { newSearchQueryString } from "@/lib/utils"
+import { searchString } from "@/lib/utils"
 import { Input } from "@/ui/input"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useTransition } from "react"
@@ -30,9 +30,7 @@ export function BrowseSearch() {
     })
 
     const onSubmit = (data: TSearch) => {
-        router.push(
-            `/browse?${newSearchQueryString("1", data?.search ?? null, sort)}`
-        )
+        router.push(`/browse?${searchString("1", data?.search ?? null, sort)}`)
 
         startTransition(() => {
             router.refresh()
