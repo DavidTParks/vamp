@@ -100,41 +100,14 @@ export default async function ProjectPage({
                             </div>
                         </div>
                     </div>
-                    {bounties.length ? (
-                        <div className="col-span-4 lg:col-span-3">
-                            <div className="mb-4">
-                                <Headline heading="Bounties" />
-                            </div>
-
-                            <BountyList
-                                showControls={false}
-                                showDrafts={false}
-                                project={{
-                                    id: project.id,
-                                }}
-                                bounties={bounties}
-                            />
-                        </div>
-                    ) : (
-                        <div className="col-span-3">
-                            <EmptyPlaceholder>
-                                <EmptyPlaceholder.Icon name="logo" />
-                                <EmptyPlaceholder.Title>
-                                    No bounties created
-                                </EmptyPlaceholder.Title>
-                                <EmptyPlaceholder.Description>
-                                    You don't have any feature requests or issue
-                                    bounties yet. Create one and reward
-                                    contributors!
-                                </EmptyPlaceholder.Description>
-                                <BountyCreateButton
-                                    project={{
-                                        id: project.id,
-                                    }}
-                                />
-                            </EmptyPlaceholder>
-                        </div>
-                    )}
+                    {/* @ts-expect-error Server Component */}
+                    <BountyList
+                        showControls={false}
+                        showDrafts={false}
+                        project={{
+                            id: project.id,
+                        }}
+                    />
                 </div>
             </div>
         </DashboardShell>

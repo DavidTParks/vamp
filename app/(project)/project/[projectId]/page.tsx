@@ -1,9 +1,6 @@
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { DashboardShell } from "@/components/dashboard/shell"
-import { BountyCreateButton } from "@/components/project/bounty-create-button"
 import BountyList from "@/components/project/bounty-list"
 import { authOptions } from "@/lib/auth"
-import { getBountiesForProject } from "@/lib/bounties"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { Headline } from "@/ui/headline"
@@ -29,8 +26,6 @@ export default async function ProjectPage({
         notFound()
     }
 
-    const bounties = project.bounties
-
     return (
         <DashboardShell>
             <div className="mt-12">
@@ -40,32 +35,15 @@ export default async function ProjectPage({
                         text="To create a new Bounty, import one from an existing Github issue or create one."
                     />
                 </div>
-                {bounties.length ? (
-                    <>
-                        <BountyList
-                            project={{
-                                id: project.id,
-                            }}
-                            bounties={bounties}
-                        />
-                    </>
-                ) : (
-                    <EmptyPlaceholder>
-                        <EmptyPlaceholder.Icon name="logo" />
-                        <EmptyPlaceholder.Title>
-                            No bounties created
-                        </EmptyPlaceholder.Title>
-                        <EmptyPlaceholder.Description>
-                            You don't have any feature requests or issue
-                            bounties yet. Create one and reward contributors!
-                        </EmptyPlaceholder.Description>
-                        <BountyCreateButton
-                            project={{
-                                id: project.id,
-                            }}
-                        />
-                    </EmptyPlaceholder>
-                )}
+                <>
+                    {/* @ts-expect-error Server Component */}
+
+                    <BountyList
+                        project={{
+                            id: project.id,
+                        }}
+                    />
+                </>
             </div>
         </DashboardShell>
     )

@@ -1,5 +1,4 @@
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { Icons } from "@/components/icons"
 import { ProjectHeader } from "@/components/project/header"
 import { ProjectNav } from "@/components/project/project-nav"
 import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
