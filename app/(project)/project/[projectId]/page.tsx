@@ -8,6 +8,8 @@ import { getCurrentUser } from "@/lib/session"
 import { Headline } from "@/ui/headline"
 import { notFound, redirect } from "next/navigation"
 import { BountyListPagination } from "@/components/browse/bounty-list-pagination"
+import { PrismaPromise } from "@prisma/client"
+import { TProject } from "@/components/project/secondary-nav"
 
 interface ProjectPageProps {
     params: { projectId: string }
@@ -49,7 +51,7 @@ export default async function ProjectPage({
     })
 
     // Used to track pagination, find total count of this particular query
-    const bountyCount = await getBountyCount({
+    const bountyCount = getBountyCount({
         whereQuery: {
             title: {
                 search: searchParams.search,
@@ -76,20 +78,45 @@ export default async function ProjectPage({
                             project={{
                                 id: project.id,
                             }}
-                        >
-                            {bountyCount > pageSize && (
-                                <div className="mt-8">
-                                    <BountyListPagination
-                                        baseUrl={`/project/${project.id}`}
-                                        pageSize={pageSize}
-                                        bountyCount={bountyCount}
-                                    />
-                                </div>
-                            )}
-                        </BountyList>
+                        ></BountyList>
+                        {/* @ts-expect-error Server Component */}
+                        <Pagination
+                            promise={bountyCount}
+                            pageSize={pageSize}
+                            project={{
+                                id: project.id,
+                            }}
+                        />
                     </div>
                 </>
             </div>
         </DashboardShell>
+    )
+}
+
+type TBountyPaginationWrapper = {
+    promise: Promise<number>
+    pageSize: number
+    project: TProject
+}
+
+async function Pagination({
+    promise,
+    pageSize,
+    project,
+}: TBountyPaginationWrapper) {
+    const bountyCount = await promise
+    return (
+        <>
+            {bountyCount > pageSize && (
+                <div className="mt-8">
+                    <BountyListPagination
+                        baseUrl={`/project/${project.id}`}
+                        pageSize={pageSize}
+                        bountyCount={bountyCount}
+                    />
+                </div>
+            )}
+        </>
     )
 }

@@ -32,36 +32,33 @@ export const preloadBounties = ({
     })
 }
 
-export const getBountiesForProject = async ({
-    pageSize,
-    skip,
-    sort,
-    whereQuery,
-}: TBountiesForProject) => {
-    return db.bounty.findMany({
-        take: pageSize,
-        skip,
-        orderBy: sortQueryToOrderBy[sort] ?? {
-            createdAt: "desc",
-        },
-        include: {
-            project: {
-                include: {
-                    githubRepo: true,
-                },
+export const getBountiesForProject = cache(
+    async ({ pageSize, skip, sort, whereQuery }: TBountiesForProject) => {
+        return db.bounty.findMany({
+            take: pageSize,
+            skip,
+            orderBy: sortQueryToOrderBy[sort] ?? {
+                createdAt: "desc",
             },
-            bountySubmissions: true,
-            submittedBy: true,
-        },
-        where: whereQuery,
-    })
-}
+            include: {
+                project: {
+                    include: {
+                        githubRepo: true,
+                    },
+                },
+                bountySubmissions: true,
+                submittedBy: true,
+            },
+            where: whereQuery,
+        })
+    }
+)
 
-export const getBountyCount = async ({ whereQuery }: TBountyCount) => {
+export const getBountyCount = cache(async ({ whereQuery }: TBountyCount) => {
     return db.bounty.count({
         where: whereQuery,
     })
-}
+})
 
 export type TProjectBountyReturn = Prisma.PromiseReturnType<
     typeof getBountiesForProject
