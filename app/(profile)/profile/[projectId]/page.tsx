@@ -13,7 +13,7 @@ import { BrowseBountyList } from "@/components/browse/bounty-list"
 import Link from "next/link"
 import { Icons } from "@/components/icons"
 import { Button } from "@/ui/button"
-import { BrowseSearch } from "@/components/browse/browse-search"
+import { BountySearch } from "@/components/browse/bounty-search"
 import { db } from "@/lib/db"
 import { getRepo } from "@/lib/github"
 import { ExternalLink } from "@/ui/external-link"
@@ -21,7 +21,7 @@ import { Chip } from "@/ui/chip"
 
 interface ProfilePageProps {
     params: { projectId: string }
-    searchParams: { page: string; search: string }
+    searchParams: { page: string; search: string; sort: string }
 }
 
 export default async function ProjectPage({
@@ -39,11 +39,7 @@ export default async function ProjectPage({
                 },
             },
             githubRepo: true,
-            bounties: {
-                where: {
-                    published: true,
-                },
-            },
+            bounties: true,
         },
     })
 
@@ -51,9 +47,25 @@ export default async function ProjectPage({
         notFound()
     }
 
-    const bounties = project.bounties
-
     const repo = await getRepo(project.githubRepo.githubRepoId)
+    const pageSize = 10
+
+    const skip = searchParams?.page
+        ? (parseInt(searchParams.page) - 1) * pageSize
+        : 0
+
+    const bountyPromise = getBountiesForProject({
+        pageSize,
+        skip,
+        sort: searchParams?.sort,
+        whereQuery: {
+            published: true,
+            title: {
+                search: searchParams.search,
+            },
+            projectId: params.projectId,
+        },
+    })
 
     return (
         <DashboardShell>
@@ -103,6 +115,7 @@ export default async function ProjectPage({
                     <div className="w-full col-span-4 lg:col-span-3">
                         {/* @ts-expect-error Server Component */}
                         <BountyList
+                            bountyPromise={bountyPromise}
                             showControls={false}
                             showDrafts={false}
                             project={{

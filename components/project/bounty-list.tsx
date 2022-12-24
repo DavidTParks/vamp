@@ -1,5 +1,5 @@
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { getBountiesForProject } from "@/lib/bounties"
+import { TProjectBountyReturn } from "@/lib/bounties"
 import { formatDate, formatDollars } from "@/lib/utils"
 import Link from "next/link"
 import { Icons } from "../icons"
@@ -8,17 +8,19 @@ import { BountyOperations } from "./bounty-operations"
 import { TProject } from "./secondary-nav"
 
 type TBountyList = {
+    bountyPromise: Promise<TProjectBountyReturn>
     project: TProject
     showDrafts?: boolean
     showControls?: boolean
 }
 
 export default async function BountyList({
+    bountyPromise,
     project,
     showDrafts = true,
     showControls = true,
 }: TBountyList) {
-    const bounties = await getBountiesForProject(project.id)
+    const bounties = await bountyPromise
 
     const draftCount = bounties.filter(
         (bounty) => bounty.published === false

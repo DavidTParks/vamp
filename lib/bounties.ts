@@ -4,29 +4,58 @@ import { Bounty, Project } from "@prisma/client"
 import { cache } from "react"
 import { db } from "./db"
 import { getCurrentUser } from "./session"
+import { Prisma } from "@prisma/client"
+import { sortQueryToOrderBy } from "@/config/search"
 
-export const preloadBounties = (projectId: Project["id"]) => {
-    void getBountiesForProject(projectId)
+type TBountiesForProject = {
+    pageSize: number
+    skip: number
+    sort: string
+    whereQuery: Prisma.BountyWhereInput
 }
 
-export const getBountiesForProject = async (projectId: Project["id"]) => {
-    return db.bounty.findMany({
-        where: {
-            projectId,
-        },
-        include: {
-            project: true,
-            bountySubmissions: {
-                include: {
-                    user: true,
-                },
-            },
-        },
-        orderBy: {
-            updatedAt: "desc",
-        },
+export const preloadBounties = ({
+    pageSize,
+    skip,
+    sort,
+    whereQuery,
+}: TBountiesForProject) => {
+    void getBountiesForProject({
+        pageSize,
+        skip,
+        sort,
+        whereQuery,
     })
 }
+
+export const getBountiesForProject = async ({
+    pageSize,
+    skip,
+    sort,
+    whereQuery,
+}: TBountiesForProject) => {
+    return db.bounty.findMany({
+        take: pageSize,
+        skip,
+        orderBy: sortQueryToOrderBy[sort] ?? {
+            createdAt: "desc",
+        },
+        include: {
+            project: {
+                include: {
+                    githubRepo: true,
+                },
+            },
+            bountySubmissions: true,
+            submittedBy: true,
+        },
+        where: whereQuery,
+    })
+}
+
+export type TProjectBountyReturn = Prisma.PromiseReturnType<
+    typeof getBountiesForProject
+>
 
 export const preloadBountyById = (projectId: Project["id"]) => {
     void getBountyById(projectId)

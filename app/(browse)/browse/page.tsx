@@ -1,5 +1,5 @@
 import { BrowseBountyList } from "@/components/browse/bounty-list"
-import { BrowseSearch } from "@/components/browse/browse-search"
+import { BountySearch } from "@/components/browse/bounty-search"
 import { Icons } from "@/components/icons"
 
 interface BrowsePageProps {
@@ -26,7 +26,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                 </div>
             </div>
             <div className="mt-12 w-full">
-                <BrowseSearch />
+                <BountySearch />
             </div>
             <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8">
                 {/* @ts-expect-error Server Component */}

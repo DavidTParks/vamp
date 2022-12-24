@@ -11,7 +11,11 @@ type TSearch = {
     search?: string
 }
 
-export function BrowseSearch() {
+interface IBountySearch {
+    baseUrl?: string
+}
+
+export function BountySearch({ baseUrl = "/browse" }: IBountySearch) {
     const [isPending, startTransition] = useTransition()
 
     const searchParams = useSearchParams()
@@ -30,7 +34,9 @@ export function BrowseSearch() {
     })
 
     const onSubmit = (data: TSearch) => {
-        router.push(`/browse?${searchString("1", data?.search ?? null, sort)}`)
+        router.push(
+            `${baseUrl}?${searchString("1", data?.search ?? null, sort)}`
+        )
 
         startTransition(() => {
             router.refresh()
