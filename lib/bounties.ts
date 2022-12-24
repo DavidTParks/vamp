@@ -14,6 +14,10 @@ type TBountiesForProject = {
     whereQuery: Prisma.BountyWhereInput
 }
 
+type TBountyCount = {
+    whereQuery: Prisma.BountyWhereInput
+}
+
 export const preloadBounties = ({
     pageSize,
     skip,
@@ -49,6 +53,12 @@ export const getBountiesForProject = async ({
             bountySubmissions: true,
             submittedBy: true,
         },
+        where: whereQuery,
+    })
+}
+
+export const getBountyCount = async ({ whereQuery }: TBountyCount) => {
+    return db.bounty.count({
         where: whereQuery,
     })
 }

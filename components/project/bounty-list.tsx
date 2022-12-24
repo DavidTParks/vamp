@@ -6,15 +6,19 @@ import { Icons } from "../icons"
 import { BountyCreateButton } from "./bounty-create-button"
 import { BountyOperations } from "./bounty-operations"
 import { TProject } from "./secondary-nav"
+import { db } from "@/lib/db"
+import { PrismaPromise } from "@prisma/client"
 
 type TBountyList = {
     bountyPromise: Promise<TProjectBountyReturn>
     project: TProject
     showDrafts?: boolean
     showControls?: boolean
+    children: React.ReactNode
 }
 
 export default async function BountyList({
+    children,
     bountyPromise,
     project,
     showDrafts = true,
@@ -22,17 +26,29 @@ export default async function BountyList({
 }: TBountyList) {
     const bounties = await bountyPromise
 
-    const draftCount = bounties.filter(
-        (bounty) => bounty.published === false
-    ).length
+    const draftPromise = db.bounty.count({
+        where: {
+            projectId: project.id,
+            published: false,
+            resolved: false,
+        },
+    })
 
-    const activeCount = bounties.filter(
-        (bounty) => bounty.published === true && bounty.resolved === false
-    ).length
+    const activePromise = db.bounty.count({
+        where: {
+            projectId: project.id,
+            published: true,
+            resolved: false,
+        },
+    })
 
-    const resolvedCount = bounties.filter(
-        (bounty) => bounty.published === true && bounty.resolved === true
-    ).length
+    const resolvedPromise = db.bounty.count({
+        where: {
+            projectId: project.id,
+            published: true,
+            resolved: true,
+        },
+    })
 
     return (
         <>
@@ -41,35 +57,37 @@ export default async function BountyList({
                     <div className="divide-y divide-raised-border rounded-md overflow-hidden border-raised-border border">
                         <div className="flex items-center p-6 py-3 gap-6 bg-raised">
                             {showDrafts && (
-                                <div className="text-white inline-flex gap-1 items-center">
-                                    <Icons.edit2
-                                        size={16}
-                                        className="text-brandtext-600"
-                                    />
-                                    <span className="text-sm text-brandtext-600">
-                                        {draftCount} Drafts
-                                    </span>
-                                </div>
+                                <>
+                                    {/* @ts-expect-error Server Component */}
+                                    <BountyCount
+                                        label="Drafts"
+                                        promise={draftPromise}
+                                    >
+                                        <Icons.edit2
+                                            size={16}
+                                            className="text-brandtext-600"
+                                        />
+                                    </BountyCount>
+                                </>
                             )}
-
-                            <div className="text-white inline-flex gap-1 items-center">
+                            {/* @ts-expect-error Server Component */}
+                            <BountyCount label="Active" promise={activePromise}>
                                 <Icons.circleDot
                                     size={16}
                                     className="text-brandtext-600"
                                 />
-                                <span className="text-sm text-brandtext-600">
-                                    {activeCount} Active
-                                </span>
-                            </div>
-                            <div className="text-white inline-flex gap-1 items-center">
+                            </BountyCount>
+
+                            {/* @ts-expect-error Server Component */}
+                            <BountyCount
+                                label="Resolved"
+                                promise={resolvedPromise}
+                            >
                                 <Icons.check
                                     size={16}
                                     className="text-brandtext-600"
                                 />
-                                <span className="text-sm text-brandtext-600">
-                                    {resolvedCount} Resolved
-                                </span>
-                            </div>
+                            </BountyCount>
                         </div>
                         <div className="divide-y divide divide-raised-border">
                             {bounties?.map((bounty) => (
@@ -199,6 +217,26 @@ export default async function BountyList({
                     />
                 </EmptyPlaceholder>
             )}
+            {children}
         </>
+    )
+}
+
+type TBountyCount = {
+    promise: PrismaPromise<number>
+    children: React.ReactNode
+    label: string
+}
+
+async function BountyCount({ promise, children, label }: TBountyCount) {
+    const count = await promise
+
+    return (
+        <div className="text-white inline-flex gap-1 items-center">
+            {children}
+            <span className="text-sm text-brandtext-600">
+                {count} {label}
+            </span>
+        </div>
     )
 }

@@ -1,9 +1,8 @@
 "use client"
 
-import { useSelectedLayoutSegment } from "next/navigation"
 import { Project } from "@prisma/client"
+import { useSelectedLayoutSegment } from "next/navigation"
 import { SecondaryLinkItem } from "../dashboard/secondary-nav"
-import { GithubIssue, GithubIssueSearch } from "types"
 
 export type TProject = Pick<Project, "id">
 

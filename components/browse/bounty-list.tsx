@@ -170,6 +170,7 @@ export async function BrowseBountyList({
             )}
             {bountyCount > pageSize && (
                 <BountyListPagination
+                    baseUrl="/browse"
                     pageSize={pageSize}
                     bountyCount={bountyCount}
                 />

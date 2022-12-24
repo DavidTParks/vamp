@@ -6,11 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation"
 interface TBountyListPagination {
     bountyCount: number
     pageSize: number
+    baseUrl: string
 }
 
 export function BountyListPagination({
     bountyCount,
     pageSize,
+    baseUrl,
 }: TBountyListPagination) {
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -51,7 +53,7 @@ export function BountyListPagination({
                 {previousPage ? (
                     <Button
                         onClick={() => {
-                            router.push(`/browse?${previousPageQueryString}`)
+                            router.push(`${baseUrl}?${previousPageQueryString}`)
                             router.refresh()
                         }}
                         intent="secondary"
@@ -63,7 +65,7 @@ export function BountyListPagination({
                 {page * pageSize < bountyCount && (
                     <Button
                         onClick={() => {
-                            router.push(`/browse?${nextPageQueryString}`)
+                            router.push(`${baseUrl}?${nextPageQueryString}`)
                             router.refresh()
                         }}
                         intent="secondary"
