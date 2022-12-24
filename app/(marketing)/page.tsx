@@ -63,8 +63,8 @@ export default async function IndexPage() {
                     </span>
                 </h1>
                 <h2 className="mt-5 text-lg text-brandtext-500 sm:text-xl">
-                    Vamp is a platform to empower open source projects, and the
-                    contributors that make them great.
+                    Vamp is an open source platform to empower open source
+                    projects, and the contributors that make them great.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
                     {user ? (

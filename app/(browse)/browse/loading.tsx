@@ -13,9 +13,8 @@ export default function NewLoading() {
                             Make your mark
                         </p>
                         <p className="mx-auto mt-5 max-w-xl text-xl text-brandtext-600">
-                            If your bounty resolution is accepted by an Open
-                            Source project, you get paid! Plus, the street (web)
-                            cred.
+                            If your contribution is accepted by an Open Source
+                            project, you get paid! Plus, the street (web) cred.
                         </p>
                     </div>
                 </div>

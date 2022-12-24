@@ -100,14 +100,16 @@ export default async function ProjectPage({
                             </div>
                         </div>
                     </div>
-                    {/* @ts-expect-error Server Component */}
-                    <BountyList
-                        showControls={false}
-                        showDrafts={false}
-                        project={{
-                            id: project.id,
-                        }}
-                    />
+                    <div className="w-full col-span-4 lg:col-span-3">
+                        {/* @ts-expect-error Server Component */}
+                        <BountyList
+                            showControls={false}
+                            showDrafts={false}
+                            project={{
+                                id: project.id,
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         </DashboardShell>
