@@ -1,6 +1,6 @@
 "use client"
 
-import MuxPlayer from "@mux/mux-player-react/lazy"
+import MuxPlayer from "@mux/mux-player-react"
 
 export default function VideoPlayer() {
     return (

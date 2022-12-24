@@ -32,9 +32,9 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                 {/* @ts-expect-error Server Component */}
                 <BrowseBountyList
                     sortQuery={searchParams.sort}
-                    pageSize={25}
+                    pageSize={10}
                     search={searchParams.search}
-                    page={searchParams?.page ? parseInt(searchParams.page) : 0}
+                    page={searchParams?.page ? parseInt(searchParams.page) : 1}
                 />
             </div>
         </div>

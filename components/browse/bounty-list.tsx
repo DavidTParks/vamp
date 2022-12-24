@@ -38,10 +38,12 @@ export async function BrowseBountyList({
     projectId,
     includeResolved = false,
 }: TBountyList) {
+    const skip = (page - 1) * pageSize
+
     const [bounties, bountyCount] = await Promise.all([
         db.bounty.findMany({
             take: pageSize,
-            skip: page ? page - 1 : 0 * pageSize,
+            skip,
             orderBy: sortQueryToOrderBy[sortQuery] ?? {
                 createdAt: "desc",
             },
@@ -69,8 +71,8 @@ export async function BrowseBountyList({
                 title: {
                     search,
                 },
-                projectId,
                 resolved: includeResolved,
+                projectId,
             },
         }),
     ])

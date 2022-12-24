@@ -37,7 +37,6 @@ export default async function ProjectPage({
                 </div>
                 <>
                     {/* @ts-expect-error Server Component */}
-
                     <BountyList
                         project={{
                             id: project.id,
