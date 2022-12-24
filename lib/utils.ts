@@ -36,31 +36,35 @@ export function capitalize(input: string) {
     return input.charAt(0).toUpperCase() + input.slice(1)
 }
 
-export function searchString(
-    page: string | null | undefined,
-    search: string | null | undefined,
-    sort?: string | null | undefined
-): string {
-    console.log("search", search)
-    const searchWithOptionalPageParams = new URLSearchParams({
-        page,
-        search,
-        sort,
-    })
-
+export function cleanSearchParams(urlSearchParams: URLSearchParams) {
+    let cleanedParams = urlSearchParams
     let keysForDel = []
 
-    searchWithOptionalPageParams.forEach((value, key) => {
+    urlSearchParams.forEach((value, key) => {
         if (value == "null" || !value) {
             keysForDel.push(key)
         }
     })
 
     keysForDel.forEach((key) => {
-        searchWithOptionalPageParams.delete(key)
+        cleanedParams.delete(key)
     })
 
-    return searchWithOptionalPageParams?.toString()
+    return cleanedParams
+}
+
+export function searchString(
+    page: string | null | undefined,
+    search: string | null | undefined,
+    sort?: string | null | undefined
+): string {
+    const searchParameters = new URLSearchParams({
+        page,
+        search,
+        sort,
+    })
+
+    return cleanSearchParams(searchParameters)?.toString()
 }
 
 export const isValidUrl = (url: string) => {
