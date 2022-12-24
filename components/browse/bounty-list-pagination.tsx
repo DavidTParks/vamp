@@ -1,9 +1,9 @@
 "use client"
 
-import { issueSearchString } from "@/lib/utils"
+import { searchString } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { useRouter, useSearchParams } from "next/navigation"
-
+import { newSearchQueryString } from "@/lib/utils"
 interface TBountyListPagination {
     bountyCount: number
     pageSize: number
@@ -21,14 +21,20 @@ export function BountyListPagination({
         : 1
 
     const search = searchParams.get("search")
+    const sort = searchParams.get("sort")
 
     const previousPage = page ? parseInt(page.toString()) - 1 : null
     const nextPage = page ? parseInt(page.toString()) + 1 : 2
 
-    const nextPageQueryString = issueSearchString(nextPage?.toString(), search)
-    const previousPageQueryString = issueSearchString(
-        previousPage?.toString(),
-        search
+    const nextPageQueryString = newSearchQueryString(
+        nextPage.toString(),
+        search,
+        sort
+    )
+    const previousPageQueryString = newSearchQueryString(
+        previousPage.toString(),
+        search,
+        sort
     )
 
     return (

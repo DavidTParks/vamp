@@ -1,6 +1,6 @@
 "use client"
 
-import { issueSearchString } from "@/lib/utils"
+import { searchString } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { useRouter, useSearchParams } from "next/navigation"
 import { TProject } from "./secondary-nav"
@@ -25,8 +25,8 @@ export default function IssueListPagination({
     const previousPage = page ? parseInt(page.toString()) - 1 : null
     const nextPage = page ? parseInt(page.toString()) + 1 : 2
 
-    const nextPageQueryString = issueSearchString(nextPage?.toString(), search)
-    const previousPageQueryString = issueSearchString(
+    const nextPageQueryString = searchString(nextPage?.toString(), search)
+    const previousPageQueryString = searchString(
         previousPage?.toString(),
         search
     )

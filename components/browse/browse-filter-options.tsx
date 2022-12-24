@@ -9,6 +9,7 @@ import { DropdownMenu } from "@/ui/dropdown"
 import { useTransition } from "react"
 import { useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { newSearchQueryString } from "@/lib/utils"
 
 const sortOptions = [
     {
@@ -39,6 +40,8 @@ export function BrowseFilterOptions() {
     const searchParams = useSearchParams()
 
     const sort = searchParams.get("sort")
+    const page = searchParams.get("page")
+    const search = searchParams.get("search")
 
     return (
         <>
@@ -68,7 +71,13 @@ export function BrowseFilterOptions() {
                             <DropdownMenu.Item
                                 key={option.query}
                                 onSelect={() => {
-                                    router.push(`/browse?sort=${option.query}`)
+                                    router.push(
+                                        `/browse?${newSearchQueryString(
+                                            page,
+                                            search,
+                                            option.query
+                                        )}`
+                                    )
                                     startTransition(() => {
                                         router.refresh()
                                     })

@@ -1,11 +1,10 @@
 "use client"
 
-import { Button } from "@/ui/button"
+import { newSearchQueryString } from "@/lib/utils"
 import { Input } from "@/ui/input"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
-import { Icons } from "../icons"
 import { BrowseFilterOptions } from "./browse-filter-options"
 
 type TSearch = {
@@ -17,6 +16,7 @@ export function BrowseSearch() {
 
     const searchParams = useSearchParams()
     const search = searchParams.get("search")
+    const sort = searchParams.get("sort")
 
     const router = useRouter()
     const {
@@ -30,9 +30,9 @@ export function BrowseSearch() {
     })
 
     const onSubmit = (data: TSearch) => {
-        const searchTrimmed = data?.search?.trim()
-        const searchQuery = !!searchTrimmed ? `?search=${searchTrimmed}` : ""
-        router.push(`/browse${searchQuery}`)
+        router.push(
+            `/browse?${newSearchQueryString("1", data?.search ?? null, sort)}`
+        )
 
         startTransition(() => {
             router.refresh()

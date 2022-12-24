@@ -6,7 +6,7 @@ import { Icons } from "../icons"
 import { useRouter } from "next/navigation"
 import { TProject } from "./secondary-nav"
 import { useSearchParams } from "next/navigation"
-import { issueSearchString } from "@/lib/utils"
+import { searchString } from "@/lib/utils"
 import { useTransition } from "react"
 
 type TIssueSearch = {
@@ -35,10 +35,7 @@ export default function IssueSearch({ project }: TIssueSearch) {
 
     const onSubmit = (data: TSearch) => {
         router.push(
-            `/project/${project.id}/issues?${issueSearchString(
-                "1",
-                data.search
-            )}`
+            `/project/${project.id}/issues?${searchString("1", data.search)}`
         )
         startTransition(() => {
             router.refresh()

@@ -1,6 +1,7 @@
 import { ClassValue, clsx } from "clsx"
 import { formatDistanceToNowStrict } from "date-fns"
 import { twMerge } from "tailwind-merge"
+import urlcat from "urlcat"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -36,13 +37,15 @@ export function capitalize(input: string) {
     return input.charAt(0).toUpperCase() + input.slice(1)
 }
 
-export function issueSearchString(
+export function searchString(
     page: string | null | undefined,
-    search: string | null | undefined
+    search: string | null | undefined,
+    sort?: string | null | undefined
 ): string {
     const searchWithOptionalPageParams = new URLSearchParams({
         page,
         search,
+        sort,
     })
 
     let keysForDel = []
@@ -57,6 +60,18 @@ export function issueSearchString(
     })
 
     return searchWithOptionalPageParams?.toString()
+}
+
+export const newSearchQueryString = (
+    page: string | null = "1",
+    search: string | null | undefined,
+    sort: string | null | undefined
+): string => {
+    return urlcat("", {
+        search: search ? search?.trim() : null,
+        sort: sort,
+        page,
+    })
 }
 
 export const isValidUrl = (url: string) => {
