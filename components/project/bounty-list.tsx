@@ -8,6 +8,8 @@ import { BountyOperations } from "./bounty-operations"
 import { TProject } from "./secondary-nav"
 import { db } from "@/lib/db"
 import { PrismaPromise } from "@prisma/client"
+import { Suspense } from "react"
+import { Skeleton } from "@/ui/skeleton"
 
 type TBountyList = {
     bountyPromise: Promise<TProjectBountyReturn>
@@ -56,38 +58,43 @@ export default async function BountyList({
                 <>
                     <div className="divide-y divide-raised-border rounded-md overflow-hidden border-raised-border border">
                         <div className="flex items-center p-6 py-3 gap-6 bg-raised">
-                            {showDrafts && (
-                                <>
-                                    {/* @ts-expect-error Server Component */}
-                                    <BountyCount
-                                        label="Drafts"
-                                        promise={draftPromise}
-                                    >
-                                        <Icons.edit2
-                                            size={16}
-                                            className="text-brandtext-600"
-                                        />
-                                    </BountyCount>
-                                </>
-                            )}
-                            {/* @ts-expect-error Server Component */}
-                            <BountyCount label="Active" promise={activePromise}>
-                                <Icons.circleDot
-                                    size={16}
-                                    className="text-brandtext-600"
-                                />
-                            </BountyCount>
+                            <Suspense fallback={<Skeleton className="w-72" />}>
+                                {showDrafts && (
+                                    <>
+                                        {/* @ts-expect-error Server Component */}
+                                        <BountyCount
+                                            label="Drafts"
+                                            promise={draftPromise}
+                                        >
+                                            <Icons.edit2
+                                                size={16}
+                                                className="text-brandtext-600"
+                                            />
+                                        </BountyCount>
+                                    </>
+                                )}
+                                {/* @ts-expect-error Server Component */}
+                                <BountyCount
+                                    label="Active"
+                                    promise={activePromise}
+                                >
+                                    <Icons.circleDot
+                                        size={16}
+                                        className="text-brandtext-600"
+                                    />
+                                </BountyCount>
 
-                            {/* @ts-expect-error Server Component */}
-                            <BountyCount
-                                label="Resolved"
-                                promise={resolvedPromise}
-                            >
-                                <Icons.check
-                                    size={16}
-                                    className="text-brandtext-600"
-                                />
-                            </BountyCount>
+                                {/* @ts-expect-error Server Component */}
+                                <BountyCount
+                                    label="Resolved"
+                                    promise={resolvedPromise}
+                                >
+                                    <Icons.check
+                                        size={16}
+                                        className="text-brandtext-600"
+                                    />
+                                </BountyCount>
+                            </Suspense>
                         </div>
                         <div className="divide-y divide divide-raised-border">
                             {bounties?.map((bounty) => (
