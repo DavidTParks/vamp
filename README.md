@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a href="https://vamp.sh">
+  <h1 align="center">Vamp</h1>
+</a>
 
-## Getting Started
+<p align="center">
+  An open-source, open-source bounty platform.
+</p>
 
-First, run the development server:
+<p align="center">
+  <a href="https://twitter.com/vampdotsh">
+    <img src="https://img.shields.io/twitter/follow/vampdotsh?style=flat&label=vampdotsh&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
+  </a>
+  <a href="https://github.com/steven-tey/dub/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/steven-tey/dub?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+  </a>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<p align="center">
+  <a href="#introduction"><strong>Introduction</strong></a> ·
+  <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
+  <a href="#contributing"><strong>Contributing</strong></a>
+</p>
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vamp is an open-source open-source management tool for project maintainers to post issue bounties for financial reward, and for contributors to resolve them. Built with [Next 13](http://beta.nextjs.org), and [Planetscale MySQL](https://planetscale.com/).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Here are some of the features that Dub provides out-of-the-box:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Tech Stack
 
-## Learn More
+-   [Next.js](https://nextjs.org/) – framework
+-   [Typescript](https://www.typescriptlang.org/) – language
+-   [Tailwind](https://tailwindcss.com/) – CSS
+-   [Planetscale](https://planetscale.com/) – database
+-   [NextAuth.js](https://next-auth.js.org/) – auth
+-   [Vercel](https://vercel.com/) – hosting
+-   [Stripe](https://stripe.com/) – payments
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+We love our contributors! Here's how you can contribute:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   [Open an issue](https://github.com/davidtparks/vamp/issues) if you believe you've encountered a bug.
+-   Make a [pull request](https://github.com/steven-tey/dub/pull) to add new features/make quality-of-life improvements/fix bugs.
 
-## Deploy on Vercel
+<a href="https://github.com/davidtparks/vamp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=davidtparks/vamp" />
+</a>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   David Parks([@dparksdev](https://twitter.com/dparksdev))
+
+## License
+
+Inspired by [Plausible](https://plausible.io/), and [Dub](https://dub.sh/), Vamp is open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/steven-tey/dub/blob/main/LICENSE.md).
