@@ -55,7 +55,7 @@ export default async function IndexPage() {
                         </span>
                     </div>
                 </div>
-                <h1 className="mt-5 font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text font-display text-5xl tracking-tight text-transparent">
+                <h1 className="mt-5 font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text text-5xl tracking-tight text-transparent">
                     Contribute to Open Source
                     <br />
                     <span className="bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent red-glow">

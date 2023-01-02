@@ -15,9 +15,9 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                         <h2 className="text-lg font-semibold text-rose-600">
                             Browse
                         </h2>
-                        <p className="mt-1 text-4xl font-bold tracking-tight text-brandtext-500 sm:text-5xl lg:text-6xl flex gap-8 justify-center w-full items-center">
+                        <h1 className="mt-1 text-4xl font-bold tracking-tight text-brandtext-500 sm:text-5xl lg:text-6xl flex gap-8 justify-center w-full items-center">
                             Make your mark
-                        </p>
+                        </h1>
                         <p className="mx-auto mt-5 max-w-xl text-xl text-brandtext-600">
                             If your contribution is accepted by an Open Source
                             project, you get paid! Plus, the street (web) cred.
