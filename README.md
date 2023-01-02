@@ -31,10 +31,11 @@ Vamp is an open-source, open-source management tool for project maintainers and 
 -   [Next.js](https://nextjs.org/) – framework
 -   [Typescript](https://www.typescriptlang.org/) – language
 -   [Tailwind](https://tailwindcss.com/) – CSS
--   [Planetscale](https://planetscale.com/) – database
+-   [PlanetScale](https://planetscale.com/) – database
 -   [NextAuth.js](https://next-auth.js.org/) – auth
 -   [Vercel](https://vercel.com/) – hosting
 -   [Stripe](https://stripe.com/) – payments
+-   [Mux](https://www.mux.com/) - video embeds
 
 ## Acknowledgments
 

@@ -3,6 +3,7 @@ import { Icons } from "@/components/icons"
 import { SecondaryLinkItem } from "@/components/dashboard/secondary-nav"
 import { DashboardShell } from "@/components/dashboard/shell"
 import { Headline } from "@/ui/headline"
+import { Button } from "@/ui/button"
 
 export default function DashboardLoading() {
     return (
@@ -57,6 +58,10 @@ export default function DashboardLoading() {
                             <h1 className="text-2xl font-medium text-brandtext-500">
                                 Overview
                             </h1>
+                            <Button>
+                                <Icons.add className="mr-2 h-4 w-4" />
+                                New bounty
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -74,7 +79,7 @@ export default function DashboardLoading() {
                             <>
                                 <Skeleton className="w-full h-9" />
                                 <div className="mt-4">
-                                    <div className="divide-y divide-raised-border rounded-md overflow-hidden border-raised-border border">
+                                    <div className="divide-y space-y-4 divide-raised-border rounded-md overflow-hidden ">
                                         <Skeleton className="w-full h-16" />
                                         <Skeleton className="w-full h-16" />
                                         <Skeleton className="w-full h-16" />

@@ -28,7 +28,7 @@ export default function RootLayout({
         <html
             lang="en"
             className={cn(
-                "bg-appbg font-sans text-slate-900 antialiased",
+                "bg-appbg font-sans text-brandtext-500 antialiased",
                 satoshi.variable,
                 fontSans.variable
             )}
