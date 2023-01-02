@@ -10,8 +10,8 @@
   <a href="https://twitter.com/vampdotsh">
     <img src="https://img.shields.io/twitter/follow/vampdotsh?style=flat&label=vampdotsh&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
   </a>
-  <a href="https://github.com/steven-tey/dub/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/steven-tey/dub?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+  <a href="https://github.com/davidtparks/vamp/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/davidtparks/vamp?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
   </a>
 </p>
 
