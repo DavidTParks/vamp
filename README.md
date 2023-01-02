@@ -26,8 +26,6 @@
 
 Vamp is an open-source open-source management tool for project maintainers to post issue bounties for financial reward, and for contributors to resolve them. Built with [Next 13](http://beta.nextjs.org), and [Planetscale MySQL](https://planetscale.com/).
 
-Here are some of the features that Dub provides out-of-the-box:
-
 ## Tech Stack
 
 -   [Next.js](https://nextjs.org/) – framework
@@ -37,6 +35,10 @@ Here are some of the features that Dub provides out-of-the-box:
 -   [NextAuth.js](https://next-auth.js.org/) – auth
 -   [Vercel](https://vercel.com/) – hosting
 -   [Stripe](https://stripe.com/) – payments
+
+## Acknowledgments
+
+This project would not have been possible without the amazing work from [Shadcdn](https://twitter.com/shadcn) for his Next 13 app dir project [Taxonomy](https://github.com/shadcn/taxonomy), which much of Vamp's code is based on, and [Steven Tey](https://twitter.com/steventey) for his work on [Dub](https://www.dub.sh) which provided a fantastic blueprint for Vamp's layout, as well as licenses and even this readme!
 
 ## Contributing
 
