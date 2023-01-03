@@ -28,6 +28,7 @@ model Account {
   user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map(name: "accounts")
 }
 
@@ -38,6 +39,7 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map(name: "sessions")
 }
 
@@ -55,6 +57,7 @@ model User {
   bountySubmissions BountySubmission[]
   comments          Comment[]
   bounties          Bounty[]
+  notifications     Notification[]
   stripeCustomerId  String?            @unique @map(name: "stripe_customer_id")
 
   @@map(name: "users")
@@ -81,6 +84,7 @@ model Project {
   users           ProjectUsers[]
   invites         ProjectInvite[]
   stripeProductId String?           @unique @map(name: "stripe_product_id")
+  Notification    Notification[]
 }
 
 model ProjectInvite {
@@ -153,6 +157,7 @@ model Bounty {
   stripePriceId     String?            @unique @map(name: "stripe_price_id")
   submittedBy       User?              @relation(fields: [userId], references: [id], onUpdate: NoAction)
   userId            String?
+  notifications     Notification[]
 
   @@index([projectId])
   @@index([userId])
@@ -194,4 +199,28 @@ model Comment {
   hidden    Boolean  @default(false)
 
   @@index([bountyId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  type      NOTIFICATIONTYPE
+  bounty    Bounty?          @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
+  bountyId  String?
+  project   Project?         @relation(fields: [projectId], references: [id], onUpdate: NoAction)
+  projectId String?
+  users     User[]
+  message   String           @db.LongText
+  title     String
+  data      Json?
+
+  @@index([bountyId])
+  @@index([projectId])
+}
+
+enum NOTIFICATIONTYPE {
+  SUBMISSIONRECIEVED
+  SUBMISSIONACCEPTED
+  DONATIONRECIEVED
 }
