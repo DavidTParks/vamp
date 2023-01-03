@@ -60,7 +60,7 @@ export function BountySearch({ baseUrl = "/browse" }: IBountySearch) {
                     register={register}
                 />
             </form>
-            <BrowseFilterOptions />
+            <BrowseFilterOptions baseUrl={baseUrl} />
         </div>
     )
 }

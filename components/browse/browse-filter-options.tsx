@@ -34,7 +34,13 @@ const sortOptions = [
     },
 ]
 
-export function BrowseFilterOptions() {
+interface IBrowseFilterOptions {
+    baseUrl?: string
+}
+
+export function BrowseFilterOptions({
+    baseUrl = "/browse",
+}: IBrowseFilterOptions) {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
@@ -72,7 +78,7 @@ export function BrowseFilterOptions() {
                                 key={option.query}
                                 onSelect={() => {
                                     router.push(
-                                        `/browse?${searchString(
+                                        `${baseUrl}?${searchString(
                                             page,
                                             search,
                                             option.query
