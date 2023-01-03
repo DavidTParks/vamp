@@ -1,4 +1,6 @@
 import { Skeleton } from "@/ui/skeleton"
+import Link from "next/link"
+import { Icons } from "@/components/icons"
 
 export default function DashboardLoading() {
     return (
@@ -6,7 +8,17 @@ export default function DashboardLoading() {
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
-                        <Skeleton />
+                        <div className="flex gap-6 md:gap-10 text-red-50">
+                            <Link
+                                href="/"
+                                className="flex items-center space-x-2 text-2xl"
+                            >
+                                <Icons.logo size={32} color="white" />
+                                <span className="hidden font-bold sm:inline-block">
+                                    Vamp
+                                </span>
+                            </Link>
+                        </div>
                         <Skeleton className="w-8 h-8" />
                     </div>
                 </div>

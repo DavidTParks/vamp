@@ -44,21 +44,21 @@ model Session {
 }
 
 model User {
-  id                String             @id @default(cuid())
+  id                String              @id @default(cuid())
   name              String?
-  email             String?            @unique
+  email             String?             @unique
   emailVerified     DateTime?
   image             String?
-  createdAt         DateTime           @default(now()) @map(name: "created_at")
-  updatedAt         DateTime           @default(now()) @map(name: "updated_at")
+  createdAt         DateTime            @default(now()) @map(name: "created_at")
+  updatedAt         DateTime            @default(now()) @map(name: "updated_at")
   accounts          Account[]
   sessions          Session[]
   projects          ProjectUsers[]
   bountySubmissions BountySubmission[]
   comments          Comment[]
   bounties          Bounty[]
-  notifications     Notification[]
-  stripeCustomerId  String?            @unique @map(name: "stripe_customer_id")
+  notifications     UserNotifications[]
+  stripeCustomerId  String?             @unique @map(name: "stripe_customer_id")
 
   @@map(name: "users")
 }
@@ -84,7 +84,7 @@ model Project {
   users           ProjectUsers[]
   invites         ProjectInvite[]
   stripeProductId String?           @unique @map(name: "stripe_product_id")
-  Notification    Notification[]
+  notifications   Notification[]
 }
 
 model ProjectInvite {
@@ -167,18 +167,19 @@ model Bounty {
 }
 
 model BountySubmission {
-  id           String         @id @default(cuid())
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  bounty       Bounty         @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
-  bountyId     String
-  solutionLink String?
-  comments     String?
-  user         User           @relation(fields: [userId], references: [id], onUpdate: NoAction)
-  userId       String
-  accepted     Boolean        @default(false)
-  hidden       Boolean        @default(false)
-  seenBy       ProjectUsers[]
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  bounty        Bounty         @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
+  bountyId      String
+  solutionLink  String?
+  comments      String?
+  user          User           @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  userId        String
+  accepted      Boolean        @default(false)
+  hidden        Boolean        @default(false)
+  seenBy        ProjectUsers[]
+  notifications Notification[]
 
   @@index([bountyId])
   @@index([userId])
@@ -202,25 +203,41 @@ model Comment {
 }
 
 model Notification {
-  id        String           @id @default(cuid())
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  type      NOTIFICATIONTYPE
-  bounty    Bounty?          @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
-  bountyId  String?
-  project   Project?         @relation(fields: [projectId], references: [id], onUpdate: NoAction)
-  projectId String?
-  users     User[]
-  message   String           @db.LongText
-  title     String
-  data      Json?
+  id                 String              @id @default(cuid())
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  type               NOTIFICATIONTYPE
+  bounty             Bounty?             @relation(fields: [bountyId], references: [id], onUpdate: NoAction)
+  bountyId           String?
+  bountySubmissionId String?
+  bountySubmission   BountySubmission?   @relation(fields: [bountySubmissionId], references: [id])
+  project            Project?            @relation(fields: [projectId], references: [id], onUpdate: NoAction)
+  projectId          String?
+  message            String              @db.LongText
+  title              String
+  data               Json?
+  users              UserNotifications[]
 
   @@index([bountyId])
   @@index([projectId])
+  @@index([bountySubmissionId])
 }
 
 enum NOTIFICATIONTYPE {
   SUBMISSIONRECIEVED
   SUBMISSIONACCEPTED
   DONATIONRECIEVED
+}
+
+model UserNotifications {
+  readAt         DateTime?
+  read           Boolean      @default(false)
+  user           User         @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  userId         String // relation scalar field (used in the `@relation` attribute above)
+  notification   Notification @relation(fields: [notificationId], references: [id], onUpdate: NoAction)
+  notificationId String // relation scalar field (used in the `@relation` attribute above)
+
+  @@id([userId, notificationId])
+  @@index([notificationId])
+  @@index([userId])
 }
