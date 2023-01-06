@@ -48,6 +48,7 @@ import {
     Redo2,
     Share,
     CheckCircle,
+    ArrowLeft,
     Menu,
     Verified,
     SortAsc,
@@ -65,6 +66,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    arrowLeft: ArrowLeft,
     bell: Bell,
     sortAsc: SortAsc,
     eye: Eye,

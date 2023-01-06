@@ -3,7 +3,8 @@
 import { searchString } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { useRouter, useSearchParams } from "next/navigation"
-
+import { useTransition } from "react"
+import { Icons } from "@/components/icons"
 interface TBountyListPagination {
     itemCount: number
     pageSize: number
@@ -15,6 +16,7 @@ export function Pagination({
     pageSize,
     baseUrl,
 }: TBountyListPagination) {
+    const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
     const router = useRouter()
 
@@ -56,11 +58,19 @@ export function Pagination({
                     <Button
                         onClick={() => {
                             router.push(`${baseUrl}?${previousPageQueryString}`)
-                            router.refresh()
+                            startTransition(() => {
+                                router.refresh()
+                            })
                         }}
+                        className="inline-flex gap-2"
                         intent="secondary"
                         size="small"
                     >
+                        {isPending ? (
+                            <Icons.spinner className="h-4 w-4 animate-spin text-brandtext-600" />
+                        ) : (
+                            <Icons.arrowLeft size={16} />
+                        )}
                         Previous
                     </Button>
                 ) : null}
@@ -68,12 +78,20 @@ export function Pagination({
                     <Button
                         onClick={() => {
                             router.push(`${baseUrl}?${nextPageQueryString}`)
-                            router.refresh()
+                            startTransition(() => {
+                                router.refresh()
+                            })
                         }}
+                        className="inline-flex gap-2"
                         intent="secondary"
                         size="small"
                     >
                         Next
+                        {isPending ? (
+                            <Icons.spinner className="h-4 w-4 animate-spin text-brandtext-600" />
+                        ) : (
+                            <Icons.arrowRight size={16} />
+                        )}
                     </Button>
                 )}
             </div>

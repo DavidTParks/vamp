@@ -99,9 +99,21 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                             </div>
                         </div>
                         <DropdownMenu.Separator />
+
                         <DropdownMenu.Item>
                             <Link href="/dashboard" className="w-full">
                                 Dashboard
+                            </Link>
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item>
+                            <Link href="/browse" className="w-full">
+                                Browse
+                            </Link>
+                        </DropdownMenu.Item>
+
+                        <DropdownMenu.Item>
+                            <Link href="/dashboard/settings" className="w-full">
+                                Settings
                             </Link>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item>
@@ -110,11 +122,6 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                                 className="w-full"
                             >
                                 Billing
-                            </Link>
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item>
-                            <Link href="/dashboard/settings" className="w-full">
-                                Settings
                             </Link>
                         </DropdownMenu.Item>
                         <DropdownMenu.Separator />
