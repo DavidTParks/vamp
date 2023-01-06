@@ -17,6 +17,7 @@ export function NotificationList({ user }: INotificationList) {
     const myQuery = trpc.notification.list.useInfiniteQuery(
         {
             limit: 10,
+            userId: user.id,
         },
         {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
