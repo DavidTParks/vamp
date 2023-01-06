@@ -18,5 +18,5 @@ export function RefreshListener() {
         if (from === "create") {
             router.refresh()
         }
-    }, [from])
+    }, [from, router])
 }

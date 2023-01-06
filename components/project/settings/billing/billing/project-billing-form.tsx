@@ -48,7 +48,7 @@ export function ProjectBillingForm({
 
             router.refresh()
         }
-    }, [from])
+    }, [from, router])
 
     async function onSubmit(event) {
         event.preventDefault()

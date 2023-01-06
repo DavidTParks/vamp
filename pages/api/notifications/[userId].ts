@@ -38,7 +38,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             if (items.length > limit) {
                 // Remove the last item and use it as next cursor
 
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const lastItem = items.pop()!
                 nextCursor = lastItem.id
             }

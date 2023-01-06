@@ -1,11 +1,8 @@
 "use client"
 
+import { trpc } from "@/client/trpcClient"
 import { TUser } from "@/components/dashboard/user-account-nav"
 import { useIsIntersecting } from "@/hooks/use-is-intersecting"
-import useSWRInfinite, { SWRInfiniteKeyLoader } from "swr/infinite"
-import { Fragment } from "react"
-import { Notification } from "@prisma/client"
-import { trpc } from "@/client/trpcClient"
 
 export interface INotificationList {
     user: TUser
