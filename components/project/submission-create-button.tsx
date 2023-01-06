@@ -13,7 +13,7 @@ import { Modal } from "@/ui/modal"
 import { TextArea } from "@/ui/textarea"
 import { toast } from "@/ui/toast"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, FormProvider } from "react-hook-form"
 import * as z from "zod"
 
 interface PostOperationsProps {
@@ -31,11 +31,7 @@ export function SubmissionCreateButton({
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<CreateProjectFormData>({
+    const methods = useForm<CreateProjectFormData>({
         resolver: zodResolver(bountySubmissionSchema),
     })
 
@@ -72,20 +68,21 @@ export function SubmissionCreateButton({
     }
 
     return (
-        <>
+        <FormProvider {...methods}>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Trigger asChild>
                     <Button size={size}>Post solution</Button>
                 </Modal.Trigger>
                 <Modal.Content>
                     <Modal.Title>Post solution</Modal.Title>
-                    <form className="mt-4" onSubmit={handleSubmit(onClick)}>
+                    <form
+                        className="mt-4"
+                        onSubmit={methods.handleSubmit(onClick)}
+                    >
                         <div className="grid gap-8">
                             <div className="grid gap-1">
-                                <Label htmlFor="solutionLink">
-                                    Solution link
-                                </Label>
                                 <Input
+                                    label="Solution link *"
                                     id="solutionLink"
                                     placeholder="Ex. Pull Request link, CodeSandbox environment link"
                                     type="text"
@@ -94,23 +91,23 @@ export function SubmissionCreateButton({
                                     autoCorrect="off"
                                     name="solutionLink"
                                     disabled={isLoading}
-                                    register={register}
                                 />
-                                {errors?.solutionLink?.type === "too_small" && (
+                                {methods.formState.errors?.solutionLink
+                                    ?.type === "too_small" && (
                                     <small className="text-red-600">
                                         Solution link is required
                                     </small>
                                 )}
-                                {errors?.solutionLink?.type ===
-                                    "invalid_string" && (
+                                {methods.formState.errors?.solutionLink
+                                    ?.type === "invalid_string" && (
                                     <small className="text-red-600">
                                         You must submit a valid URL
                                     </small>
                                 )}
                             </div>
                             <div className="grid gap-1">
-                                <Label htmlFor="comments">Comments</Label>
                                 <TextArea
+                                    label="Comments"
                                     maxLength={320}
                                     id="comments"
                                     placeholder="Provide some more information about your proposed solution!"
@@ -119,7 +116,6 @@ export function SubmissionCreateButton({
                                     autoCorrect="off"
                                     name="comments"
                                     disabled={isLoading}
-                                    register={register}
                                 />
                             </div>
                         </div>
@@ -139,6 +135,6 @@ export function SubmissionCreateButton({
                     </form>
                 </Modal.Content>
             </Modal>
-        </>
+        </FormProvider>
     )
 }

@@ -48,9 +48,9 @@ export function ProjectBillingForm({
 
             router.refresh()
         }
-    }, [from])
+    }, [from, router])
 
-    async function onSubmit(event) {
+    async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsLoading(!isLoading)
 

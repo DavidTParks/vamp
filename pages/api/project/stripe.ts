@@ -25,7 +25,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const user = session?.user
 
-            const userAccount = await db.user.findUnique({
+            if (!user) {
+                throw new Error("No user found")
+            }
+
+            const userAccount = await db.user.findUniqueOrThrow({
                 where: {
                     id: user.id,
                 },

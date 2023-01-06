@@ -16,8 +16,8 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         GitHubProvider({
-            clientId: process.env.GITHUB_CLIENT_ID,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         }),
     ],
     callbacks: {
@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
 
             return session
         },
+        //@ts-ignore
         async jwt({ token, user }) {
             const dbUser = await db.user.findFirst({
                 where: {
@@ -43,22 +44,22 @@ export const authOptions: NextAuthOptions = {
                 },
             })
 
-            if (!dbUser) {
+            if (!dbUser && user) {
                 token.id = user.id
                 return token
             }
 
-            const accessToken = dbUser.accounts.find(
+            const accessToken = dbUser?.accounts.find(
                 (account) => account.access_token
             )?.access_token
 
             return {
-                id: dbUser.id,
-                name: dbUser.name,
-                email: dbUser.email,
-                picture: dbUser.image,
+                id: dbUser?.id,
+                name: dbUser?.name,
+                email: dbUser?.email,
+                picture: dbUser?.image,
                 accessToken,
-                stripeCustomerId: dbUser.stripeCustomerId,
+                stripeCustomerId: dbUser?.stripeCustomerId,
             }
         },
     },

@@ -19,7 +19,8 @@ export function Pagination({
     const router = useRouter()
 
     const page = searchParams.get("page")
-        ? parseInt(searchParams.get("page"))
+        ? // @ts-ignore
+          parseInt(searchParams.get("page"))
         : 1
 
     const search = searchParams.get("search")
@@ -30,7 +31,7 @@ export function Pagination({
 
     const nextPageQueryString = searchString(nextPage.toString(), search, sort)
     const previousPageQueryString = searchString(
-        previousPage.toString(),
+        previousPage?.toString(),
         search,
         sort
     )

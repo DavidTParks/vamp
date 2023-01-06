@@ -25,7 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "PATCH") {
         try {
             const bountyId = req.query.bountyId as string
-            const existingBounty = await db.bounty.findUnique({
+            const existingBounty = await db.bounty.findUniqueOrThrow({
                 where: {
                     id: bountyId,
                 },
@@ -33,6 +33,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     project: true,
                 },
             })
+
+            if (!existingBounty.project.stripeProductId) {
+                throw new Error("No stripe product ID for project")
+            }
 
             const body = bountyPatchSchema.parse(req.body)
 

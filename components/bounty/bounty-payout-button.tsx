@@ -25,7 +25,7 @@ export function BountyPayoutButton({
 }: BountyPayoutButton) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-    async function onSubmit(event) {
+    async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsLoading(!isLoading)
 

@@ -1,12 +1,9 @@
 import { notFound } from "next/navigation"
 
-import { SettingsNav } from "@/components/dashboard/settings/nav"
-import { settingsConfig } from "@/config/settings"
-import { getCurrentUser } from "@/lib/session"
-import { preloadStripeDetails } from "@/lib/stripe"
-import { projectConfig } from "@/config/project"
 import { ProjectSettingsNav } from "@/components/project/settings/nav"
 import { dynamicProjectSidebar } from "@/config/project"
+import { getCurrentUser } from "@/lib/session"
+import { preloadStripeDetails } from "@/lib/stripe"
 interface SettingsLayoutProps {
     children?: React.ReactNode
     params: { projectId: string }

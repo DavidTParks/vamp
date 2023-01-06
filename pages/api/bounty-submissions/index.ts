@@ -61,7 +61,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 await tx.notification.create({
                     data: {
                         type: NOTIFICATIONTYPE.SUBMISSIONRECIEVED,
-                        message: body.comments,
+                        message: body?.comments ?? "",
                         title: `Submission received on ${submission.bounty.title} from ${submission.user.name}`,
                         bounty: {
                             connect: {

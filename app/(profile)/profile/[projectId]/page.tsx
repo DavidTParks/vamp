@@ -10,7 +10,7 @@ import { notFound } from "next/navigation"
 
 interface ProfilePageProps {
     params: { projectId: string }
-    searchParams: { page: string; search: string; sort: string }
+    searchParams?: { page: string; search: string; sort: string }
 }
 
 export default async function ProjectPage({
@@ -32,11 +32,12 @@ export default async function ProjectPage({
         },
     })
 
-    if (!project) {
+    if (!project || !project?.githubRepo?.githubRepoId) {
         notFound()
     }
 
     const repo = await getRepo(project.githubRepo.githubRepoId)
+
     const pageSize = 10
 
     const skip = searchParams?.page
@@ -46,11 +47,11 @@ export default async function ProjectPage({
     const bountyPromise = getBountiesForProject({
         pageSize,
         skip,
-        sort: searchParams?.sort,
+        sort: searchParams?.sort ?? undefined,
         whereQuery: {
             published: true,
             title: {
-                search: searchParams.search,
+                search: searchParams?.search,
             },
             projectId: params.projectId,
         },

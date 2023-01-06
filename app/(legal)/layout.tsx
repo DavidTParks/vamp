@@ -21,6 +21,7 @@ export default async function ProjectLayout({
                             {user ? (
                                 <UserAccountNav
                                     user={{
+                                        id: user.id,
                                         name: user.name,
                                         image: user.image,
                                         email: user.email,

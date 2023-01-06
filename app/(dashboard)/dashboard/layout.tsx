@@ -1,11 +1,9 @@
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { DashboardSecondaryNav } from "@/components/dashboard/secondary-nav"
-import { UserAccountNav } from "@/components/dashboard/user-account-nav"
-import { dashboardConfig } from "@/config/dashboard"
+import { UserNav } from "@/components/user-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
-import { Icons } from "@/components/icons"
 
 export const revalidate = 0
 
@@ -26,21 +24,9 @@ export default async function DashboardLayout({
                 <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                     <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                         <div className="flex h-16 items-center justify-between">
-                            <DashboardNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                            />
-
-                            <UserAccountNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                            />
+                            {/* @ts-expect-error Server Component */}
+                            <DashboardNav />
+                            <UserNav />
                         </div>
                         <DashboardSecondaryNav />
                     </div>

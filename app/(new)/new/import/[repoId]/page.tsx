@@ -17,7 +17,11 @@ export default async function ImportRepoPage({ params }: ImportPageProps) {
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(authOptions.pages.signIn)
+        redirect(
+            authOptions?.pages && authOptions?.pages?.signIn
+                ? authOptions.pages.signIn
+                : "/"
+        )
     }
 
     const repo = await getRepo(params.repoId)

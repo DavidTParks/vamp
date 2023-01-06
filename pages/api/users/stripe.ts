@@ -7,6 +7,9 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
 import { getBaseUrl } from "@/lib/utils"
+import { withCurrentUser } from "@/lib/api-middlewares/with-current-user"
+import { userNameSchema } from "@/lib/validations/user"
+import { withAuthentication } from "@/lib/api-middlewares/with-authentication"
 
 export type returnUrlQueryParams =
     | "create"
@@ -24,6 +27,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             )
 
             const user = session?.user
+
+            if (!user) {
+                throw new Error("No session user")
+            }
 
             const userAccount = await db.user.findUnique({
                 where: {
@@ -66,4 +73,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default withMethods(["GET"], handler)
+export default withMethods(
+    ["GET"],
+    withAuthentication(withCurrentUser(handler))
+)

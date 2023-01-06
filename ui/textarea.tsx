@@ -1,6 +1,11 @@
+"use client"
+
 import { cva, VariantProps } from "class-variance-authority"
 import { ComponentProps } from "react"
 import { UseFormRegister, FieldValues } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
+import { Label } from "./label"
+import { capitalize } from "@/lib/utils"
 
 type TextAreaProps = ComponentProps<"textarea">
 
@@ -22,19 +27,24 @@ const textAreaStyles = cva(
 export interface Props
     extends TextAreaProps,
         VariantProps<typeof textAreaStyles> {
-    register: UseFormRegister<FieldValues>
+    id: string
+    label?: string
 }
 
 export function TextArea({
     intent = "primary",
-    register,
+    id,
     name,
+    label,
     ...props
 }: Props) {
+    const { register } = useFormContext()
     return (
         <>
+            {label && <Label htmlFor={id}>{capitalize(label)}</Label>}
             <textarea
-                {...register(name)}
+                id={id}
+                {...register(id)}
                 className={textAreaStyles({ intent })}
                 {...props}
             />

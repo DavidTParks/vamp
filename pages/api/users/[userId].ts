@@ -7,6 +7,7 @@ import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { withCurrentUser } from "@/lib/api-middlewares/with-current-user"
 import { userNameSchema } from "@/lib/validations/user"
 import { authOptions } from "@/lib/auth"
+import { withAuthentication } from "@/lib/api-middlewares/with-authentication"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "PATCH") {
@@ -18,6 +19,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             )
 
             const user = session?.user
+
+            if (!user) {
+                throw new Error("No session")
+            }
 
             const body = req.body
 
@@ -45,4 +50,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default withMethods(["PATCH"], withCurrentUser(handler))
+export default withMethods(
+    ["PATCH"],
+    withAuthentication(withCurrentUser(handler))
+)

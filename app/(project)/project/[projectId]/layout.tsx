@@ -2,9 +2,10 @@ import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { ProjectHeader } from "@/components/project/header"
 import { ProjectNav } from "@/components/project/project-nav"
 import { ProjectSecondaryNav } from "@/components/project/secondary-nav"
+import { UserNav } from "@/components/user-nav"
 import { dashboardConfig } from "@/config/dashboard"
 import { getRepoIssues } from "@/lib/github"
-import { getProject } from "@/lib/projects"
+import { getProject, isProjectOwner } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
 
@@ -15,13 +16,18 @@ export default async function ProjectLayout({
     children: React.ReactNode
     params: { projectId: string }
 }) {
-    const user = await getCurrentUser()
+    const isOwner = await isProjectOwner(params.projectId)
 
-    if (!user) {
+    if (!isOwner) {
         return notFound()
     }
 
     const project = await getProject(params.projectId)
+
+    if (!project || !project?.githubRepo?.githubRepoId) {
+        return notFound()
+    }
+
     const githubIssues = await getRepoIssues(
         project.githubRepo.githubRepoId,
         1,
@@ -41,13 +47,7 @@ export default async function ProjectLayout({
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
-                            <UserAccountNav
-                                user={{
-                                    name: user.name,
-                                    image: user.image,
-                                    email: user.email,
-                                }}
-                            />
+                            <UserNav />
                         </div>
                         <ProjectSecondaryNav
                             issueCount={githubIssues.total_count}

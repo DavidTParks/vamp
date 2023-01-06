@@ -1,4 +1,4 @@
-export const getRenderedMarkdown = async (markdownBody: string, user) => {
+export const getRenderedMarkdown = async (markdownBody: string, user: any) => {
     const baseUrl = "https://api.github.com/markdown"
 
     const body = {

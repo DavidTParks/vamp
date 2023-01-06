@@ -12,7 +12,7 @@ import { notFound, redirect } from "next/navigation"
 
 interface ProjectPageProps {
     params: { projectId: string }
-    searchParams: { page: string; search: string; sort: string }
+    searchParams?: { page: string; search: string; sort: string }
 }
 
 export default async function ProjectPage({
@@ -24,7 +24,11 @@ export default async function ProjectPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(authOptions.pages.signIn)
+        redirect(
+            authOptions?.pages && authOptions?.pages?.signIn
+                ? authOptions.pages.signIn
+                : "/"
+        )
     }
 
     const project = await getProject(params.projectId)
@@ -43,7 +47,7 @@ export default async function ProjectPage({
         sort: searchParams?.sort,
         whereQuery: {
             title: {
-                search: searchParams.search,
+                search: searchParams?.search,
             },
             projectId: params.projectId,
         },
@@ -53,7 +57,7 @@ export default async function ProjectPage({
     const bountyCount = getBountyCount({
         whereQuery: {
             title: {
-                search: searchParams.search,
+                search: searchParams?.search,
             },
             projectId: params.projectId,
         },

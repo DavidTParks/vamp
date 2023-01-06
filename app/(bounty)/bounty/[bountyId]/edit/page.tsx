@@ -1,30 +1,24 @@
 import { redirect } from "next/navigation"
 
-import { authOptions } from "@/lib/auth"
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
-import { ProjectNav } from "@/components/project/project-nav"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { dashboardConfig } from "@/config/dashboard"
-import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import Tiptap from "@/components/create/tiptap"
+import { Icons } from "@/components/icons"
+import { ProjectNav } from "@/components/project/project-nav"
+import { UserNav } from "@/components/user-nav"
+import { dashboardConfig } from "@/config/dashboard"
+import { isBountyOwner } from "@/lib/bounties"
+import { db } from "@/lib/db"
+import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
-import { Icons } from "@/components/icons"
-import { Button } from "@/ui/button"
-interface ProjectPageProps {
+interface BountyEditPageProps {
     params: { projectId: string; bountyId: string }
-    searchParams: { id: string }
 }
 
-export default async function CreatePage({
-    params,
-    searchParams,
-}: ProjectPageProps) {
-    const user = await getCurrentUser()
+export default async function CreatePage({ params }: BountyEditPageProps) {
+    const isOwner = await isBountyOwner(params.bountyId)
 
-    if (!user) {
-        redirect(authOptions.pages.signIn)
+    if (!isOwner) {
+        redirect("/dashbaord")
     }
 
     const bounty = await db.bounty.findUnique({
@@ -35,6 +29,10 @@ export default async function CreatePage({
             project: true,
         },
     })
+
+    if (!bounty?.project) {
+        redirect("/dashbaord")
+    }
 
     return (
         <div className="mx-auto flex flex-col min-h-screen relative">
@@ -48,13 +46,7 @@ export default async function CreatePage({
                             }}
                             items={dashboardConfig.mainNav}
                         />
-                        <UserAccountNav
-                            user={{
-                                name: user.name,
-                                image: user.image,
-                                email: user.email,
-                            }}
-                        />
+                        <UserNav />
                     </div>
                 </div>
             </header>

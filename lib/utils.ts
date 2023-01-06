@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ClassValue, clsx } from "clsx"
 import { formatDistanceToNowStrict } from "date-fns"
 import { twMerge } from "tailwind-merge"

@@ -1,6 +1,5 @@
 import { BrowseBountyList } from "@/components/browse/bounty-list"
 import { BountySearch } from "@/components/browse/bounty-search"
-import { Icons } from "@/components/icons"
 
 interface BrowsePageProps {
     searchParams: { page: string; search: string; sort: string }

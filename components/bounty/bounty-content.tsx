@@ -16,6 +16,11 @@ interface TBountyContent {
 
 export async function BountyContent({ bountyId }: TBountyContent) {
     const bounty = await getBountyById(bountyId)
+
+    if (!bounty || !bounty?.project?.githubRepo?.githubRepoId) {
+        return null
+    }
+
     const repo = await getRepo(bounty.project.githubRepo.githubRepoId)
 
     return (
