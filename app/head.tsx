@@ -8,7 +8,7 @@ export default function Head() {
             />
             <meta
                 name="description"
-                content="Vamp is an open source platform to empower open source maintainers, and the contributors that make them great."
+                content="Vamp is an open-source platform to empower open source maintainers, and the contributors that make them great."
             />
             <link rel="icon" href="/vamp.svg" />
             <meta charSet="utf-8" />
@@ -18,7 +18,7 @@ export default function Head() {
             <meta
                 property="og:description"
                 content={
-                    "Vamp is an open source platform to empower open source maintainers, and the contributors that make them great."
+                    "Vamp is an open-source platform to empower open source maintainers, and the contributors that make them great."
                 }
             />
             <meta property="og:url" content={"https://www.vamp.sh"} />
@@ -35,7 +35,7 @@ export default function Head() {
             <meta
                 name="twitter:description"
                 content={
-                    ' "Vamp is an open source platform to empower open source maintainers, and the contributors that make them great."'
+                    ' "Vamp is an open-source platform to empower open source maintainers, and the contributors that make them great."'
                 }
             />
             <meta name="twitter:card" content="summary_large_image" />

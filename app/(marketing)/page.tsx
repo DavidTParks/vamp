@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site"
 import { ExternalLink } from "@/ui/external-link"
 import { getCurrentUser } from "@/lib/session"
 import VideoPlayer from "@/components/marketing/video-player"
+import { FAQSection } from "@/components/marketing/faq"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -63,7 +64,7 @@ export default async function IndexPage() {
                     </span>
                 </h1>
                 <h2 className="mt-5 text-lg text-brandtext-500 sm:text-xl">
-                    Vamp is an open source platform to empower open source
+                    Vamp is an open-source bounty platform to empower project
                     maintainers, and the contributors that make them great.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
@@ -132,6 +133,8 @@ export default async function IndexPage() {
                     </ExternalLink>
                 )}
             </section>
+
+            <FAQSection></FAQSection>
         </>
     )
 }

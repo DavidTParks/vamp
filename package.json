@@ -19,6 +19,7 @@
         "@editorjs/list": "^1.8.0",
         "@editorjs/paragraph": "^2.9.0",
         "@editorjs/table": "^2.1.2",
+        "@headlessui/react": "^1.7.7",
         "@heroicons/react": "^2.0.13",
         "@hookform/resolvers": "^2.9.10",
         "@mux/mux-player-react": "^1.5.1",
