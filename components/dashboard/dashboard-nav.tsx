@@ -4,9 +4,14 @@ import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Icons } from "@/components/icons"
 import { TUser } from "./user-account-nav"
 import { getCurrentUser } from "@/lib/session"
+import { notFound } from "next/navigation"
 
 export async function DashboardNav() {
     const user = await getCurrentUser()
+
+    if (!user) {
+        return notFound()
+    }
 
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
@@ -35,7 +40,11 @@ export async function DashboardNav() {
                 <div className="hidden md:flex items-center gap-4 w-56">
                     <div className="w-8 h-8">
                         <UserAvatar
-                            user={{ name: user.name, image: user.image }}
+                            user={{
+                                id: user.id,
+                                name: user.name,
+                                image: user.image,
+                            }}
                         />
                     </div>
                     <span className="text-sm text-brandtext-500 truncate">

@@ -24,7 +24,11 @@ export default async function ProjectPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(authOptions.pages.signIn)
+        redirect(
+            authOptions?.pages && authOptions?.pages?.signIn
+                ? authOptions.pages.signIn
+                : "/"
+        )
     }
 
     const project = await getProject(params.projectId)

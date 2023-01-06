@@ -28,7 +28,7 @@ export function withBounty(handler: NextApiHandler) {
                         users: {
                             some: {
                                 user: {
-                                    id: session.user.id,
+                                    id: session?.user.id,
                                 },
                             },
                         },

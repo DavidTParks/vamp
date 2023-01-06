@@ -17,7 +17,6 @@ export interface INotificationList {
 export function NotificationList({ user }: INotificationList) {
     const [isLoadMoreVisible, ref] = useIsIntersecting<HTMLDivElement>()
 
-    //@ts-ignore
     // Ignore this type warning for now, issue has been filed at https://github.com/trpc/trpc/issues/3555
     const query = trpc.notification.list.useInfiniteQuery(
         {
@@ -46,40 +45,60 @@ export function NotificationList({ user }: INotificationList) {
             {query.data?.pages.map((page, index) => (
                 <Fragment key={index}>
                     {page.items.map((notification) => (
-                        <Link
-                            as="li"
-                            href={`/bounty/${notification.bounty.id}`}
-                            className="p-4 hover:bg-palette-300 flex items-start gap-4 w-full"
-                        >
-                            <div className="overflow-hidden rounded-full relative flex-shrink-0">
-                                <Image
-                                    height={24}
-                                    width={24}
-                                    alt="Avatar"
-                                    src={
-                                        notification.bountySubmission.user.image
-                                    }
-                                />
-                            </div>
-                            {notification.type === "SUBMISSIONRECIEVED" && (
-                                <div className="flex flex-col w-full gap-2 overflow-hidden">
-                                    <span className="text-brandtext-500 inline-flex gap-1 flex-wrap text-sm line-clamp-2 font-medium">
-                                        {
+                        <>
+                            {notification?.bounty &&
+                                notification?.bountySubmission && (
+                                    <Link
+                                        as="li"
+                                        href={`/bounty/${notification.bounty.id}`}
+                                        className="p-4 hover:bg-palette-300 flex items-start gap-4 w-full"
+                                    >
+                                        <div className="overflow-hidden rounded-full relative flex-shrink-0">
+                                            {notification?.bountySubmission
+                                                ?.user &&
                                             notification.bountySubmission.user
-                                                .name
-                                        }{" "}
-                                        submitted a solution for{" "}
-                                        {notification.bounty.title}.
-                                    </span>
-                                    {/* <div className="border border-gray-700 rounded-md p-2 truncate text-sm">
-                                        {notification.bountySubmission.comments}
-                                    </div> */}
-                                    <small className="text-brandtext-600">
-                                        {dateToNow(notification.createdAt)} ago
-                                    </small>
-                                </div>
-                            )}
-                        </Link>
+                                                .image ? (
+                                                <Image
+                                                    height={24}
+                                                    width={24}
+                                                    alt="Avatar"
+                                                    src={
+                                                        notification
+                                                            .bountySubmission
+                                                            .user.image
+                                                    }
+                                                />
+                                            ) : (
+                                                <Image
+                                                    fill={true}
+                                                    alt="Avatar"
+                                                    src={`https://avatar.vercel.sh/${notification.bounty.project.name}${notification.bounty.project.id}`}
+                                                />
+                                            )}
+                                        </div>
+                                        {notification.type ===
+                                            "SUBMISSIONRECIEVED" && (
+                                            <div className="flex flex-col w-full gap-2 overflow-hidden">
+                                                <span className="text-brandtext-500 inline-flex gap-1 flex-wrap text-sm line-clamp-2 font-medium">
+                                                    {
+                                                        notification
+                                                            .bountySubmission
+                                                            .user.name
+                                                    }{" "}
+                                                    submitted a solution for{" "}
+                                                    {notification.bounty.title}.
+                                                </span>
+                                                <small className="text-brandtext-600">
+                                                    {dateToNow(
+                                                        notification.createdAt
+                                                    )}{" "}
+                                                    ago
+                                                </small>
+                                            </div>
+                                        )}
+                                    </Link>
+                                )}
+                        </>
                     ))}
                 </Fragment>
             ))}

@@ -30,6 +30,10 @@ export default async function CreatePage({ params }: BountyEditPageProps) {
         },
     })
 
+    if (!bounty?.project) {
+        redirect("/dashbaord")
+    }
+
     return (
         <div className="mx-auto flex flex-col min-h-screen relative">
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">

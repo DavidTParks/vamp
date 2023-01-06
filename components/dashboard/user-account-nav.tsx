@@ -71,7 +71,13 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
             </DropdownMenu>
             <DropdownMenu>
                 <DropdownMenu.Trigger className="flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none">
-                    <UserAvatar user={{ name: user.name, image: user.image }} />
+                    <UserAvatar
+                        user={{
+                            id: user.id,
+                            name: user.name,
+                            image: user.image,
+                        }}
+                    />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content
