@@ -6,6 +6,7 @@ import { ExternalLink } from "@/ui/external-link"
 import { getCurrentUser } from "@/lib/session"
 import VideoPlayer from "@/components/marketing/video-player"
 import { FAQSection } from "@/components/marketing/faq"
+import { Cta } from "@/components/marketing/cta"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -64,8 +65,9 @@ export default async function IndexPage() {
                     </span>
                 </h1>
                 <h2 className="mt-5 text-lg text-brandtext-500 sm:text-xl">
-                    Vamp is an open-source bounty platform to empower project
-                    maintainers, and the contributors that make them great.
+                    Vamp is an open-source bounty platform designed to empower
+                    project maintainers, and the contributors that make them
+                    great.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
                     {user ? (
@@ -134,7 +136,9 @@ export default async function IndexPage() {
                 )}
             </section>
 
-            <FAQSection></FAQSection>
+            <FAQSection />
+
+            <Cta />
         </>
     )
 }

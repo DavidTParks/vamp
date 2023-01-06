@@ -12,7 +12,7 @@ const faqs = [
     {
         id: 3,
         question: "How do I get paid out?",
-        answer: "Once your bounty submission is accepted by a project owner, payouts are handled through Stripe on a rolling daily basis. You will need to link a debit or bank account via Stripe to handle payments.",
+        answer: "Once your bounty submission is accepted and paid out by a project owner, payouts are handled through Stripe on a rolling daily basis. You will need to link a debit card or bank account via Stripe to handle receiving payments.",
     },
     {
         id: 4,
@@ -22,7 +22,7 @@ const faqs = [
     {
         id: 5,
         question: "How can I contribute?",
-        answer: "Vamp is open-source, to contribute feel free to Open an issue if you believe you've encountered a bug or make a pull request to add new features/make quality-of-life improvements/fix bugs.",
+        answer: "Vamp is open-source! To contribute feel free to open an issue if you believe you've encountered a bug or make a pull request to add new features/make quality-of-life improvements/fix bugs.",
     },
     // More questions...
 ]

@@ -107,7 +107,7 @@ export function NotificationList({ user }: INotificationList) {
                     <Skeleton className="h-9 w-full" />
                 ) : (
                     <Button
-                        size="noPadding"
+                        size="small"
                         intent="text"
                         disabled={!query.hasNextPage}
                         onClick={() => {

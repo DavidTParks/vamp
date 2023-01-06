@@ -1,4 +1,3 @@
-import { siteConfig } from "@/config/site"
 import { Icons } from "@/components/icons"
 import Link from "next/link"
 
@@ -51,7 +50,7 @@ export function SiteFooter() {
                     ))}
                 </div>
                 <p className="mt-5 text-center text-sm leading-6 text-brandtext-500">
-                    © 2022 Vamp LLC. All rights reserved.
+                    © 2023 David Parks. All rights reserved.
                 </p>
                 <div className="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-brandtext-500">
                     <Link href="/privacy-policy">Privacy policy</Link>
