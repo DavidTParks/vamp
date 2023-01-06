@@ -4,7 +4,8 @@
  */
 import { db } from "@/lib/db"
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc"
+import { privateProcedure, publicProcedure, router } from "../trpc"
+import { initTRPC, TRPCError } from "@trpc/server"
 
 /**
  * Default selector for Post.
@@ -38,6 +39,18 @@ export const notificationRouter = router({
                         },
                     },
                 },
+                include: {
+                    bounty: {
+                        include: {
+                            project: true,
+                        },
+                    },
+                    bountySubmission: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                },
                 cursor: cursor
                     ? {
                           id: cursor,
@@ -62,4 +75,36 @@ export const notificationRouter = router({
                 nextCursor,
             }
         }),
+    markAllRead: privateProcedure.mutation(async ({ ctx }) => {
+        return await db.$transaction(async (tx) => {
+            // If the session user is not the input user, throw unauth
+
+            return tx.userNotifications.updateMany({
+                where: {
+                    user: {
+                        id: ctx.user.id,
+                    },
+                },
+                data: {
+                    read: true,
+                },
+            })
+        })
+    }),
+    markAllUnread: privateProcedure.mutation(async ({ ctx }) => {
+        return await db.$transaction(async (tx) => {
+            // If the session user is not the input user, throw unauth
+
+            return tx.userNotifications.updateMany({
+                where: {
+                    user: {
+                        id: ctx.user.id,
+                    },
+                },
+                data: {
+                    read: false,
+                },
+            })
+        })
+    }),
 })

@@ -9,6 +9,8 @@ import { DropdownMenu } from "@/ui/dropdown"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Button } from "@/ui/button"
 import { NotificationList } from "@/components/notification-list"
+import { trpc } from "@/client/trpcClient"
+import { useRouter } from "next/navigation"
 
 export type TUser = Pick<User, "id" | "name" | "image" | "email">
 export interface UserAccountNavProps
@@ -18,9 +20,20 @@ export interface UserAccountNavProps
 }
 
 export function UserAccountNav({ user, children }: UserAccountNavProps) {
+    const router = useRouter()
+    const markAllRead = trpc.notification.markAllRead.useMutation()
+    const markAllUnread = trpc.notification.markAllUnread.useMutation()
+
     return (
         <div className="flex items-center gap-4 relative">
-            <DropdownMenu>
+            <DropdownMenu
+                onOpenChange={async (e) => {
+                    if (e) {
+                        await markAllUnread.mutateAsync()
+                        router.refresh()
+                    }
+                }}
+            >
                 <DropdownMenu.Trigger
                     asChild
                     className="flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none"
