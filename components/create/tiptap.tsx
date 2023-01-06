@@ -28,6 +28,7 @@ import { toast } from "@/ui/toast"
 import { Content } from "@tiptap/react"
 import { Prisma } from "@prisma/client"
 import { Editor } from "@tiptap/react"
+import { FormProvider } from "react-hook-form"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -205,11 +206,7 @@ type FormData = z.infer<typeof bountyPatchSchema>
 const Tiptap = ({ bounty }: TTipTap) => {
     const router = useRouter()
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isDirty },
-    } = useForm<FormData>({
+    const methods = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
         defaultValues: {
             title: bounty?.title,
@@ -287,109 +284,121 @@ const Tiptap = ({ bounty }: TTipTap) => {
     }
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="border border-raised-border rounded-lg bg-palette-400"
-        >
-            <div className="p-4">
-                <div className="grid gap-1">
-                    <Label className="dropdown" htmlFor="title">
-                        Title
-                    </Label>
-                    <Input
-                        className="bg-appbg"
-                        name="title"
-                        placeholder="Enter a title for your Bounty"
-                        register={register}
-                    />
-                </div>
-                <div className="grid grid-cols-2 gap-4 my-6">
+        <FormProvider {...methods}>
+            <form
+                onSubmit={methods.handleSubmit(onSubmit)}
+                className="border border-raised-border rounded-lg bg-palette-400"
+            >
+                <div className="p-4">
                     <div className="grid gap-1">
-                        <Label className="dropdown" htmlFor="title">
-                            Github Issue link
-                        </Label>
                         <Input
+                            label="Title"
+                            id="title"
                             className="bg-appbg"
-                            name="githubIssueLink"
-                            placeholder="https://www.github.com/issue..."
-                            register={register}
+                            placeholder="Enter a title for your Bounty"
                         />
                     </div>
-                    <div className="grid gap-1">
-                        <Label htmlFor="bountyPrice">Bounty reward *</Label>
-                        <Input
-                            register={register}
-                            type="number"
-                            name="bountyPrice"
-                            id="bountyPrice"
-                            placeholder="0.00"
-                            className="bg-appbg"
-                            aria-describedby="bountyPrice"
-                        />
+                    <div className="grid grid-cols-2 gap-4 my-6">
+                        <div className="grid gap-1">
+                            <Input
+                                label="Github issue link"
+                                id="githubIssueLink"
+                                className="bg-appbg"
+                                placeholder="https://www.github.com/issue..."
+                            />
+                        </div>
+                        <div className="grid gap-1">
+                            <Input
+                                label="Bounty price"
+                                id="bountyPrice"
+                                type="number"
+                                placeholder="0.00"
+                                className="bg-appbg"
+                                aria-describedby="bountyPrice"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <Label className="dropdown mb-4" htmlFor="details">
-                    Bounty Details
-                </Label>
-                <div className="mt-1">
-                    <MenuBar editor={editor} />
-                    {editor && (
-                        <BubbleMenu
-                            className="dropdown text-white rounded-lg overflow-hidden p-2 px-3 py-1 text-sm flex gap-4 dropdown"
-                            editor={editor}
-                            tippyOptions={{ duration: 100 }}
-                        >
-                            <button
-                                onClick={() =>
-                                    editor.chain().focus().toggleBold().run()
-                                }
-                                className={
-                                    editor.isActive("bold") ? "is-active" : ""
-                                }
+                    <Label className="dropdown mb-4" htmlFor="details">
+                        Bounty Details
+                    </Label>
+                    <div className="mt-1">
+                        <MenuBar editor={editor} />
+                        {editor && (
+                            <BubbleMenu
+                                className="dropdown text-white rounded-lg overflow-hidden p-2 px-3 py-1 text-sm flex gap-4 dropdown"
+                                editor={editor}
+                                tippyOptions={{ duration: 100 }}
                             >
-                                bold
-                            </button>
-                            <button
-                                onClick={() =>
-                                    editor.chain().focus().toggleItalic().run()
-                                }
-                                className={
-                                    editor.isActive("italic") ? "is-active" : ""
-                                }
-                            >
-                                italic
-                            </button>
-                            <button
-                                onClick={() =>
-                                    editor.chain().focus().toggleStrike().run()
-                                }
-                                className={
-                                    editor.isActive("strike") ? "is-active" : ""
-                                }
-                            >
-                                strike
-                            </button>
-                        </BubbleMenu>
-                    )}
-                    <EditorContent editor={editor} />
+                                <button
+                                    onClick={() =>
+                                        editor
+                                            .chain()
+                                            .focus()
+                                            .toggleBold()
+                                            .run()
+                                    }
+                                    className={
+                                        editor.isActive("bold")
+                                            ? "is-active"
+                                            : ""
+                                    }
+                                >
+                                    bold
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        editor
+                                            .chain()
+                                            .focus()
+                                            .toggleItalic()
+                                            .run()
+                                    }
+                                    className={
+                                        editor.isActive("italic")
+                                            ? "is-active"
+                                            : ""
+                                    }
+                                >
+                                    italic
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        editor
+                                            .chain()
+                                            .focus()
+                                            .toggleStrike()
+                                            .run()
+                                    }
+                                    className={
+                                        editor.isActive("strike")
+                                            ? "is-active"
+                                            : ""
+                                    }
+                                >
+                                    strike
+                                </button>
+                            </BubbleMenu>
+                        )}
+                        <EditorContent editor={editor} />
+                    </div>
+                    <small className="text-brandtext-600 mt-4 flex items-center gap-2">
+                        <Icons.markdown size={16} />
+                        Styling with Markdown supported
+                    </small>
                 </div>
-                <small className="text-brandtext-600 mt-4 flex items-center gap-2">
-                    <Icons.markdown size={16} />
-                    Styling with Markdown supported
-                </small>
-            </div>
-            <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
-                <Button type="submit" disabled={isSaving}>
-                    {isSaving ? (
-                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                        <Icons.edit className="mr-2 h-4 w-4" />
-                    )}
-                    {bounty.published ? "Save" : "Save and Publish"}
-                </Button>
-            </div>
-        </form>
+                <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
+                    <Button type="submit" disabled={isSaving}>
+                        {isSaving ? (
+                            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <Icons.edit className="mr-2 h-4 w-4" />
+                        )}
+                        {bounty.published ? "Save" : "Save and Publish"}
+                    </Button>
+                </div>
+            </form>
+        </FormProvider>
     )
 }
 

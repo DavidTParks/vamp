@@ -25,7 +25,7 @@ export function withProject(handler: NextApiHandler) {
                     id: query.projectId,
                     users: {
                         some: {
-                            userId: session.user.id,
+                            userId: session?.user.id,
                         },
                     },
                 },

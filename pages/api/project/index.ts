@@ -33,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 name: `${repoName} Bounties`,
                 metadata: {
                     name,
-                    description,
+                    description: description ?? "",
                     repoId,
                     url,
                     owner,

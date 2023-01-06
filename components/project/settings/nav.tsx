@@ -21,9 +21,14 @@ export function ProjectSettingsNav({ items }: ProjectSettingsNavProps) {
     return (
         <nav className="grid items-start gap-2">
             {items.map((item, index) => {
+                if (!item.icon) return null
+
                 const Icon = Icons[item.icon]
                 return (
-                    <Link key={index} href={item.disabled ? "/" : item.href}>
+                    <Link
+                        key={index}
+                        href={item.disabled ? "/" : item?.href ?? "#"}
+                    >
                         <span
                             className={cn(
                                 "group flex items-center rounded-md px-3 py-2 text-sm font-medium text-brandtext-400 hover:bg-palette-200 hover:text-white",

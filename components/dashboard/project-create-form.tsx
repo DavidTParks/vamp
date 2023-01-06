@@ -11,7 +11,7 @@ import { toast } from "@/ui/toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import * as React from "react"
-import { useForm } from "react-hook-form"
+import { useForm, FormProvider } from "react-hook-form"
 import { GithubRepository } from "types"
 import * as z from "zod"
 import { TUser } from "./user-account-nav"
@@ -33,11 +33,7 @@ export function ProjectCreateForm({
     const router = useRouter()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<CreateProjectFormData>({
+    const methods = useForm<CreateProjectFormData>({
         resolver: zodResolver(projectCreateSchema),
         defaultValues: {
             name: repo.name,
@@ -88,13 +84,13 @@ export function ProjectCreateForm({
     }
 
     return (
-        <>
+        <FormProvider {...methods}>
             <div className={cn("grid gap-6 mt-4", className)}>
-                <form onSubmit={handleSubmit(onClick)}>
+                <form onSubmit={methods.handleSubmit(onClick)}>
                     <div className="grid gap-8">
                         <div className="grid gap-1">
-                            <Label htmlFor="name">Project name *</Label>
                             <Input
+                                label="Project name *"
                                 id="name"
                                 placeholder="Ex. Next.js "
                                 type="text"
@@ -103,19 +99,16 @@ export function ProjectCreateForm({
                                 autoCorrect="off"
                                 name="name"
                                 disabled={isLoading}
-                                register={register}
                             />
-                            {errors?.name && (
+                            {methods.formState.errors?.name && (
                                 <p className="px-1 text-xs text-red-600">
-                                    {errors.name.message}
+                                    {methods.formState.errors.name.message}
                                 </p>
                             )}
                         </div>
                         <div className="grid gap-1">
-                            <Label htmlFor="description">
-                                Project description
-                            </Label>
                             <TextArea
+                                label="Project description"
                                 maxLength={320}
                                 id="description"
                                 placeholder="Ex. The sickest project to exist in Open Source "
@@ -124,11 +117,13 @@ export function ProjectCreateForm({
                                 autoCorrect="off"
                                 name="description"
                                 disabled={isLoading}
-                                register={register}
                             />
-                            {errors?.description && (
+                            {methods.formState.errors?.description && (
                                 <p className="px-1 text-xs text-red-600">
-                                    {errors.description.message}
+                                    {
+                                        methods.formState.errors.description
+                                            .message
+                                    }
                                 </p>
                             )}
                         </div>
@@ -148,6 +143,6 @@ export function ProjectCreateForm({
                     </div>
                 </form>
             </div>
-        </>
+        </FormProvider>
     )
 }

@@ -17,7 +17,8 @@ export default function IssueListPagination({
     const router = useRouter()
 
     const page = searchParams.get("page")
-        ? parseInt(searchParams.get("page"))
+        ? //@ts-ignore
+          parseInt(searchParams.get("page"))
         : 1
 
     const search = searchParams.get("search")

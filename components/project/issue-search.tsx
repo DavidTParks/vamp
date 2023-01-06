@@ -1,13 +1,11 @@
 "use client"
 
-import { Input } from "@/ui/input"
-import { useForm } from "react-hook-form"
-import { Icons } from "../icons"
-import { useRouter } from "next/navigation"
-import { TProject } from "./secondary-nav"
-import { useSearchParams } from "next/navigation"
 import { searchString } from "@/lib/utils"
+import { Input } from "@/ui/input"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useTransition } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { TProject } from "./secondary-nav"
 
 type TIssueSearch = {
     project: TProject
@@ -23,13 +21,9 @@ export default function IssueSearch({ project }: TIssueSearch) {
     const search = searchParams.get("search")
 
     const router = useRouter()
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<TSearch>({
+    const methods = useForm<TSearch>({
         defaultValues: {
-            search,
+            search: search ?? "",
         },
     })
 
@@ -43,21 +37,22 @@ export default function IssueSearch({ project }: TIssueSearch) {
     }
 
     return (
-        <div className="w-full relative">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input
-                    isPending={isPending}
-                    intent="search"
-                    id="search"
-                    placeholder="Search all issues"
-                    type="search"
-                    autoCapitalize="none"
-                    autoComplete="search"
-                    autoCorrect="off"
-                    name="search"
-                    register={register}
-                />
-            </form>
-        </div>
+        <FormProvider {...methods}>
+            <div className="w-full relative">
+                <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <Input
+                        isPending={isPending}
+                        intent="search"
+                        id="search"
+                        placeholder="Search all issues"
+                        type="search"
+                        autoCapitalize="none"
+                        autoComplete="search"
+                        autoCorrect="off"
+                        name="search"
+                    />
+                </form>
+            </div>
+        </FormProvider>
     )
 }
