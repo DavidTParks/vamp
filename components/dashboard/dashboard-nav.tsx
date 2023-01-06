@@ -3,11 +3,11 @@ import Link from "next/link"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Icons } from "@/components/icons"
 import { TUser } from "./user-account-nav"
-interface MainNavProps {
-    user: TUser
-}
+import { getCurrentUser } from "@/lib/session"
 
-export function DashboardNav({ user }: MainNavProps) {
+export async function DashboardNav() {
+    const user = await getCurrentUser()
+
     return (
         <div className="flex gap-6 md:gap-10 text-red-50">
             <div className=" gap-4 items-center flex">
