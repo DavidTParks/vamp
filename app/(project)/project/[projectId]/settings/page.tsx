@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 
 import { UserNameForm } from "@/components/dashboard/settings/user-settings-form"
 import { DashboardShell } from "@/components/dashboard/shell"
@@ -24,6 +24,10 @@ export default async function ProjectSettingsPage({
     }
 
     const project = await getProject(params.projectId)
+
+    if (!project) {
+        return notFound()
+    }
 
     return (
         <DashboardShell>

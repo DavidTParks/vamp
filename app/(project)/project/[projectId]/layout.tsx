@@ -23,6 +23,11 @@ export default async function ProjectLayout({
     }
 
     const project = await getProject(params.projectId)
+
+    if (!project || !project?.githubRepo?.githubRepoId) {
+        return notFound()
+    }
+
     const githubIssues = await getRepoIssues(
         project.githubRepo.githubRepoId,
         1,

@@ -20,7 +20,11 @@ export default async function OrgRepoPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(authOptions.pages.signIn)
+        redirect(
+            authOptions?.pages && authOptions?.pages?.signIn
+                ? authOptions.pages.signIn
+                : "/"
+        )
     }
 
     return (

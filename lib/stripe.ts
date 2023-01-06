@@ -4,7 +4,7 @@ import { db } from "@/lib/db"
 import { User } from "@prisma/client"
 import { cache } from "react"
 
-export const stripe = new Stripe(process.env.STRIPE_API_KEY, {
+export const stripe = new Stripe(process.env.STRIPE_API_KEY as string, {
     apiVersion: "2022-11-15",
     typescript: true,
 })
@@ -19,7 +19,7 @@ export type TStripeDetails = Promise<Pick<User, "stripeCustomerId">>
 
 export const getStripeDetails = cache(
     async (userId: User["id"]): Promise<TStripeDetails> => {
-        const user = await db.user.findFirst({
+        const user = await db.user.findFirstOrThrow({
             where: {
                 id: userId,
             },
@@ -38,7 +38,7 @@ export type TStripeBalance = Promise<Stripe.Response<Stripe.Balance>>
 
 export const getStripeBalance = cache(
     async (userId: User["id"]): Promise<TStripeBalance> => {
-        const user = await db.user.findFirst({
+        const user = await db.user.findFirstOrThrow({
             where: {
                 id: userId,
             },
@@ -46,6 +46,10 @@ export const getStripeBalance = cache(
                 stripeCustomerId: true,
             },
         })
+
+        if (!user?.stripeCustomerId) {
+            throw new Error("No stripe customer id")
+        }
 
         return await stripe.balance.retrieve({
             stripeAccount: user.stripeCustomerId,
@@ -57,7 +61,7 @@ export type TStripePayouts = Stripe.ApiListPromise<Stripe.Payout>
 
 export const getStripePayouts = cache(
     async (userId: User["id"]): Promise<TStripePayouts> => {
-        const user = await db.user.findFirst({
+        const user = await db.user.findFirstOrThrow({
             where: {
                 id: userId,
             },
@@ -65,6 +69,10 @@ export const getStripePayouts = cache(
                 stripeCustomerId: true,
             },
         })
+
+        if (!user?.stripeCustomerId) {
+            throw new Error("No stripe customer id")
+        }
 
         return await stripe.payouts.list({
             stripeAccount: user.stripeCustomerId,

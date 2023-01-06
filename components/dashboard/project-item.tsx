@@ -1,29 +1,12 @@
+import { preloadProject, TProjectForUser } from "@/lib/projects"
 import { Skeleton } from "@/ui/skeleton"
-import {
-    Account,
-    GithubRepository,
-    Project,
-    ProjectUsers,
-    User,
-} from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
 import { Icons } from "../icons"
 import { ProjectOperations } from "./project-operations"
-import { Button } from "@/ui/button"
-import { preloadProject } from "@/lib/projects"
-import project from "pages/api/project"
 
 interface TProjectItem {
-    projectUser: ProjectUsers & {
-        project: Project & {
-            users: ProjectUsers[]
-            githubRepo: GithubRepository
-        }
-        user: User & {
-            accounts: Account[]
-        }
-    }
+    projectUser: TProjectForUser
 }
 
 export function ProjectItem({ projectUser }: TProjectItem) {
@@ -54,7 +37,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                                 <span className="items-center text-sm inline-flex gap-2 text-brandtext-600">
                                     <Icons.gitHub size={16} />
                                     <span className="max-w-[216px] truncate">
-                                        {projectUser.project.githubRepo.name}
+                                        {projectUser?.project?.githubRepo?.name}
                                     </span>
                                 </span>
                             </div>

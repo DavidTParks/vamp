@@ -27,6 +27,7 @@ import { useState } from "react"
 import { toast } from "@/ui/toast"
 import { Content } from "@tiptap/react"
 import { Prisma } from "@prisma/client"
+import { Editor } from "@tiptap/react"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -47,7 +48,10 @@ const ToolbarButton = ({ children, isActive, ...props }: TToolbarButton) => {
     )
 }
 
-const MenuBar = ({ editor }) => {
+type TMenuBar = {
+    editor: Editor | null
+}
+const MenuBar = ({ editor }: TMenuBar) => {
     if (!editor) {
         return null
     }
@@ -209,7 +213,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
         resolver: zodResolver(bountyPatchSchema),
         defaultValues: {
             title: bounty?.title,
-            githubIssueLink: bounty?.issueLink,
+            githubIssueLink: bounty?.issueLink ?? "",
             bountyPrice: bounty?.bountyPrice?.toString(),
         },
     })
@@ -254,8 +258,8 @@ const Tiptap = ({ bounty }: TTipTap) => {
             body: JSON.stringify({
                 bountyPrice: data.bountyPrice?.toString(),
                 title: data.title,
-                content: editor.getJSON(),
-                html: editor.getHTML(),
+                content: editor?.getJSON(),
+                html: editor?.getHTML(),
                 projectId: bounty,
             }),
         })

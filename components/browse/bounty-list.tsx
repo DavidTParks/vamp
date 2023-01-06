@@ -44,6 +44,7 @@ export async function BrowseBountyList({
         db.bounty.findMany({
             take: pageSize,
             skip,
+            // @ts-ignore
             orderBy: sortQueryToOrderBy[sortQuery] ?? {
                 createdAt: "desc",
             },
@@ -114,7 +115,8 @@ export async function BrowseBountyList({
                                                     </dt>
                                                     <dd className="mt-1 text-brandtext-500">
                                                         {formatDollars(
-                                                            bounty.bountyPrice
+                                                            bounty?.bountyPrice ??
+                                                                0
                                                         )}
                                                     </dd>
                                                 </dl>
@@ -123,8 +125,8 @@ export async function BrowseBountyList({
                                                 <dt className="font-medium text-brandtext-600 inline-flex items-center gap-1">
                                                     <Icons.gitHub size={16} />
                                                     {
-                                                        bounty.project
-                                                            .githubRepo.name
+                                                        bounty?.project
+                                                            ?.githubRepo?.name
                                                     }
                                                 </dt>
                                                 <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
@@ -135,14 +137,19 @@ export async function BrowseBountyList({
                                             </div>
                                             <div className="flex items-center gap-2 w-full justify-start sm:justify-end">
                                                 <div className="h-6 w-6 rounded-full overflow-hidden relative inline-flex justify-center items-center flex-shrink-0">
-                                                    <Image
-                                                        alt={`${bounty.submittedBy.name} profile picture`}
-                                                        fill
-                                                        src={
-                                                            bounty.submittedBy
-                                                                .image
-                                                        }
-                                                    />
+                                                    {bounty?.submittedBy &&
+                                                        bounty?.submittedBy
+                                                            ?.image && (
+                                                            <Image
+                                                                alt={`${bounty.submittedBy.name} profile picture`}
+                                                                fill
+                                                                src={
+                                                                    bounty
+                                                                        .submittedBy
+                                                                        .image
+                                                                }
+                                                            />
+                                                        )}
                                                 </div>
                                                 <span className="text-brandtext-600">
                                                     &middot;

@@ -10,7 +10,7 @@ import { sortQueryToOrderBy } from "@/config/search"
 type TBountiesForProject = {
     pageSize: number
     skip: number
-    sort: string
+    sort?: string
     whereQuery: Prisma.BountyWhereInput
 }
 
@@ -37,6 +37,7 @@ export const getBountiesForProject = cache(
         return db.bounty.findMany({
             take: pageSize,
             skip,
+            // @ts-ignore
             orderBy: sortQueryToOrderBy[sort] ?? {
                 createdAt: "desc",
             },

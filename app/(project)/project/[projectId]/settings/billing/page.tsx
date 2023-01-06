@@ -14,7 +14,11 @@ export default async function SettingsPage() {
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(authOptions.pages.signIn)
+        redirect(
+            authOptions?.pages && authOptions?.pages?.signIn
+                ? authOptions.pages.signIn
+                : "/"
+        )
     }
 
     const [stripeDetails, stripeBalance, stripePayouts] = await Promise.all([

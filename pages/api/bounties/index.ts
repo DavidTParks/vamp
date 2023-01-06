@@ -9,7 +9,7 @@ import { withProject } from "@/lib/api-middlewares/with-project"
 import { getRenderedMarkdown } from "@/lib/markdown"
 
 const bountyCreateSchema = z.object({
-    title: z.string().optional(),
+    title: z.string(),
     content: z.any().optional(),
     projectId: z.string().cuid(),
     issue: z.any().optional(),

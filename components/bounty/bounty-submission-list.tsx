@@ -39,11 +39,13 @@ export async function BountySubmissionList({
                         <div className="flex justify-between items-center">
                             <div className="inline-flex items-center gap-4">
                                 <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
-                                    <Image
-                                        fill={true}
-                                        alt={`${submission.user.name} profile picture`}
-                                        src={submission.user.image}
-                                    />
+                                    {submission?.user?.image && (
+                                        <Image
+                                            fill={true}
+                                            alt={`${submission.user.name} profile picture`}
+                                            src={submission.user.image}
+                                        />
+                                    )}
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-brandtext-500 font-bold text-sm">
@@ -66,16 +68,20 @@ export async function BountySubmissionList({
                             {submission.comments}
                         </div>
                         <div className="flex gap-4 items-center">
-                            {!resolved && isOwner && (
-                                <BountyPayoutButton
-                                    bountyId={submission.bountyId}
-                                    submissionId={submission.id}
-                                    bountyStripePriceId={bountyStripePriceId}
-                                    stripeUserId={
-                                        submission.user.stripeCustomerId
-                                    }
-                                />
-                            )}
+                            {!resolved &&
+                                isOwner &&
+                                submission?.user?.stripeCustomerId && (
+                                    <BountyPayoutButton
+                                        bountyId={submission.bountyId}
+                                        submissionId={submission.id}
+                                        bountyStripePriceId={
+                                            bountyStripePriceId
+                                        }
+                                        stripeUserId={
+                                            submission.user.stripeCustomerId
+                                        }
+                                    />
+                                )}
                         </div>
                     </div>
                 ))}

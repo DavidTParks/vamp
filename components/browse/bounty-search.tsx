@@ -29,7 +29,7 @@ export function BountySearch({ baseUrl = "/browse" }: IBountySearch) {
         formState: { errors },
     } = useForm<TSearch>({
         defaultValues: {
-            search,
+            search: search ?? "",
         },
     })
 

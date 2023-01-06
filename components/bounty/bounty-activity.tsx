@@ -17,13 +17,15 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
         getCurrentUser(),
     ])
 
+    if (!bounty) return null
+
     return (
         <>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-brandtext-500 text-2xl font-bold">
                     Activity
                 </h3>
-                {bounty.bountySubmissions?.length &&
+                {bounty?.bountySubmissions?.length &&
                 !bounty.resolved &&
                 user ? (
                     <>
@@ -51,7 +53,7 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                     </>
                 )}
             </div>
-            {bounty.bountySubmissions?.length ? (
+            {bounty?.bountySubmissions?.length && bounty?.stripePriceId ? (
                 <>
                     {/* @ts-expect-error Server Component */}
                     <BountySubmissionList

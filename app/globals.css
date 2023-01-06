@@ -70,3 +70,19 @@ input[type="search"]::-webkit-search-results-decoration {
     opacity: 0.3;
     pointer-events: none;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background-color: #616076;
+}
+
+::-webkit-scrollbar-track {
+    padding: 2px;
+    background-color: transparent;
+}

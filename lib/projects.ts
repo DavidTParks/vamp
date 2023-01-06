@@ -10,6 +10,7 @@ import {
     Bounty,
 } from "@prisma/client"
 import { getCurrentUser } from "./session"
+import { Prisma } from "@prisma/client"
 
 export const preloadProjects = (userId: User["id"]) => {
     void getProjectsForUser(userId)
@@ -39,29 +40,30 @@ export const getProjectsForUser = cache(async (userId: User["id"]) => {
     })
 })
 
+export type TProjectsForUser = Prisma.PromiseReturnType<
+    typeof getProjectsForUser
+>
+
+export type TProjectForUser = TProjectsForUser[number]
+
 export const preloadProject = (projectId: User["id"]) => {
     void getProject(projectId)
 }
 
-export type TProject = Project & {
-    users: ProjectUsers[]
-    githubRepo: GithubRepository
-    bounties: Bounty[]
-}
-export const getProject = cache(
-    async (projectId: Project["id"]): Promise<TProject> => {
-        return await db.project.findUnique({
-            where: {
-                id: projectId,
-            },
-            include: {
-                users: true,
-                githubRepo: true,
-                bounties: true,
-            },
-        })
-    }
-)
+export const getProject = cache(async (projectId: Project["id"]) => {
+    return await db.project.findUnique({
+        where: {
+            id: projectId,
+        },
+        include: {
+            users: true,
+            githubRepo: true,
+            bounties: true,
+        },
+    })
+})
+
+export type TProject = Prisma.PromiseReturnType<typeof getProject>
 
 export const isProjectOwner = cache(
     async (projectId: Project["id"]): Promise<boolean> => {

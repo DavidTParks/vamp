@@ -12,10 +12,7 @@ interface TBountySubmissionsEmpty {
 export async function BountySubmissionsEmpty({
     bountyId,
 }: TBountySubmissionsEmpty) {
-    const [user, bounty] = await Promise.all([
-        getCurrentUser(),
-        getBountyById(bountyId),
-    ])
+    const [user] = await Promise.all([getCurrentUser()])
 
     return (
         <EmptyPlaceholder className="min-h-[200px]">

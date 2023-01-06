@@ -181,7 +181,8 @@ export default async function BountyList({
                                                         </dt>
                                                         <dd className="mt-1 text-brandtext-500">
                                                             {formatDollars(
-                                                                bounty.bountyPrice
+                                                                bounty?.bountyPrice ??
+                                                                    0
                                                             )}
                                                         </dd>
                                                     </div>

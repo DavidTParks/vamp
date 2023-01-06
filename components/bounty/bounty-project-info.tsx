@@ -10,6 +10,8 @@ interface TBountyInfoBox {
 export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
     const bounty = await getBountyById(bountyId)
 
+    if (!bounty) return null
+
     return (
         <div className="border border-raised-border rounded-lg col-span-4 p-4 py-6">
             <div className="flex flex-col items-center">

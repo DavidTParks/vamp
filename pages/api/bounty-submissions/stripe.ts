@@ -4,11 +4,9 @@ import * as z from "zod"
 
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { authOptions } from "@/lib/auth"
-import { db } from "@/lib/db"
-import { stripe } from "@/lib/stripe"
+import { platformFee, stripe } from "@/lib/stripe"
 import { getBaseUrl } from "@/lib/utils"
 import { bountyAcceptSchema } from "@/lib/validations/bountySubmission"
-import { platformFee } from "@/lib/stripe"
 
 export type returnUrlQueryParams =
     | "create"
@@ -29,9 +27,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const price = await stripe.prices.retrieve(body.bountyStripePriceId)
 
-            const fee = platformFee(price.unit_amount)
+            if (!price?.unit_amount) {
+                throw new Error("No price unit amount")
+            }
 
-            console.log("Fee", fee)
+            const fee = platformFee(price.unit_amount)
 
             const paymentLink = await stripe.paymentLinks.create({
                 line_items: [
