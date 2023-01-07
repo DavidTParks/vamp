@@ -2,7 +2,6 @@ import { BountySearch } from "@/components/browse/bounty-search"
 import { DashboardShell } from "@/components/dashboard/shell"
 import BountyList from "@/components/project/bounty-list"
 import { TProject } from "@/components/project/secondary-nav"
-import { authOptions } from "@/lib/auth"
 import { getBountiesForProject, getBountyCount } from "@/lib/bounties"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
@@ -24,11 +23,7 @@ export default async function ProjectPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     const project = await getProject(params.projectId)

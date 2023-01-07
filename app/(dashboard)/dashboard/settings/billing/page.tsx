@@ -24,7 +24,7 @@ export default async function SettingsPage() {
 
     return (
         <DashboardShell>
-            {stripeDetails.stripeCustomerId && (
+            {stripeDetails?.stripeCustomerId && (
                 <Stats balance={stripeBalance} payouts={stripePayouts} />
             )}
             <BillingForm

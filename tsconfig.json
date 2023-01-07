@@ -25,6 +25,7 @@
             "@/client/*": ["client/*"],
             "@/styles/*": ["styles/*"],
             "@/prisma/*": ["prisma/*"],
+            "@/emails/*": ["emails/*"],
             "contentlayer/generated": ["./.contentlayer/generated"]
         },
         "plugins": [

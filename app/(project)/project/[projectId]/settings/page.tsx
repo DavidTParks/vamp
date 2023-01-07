@@ -1,11 +1,9 @@
 import { notFound, redirect } from "next/navigation"
 
-import { UserNameForm } from "@/components/dashboard/settings/user-settings-form"
 import { DashboardShell } from "@/components/dashboard/shell"
-import { authOptions } from "@/lib/auth"
 import { ProjectNameForm } from "@/components/project/settings/project-name-form"
-import { getCurrentUser } from "@/lib/session"
 import { getProject } from "@/lib/projects"
+import { getCurrentUser } from "@/lib/session"
 interface ProjectSettingsPageProps {
     params: { projectId: string }
 }
@@ -16,11 +14,7 @@ export default async function ProjectSettingsPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     const project = await getProject(params.projectId)
