@@ -1,29 +1,36 @@
 import { ImageResponse } from "@vercel/og"
 import { NextRequest } from "next/server"
+import ColorHash from "color-hash"
 
 export const config = {
     runtime: "edge",
     externalResolver: true,
 }
 
-const stringToColour = function (str: string) {
-    var hash = 0
-    for (var i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash)
-    }
-    var colour = "#"
-    for (var i = 0; i < 3; i++) {
-        var value = (hash >> (i * 8)) & 0xff
-        colour += ("00" + value.toString(16)).substr(-2)
-    }
-    return colour
-}
+const colorHash = new ColorHash()
 
 export default async function handler(req: NextRequest) {
     const { searchParams } = new URL(req.url)
 
     const hasSeed = searchParams.has("seed")
     const seed = hasSeed ? searchParams.get("seed") : "vamp"
+
+    const colorHashHsl = colorHash.hsl(seed ?? "vamp")
+
+    const [hue, saturation, luminosity] = colorHashHsl
+
+    const baseColor = `hsl(${hue}, ${saturation}, ${luminosity})`
+
+    // Calculate a brighter base color for background
+    let newBrightness = luminosity + 5 / 100
+    newBrightness = Math.max(0, Math.min(1, newBrightness))
+
+    // Calculate a darker base color for background
+    let newDarkness = luminosity - 5 / 100
+    newDarkness = Math.max(0, Math.min(1, newDarkness))
+
+    const lighterBase = `hsl(${hue}, ${saturation}, ${newBrightness})`
+    const darkerBase = `hsl(${hue}, ${saturation}, ${newDarkness})`
 
     return new ImageResponse(
         (
@@ -34,11 +41,18 @@ export default async function handler(req: NextRequest) {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
+                <rect width="256" height="256" fill={baseColor} />
+                <rect y="0" x="0" width="32" height="32" fill={lighterBase} />
+                <rect y="0" x="96" width="32" height="32" fill={lighterBase} />
+                <rect y="0" x="192" width="32" height="32" fill={lighterBase} />
                 <rect
-                    width="256"
-                    height="256"
-                    fill={stringToColour(seed ?? "vamp")}
+                    y="32"
+                    x="224"
+                    width="32"
+                    height="32"
+                    fill={lighterBase}
                 />
+                <rect y="224" x="96" width="32" height="32" fill={darkerBase} />
                 <rect y="32" width="32" height="32" fill="#DBDEFF" />
                 <rect y="32" width="32" height="32" fill="#DBDEFF" />
                 <rect x="160" y="64" width="32" height="32" fill="#DBDEFF" />
