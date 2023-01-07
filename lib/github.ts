@@ -39,7 +39,7 @@ export const getUserGithubOrgs = cache(async (): Promise<GithubOrg[]> => {
         getGithubUser(),
     ])
 
-    return await fetch(`${BASEURL}/users/KATT/orgs`, {
+    return await fetch(`${BASEURL}/users/${githubUser.login}/orgs`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${

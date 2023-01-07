@@ -24,6 +24,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         try {
             const body = bountyCreateSchema.parse(req.body)
             const bountySubmission = await db.$transaction(async (tx) => {
+                // Check if user has connected stripe before allowing a submission post otherwise they can't get paid
+                const user = await tx.user.findUniqueOrThrow({
+                    where: {
+                        id: session.user.id,
+                    },
+                    select: {
+                        stripeCustomerId: true,
+                    },
+                })
+
+                if (!user.stripeCustomerId) {
+                    throw new Error("User has not connected stripe yet")
+                }
+
                 // Create submission record
                 const submission = await tx.bountySubmission.create({
                     data: {
