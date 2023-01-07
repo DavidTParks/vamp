@@ -85,6 +85,7 @@ model Project {
   invites         ProjectInvite[]
   stripeProductId String?           @unique @map(name: "stripe_product_id")
   notifications   Notification[]
+  deleted         Boolean           @default(false)
 }
 
 model ProjectInvite {
@@ -147,6 +148,7 @@ model Bounty {
   deadline          DateTime?
   published         Boolean            @default(false)
   resolved          Boolean            @default(false)
+  deleted           Boolean            @default(false)
   project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   projectId         String
   bountySubmissions BountySubmission[]
@@ -178,6 +180,7 @@ model BountySubmission {
   userId        String
   accepted      Boolean        @default(false)
   hidden        Boolean        @default(false)
+  deleted       Boolean        @default(false)
   seenBy        ProjectUsers[]
   notifications Notification[]
 
