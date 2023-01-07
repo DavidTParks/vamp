@@ -292,7 +292,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                 <div className="p-4">
                     <div className="grid gap-1">
                         <Input
-                            label="Title"
+                            label="Title *"
                             id="title"
                             className="bg-appbg"
                             placeholder="Enter a title for your Bounty"
@@ -309,7 +309,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                         <div className="grid gap-1">
                             <Input
-                                label="Bounty price"
+                                label="Bounty price *"
                                 id="bountyPrice"
                                 type="number"
                                 placeholder="0.00"

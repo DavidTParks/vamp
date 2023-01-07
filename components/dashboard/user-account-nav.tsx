@@ -92,7 +92,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                                     </p>
                                 )}
                                 {user.email && (
-                                    <p className="w-[200px] truncate text-sm text-slate-500">
+                                    <p className="w-[200px] truncate text-sm text-brandtext-600">
                                         {user.email}
                                     </p>
                                 )}

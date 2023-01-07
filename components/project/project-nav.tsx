@@ -46,7 +46,7 @@ export function ProjectNav({ project }: MainNavProps) {
                         <Image
                             fill={true}
                             alt="Avatar"
-                            src={`https://avatar.vercel.sh/${project.id}`}
+                            src={`https://avatar.vercel.sh/${project.id}${project.name}`}
                         />
                     </div>
                     <span className="hidden md:block text-sm text-brandtext-500 truncate">

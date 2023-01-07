@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
+import { Chip } from "@/ui/chip"
 
 interface ImportPageProps {
     params: { repoId: number }
@@ -38,14 +39,10 @@ export default async function ImportRepoPage({ params }: ImportPageProps) {
                     heading="Almost there!"
                     text="Please follow the steps to configure your Project and create it."
                 />
-                <Button
-                    intent="secondary"
-                    size="small"
-                    className="mt-4 inline-flex gap-2"
-                >
+                <Chip className="mt-4 inline-flex gap-2">
                     <Icons.gitHub size={16} />
                     <span className="max-w-xs truncate">{repo.full_name}</span>
-                </Button>
+                </Chip>
             </div>
             <ProjectCreateForm repo={repo} user={user} />
         </div>

@@ -10,12 +10,12 @@ import { capitalize } from "@/lib/utils"
 type TextAreaProps = ComponentProps<"textarea">
 
 const textAreaStyles = cva(
-    "form-textarea my-0 mb-2 h-24 block w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none placeholder:text-placeholder",
+    "form-textarea my-0 mb-2 h-24 block w-full rounded-md border py-2 px-3 text-sm  transition-all duration-100 focus:outline-none focus:ring-none placeholder:text-placeholder focus:ring-0 form-input",
     {
         variants: {
             intent: {
                 primary:
-                    "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-slate-600 text-white focus:border-rose-500",
+                    "bg-palette-400 border-palette-300 placeholder:text-placeholder hover:border-brandtext-600 text-white focus:border-rose-500",
             },
         },
         defaultVariants: {
