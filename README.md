@@ -48,7 +48,7 @@ This project would not have been possible without the amazing work from:
 
 -   [Shadcdn](https://twitter.com/shadcn) for his Next 13 app dir project [Taxonomy](https://github.com/shadcn/taxonomy), which much of Vamp's code is based on.
 -   [Steven Tey](https://twitter.com/steventey) for his work on [Dub](https://www.dub.sh) which provided a fantastic blueprint for Vamp's layout, as well as licenses and even this readme!
--   [Alex from tRPC](https://twitter.com/alexdotjs) who provided instrumental feedback in Vamp's early stages, code help, and for his work on tRPC for making this project a breeze to work with.
+-   [Alex](https://twitter.com/alexdotjs) who provided instrumental feedback in Vamp's early stages, code help, and for his work on tRPC for making this project a breeze to work with.
 
 ## Contributing
 
