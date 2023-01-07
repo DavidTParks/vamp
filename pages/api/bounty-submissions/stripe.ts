@@ -31,8 +31,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 throw new Error("No price unit amount")
             }
 
-            const fee = platformFee(price.unit_amount)
-
             const paymentLink = await stripe.paymentLinks.create({
                 line_items: [
                     {
@@ -53,6 +51,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 metadata: {
                     bountyId: body.bountyId,
                     submissionId: body.submissionId,
+                    userId: session.user.id,
                 },
             })
             return res.json(paymentLink)

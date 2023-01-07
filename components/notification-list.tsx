@@ -49,7 +49,6 @@ export function NotificationList({ user }: INotificationList) {
                             {notification?.bounty &&
                                 notification?.bountySubmission && (
                                     <Link
-                                        as="li"
                                         href={`/bounty/${notification.bounty.id}`}
                                         className="p-4 hover:bg-palette-300 flex items-start gap-4 w-full"
                                     >

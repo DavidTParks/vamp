@@ -2,6 +2,7 @@ import { isBountyOwner } from "@/lib/bounties"
 import { formatDate } from "@/lib/utils"
 import { Button } from "@/ui/button"
 import { Chip } from "@/ui/chip"
+import { ExternalLink } from "@/ui/external-link"
 import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
 import { BountyPayoutButton } from "./bounty-payout-button"
@@ -63,9 +64,14 @@ export async function BountySubmissionList({
                                 <Chip intent="green">Accepted</Chip>
                             )}
                         </div>
-
+                        <ExternalLink
+                            className="text-rose-500"
+                            href={submission?.solutionLink ?? "#"}
+                        >
+                            {submission.solutionLink}
+                        </ExternalLink>
                         <div className="text-sm text-brandtext-500">
-                            {submission.comments}
+                            {submission.comments}{" "}
                         </div>
                         <div className="flex gap-4 items-center">
                             {!resolved &&

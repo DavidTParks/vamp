@@ -59,6 +59,7 @@ model User {
   bounties          Bounty[]
   notifications     UserNotifications[]
   stripeCustomerId  String?             @unique @map(name: "stripe_customer_id")
+  blood             Int                 @default(0) // Blood is earned after a bounty submission is resolved
 
   @@map(name: "users")
 }

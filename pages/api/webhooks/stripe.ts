@@ -78,6 +78,17 @@ export default async function handler(
                 accepted: true,
             },
         })
+
+        await db.user.update({
+            where: {
+                id: sessionWithLineItems.metadata.userId,
+            },
+            data: {
+                blood: {
+                    increment: 1,
+                },
+            },
+        })
     }
 
     return res.json({})
