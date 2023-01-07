@@ -20,6 +20,9 @@ export const getProjectsForUser = cache(async (userId: User["id"]) => {
     return await db.projectUsers.findMany({
         where: {
             userId,
+            project: {
+                deleted: false,
+            },
         },
         include: {
             project: {

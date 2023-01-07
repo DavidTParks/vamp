@@ -128,6 +128,7 @@ export const fetchBounties = cache(
             },
             where: {
                 published: true,
+                deleted: false,
             },
         })
 
