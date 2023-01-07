@@ -29,8 +29,8 @@ export default async function BountyPage({
                 </div>
             </header>
             <main className=" px-4 lg:px-8 z-10 mt-12">
-                <div className="mx-auto max-w-screen-xl px-2.5 flex w-full flex-1 flex-col overflow-hidden">
-                    <div className="max-w-[1012px] mx-auto w-full">
+                <div className="mx-auto max-w-screen-xl  px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
+                    <div className="mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
                                 <div>
