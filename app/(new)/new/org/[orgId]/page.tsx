@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 
 import GithubOrgRepoList from "@/components/dashboard/github-org-repo-list"
 import { Icons } from "@/components/icons"
-import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
@@ -20,11 +19,7 @@ export default async function OrgRepoPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     return (

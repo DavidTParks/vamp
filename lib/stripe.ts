@@ -47,10 +47,7 @@ export const getStripeBalance = cache(
             },
         })
 
-        if (!user?.stripeCustomerId) {
-            throw new Error("No stripe customer id")
-        }
-
+        // @ts-ignore
         return await stripe.balance.retrieve({
             stripeAccount: user.stripeCustomerId,
         })
@@ -70,10 +67,7 @@ export const getStripePayouts = cache(
             },
         })
 
-        if (!user?.stripeCustomerId) {
-            throw new Error("No stripe customer id")
-        }
-
+        // @ts-ignore
         return await stripe.payouts.list({
             stripeAccount: user.stripeCustomerId,
         })

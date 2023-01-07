@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 
 import GithubRepoList from "@/components/dashboard/github-repo-list"
 import { Icons } from "@/components/icons"
-import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
@@ -12,11 +11,7 @@ export default async function SettingsPage() {
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     return (

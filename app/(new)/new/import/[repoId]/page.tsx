@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 
 import { ProjectCreateForm } from "@/components/dashboard/project-create-form"
 import { Icons } from "@/components/icons"
-import { authOptions } from "@/lib/auth"
 import { getRepo } from "@/lib/github"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
@@ -17,11 +16,7 @@ export default async function ImportRepoPage({ params }: ImportPageProps) {
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     const repo = await getRepo(params.repoId)

@@ -1,7 +1,6 @@
 import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { ProjectItem } from "@/components/dashboard/project-item"
 import { DashboardShell } from "@/components/dashboard/shell"
-import { authOptions } from "@/lib/auth"
 import { preloadRepos } from "@/lib/github"
 import { getProjectsForUser } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
@@ -15,11 +14,7 @@ export default async function DashboardPage({}) {
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     preloadRepos()

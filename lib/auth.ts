@@ -2,6 +2,8 @@ import { db } from "@/lib/db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
+import { sendMarketingMail } from "../emails"
+import WelcomeEmail from "@/emails/WelcomeEmail"
 
 export const authOptions: NextAuthOptions = {
     // huh any! I know.

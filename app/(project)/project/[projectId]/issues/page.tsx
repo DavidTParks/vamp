@@ -1,10 +1,9 @@
 import IssueList from "@/components/project/issue-list"
-import { authOptions } from "@/lib/auth"
+import IssueSearch from "@/components/project/issue-search"
 import { getRepoIssues, preloadRepoIssues } from "@/lib/github"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { notFound, redirect } from "next/navigation"
-import IssueSearch from "@/components/project/issue-search"
 interface ProjectPageProps {
     params: { projectId: string }
     searchParams: { id: string; page: string; search: string }
@@ -17,11 +16,7 @@ export default async function ProjectPage({
     const user = await getCurrentUser()
 
     if (!user) {
-        redirect(
-            authOptions?.pages && authOptions?.pages?.signIn
-                ? authOptions.pages.signIn
-                : "/"
-        )
+        redirect("/login")
     }
 
     const project = await getProject(params.projectId)
