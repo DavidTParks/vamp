@@ -28,6 +28,7 @@ export default async function DashboardPage({}) {
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                         {projectUsers.map((projectUser) => (
                             <ProjectItem
+                                // @ts-ignore
                                 projectUser={projectUser}
                                 key={projectUser.id}
                             />
