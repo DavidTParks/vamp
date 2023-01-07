@@ -78,7 +78,11 @@ export const getBountyById = cache(async (bountyId: Bounty["id"]) => {
             project: {
                 include: {
                     githubRepo: true,
-                    bounties: true,
+                    bounties: {
+                        where: {
+                            deleted: false,
+                        },
+                    },
                 },
             },
             bountySubmissions: {

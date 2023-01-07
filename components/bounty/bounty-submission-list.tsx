@@ -6,6 +6,7 @@ import { ExternalLink } from "@/ui/external-link"
 import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
 import { BountyPayoutButton } from "./bounty-payout-button"
+import { UserAvatar } from "@/components/dashboard/user-avatar"
 
 interface MainNavProps {
     bountyId: string
@@ -40,13 +41,12 @@ export async function BountySubmissionList({
                         <div className="flex justify-between items-center">
                             <div className="inline-flex items-center gap-4">
                                 <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
-                                    {submission?.user?.image && (
-                                        <Image
-                                            fill={true}
-                                            alt={`${submission.user.name} profile picture`}
-                                            src={submission.user.image}
-                                        />
-                                    )}
+                                    <UserAvatar
+                                        user={{
+                                            id: submission.user.id,
+                                            name: submission.user.name,
+                                        }}
+                                    />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-brandtext-500 font-bold text-sm">

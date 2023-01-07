@@ -33,6 +33,7 @@ export default async function BountyList({
             projectId: project.id,
             published: false,
             resolved: false,
+            deleted: false,
         },
     })
 
@@ -41,6 +42,7 @@ export default async function BountyList({
             projectId: project.id,
             published: true,
             resolved: false,
+            deleted: false,
         },
     })
 
@@ -49,6 +51,7 @@ export default async function BountyList({
             projectId: project.id,
             published: true,
             resolved: true,
+            deleted: false,
         },
     })
 

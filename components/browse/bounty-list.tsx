@@ -3,6 +3,7 @@ import { dateToNow, formatDate, formatDollars } from "@/lib/utils"
 import { Pagination } from "@/ui/pagination"
 import Image from "next/image"
 import Link from "next/link"
+import { UserAvatar } from "../dashboard/user-avatar"
 import { Icons } from "../icons"
 import { BountyEmptyPlaceholder } from "./bounty-empty-placeholder"
 
@@ -142,14 +143,15 @@ export async function BrowseBountyList({
                                                     {bounty?.submittedBy &&
                                                         bounty?.submittedBy
                                                             ?.image && (
-                                                            <Image
-                                                                alt={`${bounty.submittedBy.name} profile picture`}
-                                                                fill
-                                                                src={
-                                                                    bounty
+                                                            <UserAvatar
+                                                                user={{
+                                                                    id: bounty
                                                                         .submittedBy
-                                                                        .image
-                                                                }
+                                                                        .id,
+                                                                    name: bounty
+                                                                        .submittedBy
+                                                                        .name,
+                                                                }}
                                                             />
                                                         )}
                                                 </div>

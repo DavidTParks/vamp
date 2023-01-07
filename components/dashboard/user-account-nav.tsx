@@ -29,7 +29,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
             <DropdownMenu
                 onOpenChange={async (e) => {
                     if (e) {
-                        await markAllUnread.mutateAsync()
+                        await markAllRead.mutateAsync()
                         router.refresh()
                     }
                 }}
@@ -52,7 +52,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                        className="mt-2 w-56 md:w-96 z-50"
+                        className="mt-2 w-96 md:w-96 z-50"
                         align="end"
                     >
                         <div className="flex items-center justify-between gap-2 p-4">
