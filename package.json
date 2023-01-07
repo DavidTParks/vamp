@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "stripewebhooks": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
+        "stripewebhooks": "stripe listen --forward-to localhost:3000/api/webhooks/stripe",
+        "postinstall": "prisma generate"
     },
     "dependencies": {
         "@editorjs/code": "^2.8.0",

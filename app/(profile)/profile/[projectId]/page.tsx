@@ -50,6 +50,7 @@ export default async function ProjectPage({
         sort: searchParams?.sort ?? undefined,
         whereQuery: {
             published: true,
+            deleted: false,
             title: {
                 search: searchParams?.search,
             },

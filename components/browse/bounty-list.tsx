@@ -59,6 +59,7 @@ export async function BrowseBountyList({
             },
             where: {
                 published: true,
+                deleted: false,
                 title: {
                     search,
                 },
@@ -69,6 +70,7 @@ export async function BrowseBountyList({
         db.bounty.count({
             where: {
                 published: true,
+                deleted: false,
                 title: {
                     search,
                 },

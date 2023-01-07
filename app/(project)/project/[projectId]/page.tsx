@@ -45,6 +45,7 @@ export default async function ProjectPage({
                 search: searchParams?.search,
             },
             projectId: params.projectId,
+            deleted: false,
         },
     })
 
@@ -55,6 +56,7 @@ export default async function ProjectPage({
                 search: searchParams?.search,
             },
             projectId: params.projectId,
+            deleted: false,
         },
     })
 
