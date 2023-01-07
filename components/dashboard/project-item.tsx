@@ -4,12 +4,28 @@ import Image from "next/image"
 import Link from "next/link"
 import { Icons } from "../icons"
 import { ProjectOperations } from "./project-operations"
-
+import {
+    Account,
+    GithubRepository,
+    Project,
+    ProjectUsers,
+    User,
+} from "@prisma/client"
 interface TProjectItem {
-    projectUser: TProjectForUser
+    projectUser: ProjectUsers & {
+        project: Project & {
+            users: ProjectUsers[]
+            githubRepo: GithubRepository
+        }
+        user: User & {
+            accounts: Account[]
+        }
+    }
 }
 
 export function ProjectItem({ projectUser }: TProjectItem) {
+    preloadProject(projectUser.project.id)
+
     return (
         <div key={projectUser.id} className="relative ">
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease  hover:shadow-xl">
@@ -48,20 +64,6 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             }}
                         />
                     </div>
-                    {/* <Link
-                        href={`/project/${projectUser.project.id}`}
-                        className="mt-6 w-full"
-                    >
-                        <Button
-                            fullWidth={true}
-                            intent="secondary"
-                            size="small"
-                        >
-                            <p className="text-brandtext-400 font-medium text-sm inline-flex items-center gap-2">
-                                Dashboard
-                            </p>
-                        </Button>
-                    </Link> */}
                 </div>
             </div>
         </div>
@@ -74,7 +76,6 @@ ProjectItem.Skeleton = function ProjectItemSkeleton() {
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease hover:border-brandtext-500 hover:shadow-xl p-4 space-y-4">
                 <Skeleton className="h-5 w-2/5" />
                 <Skeleton className="h-4 w-4/5" />
-                {/* <Skeleton className="h-10 w-full" /> */}
             </div>
         </div>
     )
