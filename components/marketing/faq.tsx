@@ -32,10 +32,10 @@ export function FAQSection() {
         <div className="bg-transparent">
             <div className="mx-auto max-w-7xl py-16 px-6 sm:py-24 lg:px-8">
                 <div className="lg:mx-auto lg:max-w-2xl lg:text-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    <h2 className="text-3xl font-bold tracking-tight text-brandtext-500 sm:text-4xl">
                         Frequently asked questions
                     </h2>
-                    <p className="mt-4 text-gray-400">
+                    <p className="mt-4 text-brandtext-600">
                         If you have any other questions please get in touch.
                     </p>
                 </div>
@@ -43,10 +43,10 @@ export function FAQSection() {
                     <dl className="space-y-10 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-10 lg:space-y-0">
                         {faqs.map((faq) => (
                             <div key={faq.id}>
-                                <dt className="font-semibold text-white">
+                                <dt className="font-semibold text-brandtext-500">
                                     {faq.question}
                                 </dt>
-                                <dd className="mt-3 text-gray-400">
+                                <dd className="mt-3 text-brandtext-600">
                                     {faq.answer}
                                 </dd>
                             </div>

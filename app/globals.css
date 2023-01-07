@@ -86,3 +86,9 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 2px;
     background-color: transparent;
 }
+
+mux-player {
+    --controls: none;
+    --media-object-fit: cover;
+    height: 100%;
+}

@@ -92,12 +92,12 @@ export default async function IndexPage() {
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         Sync Github Issues with ease
                     </h2>
-                    <p className="max-w-[85%] leading-normal text-slate-400 sm:text-lg sm:leading-7">
+                    <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
                         Link existing Github repositories and post bounties by
                         referencing issues directly.
                     </p>
                 </div>
-                <div className="rounded-lg overflow-hidden w-full">
+                <div className="rounded-lg overflow-hidden w-full flex justify-center items-center">
                     <VideoPlayer />
                 </div>
             </section>
@@ -107,7 +107,7 @@ export default async function IndexPage() {
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         Completely Open Source
                     </h2>
-                    <p className="max-w-[85%] leading-normal text-slate-400 sm:text-lg sm:leading-7">
+                    <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
                         We support open source, so why not make our site open
                         source! Feel free to read, review, or contribute.
                     </p>
