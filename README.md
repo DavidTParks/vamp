@@ -55,7 +55,7 @@ This project would not have been possible without the amazing work from:
 We love our contributors! Here's how you can contribute:
 
 -   [Open an issue](https://github.com/davidtparks/vamp/issues) if you believe you've encountered a bug.
--   Make a [pull request](https://github.com/steven-tey/dub/pull) to add new features/make quality-of-life improvements/fix bugs.
+-   Make a [pull request](https://github.com/davidtparks/vamp/dub/pull) to add new features/make quality-of-life improvements/fix bugs.
 
 <a href="https://github.com/davidtparks/vamp/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=davidtparks/vamp" />
