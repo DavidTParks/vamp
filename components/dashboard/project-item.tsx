@@ -13,12 +13,12 @@ import {
 } from "@prisma/client"
 interface TProjectItem {
     projectUser: ProjectUsers & {
-        project: Project & {
-            users: ProjectUsers[]
-            githubRepo: GithubRepository
-        }
         user: User & {
             accounts: Account[]
+        }
+        project: Project & {
+            githubRepo: GithubRepository | null
+            users: ProjectUsers[]
         }
     }
 }
