@@ -10,8 +10,6 @@ interface TProjectItem {
 }
 
 export function ProjectItem({ projectUser }: TProjectItem) {
-    preloadProject(projectUser.project.id)
-
     return (
         <div key={projectUser.id} className="relative ">
             <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease  hover:shadow-xl">
