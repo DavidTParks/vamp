@@ -97,7 +97,7 @@ export default async function IndexPage() {
                         referencing issues directly.
                     </p>
                 </div>
-                <div className="rounded-lg overflow-hidden w-full flex justify-center items-center">
+                <div className="rounded-lg overflow-hidden w-full flex justify-center items-center h-full">
                     <VideoPlayer />
                 </div>
             </section>
