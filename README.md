@@ -31,16 +31,24 @@ Vamp is an open-source, open-source management tool for project maintainers and 
 
 -   [Next.js](https://nextjs.org/) – framework
 -   [Typescript](https://www.typescriptlang.org/) – language
+-   [tRPC](https://trpc.io/) – end-to-end type-safety
+-   [cva](https://github.com/joe-bell/cva) - component variants
 -   [Tailwind](https://tailwindcss.com/) – CSS
 -   [PlanetScale](https://planetscale.com/) – database
 -   [NextAuth.js](https://next-auth.js.org/) – auth
 -   [Vercel](https://vercel.com/) – hosting
 -   [Stripe](https://stripe.com/) – payments
 -   [Mux](https://www.mux.com/) - video embeds
+-   [Postmark](https://postmarkapp.com/) - email delivery
+-   [Mailing](https://www.mailing.run/) - email development
 
 ## Acknowledgments
 
-This project would not have been possible without the amazing work from [Shadcdn](https://twitter.com/shadcn) for his Next 13 app dir project [Taxonomy](https://github.com/shadcn/taxonomy), which much of Vamp's code is based on, and [Steven Tey](https://twitter.com/steventey) for his work on [Dub](https://www.dub.sh) which provided a fantastic blueprint for Vamp's layout, as well as licenses and even this readme!
+This project would not have been possible without the amazing work from:
+
+-   [Shadcdn](https://twitter.com/shadcn) for his Next 13 app dir project [Taxonomy](https://github.com/shadcn/taxonomy), which much of Vamp's code is based on.
+-   [Steven Tey](https://twitter.com/steventey) for his work on [Dub](https://www.dub.sh) which provided a fantastic blueprint for Vamp's layout, as well as licenses and even this readme!
+-   [Alex from tRPC](https://twitter.com/alexdotjs) who provided instrumental feedback in Vamp's early stages, code help, and for his work on tRPC for making this project a breeze to work with.
 
 ## Contributing
 
