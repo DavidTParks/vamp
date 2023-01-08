@@ -12,5 +12,10 @@ export const settingsConfig: SettingsConfig = {
             href: "/dashboard/settings/billing",
             icon: "billing",
         },
+        {
+            title: "Notifications",
+            href: "/dashboard/settings/notifications",
+            icon: "bell",
+        },
     ],
 }
