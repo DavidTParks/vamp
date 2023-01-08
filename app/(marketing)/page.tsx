@@ -10,6 +10,7 @@ import { Cta } from "@/components/marketing/cta"
 import { LeaderBoard } from "@/components/marketing/leaderboard"
 import { LeaderBoardLoading } from "@/components/marketing/leaderboard"
 import { Suspense } from "react"
+import Image from "next/image"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -111,13 +112,27 @@ export default async function IndexPage() {
                         Make your mark
                     </h2>
                     <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
-                        Collect blood for each accepted bounty submission. Climb
+                        Collect Blood for each accepted bounty submission. Climb
                         the leaderboard and make a name for yourself!
                     </p>
                 </div>
                 <Suspense fallback={<LeaderBoardLoading />}>
                     {/* @ts-expect-error Server Component */}
-                    <LeaderBoard />
+                    <LeaderBoard pageSize={10} page={1} />
+                    <div className="max-w-md w-full mx-auto flex justify-center">
+                        <Button
+                            intent="primary"
+                            className="inline-flex gap-2 items-center"
+                        >
+                            <Image
+                                alt="gold"
+                                src="/achievements/gold.png"
+                                height={16}
+                                width={16}
+                            />
+                            View Leaderboard
+                        </Button>
+                    </div>
                 </Suspense>
             </section>
 
