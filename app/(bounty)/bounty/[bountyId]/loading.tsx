@@ -24,7 +24,7 @@ export default function DashboardLoading() {
                 </div>
             </header>
             <main className=" px-4 lg:px-8 z-10 mt-12">
-                <div className="mx-auto max-w-screen-xl px-2.5 flex w-full flex-1 flex-col overflow-hidden">
+                <div className="mx-auto max-w-screen-xl  px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
                     <div className="mx-auto w-full">
                         <div className="lg:flex w-full">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
