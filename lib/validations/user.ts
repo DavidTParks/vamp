@@ -5,6 +5,6 @@ export const userNameSchema = z.object({
 })
 
 export const userNotificationsSchema = z.object({
-    newSubmission: z.boolean().default(true),
-    submissionAccepted: z.boolean().default(true),
+    newSubmission: z.boolean(),
+    submissionAccepted: z.boolean(),
 })
