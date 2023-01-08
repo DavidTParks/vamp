@@ -8,6 +8,8 @@ import VideoPlayer from "@/components/marketing/video-player"
 import { FAQSection } from "@/components/marketing/faq"
 import { Cta } from "@/components/marketing/cta"
 import { LeaderBoard } from "@/components/marketing/leaderboard"
+import { LeaderBoardLoading } from "@/components/marketing/leaderboard"
+import { Suspense } from "react"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -113,8 +115,10 @@ export default async function IndexPage() {
                         the leaderboard and make a name for yourself!
                     </p>
                 </div>
-                {/* @ts-expect-error Server Component */}
-                <LeaderBoard />
+                <Suspense fallback={<LeaderBoardLoading />}>
+                    {/* @ts-expect-error Server Component */}
+                    <LeaderBoard />
+                </Suspense>
             </section>
 
             <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
