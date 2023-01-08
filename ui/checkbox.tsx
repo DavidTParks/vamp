@@ -1,23 +1,58 @@
 "use client"
 
-import * as React from "react"
-
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-
 import { cn } from "@/lib/utils"
-import { Icons } from "@/components/icons"
+import { cva, VariantProps } from "class-variance-authority"
+import { ComponentProps } from "react"
+import { useFormContext } from "react-hook-form"
+import { Label } from "./label"
 
-type CheckboxProps = CheckboxPrimitive.CheckboxProps
+type InputProps = ComponentProps<"input">
 
-export function Checkbox({ ...props }: CheckboxProps) {
+const checkboxStyles = cva(
+    "form-checkbox rounded focus:ring-offset-0 focus:ring-opacity-0 focus:ring shadow-sm",
+    {
+        variants: {
+            intent: {
+                primary:
+                    " border-palette-300 text-rose-600 focus:border-rose-500 focus:ring-rose-200 bg-palette-400",
+            },
+        },
+        defaultVariants: {
+            intent: "primary",
+        },
+    }
+)
+
+export interface Props extends InputProps, VariantProps<typeof checkboxStyles> {
+    id: string
+    label?: string
+    description?: string
+}
+
+export function Checkbox({
+    id,
+    label,
+    description,
+    intent,
+    className,
+    children,
+    ...props
+}: Props) {
+    const { register } = useFormContext()
+
     return (
-        <CheckboxPrimitive.Root
-            className="my-0 inline-flex justify-center items-center h-4 w-4 rounded-md border p-2 text-sm  transition-all duration-100 focus:outline-none focus:ring-0 form-input bg-palette-400 border-slate-600 placeholder:text-placeholder hover:border-slate-500 text-white focus:border-rose-500"
-            {...props}
-        >
-            <CheckboxPrimitive.Indicator className="text-brandtext-500">
-                <Icons.check size={12} />
-            </CheckboxPrimitive.Indicator>
-        </CheckboxPrimitive.Root>
+        <div className="flex flex-col items-start">
+            <div className="inline-flex items-center gap-2">
+                <input
+                    className={cn(checkboxStyles({ intent }), className)}
+                    type="checkbox"
+                    id={id}
+                    {...register(id)}
+                    {...props}
+                ></input>
+                {label && <Label htmlFor={id}>{label}</Label>}
+            </div>
+            {children}
+        </div>
     )
 }

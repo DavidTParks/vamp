@@ -44,22 +44,25 @@ model Session {
 }
 
 model User {
-  id                String              @id @default(cuid())
-  name              String?
-  email             String?             @unique
-  emailVerified     DateTime?
-  image             String?
-  createdAt         DateTime            @default(now()) @map(name: "created_at")
-  updatedAt         DateTime            @default(now()) @map(name: "updated_at")
-  accounts          Account[]
-  sessions          Session[]
-  projects          ProjectUsers[]
-  bountySubmissions BountySubmission[]
-  comments          Comment[]
-  bounties          Bounty[]
-  notifications     UserNotifications[]
-  stripeCustomerId  String?             @unique @map(name: "stripe_customer_id")
-  blood             Int                 @default(0) // Blood is earned after a bounty submission is resolved
+  id                             String              @id @default(cuid())
+  name                           String?
+  email                          String?             @unique
+  emailVerified                  DateTime?
+  image                          String?
+  createdAt                      DateTime            @default(now()) @map(name: "created_at")
+  updatedAt                      DateTime            @default(now()) @map(name: "updated_at")
+  accounts                       Account[]
+  sessions                       Session[]
+  projects                       ProjectUsers[]
+  bountySubmissions              BountySubmission[]
+  comments                       Comment[]
+  bounties                       Bounty[]
+  notifications                  UserNotifications[]
+  stripeCustomerId               String?             @unique @map(name: "stripe_customer_id")
+  blood                          Int                 @default(0) // Blood is earned after a bounty submission is resolved
+  notificationNewSubmission      Boolean             @default(true)
+  notificationSubmissionAccepted Boolean             @default(true)
+  notificationMarketing          Boolean             @default(true)
 
   @@map(name: "users")
 }
