@@ -129,7 +129,9 @@ export const getRepoIssues = cache(
         const repo = await getRepo(repoId)
 
         const queryString = encodeURIComponent(
-            `repo:${repo.full_name} is:open is:issue ${search ?? ""} in:body`
+            `repo:${repo.full_name} is:open is:issue ${
+                search ?? ""
+            } in:body in:title`
         )
 
         const url = `${BASEURL}/search/issues?q=${queryString}&page=${page}`

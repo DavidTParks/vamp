@@ -43,7 +43,7 @@ export function cleanSearchParams(urlSearchParams: URLSearchParams) {
     let keysForDel = []
 
     urlSearchParams.forEach((value, key) => {
-        if (value == "null" || !value) {
+        if (value == "null" || value === "undefined" || !value) {
             keysForDel.push(key)
         }
     })
