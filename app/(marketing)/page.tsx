@@ -7,6 +7,9 @@ import { getCurrentUser } from "@/lib/session"
 import VideoPlayer from "@/components/marketing/video-player"
 import { FAQSection } from "@/components/marketing/faq"
 import { Cta } from "@/components/marketing/cta"
+import { LeaderBoard } from "@/components/marketing/leaderboard"
+import { LeaderBoardLoading } from "@/components/marketing/leaderboard"
+import { Suspense } from "react"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -100,6 +103,22 @@ export default async function IndexPage() {
                 <div className="rounded-lg overflow-hidden w-full flex justify-center items-center h-full">
                     <VideoPlayer />
                 </div>
+            </section>
+
+            <section className="container grid gap-6 py-8 md:py-12 lg:py-24 text-center">
+                <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
+                    <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
+                        Make your mark
+                    </h2>
+                    <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
+                        Collect blood for each accepted bounty submission. Climb
+                        the leaderboard and make a name for yourself!
+                    </p>
+                </div>
+                <Suspense fallback={<LeaderBoardLoading />}>
+                    {/* @ts-expect-error Server Component */}
+                    <LeaderBoard />
+                </Suspense>
             </section>
 
             <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
