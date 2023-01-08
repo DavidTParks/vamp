@@ -120,18 +120,20 @@ export default async function IndexPage() {
                     {/* @ts-expect-error Server Component */}
                     <LeaderBoard pageSize={10} page={1} />
                     <div className="max-w-md w-full mx-auto flex justify-center">
-                        <Button
-                            intent="primary"
-                            className="inline-flex gap-2 items-center"
-                        >
-                            <Image
-                                alt="gold"
-                                src="/achievements/gold.png"
-                                height={16}
-                                width={16}
-                            />
-                            View Leaderboard
-                        </Button>
+                        <Link href="/leaderboard">
+                            <Button
+                                intent="primary"
+                                className="inline-flex gap-2 items-center"
+                            >
+                                <Image
+                                    alt="gold"
+                                    src="/achievements/gold.png"
+                                    height={16}
+                                    width={16}
+                                />
+                                View Leaderboard
+                            </Button>
+                        </Link>
                     </div>
                 </Suspense>
             </section>
