@@ -86,6 +86,9 @@ export async function BountySubmissionList({
                                         stripeUserId={
                                             submission.user.stripeCustomerId
                                         }
+                                        bountySubmissionUserId={
+                                            submission.user.id
+                                        }
                                     />
                                 )}
                         </div>

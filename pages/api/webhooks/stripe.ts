@@ -61,6 +61,7 @@ export default async function handler(
             }
         )
 
+        // Resolve bounty
         await db.bounty.update({
             where: {
                 id: sessionWithLineItems.metadata.bountyId,
@@ -70,6 +71,7 @@ export default async function handler(
             },
         })
 
+        // Mark bounty as accepted
         await db.bountySubmission.update({
             where: {
                 id: sessionWithLineItems.metadata.submissionId,
@@ -79,9 +81,10 @@ export default async function handler(
             },
         })
 
+        // Increment accepted submission users blood score
         await db.user.update({
             where: {
-                id: sessionWithLineItems.metadata.userId,
+                id: sessionWithLineItems.metadata.bountySubmissionUserId,
             },
             data: {
                 blood: {

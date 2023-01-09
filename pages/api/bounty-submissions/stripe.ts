@@ -51,6 +51,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 metadata: {
                     bountyId: body.bountyId,
                     submissionId: body.submissionId,
+                    bountySubmissionUserId: body.bountySubmissionUserId,
                     userId: session.user.id,
                 },
             })

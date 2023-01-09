@@ -13,6 +13,7 @@ interface BountyPayoutButton {
     stripeUserId: string
     bountyId: string
     submissionId: string
+    bountySubmissionUserId: string
 }
 
 export type CreateProjectFormData = z.infer<typeof bountySubmissionSchema>
@@ -22,6 +23,7 @@ export function BountyPayoutButton({
     bountyStripePriceId,
     submissionId,
     bountyId,
+    bountySubmissionUserId,
 }: BountyPayoutButton) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
@@ -39,6 +41,7 @@ export function BountyPayoutButton({
                 bountyId: bountyId,
                 bountySubmissionUserStripeId: stripeUserId,
                 bountyStripePriceId,
+                bountySubmissionUserId,
             }),
         })
 

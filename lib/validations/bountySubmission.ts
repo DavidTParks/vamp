@@ -9,5 +9,6 @@ export const bountyAcceptSchema = z.object({
     submissionId: z.string().cuid(),
     bountyId: z.string().cuid(),
     bountyStripePriceId: z.string(),
+    bountySubmissionUserId: z.string().min(1),
     bountySubmissionUserStripeId: z.string().min(1),
 })
