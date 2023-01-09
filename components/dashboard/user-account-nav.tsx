@@ -52,7 +52,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                        className="mt-2 w-96 md:w-96 z-50"
+                        className="mt-2 w-72 md:w-96 z-50"
                         align="end"
                     >
                         <div className="flex items-center justify-between gap-2 p-4">

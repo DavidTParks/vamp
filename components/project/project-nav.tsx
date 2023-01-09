@@ -41,7 +41,7 @@ export function ProjectNav({ project }: MainNavProps) {
                 >
                     <path d="M16.88 3.549L7.12 20.451"></path>
                 </svg>
-                <div className="flex items-center gap-4 w-56">
+                <div className="flex items-center gap-4 w-32 md:w-56">
                     <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
                         <Image
                             fill={true}

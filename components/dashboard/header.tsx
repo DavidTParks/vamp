@@ -15,7 +15,7 @@ export function DashboardHeader() {
                         My Projects
                     </h1>
                     <Link href="/new">
-                        <Button>New Project</Button>
+                        <Button>+ New Project</Button>
                     </Link>
                 </>
             ) : null}

@@ -141,7 +141,7 @@ export async function LeaderBoard({
                                     </thead>
                                     <tbody className="divide-y divide-palette-300 bg-appbg">
                                         {users.map((user, index) => (
-                                            <tr key={user.id}>
+                                            <tr className="" key={user.id}>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                                     <div className="flex items-center justify-start gap-4">
                                                         {getLeaderBoardPosition(

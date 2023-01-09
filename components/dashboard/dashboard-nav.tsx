@@ -37,7 +37,7 @@ export async function DashboardNav() {
                 >
                     <path d="M16.88 3.549L7.12 20.451"></path>
                 </svg>
-                <div className="hidden md:flex items-center gap-4 w-56">
+                <div className="hidden md:flex items-center gap-4 w-32 md:w-56">
                     <div className="w-8 h-8">
                         <UserAvatar
                             user={{

@@ -44,7 +44,7 @@ export default async function DashboardPage({}) {
                             bounties.
                         </EmptyPlaceholder.Description>
                         <Link href={`/new`}>
-                            <Button>New Project</Button>
+                            <Button>+ New Project</Button>
                         </Link>
                     </EmptyPlaceholder>
                 )}

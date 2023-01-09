@@ -91,6 +91,7 @@ export default async function IndexPage() {
                     </ExternalLink>
                 </div>
             </div>
+
             <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
                 <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">

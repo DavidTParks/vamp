@@ -28,7 +28,7 @@ export default function DashboardLoading() {
                                 >
                                     <path d="M16.88 3.549L7.12 20.451"></path>
                                 </svg>
-                                <div className="flex items-center gap-4 w-56">
+                                <div className="flex items-center gap-4 w-32 md:w-56">
                                     <span className="hidden md:block text-sm text-brandtext-500 truncate">
                                         {" "}
                                         <Skeleton className="h-8 w-72" />
