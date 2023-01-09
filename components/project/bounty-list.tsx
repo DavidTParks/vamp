@@ -215,7 +215,7 @@ export default async function BountyList({
                 <EmptyPlaceholder>
                     <EmptyPlaceholder.Icon name="logo" />
                     <EmptyPlaceholder.Title>
-                        No bounties created
+                        No Bounties created
                     </EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
                         You do not have any feature requests or issue bounties

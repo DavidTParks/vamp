@@ -10,6 +10,8 @@ const nextConfig = {
             "avatar.vercel.sh",
             "jpxwqgklwwytoznbpbmn.supabase.co",
             "contrib.rocks",
+            "localhost",
+            "vamp.sh",
         ],
     },
 }

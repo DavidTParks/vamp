@@ -3,7 +3,7 @@
 import { Avatar } from "@/ui/avatar"
 import { AvatarProps } from "@radix-ui/react-avatar"
 import { TUser } from "./user-account-nav"
-
+import Image from "next/image"
 interface UserAvatarProps extends AvatarProps {
     user: TUser
 }
@@ -18,11 +18,11 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
 
     return (
         <Avatar {...props}>
-            <img
+            <Image
                 height={32}
                 width={32}
                 alt={`${user.name} avatar`}
-                src={`/api/avatar?seed=${user.id}`}
+                src={`https://vamp.sh/api/avatar?seed=${user.id}`}
             />
         </Avatar>
     )

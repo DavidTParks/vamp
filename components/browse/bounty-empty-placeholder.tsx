@@ -13,7 +13,7 @@ export async function BountyEmptyPlaceholder() {
                 <EmptyPlaceholder.Icon name="logo" />
                 <EmptyPlaceholder.Title>No Bounties</EmptyPlaceholder.Title>
                 <EmptyPlaceholder.Description>
-                    No bounties match your search query, or are open right now.
+                    No Bounties match your search query, or are open right now.
                     Be the first to post!
                 </EmptyPlaceholder.Description>
                 {user ? (
