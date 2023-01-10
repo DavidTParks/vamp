@@ -5,6 +5,7 @@
 import { db } from "@/lib/db"
 import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
+import { BountyType } from "@prisma/client"
 import { z } from "zod"
 import { router, withBounty, withProject } from "../trpc"
 
@@ -69,10 +70,12 @@ const editBounty = withBounty
             issueLink: z.string().optional(),
             content: z.any().optional(),
             html: z.any().optional(),
+            type: z.nativeEnum(BountyType),
         })
     )
     .mutation(async ({ ctx, input }) => {
-        const { title, bountyId, bountyPrice, issueLink, content, html } = input
+        const { title, bountyId, bountyPrice, issueLink, content, html, type } =
+            input
 
         const existingBounty = await db.bounty.findUniqueOrThrow({
             where: {
@@ -105,6 +108,7 @@ const editBounty = withBounty
                 bountyPrice,
                 published: true,
                 stripePriceId: stripePrice.id,
+                type,
             },
         })
     })

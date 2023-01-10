@@ -9,7 +9,7 @@ import { Label } from "@/ui/label"
 import { toast } from "@/ui/toast"
 import { ToggleGroup } from "@/ui/toggle-group"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Bounty } from "@prisma/client"
+import { Bounty, BountyType } from "@prisma/client"
 import Placeholder from "@tiptap/extension-placeholder"
 import {
     BubbleMenu,
@@ -24,6 +24,7 @@ import { ComponentProps } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 import { Icons } from "../icons"
+import { useState } from "react"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -43,6 +44,46 @@ const ToolbarButton = ({ children, isActive, ...props }: TToolbarButton) => {
         </button>
     )
 }
+
+type BountyTypeToggle = {
+    value: BountyType
+    label: string
+}
+
+const TypeToggleItems: BountyTypeToggle[] = [
+    {
+        value: BountyType.BUG,
+        label: "Bug",
+    },
+    {
+        value: BountyType.PROJECT,
+        label: "Project",
+    },
+    {
+        value: BountyType.FEATURE,
+        label: "Feature",
+    },
+    {
+        value: BountyType.IMPROVEMENT,
+        label: "Improvement",
+    },
+    {
+        value: BountyType.DESIGN,
+        label: "Design",
+    },
+    {
+        value: BountyType.DOCS,
+        label: "Docs",
+    },
+    {
+        value: BountyType.SUPPORT,
+        label: "Support",
+    },
+    {
+        value: BountyType.OTHER,
+        label: "Other",
+    },
+]
 
 type TMenuBar = {
     editor: Editor | null
@@ -199,6 +240,8 @@ interface TTipTap {
 type FormData = z.infer<typeof bountyPatchSchema>
 
 const Tiptap = ({ bounty }: TTipTap) => {
+    const [bountyType, setBountyType] = useState<BountyType>(BountyType.BUG)
+
     const editBounty = trpc.bounty.editBounty.useMutation()
 
     const router = useRouter()
@@ -245,6 +288,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                 title: data.title,
                 content: editor?.getJSON(),
                 html: editor?.getHTML(),
+                type: bountyType,
             })
 
             toast({
@@ -286,31 +330,21 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             discover your bounty
                         </small>
                         <div className="mt-4">
-                            <ToggleGroup defaultValue="bug" type="single">
-                                <ToggleGroup.Item value="bug">
-                                    Bug
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="project">
-                                    Project
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="feature">
-                                    Feature
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="improvement">
-                                    Improvement
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="design">
-                                    Design
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="docs">
-                                    Docs
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="support">
-                                    Support
-                                </ToggleGroup.Item>
-                                <ToggleGroup.Item value="other">
-                                    Other
-                                </ToggleGroup.Item>
+                            <ToggleGroup
+                                onValueChange={(e: BountyType) =>
+                                    setBountyType(e)
+                                }
+                                defaultValue={BountyType.BUG}
+                                type="single"
+                            >
+                                {TypeToggleItems.map((typeItem) => (
+                                    <ToggleGroup.Item
+                                        key={typeItem.label}
+                                        value={typeItem.value}
+                                    >
+                                        {typeItem.label}
+                                    </ToggleGroup.Item>
+                                ))}
                             </ToggleGroup>
                         </div>
                     </div>
