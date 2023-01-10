@@ -1,37 +1,32 @@
 "use client"
 
-import {
-    useEditor,
-    EditorContent,
-    BubbleMenu,
-    JSONContent,
-} from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
+import { trpc } from "@/client/trpcClient"
+import { cn } from "@/lib/utils"
+import { bountyPatchSchema } from "@/lib/validations/bounty"
+import { Button } from "@/ui/button"
+import { Input } from "@/ui/input"
+import { Label } from "@/ui/label"
+import { toast } from "@/ui/toast"
+import { ToggleGroup } from "@/ui/toggle-group"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Bounty } from "@prisma/client"
 import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
 import Placeholder from "@tiptap/extension-placeholder"
 import Text from "@tiptap/extension-text"
-import { Input } from "@/ui/input"
-import { useForm } from "react-hook-form"
-import { Bounty } from "@prisma/client"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { bountyPatchSchema } from "@/lib/validations/bounty"
-import { z } from "zod"
-import { Label } from "@/ui/label"
-import { Icons } from "../icons"
-import { cn } from "@/lib/utils"
-import { ComponentProps } from "react"
-import { Button } from "@/ui/button"
+import {
+    BubbleMenu,
+    Content,
+    Editor,
+    EditorContent,
+    useEditor,
+} from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { toast } from "@/ui/toast"
-import { Content } from "@tiptap/react"
-import { Prisma } from "@prisma/client"
-import { Editor } from "@tiptap/react"
-import { FormProvider } from "react-hook-form"
-import { ToggleGroup } from "@/ui/toggle-group"
-import { Select } from "@/ui/select"
-import { trpc } from "@/client/trpcClient"
+import { ComponentProps } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { z } from "zod"
+import { Icons } from "../icons"
 
 type ButtonProps = ComponentProps<"button">
 
