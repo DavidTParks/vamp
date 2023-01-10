@@ -27,6 +27,12 @@ export default function Head(): JSX.Element {
           border-radius: 8px;
           background-position-y: 50%;
         }
+        .logo {
+          object-fit: contain;
+        }
+        .logo > * {
+            filter: invert(0) !important;
+        }
         strong {
           font-weight: 700;
         }
