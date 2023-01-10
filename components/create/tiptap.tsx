@@ -10,10 +10,7 @@ import { toast } from "@/ui/toast"
 import { ToggleGroup } from "@/ui/toggle-group"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Bounty } from "@prisma/client"
-import Document from "@tiptap/extension-document"
-import Paragraph from "@tiptap/extension-paragraph"
 import Placeholder from "@tiptap/extension-placeholder"
-import Text from "@tiptap/extension-text"
 import {
     BubbleMenu,
     Content,
@@ -219,9 +216,6 @@ const Tiptap = ({ bounty }: TTipTap) => {
         content: bounty?.content ? (bounty.content as Content) : null,
         extensions: [
             StarterKit,
-            Document,
-            Paragraph,
-            Text,
             Placeholder.configure({
                 placeholder:
                     "Give bounty hunters more context to the issue you are trying to solve...",
