@@ -65,7 +65,7 @@ const editBounty = withBounty
         z.object({
             bountyId: z.string().cuid(),
             title: z.string().min(3).max(128).optional(),
-            bountyPrice: z.string().min(1),
+            bountyPrice: z.number().positive(),
             issueLink: z.string().optional(),
             content: z.any().optional(),
             html: z.any().optional(),
@@ -88,7 +88,7 @@ const editBounty = withBounty
         }
 
         const stripePrice = await stripe.prices.create({
-            unit_amount: parseFloat(bountyPrice) * 100,
+            unit_amount: bountyPrice * 100,
             currency: "usd",
             product: existingBounty.project.stripeProductId,
         })
@@ -102,7 +102,7 @@ const editBounty = withBounty
                 issueLink,
                 content,
                 html,
-                bountyPrice: parseFloat(bountyPrice),
+                bountyPrice,
                 published: true,
                 stripePriceId: stripePrice.id,
             },

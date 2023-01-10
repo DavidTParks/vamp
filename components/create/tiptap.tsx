@@ -216,7 +216,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
         defaultValues: {
             title: bounty?.title,
             githubIssueLink: bounty?.issueLink ?? "",
-            bountyPrice: bounty?.bountyPrice?.toString(),
+            bountyPrice: bounty?.bountyPrice ?? undefined,
         },
     })
 
@@ -250,8 +250,9 @@ const Tiptap = ({ bounty }: TTipTap) => {
 
         try {
             const editedBounty = await editBounty.mutateAsync({
+                issueLink: data.githubIssueLink,
                 bountyId: bounty.id,
-                bountyPrice: data.bountyPrice?.toString(),
+                bountyPrice: data.bountyPrice,
                 title: data.title,
                 content: editor?.getJSON(),
                 html: editor?.getHTML(),
@@ -336,6 +337,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                         <div className="grid gap-1">
                             <Input
+                                step="0.01"
                                 label="Bounty price *"
                                 id="bountyPrice"
                                 type="number"
