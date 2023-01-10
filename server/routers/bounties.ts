@@ -3,11 +3,10 @@
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
 import { db } from "@/lib/db"
-import { userNotificationsSchema } from "@/lib/validations/user"
-import { privateProcedure, router, withBounty, withProject } from "../trpc"
-import { z } from "zod"
 import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
+import { z } from "zod"
+import { router, withBounty, withProject } from "../trpc"
 
 /**
  * Default selector for Post.
@@ -110,6 +109,20 @@ const editBounty = withBounty
         })
     })
 
+const deleteBounty = withBounty
+    .input(
+        z.object({
+            bountyId: z.string().cuid(),
+        })
+    )
+    .mutation(async ({ input }) => {
+        return await db.bounty.delete({
+            where: {
+                id: input.bountyId,
+            },
+        })
+    })
+
 /**
  * Router for Bounties
  */
@@ -117,4 +130,5 @@ export const bountyRouter = router({
     // Private
     createBounty: createBounty,
     editBounty: editBounty,
+    deleteBounty: deleteBounty,
 })

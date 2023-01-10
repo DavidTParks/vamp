@@ -9,28 +9,7 @@ import { DropdownMenu } from "@/ui/dropdown"
 import { Icons } from "@/components/icons"
 import { Alert } from "@/ui/alert"
 import { toast } from "@/ui/toast"
-
-async function deleteBounty(bountyId: string) {
-    const response = await fetch(`/api/bounties/${bountyId}`, {
-        method: "DELETE",
-    })
-
-    if (!response?.ok) {
-        toast({
-            title: "Something went wrong.",
-            message: "Your bounty was not deleted. Please try again.",
-            type: "error",
-        })
-    }
-
-    toast({
-        title: "Bounty deleted",
-        message: "Your bounty has been deleted.",
-        type: "success",
-    })
-
-    return true
-}
+import { trpc } from "@/client/trpcClient"
 
 interface PostOperationsProps {
     bounty: Pick<Bounty, "id" | "title">
@@ -38,21 +17,24 @@ interface PostOperationsProps {
 }
 
 export function BountyOperations({ bounty, project }: PostOperationsProps) {
+    const deleteBounty = trpc.bounty.deleteBounty.useMutation()
+
     const router = useRouter()
     const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
-    const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
 
     return (
         <>
             <DropdownMenu>
                 <DropdownMenu.Trigger>
-                    <div className="h-8 w-8 rounded-full overflow-hidden border border-raised-border hover:brightness-200 p-1 inline-flex items-center justify-center transition-all duration-100 cursor-pointer focus:outline-none">
-                        <Icons.ellipsis
-                            size={16}
-                            className="text-brandtext-400"
-                        />
+                    <div>
+                        <div className="h-8 w-8 rounded-full overflow-hidden border border-raised-border hover:brightness-200 p-1 inline-flex items-center justify-center transition-all duration-100 cursor-pointer focus:outline-none">
+                            <Icons.ellipsis
+                                size={16}
+                                className="text-brandtext-400"
+                            />
+                        </div>
+                        <span className="sr-only">Open</span>
                     </div>
-                    <span className="sr-only">Open</span>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content className="mt-2 z-50 dropdown">
@@ -92,21 +74,26 @@ export function BountyOperations({ bounty, project }: PostOperationsProps) {
                         <Alert.Cancel>Cancel</Alert.Cancel>
                         <Alert.Action
                             className="disabled:opacity-50 disabled:pointer-events-none"
-                            disabled={isDeleteLoading}
+                            disabled={
+                                deleteBounty.isLoading || deleteBounty.isSuccess
+                            }
                             onClick={async (event) => {
                                 event.preventDefault()
-                                setIsDeleteLoading(true)
 
-                                const deleted = await deleteBounty(bounty.id)
+                                const deleted = await deleteBounty.mutateAsync({
+                                    bountyId: bounty.id,
+                                })
 
-                                if (deleted) {
-                                    setIsDeleteLoading(false)
-                                    setShowDeleteAlert(false)
-                                    router.refresh()
-                                }
+                                toast({
+                                    title: "Bounty deleted",
+                                    message: "Your bounty has been deleted.",
+                                    type: "success",
+                                })
+                                router.refresh()
+                                setShowDeleteAlert(false)
                             }}
                         >
-                            {isDeleteLoading ? (
+                            {deleteBounty.isLoading ? (
                                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                             ) : (
                                 <Icons.trash className="mr-2 h-4 w-4" />
