@@ -14,7 +14,7 @@ authOptionsWithEvents.events = {
             if (email && name) {
                 await Promise.all([
                     sendMarketingMail({
-                        subject: "✨ Welcome to Vamp",
+                        subject: "🦇 Welcome to Vamp",
                         to: email,
                         component: <WelcomeEmail />,
                     }),

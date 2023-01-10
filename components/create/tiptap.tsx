@@ -29,6 +29,9 @@ import { Content } from "@tiptap/react"
 import { Prisma } from "@prisma/client"
 import { Editor } from "@tiptap/react"
 import { FormProvider } from "react-hook-form"
+import { ToggleGroup } from "@/ui/toggle-group"
+import { Select } from "@/ui/select"
+import { trpc } from "@/client/trpcClient"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -204,6 +207,8 @@ interface TTipTap {
 type FormData = z.infer<typeof bountyPatchSchema>
 
 const Tiptap = ({ bounty }: TTipTap) => {
+    const editBounty = trpc.bounty.editBounty.useMutation()
+
     const router = useRouter()
 
     const methods = useForm<FormData>({
@@ -214,8 +219,6 @@ const Tiptap = ({ bounty }: TTipTap) => {
             bountyPrice: bounty?.bountyPrice?.toString(),
         },
     })
-
-    const [isSaving, setIsSaving] = useState<boolean>(false)
 
     const editor = useEditor({
         content: bounty?.content ? (bounty.content as Content) : null,
@@ -245,42 +248,30 @@ const Tiptap = ({ bounty }: TTipTap) => {
             })
         }
 
-        setIsSaving(true)
-
-        const response = await fetch(`/api/bounties/${bounty.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        try {
+            const editedBounty = await editBounty.mutateAsync({
+                bountyId: bounty.id,
                 bountyPrice: data.bountyPrice?.toString(),
                 title: data.title,
                 content: editor?.getJSON(),
                 html: editor?.getHTML(),
-                projectId: bounty,
-            }),
-        })
+            })
 
-        setIsSaving(false)
+            toast({
+                message: "Your bounty has been saved.",
+                type: "success",
+            })
 
-        if (!response?.ok) {
+            router.refresh()
+
+            router.push(`/bounty/${editedBounty.id}`)
+        } catch (e) {
             return toast({
                 title: "Something went wrong.",
                 message: "Your bounty was not saved. Please try again.",
                 type: "error",
             })
         }
-
-        toast({
-            message: "Your bounty has been saved.",
-            type: "success",
-        })
-
-        router.refresh()
-
-        const bountyResponse = await response.json()
-
-        router.push(`/bounty/${bountyResponse.id}`)
     }
 
     return (
@@ -298,6 +289,42 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             placeholder="Enter a title for your Bounty"
                         />
                     </div>
+                    <div className="mt-6 flex flex-col items-start">
+                        <Label>Type *</Label>
+                        <small className="text-brandtext-700">
+                            Selecting the right bounty type will help users
+                            discover your bounty
+                        </small>
+                        <div className="mt-4">
+                            <ToggleGroup defaultValue="bug" type="single">
+                                <ToggleGroup.Item value="bug">
+                                    Bug
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="project">
+                                    Project
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="feature">
+                                    Feature
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="improvement">
+                                    Improvement
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="design">
+                                    Design
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="docs">
+                                    Docs
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="support">
+                                    Support
+                                </ToggleGroup.Item>
+                                <ToggleGroup.Item value="other">
+                                    Other
+                                </ToggleGroup.Item>
+                            </ToggleGroup>
+                        </div>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 my-6">
                         <div className="grid gap-1">
                             <Input
@@ -388,8 +415,11 @@ const Tiptap = ({ bounty }: TTipTap) => {
                     </small>
                 </div>
                 <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
-                    <Button type="submit" disabled={isSaving}>
-                        {isSaving ? (
+                    <Button
+                        type="submit"
+                        disabled={editBounty.isLoading || editBounty.isSuccess}
+                    >
+                        {editBounty.isLoading ? (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         ) : (
                             <Icons.edit className="mr-2 h-4 w-4" />

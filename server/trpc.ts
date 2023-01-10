@@ -12,8 +12,9 @@ import { Context } from "./context"
 import { initTRPC, TRPCError } from "@trpc/server"
 import superjson from "superjson"
 import { ZodError } from "zod"
+import { db } from "@/lib/db"
 
-const t = initTRPC.context<Context>().create({
+export const t = initTRPC.context<Context>().create({
     /**
      * @see https://trpc.io/docs/v10/data-transformers
      */
@@ -68,6 +69,83 @@ export const privateProcedure = t.procedure.use((opts) => {
             message: "You have to be logged in to do this",
         })
     }
+    return opts.next({
+        ctx: {
+            req: opts.ctx.req,
+            res: opts.ctx.res,
+            user: opts.ctx.user,
+        },
+    })
+})
+
+/**
+ * User is an owner of this project
+ **/
+export const withProject = privateProcedure.use(async (opts) => {
+    if (!opts.ctx.user) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "You have to be logged in to do this",
+        })
+    }
+
+    const json = opts.ctx.req?.body["0"]?.json
+    const projectId = json?.projectId
+
+    const count = await db.project.count({
+        where: {
+            id: projectId,
+            users: {
+                some: {
+                    userId: opts.ctx?.user.id,
+                },
+            },
+        },
+    })
+
+    if (count < 1) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "You do not have access to this project",
+        })
+    }
+
+    return opts.next({
+        ctx: {
+            user: opts.ctx.user,
+        },
+    })
+})
+
+/**
+ * User is an owner of the project and therefore the bounty
+ **/
+export const withBounty = privateProcedure.use(async (opts) => {
+    const json = opts.ctx.req?.body["0"]?.json
+    const bountyId = json?.bountyId
+
+    const count = await db.bounty.count({
+        where: {
+            id: bountyId,
+            project: {
+                users: {
+                    some: {
+                        user: {
+                            id: opts.ctx.user.id,
+                        },
+                    },
+                },
+            },
+        },
+    })
+
+    if (count < 1) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "You do not have access to this bounty",
+        })
+    }
+
     return opts.next({
         ctx: {
             user: opts.ctx.user,

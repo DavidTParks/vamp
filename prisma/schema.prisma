@@ -164,12 +164,30 @@ model Bounty {
   submittedBy       User?              @relation(fields: [userId], references: [id], onUpdate: NoAction)
   userId            String?
   notifications     Notification[]
+  type              BountyType         @default(BUG)
 
   @@index([projectId])
   @@index([userId])
   @@fulltext([title])
   @@fulltext([title, description])
   @@fulltext([description])
+}
+
+enum BountyType {
+  BUG
+  PROJECT
+  FEATURE
+  IMPROVEMENT
+  DESIGN
+  DOCS
+  SUPPORT
+  OTHER
+}
+
+enum BountyExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
 }
 
 model BountySubmission {

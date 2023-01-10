@@ -6,6 +6,7 @@ import { unstable_getServerSession } from "next-auth"
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
  */
+
 export async function createContext(opts: CreateNextContextOptions) {
     const session = await unstable_getServerSession(
         opts.req,
@@ -14,6 +15,8 @@ export async function createContext(opts: CreateNextContextOptions) {
     )
 
     return {
+        req: opts.req,
+        res: opts.res,
         user: session?.user,
     }
 }
