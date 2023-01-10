@@ -60,7 +60,10 @@ export function Input({
                     )}
                     <input
                         id={id}
-                        {...register(id)}
+                        {...register(id, {
+                            valueAsNumber:
+                                props.type === "number" ? true : false,
+                        })}
                         className={cn(inputStyles({ intent }), className)}
                         {...props}
                     />

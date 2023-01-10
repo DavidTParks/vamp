@@ -10,6 +10,7 @@ import { Button } from "@/ui/button"
 import { TProject } from "./secondary-nav"
 import { GithubIssue } from "types"
 import { TButtonProps } from "@/ui/button"
+import { trpc } from "@/client/trpcClient"
 
 interface BountyCreateButtonProps extends TButtonProps {
     issue?: GithubIssue
@@ -25,47 +26,36 @@ export function BountyCreateButton({
     ...props
 }: BountyCreateButtonProps) {
     const router = useRouter()
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
+    const createBounty = trpc.bounty.createBounty.useMutation()
 
     async function onClick() {
-        setIsLoading(true)
-
-        const response = await fetch(`/api/bounties?projectId=${project.id}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        try {
+            const bounty = await createBounty.mutateAsync({
+                projectId: project.id,
                 title: issue?.title ?? "Untitled bounty",
                 content: undefined,
-                projectId: project.id,
                 issueLink: issue?.html_url ?? null,
                 issue,
-            }),
-        })
+            })
 
-        setIsLoading(false)
+            // This forces a cache invalidation.
+            router.refresh()
 
-        if (!response?.ok) {
+            toast({
+                title: "Bounty initialized",
+                message: "Redirecting...",
+                type: "success",
+            })
+
+            router.push(`/bounty/${bounty.id}/edit`)
+        } catch (e) {
             return toast({
                 title: "Something went wrong.",
                 message: "Your bounty was not created. Please try again.",
                 type: "error",
             })
         }
-
-        const bounty = await response.json()
-
-        // This forces a cache invalidation.
-        router.refresh()
-
-        toast({
-            title: "Bounty initialized",
-            message: "Redirecting...",
-            type: "success",
-        })
-
-        router.push(`/bounty/${bounty.id}/edit`)
     }
 
     return (
@@ -75,14 +65,15 @@ export function BountyCreateButton({
             onClick={onClick}
             className={cn(
                 {
-                    "cursor-not-allowed opacity-60": isLoading,
+                    "cursor-not-allowed opacity-60":
+                        createBounty.isLoading || createBounty.isSuccess,
                 },
                 className
             )}
-            disabled={isLoading}
+            disabled={createBounty.isLoading || createBounty.isSuccess}
             {...props}
         >
-            {isLoading ? (
+            {createBounty.isLoading ? (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
                 <Icons.add className="mr-2 h-4 w-4" />

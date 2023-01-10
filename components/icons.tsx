@@ -117,7 +117,7 @@ export const Icons = {
     pizza: Pizza,
     gitHub: FaGithub,
     twitter: Twitter,
-    check: CheckCircle,
+    check: Check,
     star: Star,
     activity: Activity,
     link: Link,

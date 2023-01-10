@@ -1,34 +1,30 @@
 "use client"
 
+import { trpc } from "@/client/trpcClient"
+import { cn } from "@/lib/utils"
+import { bountyPatchSchema } from "@/lib/validations/bounty"
+import { Button } from "@/ui/button"
+import { Input } from "@/ui/input"
+import { Label } from "@/ui/label"
+import { toast } from "@/ui/toast"
+import { ToggleGroup } from "@/ui/toggle-group"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Bounty, BountyType } from "@prisma/client"
+import Placeholder from "@tiptap/extension-placeholder"
 import {
-    useEditor,
-    EditorContent,
     BubbleMenu,
-    JSONContent,
+    Content,
+    Editor,
+    EditorContent,
+    useEditor,
 } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import Document from "@tiptap/extension-document"
-import Paragraph from "@tiptap/extension-paragraph"
-import Placeholder from "@tiptap/extension-placeholder"
-import Text from "@tiptap/extension-text"
-import { Input } from "@/ui/input"
-import { useForm } from "react-hook-form"
-import { Bounty } from "@prisma/client"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { bountyPatchSchema } from "@/lib/validations/bounty"
-import { z } from "zod"
-import { Label } from "@/ui/label"
-import { Icons } from "../icons"
-import { cn } from "@/lib/utils"
-import { ComponentProps } from "react"
-import { Button } from "@/ui/button"
 import { useRouter } from "next/navigation"
+import { ComponentProps } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { z } from "zod"
+import { Icons } from "../icons"
 import { useState } from "react"
-import { toast } from "@/ui/toast"
-import { Content } from "@tiptap/react"
-import { Prisma } from "@prisma/client"
-import { Editor } from "@tiptap/react"
-import { FormProvider } from "react-hook-form"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -48,6 +44,46 @@ const ToolbarButton = ({ children, isActive, ...props }: TToolbarButton) => {
         </button>
     )
 }
+
+type BountyTypeToggle = {
+    value: BountyType
+    label: string
+}
+
+const TypeToggleItems: BountyTypeToggle[] = [
+    {
+        value: BountyType.BUG,
+        label: "Bug",
+    },
+    {
+        value: BountyType.PROJECT,
+        label: "Project",
+    },
+    {
+        value: BountyType.FEATURE,
+        label: "Feature",
+    },
+    {
+        value: BountyType.IMPROVEMENT,
+        label: "Improvement",
+    },
+    {
+        value: BountyType.DESIGN,
+        label: "Design",
+    },
+    {
+        value: BountyType.DOCS,
+        label: "Docs",
+    },
+    {
+        value: BountyType.SUPPORT,
+        label: "Support",
+    },
+    {
+        value: BountyType.OTHER,
+        label: "Other",
+    },
+]
 
 type TMenuBar = {
     editor: Editor | null
@@ -204,6 +240,10 @@ interface TTipTap {
 type FormData = z.infer<typeof bountyPatchSchema>
 
 const Tiptap = ({ bounty }: TTipTap) => {
+    const [bountyType, setBountyType] = useState<BountyType>(BountyType.BUG)
+
+    const editBounty = trpc.bounty.editBounty.useMutation()
+
     const router = useRouter()
 
     const methods = useForm<FormData>({
@@ -211,19 +251,14 @@ const Tiptap = ({ bounty }: TTipTap) => {
         defaultValues: {
             title: bounty?.title,
             githubIssueLink: bounty?.issueLink ?? "",
-            bountyPrice: bounty?.bountyPrice?.toString(),
+            bountyPrice: bounty?.bountyPrice ?? undefined,
         },
     })
-
-    const [isSaving, setIsSaving] = useState<boolean>(false)
 
     const editor = useEditor({
         content: bounty?.content ? (bounty.content as Content) : null,
         extensions: [
             StarterKit,
-            Document,
-            Paragraph,
-            Text,
             Placeholder.configure({
                 placeholder:
                     "Give bounty hunters more context to the issue you are trying to solve...",
@@ -245,42 +280,32 @@ const Tiptap = ({ bounty }: TTipTap) => {
             })
         }
 
-        setIsSaving(true)
-
-        const response = await fetch(`/api/bounties/${bounty.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                bountyPrice: data.bountyPrice?.toString(),
+        try {
+            const editedBounty = await editBounty.mutateAsync({
+                issueLink: data.githubIssueLink,
+                bountyId: bounty.id,
+                bountyPrice: data.bountyPrice,
                 title: data.title,
                 content: editor?.getJSON(),
                 html: editor?.getHTML(),
-                projectId: bounty,
-            }),
-        })
+                type: bountyType,
+            })
 
-        setIsSaving(false)
+            toast({
+                message: "Your bounty has been saved.",
+                type: "success",
+            })
 
-        if (!response?.ok) {
+            router.refresh()
+
+            router.push(`/bounty/${editedBounty.id}`)
+        } catch (e) {
             return toast({
                 title: "Something went wrong.",
                 message: "Your bounty was not saved. Please try again.",
                 type: "error",
             })
         }
-
-        toast({
-            message: "Your bounty has been saved.",
-            type: "success",
-        })
-
-        router.refresh()
-
-        const bountyResponse = await response.json()
-
-        router.push(`/bounty/${bountyResponse.id}`)
     }
 
     return (
@@ -298,6 +323,32 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             placeholder="Enter a title for your Bounty"
                         />
                     </div>
+                    <div className="mt-6 flex flex-col items-start">
+                        <Label>Type *</Label>
+                        <small className="text-brandtext-700">
+                            Selecting the right bounty type will help users
+                            discover your bounty
+                        </small>
+                        <div className="mt-4">
+                            <ToggleGroup
+                                onValueChange={(e: BountyType) =>
+                                    setBountyType(e)
+                                }
+                                defaultValue={BountyType.BUG}
+                                type="single"
+                            >
+                                {TypeToggleItems.map((typeItem) => (
+                                    <ToggleGroup.Item
+                                        key={typeItem.label}
+                                        value={typeItem.value}
+                                    >
+                                        {typeItem.label}
+                                    </ToggleGroup.Item>
+                                ))}
+                            </ToggleGroup>
+                        </div>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 my-6">
                         <div className="grid gap-1">
                             <Input
@@ -309,6 +360,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                         <div className="grid gap-1">
                             <Input
+                                step="0.01"
                                 label="Bounty price *"
                                 id="bountyPrice"
                                 type="number"
@@ -388,8 +440,11 @@ const Tiptap = ({ bounty }: TTipTap) => {
                     </small>
                 </div>
                 <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
-                    <Button type="submit" disabled={isSaving}>
-                        {isSaving ? (
+                    <Button
+                        type="submit"
+                        disabled={editBounty.isLoading || editBounty.isSuccess}
+                    >
+                        {editBounty.isLoading ? (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         ) : (
                             <Icons.edit className="mr-2 h-4 w-4" />
