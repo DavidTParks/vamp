@@ -12,6 +12,8 @@ const nextConfig = {
             "contrib.rocks",
             "localhost",
             "vamp.sh",
+            "vamp-git-submission-email-notification-davidtparks.vercel.app",
+            "vamp-git-main-davidtparks.vercel.app",
         ],
     },
 }

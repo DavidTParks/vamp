@@ -38,6 +38,9 @@ export const notificationRouter = router({
                             },
                         },
                     },
+                    bounty: {
+                        deleted: false,
+                    },
                 },
                 include: {
                     bounty: {

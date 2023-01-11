@@ -2,6 +2,8 @@ import { ImageResponse } from "@vercel/og"
 import { NextRequest } from "next/server"
 import ColorHash from "color-hash"
 
+// Inspired by https://deslucrece.com/ amazing artwork! Give his stuff a look.
+
 export const config = {
     runtime: "edge",
     externalResolver: true,
