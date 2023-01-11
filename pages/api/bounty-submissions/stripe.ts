@@ -47,7 +47,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 transfer_data: {
                     destination: body.bountySubmissionUserStripeId,
                 },
-                application_fee_amount: platformFee(price.unit_amount),
+                application_fee_amount: parseInt(
+                    platformFee(price.unit_amount).toString()
+                ),
                 metadata: {
                     bountyId: body.bountyId,
                     submissionId: body.submissionId,
