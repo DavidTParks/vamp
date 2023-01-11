@@ -22,7 +22,7 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
                 height={32}
                 width={32}
                 alt={`${user.name} avatar`}
-                src={`https://vamp-git-main-davidtparks.vercel.app/api/avatar?seed=${user.id}`}
+                src={`https://vamp.sh/api/avatar?seed=${user.id}`}
             />
         </Avatar>
     )
