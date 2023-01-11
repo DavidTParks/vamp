@@ -111,11 +111,16 @@ const createBountySubmission = privateProcedure
             })
 
             const projectUserEmails = submission.bounty.project.users.map(
-                (user) => user.user.email
+                (user) => {
+                    return {
+                        email: user.user.email,
+                        id: user.user.id,
+                    }
+                }
             )
 
             if (projectUserEmails) {
-                const emailPromiseArray = projectUserEmails.map((userEmail) => {
+                const emailPromiseArray = projectUserEmails.map((user) => {
                     return fetch(
                         `${getBaseUrl()}/api/send-mail/new-submission`,
                         {
@@ -127,7 +132,10 @@ const createBountySubmission = privateProcedure
                                 apiKey: process.env.PROTECTED_API_ROUTE_KEY,
                                 bountyId: bountyId,
                                 bountyTitle: submission.bounty.title,
-                                userEmail,
+                                user: {
+                                    id: user.id,
+                                    email: user.email,
+                                },
                                 projectName: submission.bounty.project.name,
                             }),
                         }

@@ -3,20 +3,24 @@ import * as z from "zod"
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { sendMarketingMail } from "@/emails/index"
 import SubmissionReceived from "@/emails/SubmissionReceived"
+import { db } from "@/lib/db"
 
 export const newSubmissionEmailSchema = z.object({
     apiKey: z.string(),
     bountyId: z.string().cuid(),
     bountyTitle: z.string(),
     projectName: z.string(),
-    userEmail: z.string().email(),
+    user: z.object({
+        email: z.string().email(),
+        id: z.string().cuid(),
+    }),
 })
 
 const PROTECTED_API_ROUTE_KEY = process.env.PROTECTED_API_ROUTE_KEY as string
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "POST") {
-        const { apiKey, bountyId, bountyTitle, projectName, userEmail } =
+        const { apiKey, bountyId, bountyTitle, projectName, user } =
             newSubmissionEmailSchema.parse(req.body)
 
         if (apiKey !== PROTECTED_API_ROUTE_KEY) {
@@ -24,18 +28,33 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         }
 
         try {
-            await sendMarketingMail({
-                subject: "🦇 You've got a new Bounty submission",
-                to: userEmail,
-                component: (
-                    <SubmissionReceived
-                        bountyTitle={bountyTitle}
-                        bountyId={bountyId}
-                        projectName={projectName}
-                    />
-                ),
+            const dbUser = await db.user.findUnique({
+                where: {
+                    id: user.id,
+                },
+                select: {
+                    notificationNewSubmission: true,
+                },
             })
-            return res.status(200).json({ message: "Email sent" })
+            if (dbUser?.notificationNewSubmission) {
+                await sendMarketingMail({
+                    subject: "🦇 You've got a new Bounty submission",
+                    to: user.email,
+                    component: (
+                        <SubmissionReceived
+                            bountyTitle={bountyTitle}
+                            bountyId={bountyId}
+                            projectName={projectName}
+                        />
+                    ),
+                })
+                return res.status(200).json({ message: "Email sent" })
+            } else {
+                res.status(200).json({
+                    message:
+                        "User has opted not to receive new submission emails",
+                })
+            }
         } catch (error) {
             console.log("Error?", error)
             if (error instanceof z.ZodError) {

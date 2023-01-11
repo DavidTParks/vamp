@@ -66,7 +66,7 @@ const editBounty = withBounty
         z.object({
             bountyId: z.string().cuid(),
             title: z.string().min(3).max(128).optional(),
-            bountyPrice: z.number().positive(),
+            bountyPrice: z.number().min(1).positive(),
             issueLink: z.string().optional(),
             content: z.any().optional(),
             html: z.any().optional(),
