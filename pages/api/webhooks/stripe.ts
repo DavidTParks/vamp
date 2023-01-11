@@ -61,37 +61,38 @@ export default async function handler(
             }
         )
 
-        // Resolve bounty
-        await db.bounty.update({
-            where: {
-                id: sessionWithLineItems.metadata.bountyId,
-            },
-            data: {
-                resolved: true,
-            },
-        })
-
-        // Mark bounty as accepted
-        await db.bountySubmission.update({
-            where: {
-                id: sessionWithLineItems.metadata.submissionId,
-            },
-            data: {
-                accepted: true,
-            },
-        })
-
-        // Increment accepted submission users blood score
-        await db.user.update({
-            where: {
-                id: sessionWithLineItems.metadata.bountySubmissionUserId,
-            },
-            data: {
-                blood: {
-                    increment: 1,
+        await db.$transaction([
+            // Resolve bounty and accept submission
+            db.bounty.update({
+                where: {
+                    id: sessionWithLineItems.metadata.bountyId,
                 },
-            },
-        })
+                data: {
+                    resolved: true,
+                    bountySubmissions: {
+                        update: {
+                            where: {
+                                id: sessionWithLineItems.metadata.submissionId,
+                            },
+                            data: {
+                                accepted: true,
+                            },
+                        },
+                    },
+                },
+            }),
+            // Increment users blood score for leaderboard tracking
+            db.user.update({
+                where: {
+                    id: sessionWithLineItems.metadata.bountySubmissionUserId,
+                },
+                data: {
+                    blood: {
+                        increment: 1,
+                    },
+                },
+            }),
+        ])
     }
 
     return res.json({})
