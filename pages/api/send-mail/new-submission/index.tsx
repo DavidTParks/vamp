@@ -15,7 +15,6 @@ export const newSubmissionEmailSchema = z.object({
 const PROTECTED_API_ROUTE_KEY = process.env.PROTECTED_API_ROUTE_KEY as string
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    console.log("Hitting this endpoint")
     if (req.method === "POST") {
         const { apiKey, bountyId, bountyTitle, projectName, userEmail } =
             newSubmissionEmailSchema.parse(req.body)
@@ -23,8 +22,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         if (apiKey !== PROTECTED_API_ROUTE_KEY) {
             return res.status(401).json({ message: "API key not provided" })
         }
-
-        console.log("Past it")
 
         try {
             await sendMarketingMail({
