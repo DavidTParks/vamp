@@ -4,9 +4,6 @@ import { getBountyById } from "@/lib/bounties"
 import { getRepo } from "@/lib/github"
 import { Chip } from "@/ui/chip"
 import { ExternalLink } from "@/ui/external-link"
-import Document from "@tiptap/extension-document"
-import Paragraph from "@tiptap/extension-paragraph"
-import Text from "@tiptap/extension-text"
 import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
@@ -57,10 +54,6 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                 dangerouslySetInnerHTML={{
                     __html: generateHTML(bounty.content as JSONContent, [
                         StarterKit,
-                        Document,
-                        Paragraph,
-                        Text,
-                        // other extensions …
                     ]),
                 }}
             ></div>

@@ -7,7 +7,7 @@ import { BountySubmission, User } from "@prisma/client"
 import Image from "next/image"
 import { BountyPayoutButton } from "./bounty-payout-button"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
-
+import { getBountyById } from "@/lib/bounties"
 interface MainNavProps {
     bountyId: string
     resolved: boolean
@@ -23,6 +23,7 @@ export async function BountySubmissionList({
     bountyStripePriceId,
     bountyId,
 }: MainNavProps) {
+    const bounty = await getBountyById(bountyId)
     const isOwner = await isBountyOwner(bountyId)
 
     return (
@@ -59,7 +60,9 @@ export async function BountySubmissionList({
                                     </span>
                                 </div>
                             </div>
-                            {!submission.accepted && <Chip>Pending</Chip>}
+                            {!submission.accepted && !bounty?.resolved && (
+                                <Chip>Pending</Chip>
+                            )}
                             {submission.accepted && (
                                 <Chip intent="green">Accepted</Chip>
                             )}

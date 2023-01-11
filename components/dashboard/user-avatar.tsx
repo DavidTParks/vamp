@@ -18,11 +18,11 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
 
     return (
         <Avatar {...props}>
-            <img
+            <Image
                 height={32}
                 width={32}
                 alt={`${user.name} avatar`}
-                src={`/api/avatar?seed=${user.id}`}
+                src={`https://vamp-git-main-davidtparks.vercel.app/api/avatar?seed=${user.id}`}
             />
         </Avatar>
     )
