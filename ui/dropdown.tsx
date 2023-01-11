@@ -15,7 +15,13 @@ DropdownMenu.Trigger = React.forwardRef<
     HTMLButtonElement,
     DropdownMenuPrimitive.DropdownMenuTriggerProps
 >(function DropdownMenuTrigger({ ...props }, ref) {
-    return <DropdownMenuPrimitive.Trigger {...props} ref={ref} />
+    return (
+        <DropdownMenuPrimitive.Trigger
+            className="focus:outline-none border border-transparent focus:ring-0 text-white focus:border-rose-500 focus:border rounded-md overflow-hidden"
+            {...props}
+            ref={ref}
+        />
+    )
 })
 
 DropdownMenu.Portal = DropdownMenuPrimitive.Portal
