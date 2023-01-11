@@ -19,7 +19,6 @@ export type returnUrlQueryParams =
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
-        console.log("We're getting inside")
         try {
             const session = await unstable_getServerSession(
                 req,

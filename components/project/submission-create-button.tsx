@@ -115,10 +115,7 @@ export function SubmissionCreateButton({
                         </div>
                         <div className="mt-8 flex gap-4">
                             <Button
-                                disabled={
-                                    createBountySubmission.isLoading ||
-                                    createBountySubmission.isSuccess
-                                }
+                                disabled={createBountySubmission.isLoading}
                                 fullWidth={true}
                                 intent="primary"
                                 type="submit"

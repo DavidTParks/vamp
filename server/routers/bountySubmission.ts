@@ -9,6 +9,9 @@ import { BountyType } from "@prisma/client"
 import { z } from "zod"
 import { router, withBounty, withProject, privateProcedure } from "../trpc"
 import { NOTIFICATIONTYPE } from "@prisma/client"
+import { sendMarketingMail } from "@/emails/index"
+import SubmissionReceived from "@/emails/SubmissionReceived"
+import { getBaseUrl } from "@/lib/utils"
 
 /**
  * Default selector for Post.
@@ -106,6 +109,33 @@ const createBountySubmission = privateProcedure
                     },
                 },
             })
+
+            const projectUserEmails = submission.bounty.project.users.map(
+                (user) => user.user.email
+            )
+
+            if (projectUserEmails) {
+                const emailPromiseArray = projectUserEmails.map((userEmail) => {
+                    return fetch(
+                        `${getBaseUrl()}/api/send-mail/new-submission`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                apiKey: process.env.PROTECTED_API_ROUTE_KEY,
+                                bountyId: bountyId,
+                                bountyTitle: submission.bounty.title,
+                                userEmail,
+                                projectName: submission.bounty.project.name,
+                            }),
+                        }
+                    )
+                })
+
+                await Promise.all(emailPromiseArray)
+            }
 
             return submission
         })
