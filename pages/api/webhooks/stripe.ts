@@ -1,9 +1,7 @@
-//@ts-nocheck
-
 import { NextApiRequest, NextApiResponse } from "next"
 import Stripe from "stripe"
 import rawBody from "raw-body"
-
+import { getBaseUrl } from "@/lib/utils"
 import { stripe } from "@/lib/stripe"
 import { db } from "@/lib/db"
 
@@ -26,11 +24,12 @@ export default async function handler(
     try {
         event = stripe.webhooks.constructEvent(
             body,
+            // @ts-ignore
             signature,
             process.env.STRIPE_WEBHOOK_SECRET
         )
     } catch (error) {
-        return res.status(400).send(`Webhook Error: ${error.message}`)
+        return res.status(400).send(`Webhook Error: ${error}`)
     }
 
     if (event.type === "account.updated") {
@@ -43,7 +42,7 @@ export default async function handler(
         // the subscription id and customer id.
         await db.user.update({
             where: {
-                id: session.metadata.userId,
+                id: session?.metadata?.userId,
             },
             data: {
                 stripeCustomerId: account.id as string,
@@ -61,18 +60,19 @@ export default async function handler(
             }
         )
 
-        await db.$transaction([
+        const [bounty, user] = await db.$transaction([
             // Resolve bounty and accept submission
             db.bounty.update({
                 where: {
-                    id: sessionWithLineItems.metadata.bountyId,
+                    id: sessionWithLineItems?.metadata?.bountyId,
                 },
                 data: {
                     resolved: true,
                     bountySubmissions: {
                         update: {
                             where: {
-                                id: sessionWithLineItems.metadata.submissionId,
+                                id: sessionWithLineItems?.metadata
+                                    ?.submissionId,
                             },
                             data: {
                                 accepted: true,
@@ -80,19 +80,46 @@ export default async function handler(
                         },
                     },
                 },
+                select: {
+                    id: true,
+                    title: true,
+                },
             }),
             // Increment users blood score for leaderboard tracking
             db.user.update({
                 where: {
-                    id: sessionWithLineItems.metadata.bountySubmissionUserId,
+                    id: sessionWithLineItems?.metadata?.bountySubmissionUserId,
                 },
                 data: {
                     blood: {
                         increment: 1,
                     },
                 },
+                select: {
+                    notificationSubmissionAccepted: true,
+                    id: true,
+                    email: true,
+                },
             }),
         ])
+
+        if (user.notificationSubmissionAccepted) {
+            await fetch(`${getBaseUrl()}/api/send-mail/submission-accepted`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    apiKey: process.env.PROTECTED_API_ROUTE_KEY,
+                    bountyId: bounty.id,
+                    bountyTitle: bounty.title,
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                    },
+                }),
+            })
+        }
     }
 
     return res.json({})
