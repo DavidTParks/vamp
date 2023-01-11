@@ -5,12 +5,13 @@ import { AvatarProps } from "@radix-ui/react-avatar"
 import { TUser } from "./user-account-nav"
 import Image from "next/image"
 import { ImageLoaderProps } from "next/image"
+import { getBaseUrl } from "@/lib/utils"
 interface UserAvatarProps extends AvatarProps {
     user: TUser
 }
 
 const imageLoader = ({ src }: ImageLoaderProps) => {
-    return `https://vamp.sh/api/avatar?seed=${src}cachebuster`
+    return `${getBaseUrl()}/api/avatar/${src}`
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {
