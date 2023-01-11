@@ -1,12 +1,13 @@
 import { db } from "@/lib/db"
 import { getBaseUrl } from "@/lib/utils"
+import { notFound } from "next/navigation"
 
 interface IBountyHeadProps {
     params: { bountyId: string }
 }
 
 export default async function Head({ params }: IBountyHeadProps) {
-    const bounty = await db.bounty.findUniqueOrThrow({
+    const bounty = await db.bounty.findUnique({
         where: {
             id: params.bountyId,
         },
@@ -14,6 +15,10 @@ export default async function Head({ params }: IBountyHeadProps) {
             project: true,
         },
     })
+
+    if (!bounty) {
+        return notFound()
+    }
 
     const url = process.env.NEXT_PUBLIC_APP_URL
 

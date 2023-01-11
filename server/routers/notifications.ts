@@ -5,7 +5,6 @@
 import { db } from "@/lib/db"
 import { z } from "zod"
 import { privateProcedure, publicProcedure, router } from "../trpc"
-import { initTRPC, TRPCError } from "@trpc/server"
 
 /**
  * Default selector for Post.
