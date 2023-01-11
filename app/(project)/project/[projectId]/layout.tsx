@@ -22,7 +22,7 @@ export default async function ProjectLayout({
         return notFound()
     }
 
-    const project = await getProject(params.projectId)
+    const [project] = await Promise.all([getProject(params.projectId)])
 
     if (!project || !project?.githubRepo?.githubRepoId) {
         return notFound()

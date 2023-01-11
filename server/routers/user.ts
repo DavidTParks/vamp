@@ -27,4 +27,17 @@ export const userRouter = router({
                 },
             })
         }),
+    getUserProjects: privateProcedure.query(async ({ ctx }) => {
+        return db.project.findMany({
+            where: {
+                users: {
+                    some: {
+                        user: {
+                            id: ctx.user.id,
+                        },
+                    },
+                },
+            },
+        })
+    }),
 })
