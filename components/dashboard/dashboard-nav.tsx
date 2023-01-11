@@ -2,7 +2,6 @@ import Link from "next/link"
 
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { Icons } from "@/components/icons"
-import { TUser } from "./user-account-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
 
@@ -37,16 +36,14 @@ export async function DashboardNav() {
                 >
                     <path d="M16.88 3.549L7.12 20.451"></path>
                 </svg>
-                <div className="hidden md:flex items-center gap-4 w-32 md:w-56">
-                    <div className="w-8 h-8">
-                        <UserAvatar
-                            user={{
-                                id: user.id,
-                                name: user.name,
-                                image: user.image,
-                            }}
-                        />
-                    </div>
+                <div className="hidden md:flex items-center gap-2 w-32 md:w-56">
+                    <UserAvatar
+                        user={{
+                            id: user.id,
+                            name: user.name,
+                            image: user.image,
+                        }}
+                    />
                     <span className="text-sm text-brandtext-500 truncate">
                         {" "}
                         {user.email}
