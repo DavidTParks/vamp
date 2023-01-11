@@ -40,9 +40,9 @@ export default function DashboardLoading() {
                             <div className="w-full lg:w-4/12 lg:min-w-[321px]">
                                 <div className="border border-raised-border rounded-lg col-span-4">
                                     <div className="p-4 border-b border-raised-border">
-                                        <p className="text-brandtext-500 font-bold text-lg">
+                                        <div className="text-brandtext-500 font-bold text-lg">
                                             <Skeleton className="h-6" />
-                                        </p>
+                                        </div>
                                     </div>
                                     <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col overflow-hidden">
                                         <Skeleton className="w-full" />

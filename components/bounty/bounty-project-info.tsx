@@ -32,7 +32,7 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
                         {bounty.project.bounties.length} Bounties
                     </span>
                 </div>
-                <Link href={`/profile/${bounty.project.id}`}>
+                <Link href={`/p/${bounty.project.id}`}>
                     <Button
                         size="small"
                         className="mt-4"
