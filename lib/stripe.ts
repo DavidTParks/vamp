@@ -19,7 +19,7 @@ export type TStripeDetails = Promise<Pick<User, "stripeCustomerId">>
 
 export const getStripeDetails = cache(
     async (userId: User["id"]): Promise<TStripeDetails> => {
-        const user = await db.user.findFirstOrThrow({
+        return await db.user.findFirstOrThrow({
             where: {
                 id: userId,
             },
@@ -27,10 +27,6 @@ export const getStripeDetails = cache(
                 stripeCustomerId: true,
             },
         })
-
-        return {
-            ...user,
-        }
     }
 )
 

@@ -39,8 +39,8 @@ export function NotificationsForm({
     const methods = useForm<FormData>({
         resolver: zodResolver(userNotificationsSchema),
         defaultValues: {
-            submissionAccepted: newSubmission,
-            newSubmission: submissionAccepted,
+            submissionAccepted,
+            newSubmission,
         },
     })
 

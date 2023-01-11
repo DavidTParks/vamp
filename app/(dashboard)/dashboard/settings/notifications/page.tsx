@@ -1,15 +1,8 @@
-import { BillingForm } from "@/components/dashboard/settings/billing/billing-form"
-import Stats from "@/components/dashboard/settings/billing/stats"
-import { DashboardShell } from "@/components/dashboard/shell"
-import { getCurrentUser } from "@/lib/session"
-import {
-    getStripeBalance,
-    getStripeDetails,
-    getStripePayouts,
-} from "@/lib/stripe"
-import { notFound } from "next/navigation"
 import { NotificationsForm } from "@/components/dashboard/settings/notifications/notifications-form"
+import { DashboardShell } from "@/components/dashboard/shell"
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
+import { notFound } from "next/navigation"
 
 export default async function NotificationsPage() {
     const user = await getCurrentUser()
