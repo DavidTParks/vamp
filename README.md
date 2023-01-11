@@ -49,6 +49,7 @@ This project would not have been possible without the amazing work from:
 -   [Shadcdn](https://twitter.com/shadcn) for his Next 13 app dir project [Taxonomy](https://github.com/shadcn/taxonomy), which much of Vamp's code is based on.
 -   [Steven Tey](https://twitter.com/steventey) for his work on [Dub](https://www.dub.sh) which provided a fantastic blueprint for Vamp's layout, as well as licenses and even this readme!
 -   [Alex](https://twitter.com/alexdotjs) who provided instrumental feedback in Vamp's early stages, code help, and for his work on tRPC for making this project a breeze to work with.
+-   [Des Lucrece](https://deslucrece.com/) I love Des' artwork, specifically his [BitMON](https://objkt.com/profile/8bit.lucrece/created) collection which provided a way for me to remix his base artwork into the vampire avatars for Vamp. If you love his work go check it out. Buying a piece gives you the full rights to the artwork to do as you please with it.
 
 ## Contributing
 
