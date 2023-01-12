@@ -55,7 +55,7 @@ export default async function ProjectPage({
                                 />
                                 <div className="overflow-hidden rounded-full px-3 py-1 hidden items-center justify-center sm:flex m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
                                     <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
-                                        {user.blood}
+                                        x{user.blood}
                                     </span>
                                     <Image
                                         alt="potion"
@@ -66,6 +66,9 @@ export default async function ProjectPage({
                                 </div>
                             </div>
                             <div className="flex flex-col">
+                                <span className="text-brandtext-700  tracking-tight text-md font-bold">
+                                    Level 5
+                                </span>
                                 <h1 className="mt-1 text-lg font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
                                     {user.name}{" "}
                                 </h1>
@@ -73,11 +76,19 @@ export default async function ProjectPage({
                         </div>
 
                         <div className="mt-2 flex flex-col items-start gap-2">
-                            <div className="w-full my-2 h-8 bg-raised rounded-md overflow-hidden relative border border-raised-border">
-                                <span className="absolute inset-0 flex items-center justify-center">
-                                    Level {getUserLevel(user.blood)}
+                            <div className="w-full mt-0 mb-2 h-8  rounded-md overflow-hidden relative border border-zinc-700/50 ">
+                                <div className="grid grid-cols-5 absolute inset-0 w-full">
+                                    <div className="h-8 w-px  bg-raised-border opacity-0" />
+                                    <div className="h-8 w-px bg-raised-border" />
+                                    <div className="h-8 w-px bg-raised-border" />
+                                    <div className="h-8 w-px bg-raised-border" />
+                                    <div className="h-8 w-px bg-raised-border" />
+                                    <div className="h-8 w-px bg-raised-border" />
+                                    <div className="h-8 w-[20%] absolute inset-0 bg-gradient-to-r from-red-500/10 via-red-500/75 to-red-500/90"></div>
+                                </div>
+                                <span className="absolute inset-0 flex items-center justify-center font-medium test-sm tracking-tight">
+                                    50%
                                 </span>
-                                <div className="absolute h-8 left-0 w-2"></div>
                             </div>
                             <ExternalLink href={githubUser.html_url}>
                                 <p className="text-sm font-medium text-brandtext-700 flex items-center gap-2 w-full">
@@ -110,7 +121,7 @@ export default async function ProjectPage({
                                     Achievements
                                 </p>
                                 <div className="grid grid-cols-4 mt-4 w-full place-items-center gap-4">
-                                    <div className="overflow-hidden rounded-full p-2 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
+                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
                                         <Image
                                             alt="potion"
                                             height={32}
@@ -118,7 +129,7 @@ export default async function ProjectPage({
                                             src="/achievements/key.png"
                                         />
                                     </div>
-                                    <div className="overflow-hidden rounded-full p-2 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
+                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
                                         <Image
                                             alt="potion"
                                             height={32}
@@ -126,7 +137,7 @@ export default async function ProjectPage({
                                             src="/achievements/gold.png"
                                         />
                                     </div>
-                                    <div className="overflow-hidden rounded-full p-2 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
+                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
                                         <Image
                                             alt="potion"
                                             height={32}
@@ -134,7 +145,7 @@ export default async function ProjectPage({
                                             src="/achievements/potion.png"
                                         />
                                     </div>
-                                    <div className="overflow-hidden rounded-full p-2 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
+                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
                                         <Image
                                             alt="potion"
                                             height={32}
