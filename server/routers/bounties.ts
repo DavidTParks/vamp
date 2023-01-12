@@ -37,7 +37,7 @@ const createBounty = withProject
             console.log(e)
         }
 
-        return await db.bounty.create({
+        const bounty = await db.bounty.create({
             data: {
                 title: title,
                 content: issueContent ?? undefined,
@@ -59,6 +59,8 @@ const createBounty = withProject
                 id: true,
             },
         })
+        ctx.log.info("User created bounty", bounty)
+        return bounty
     })
 
 const editBounty = withBounty
@@ -119,12 +121,15 @@ const deleteBounty = withBounty
             bountyId: z.string().cuid(),
         })
     )
-    .mutation(async ({ input }) => {
-        return await db.bounty.delete({
+    .mutation(async ({ ctx, input }) => {
+        const deleted = await db.bounty.delete({
             where: {
                 id: input.bountyId,
             },
         })
+
+        ctx.log.info("User deleted bounty", deleted)
+        return deleted
     })
 
 /**
