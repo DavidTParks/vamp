@@ -3,7 +3,7 @@ import { dateToNow } from "@/lib/utils"
 import GithubRepoSelect from "./github-repo-select"
 
 interface TGithbOrgRepoList {
-    orgId: string
+    orgId: number
 }
 export default async function GithubOrgRepoList({ orgId }: TGithbOrgRepoList) {
     const orgRepos = await getOrgRepos(orgId)

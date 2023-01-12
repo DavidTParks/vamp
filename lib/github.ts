@@ -41,6 +41,9 @@ export const getUserGithubOrgs = cache(async () => {
     return data.data
 })
 
+type TGetUserOrgsReturnType = Await<ReturnType<typeof getUserGithubOrgs>>
+export type TGetUserOrgElement = ArrayElement<TGetUserOrgsReturnType>
+
 export const preloadOrgRepos = (orgId: number) => {
     void getOrgRepos(orgId)
 }
@@ -55,8 +58,8 @@ export const getOrgRepos = cache(async (orgId: number) => {
     return data?.data
 })
 
-type TGetOrgsReturnType = Await<ReturnType<typeof getOrgRepos>>
-export type TGetOrgElement = ArrayElement<TGetOrgsReturnType>
+type TGetOrgReposReturnType = Await<ReturnType<typeof getOrgRepos>>
+export type TGetOrgRepoElement = ArrayElement<TGetOrgReposReturnType>
 
 export const preloadRepos = () => {
     void getRepos()
