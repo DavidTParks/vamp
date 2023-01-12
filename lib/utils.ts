@@ -115,5 +115,5 @@ export function getBaseUrl() {
 }
 
 export function getUserLevel(blood: number) {
-    return Math.floor(blood / 2)
+    return Math.floor(blood / 5)
 }

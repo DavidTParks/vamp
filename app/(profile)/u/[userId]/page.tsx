@@ -13,6 +13,8 @@ import { getGithubUserById } from "@/lib/github"
 import { Separator } from "@/ui/separator"
 import { Button } from "@/ui/button"
 import { getUserLevel } from "@/lib/utils"
+import { UserProjectList } from "@/components/profile/u/profile-project-list"
+import { Suspense } from "react"
 
 interface ProfilePageProps {
     params: { userId: string }
@@ -67,7 +69,7 @@ export default async function ProjectPage({
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-brandtext-700  tracking-tight text-md font-bold">
-                                    Level 5
+                                    Level {getUserLevel(user.blood)}
                                 </span>
                                 <h1 className="mt-1 text-lg font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
                                     {user.name}{" "}
@@ -120,7 +122,10 @@ export default async function ProjectPage({
                                 <p className="font-bold tracking-tight">
                                     Achievements
                                 </p>
-                                <div className="grid grid-cols-4 mt-4 w-full place-items-center gap-4">
+                                <p className="text-brandtext-700">
+                                    You don't have any achievements yet!{" "}
+                                </p>
+                                {/* <div className="grid grid-cols-4 mt-4 w-full place-items-center gap-4">
                                     <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
                                         <Image
                                             alt="potion"
@@ -153,12 +158,22 @@ export default async function ProjectPage({
                                             src="/achievements/silver.png"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
-                    <div className="w-full col-span-4 lg:col-span-3">
-                        Other stuff
+                    <div className="w-full col-span-4 lg:col-span-8">
+                        <h3 className="mt-1 text-lg font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
+                            Projects
+                        </h3>
+                        <Suspense fallback="Loading...">
+                            {/* @ts-expect-error Server Component */}
+                            <UserProjectList
+                                user={{
+                                    id: user.id,
+                                }}
+                            />
+                        </Suspense>
                     </div>
                 </div>
             </div>
