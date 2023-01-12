@@ -13,6 +13,7 @@ import { initTRPC, TRPCError } from "@trpc/server"
 import superjson from "superjson"
 import { ZodError } from "zod"
 import { db } from "@/lib/db"
+import { AxiomAPIRequest } from "next-axiom"
 
 export const t = initTRPC.context<Context>().create({
     /**
@@ -36,11 +37,23 @@ export const t = initTRPC.context<Context>().create({
     },
 })
 
+export const axiomMiddleware = t.middleware(async ({ ctx, next }) => {
+    const result = await next()
+    ;(ctx.req as AxiomAPIRequest).log = ctx.log
+    return result
+})
+
 /**
  * Create a router
  * @see https://trpc.io/docs/v10/router
  */
 export const router = t.router
+
+/**
+ * Create an unprotected procedure
+ * @see https://trpc.io/docs/v10/procedures
+ **/
+export const loggedProcedure = t.procedure.use(axiomMiddleware)
 
 /**
  * Create an unprotected procedure
@@ -62,7 +75,7 @@ export const mergeRouters = t.mergeRouters
  * Create an private procedure
  * @see https://trpc.io/docs/v10/procedures
  **/
-export const privateProcedure = t.procedure.use((opts) => {
+export const privateProcedure = loggedProcedure.use((opts) => {
     if (!opts.ctx.user) {
         throw new TRPCError({
             code: "UNAUTHORIZED",

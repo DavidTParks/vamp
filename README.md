@@ -41,6 +41,7 @@ Vamp is an open-source, open-source management tool for project maintainers and 
 -   [Mux](https://www.mux.com/) - video embeds
 -   [Postmark](https://postmarkapp.com/) - email delivery
 -   [Mailing](https://www.mailing.run/) - email development
+-   [Axiom](https://www.axiom.co/) - logging
 
 ## Acknowledgments
 

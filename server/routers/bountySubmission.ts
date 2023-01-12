@@ -30,7 +30,7 @@ const createBountySubmission = privateProcedure
     .mutation(async ({ ctx, input }) => {
         const { comments, bountyId, solutionLink } = input
 
-        return await db.$transaction(async (tx) => {
+        const newSubmission = await db.$transaction(async (tx) => {
             // Check if user has connected stripe before allowing a submission post otherwise they can't get paid
             const user = await tx.user.findUniqueOrThrow({
                 where: {
@@ -147,6 +147,8 @@ const createBountySubmission = privateProcedure
 
             return submission
         })
+        ctx.log.info("User created new submission", newSubmission)
+        return newSubmission
     })
 
 /**
