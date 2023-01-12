@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { SiteFooter } from "@/components/site-footer"
 import { AnalyticsWrapper } from "@/components/analytics"
 import { Providers } from "./providers"
+export { reportWebVitals } from "next-axiom"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",
