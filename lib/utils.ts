@@ -113,3 +113,7 @@ export function getBaseUrl() {
     // assume localhost
     return `http://localhost:${process.env.PORT ?? 3000}`
 }
+
+export function getUserLevel(blood: number) {
+    return Math.floor(blood / 2)
+}

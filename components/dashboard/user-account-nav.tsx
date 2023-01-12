@@ -99,7 +99,11 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                             </div>
                         </div>
                         <DropdownMenu.Separator />
-
+                        <DropdownMenu.Item>
+                            <Link href={`/u/${user.id}`} className="w-full">
+                                Profile
+                            </Link>
+                        </DropdownMenu.Item>
                         <DropdownMenu.Item>
                             <Link href="/dashboard" className="w-full">
                                 Dashboard

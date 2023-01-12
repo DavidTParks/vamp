@@ -11,6 +11,7 @@ import { LeaderBoard } from "@/components/marketing/leaderboard"
 import { LeaderBoardLoading } from "@/components/marketing/leaderboard"
 import { Suspense } from "react"
 import Image from "next/image"
+import { octokit } from "@/lib/octokit"
 
 async function getGitHubStars(): Promise<string | null> {
     try {

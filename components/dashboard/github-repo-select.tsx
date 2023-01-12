@@ -2,13 +2,14 @@ import { Button } from "@/ui/button"
 import Link from "next/link"
 import { GithubRepository } from "types"
 import { preloadRepo } from "@/lib/github"
+import { TGetReposReturnTypeElement } from "@/lib/github"
 
 export type TOnSelectRepo = React.Dispatch<
     React.SetStateAction<GithubRepository>
 >
 
 type TGithubRepoSelect = {
-    repo: GithubRepository
+    repo: TGetReposReturnTypeElement
 }
 
 export default function GithubRepoSelect({ repo }: TGithubRepoSelect) {

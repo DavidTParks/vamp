@@ -17,6 +17,7 @@ import {
     Image,
     Loader2,
     MoreVertical,
+    Mail,
     MailX,
     Search,
     Pizza,
@@ -67,6 +68,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    mail: Mail,
     arrowLeft: ArrowLeft,
     bell: Bell,
     sortAsc: SortAsc,
