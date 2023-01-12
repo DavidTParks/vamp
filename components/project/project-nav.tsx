@@ -62,7 +62,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                     <Image
                                         fill={true}
                                         alt="Avatar"
-                                        src={`https://avatar.vercel.sh/${project.id}${project.name}`}
+                                        src={`https://avatar.vercel.sh/${project.id}`}
                                     />
                                 </div>
                                 <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
@@ -75,7 +75,14 @@ export function ProjectNav({ project }: MainNavProps) {
                         <DropdownMenu.Portal>
                             <DropdownMenu.Content className="mt-2 w-24 z-50 md:min-w-[16rem] overflow-hidden truncate dropdown">
                                 {userProjects?.map((userProject) => (
-                                    <DropdownMenu.Item key={userProject.id}>
+                                    <DropdownMenu.Item
+                                        onSelect={() => {
+                                            router.push(
+                                                `/project/${userProject.id}`
+                                            )
+                                        }}
+                                        key={userProject.id}
+                                    >
                                         <Link
                                             href={`/project/${userProject.id}`}
                                             className="w-full inline-flex gap-2 items-center relative"
@@ -89,7 +96,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                                 <Image
                                                     fill={true}
                                                     alt="Avatar"
-                                                    src={`https://avatar.vercel.sh/${userProject.id}${userProject.name}`}
+                                                    src={`https://avatar.vercel.sh/${userProject.id}`}
                                                 />
                                             </div>
                                             <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">

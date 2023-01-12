@@ -41,11 +41,11 @@ export const getUserGithubOrgs = cache(async () => {
     return data.data
 })
 
-export const preloadOrgRepos = (orgId: string) => {
+export const preloadOrgRepos = (orgId: number) => {
     void getOrgRepos(orgId)
 }
 
-export const getOrgRepos = cache(async (orgId: string) => {
+export const getOrgRepos = cache(async (orgId: number) => {
     const octokit = await getOctokitClient()
 
     const data = await octokit.rest.repos.listForOrg({
@@ -54,6 +54,9 @@ export const getOrgRepos = cache(async (orgId: string) => {
 
     return data?.data
 })
+
+type TGetOrgsReturnType = Await<ReturnType<typeof getOrgRepos>>
+export type TGetOrgElement = ArrayElement<TGetOrgsReturnType>
 
 export const preloadRepos = () => {
     void getRepos()

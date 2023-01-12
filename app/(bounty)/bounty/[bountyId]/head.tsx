@@ -36,8 +36,6 @@ export default async function Head({ params }: IBountyHeadProps) {
             <title>{bounty.title}</title>
             <link rel="canonical" href={`/bounty/${bounty.id}`} />
             <meta name="description" content={bounty?.description ?? ""} />
-            <meta charSet="utf-8" />
-            <meta name="viewport" content="width=device-width" />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={bounty.title} />
             <meta
@@ -52,7 +50,6 @@ export default async function Head({ params }: IBountyHeadProps) {
                 content={bounty?.description ?? ""}
             />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content={url} />
             <meta name="twitter:image" content={ogUrl.toString()} />
         </>
     )

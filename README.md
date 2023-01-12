@@ -1,5 +1,5 @@
 <a href="https://vamp.sh">
-  <img alt="Vamp – An open-source, open-source bounty platform built to empower open-source maintainers and the contributors that make them great. Make your mark." src="https://jpxwqgklwwytoznbpbmn.supabase.co/storage/v1/object/public/vamp/thumbnail.png">
+  <img alt="Vamp – An open-source, open-source bounty platform built to empower open-source maintainers and the contributors that make them great. Make your mark." src="https://jpxwqgklwwytoznbpbmn.supabase.co/storage/v1/object/public/vamp/vamp-og.png">
   <h1 align="center">Vamp</h1>
 </a>
 
