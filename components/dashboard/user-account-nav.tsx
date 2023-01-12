@@ -36,7 +36,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
             >
                 <DropdownMenu.Trigger
                     asChild
-                    className="flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none"
+                    className="flex items-center gap-2 overflow-hidden focus:ring-0 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none"
                 >
                     <div>
                         {children}

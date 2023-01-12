@@ -52,7 +52,7 @@ export function BrowseFilterOptions({
     return (
         <>
             <DropdownMenu>
-                <DropdownMenu.Trigger asChild>
+                <DropdownMenu.Trigger className="rounded-l-none" asChild>
                     <div>
                         <Button
                             className="flex-shrink-0 h-9 border-l-0 rounded-l-none text-brandtext-600 gap-2"

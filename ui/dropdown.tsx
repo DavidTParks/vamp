@@ -17,7 +17,7 @@ DropdownMenu.Trigger = React.forwardRef<
 >(function DropdownMenuTrigger({ ...props }, ref) {
     return (
         <DropdownMenuPrimitive.Trigger
-            className="focus:outline-none border border-transparent focus:ring-0 text-white focus:border-rose-500 focus:border rounded-md overflow-hidden"
+            className="focus:outline-none rounded-md   text-white focus:ring-rose-500 focus:ring-1 focus:ring-offset-rose-700 ring-offset-1 overflow-hidden"
             {...props}
             ref={ref}
         />
