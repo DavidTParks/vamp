@@ -8,7 +8,6 @@ interface IUserProjectList {
 }
 
 export async function UserProjectList({ user }: IUserProjectList) {
-    console.log("USer", user)
     const projects = await db.project.findMany({
         where: {
             users: {

@@ -42,6 +42,6 @@
         ".next/types/**/*.ts",
         ".contentlayer/generated",
         "content/pages/about.mdx"
-    ],
+, "pages/sitemap.xml.js", "pages/sitemap.xml.js"    ],
     "exclude": ["node_modules"]
 }
