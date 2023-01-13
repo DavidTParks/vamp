@@ -2,6 +2,7 @@ import { db } from "@/lib/db"
 import { User } from "@prisma/client"
 import Link from "next/link"
 import Image from "next/image"
+import { Skeleton } from "@/ui/skeleton"
 
 interface IUserProjectList {
     user: Pick<User, "id">
@@ -65,5 +66,14 @@ export async function UserProjectList({ user }: IUserProjectList) {
                 </Link>
             ))}
         </div>
+    )
+}
+
+UserProjectList.Skeleton = function CardSeleton() {
+    return (
+        <>
+            <Skeleton className="h-5 w-1/5" />
+            <Skeleton className="h-4 w-4/5" />
+        </>
     )
 }

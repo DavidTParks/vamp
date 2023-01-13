@@ -175,7 +175,7 @@ export default async function ProjectPage({
                         <h3 className="mt-8 text-lg font-bold tracking-tight text-brandtext-500 flex gap-8 w-full">
                             Projects
                         </h3>
-                        <Suspense fallback="Loading...">
+                        <Suspense fallback={<UserProjectList.Skeleton />}>
                             {/* @ts-expect-error Server Component */}
                             <UserProjectList
                                 user={{
