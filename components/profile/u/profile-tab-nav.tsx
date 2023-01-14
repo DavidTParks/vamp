@@ -15,7 +15,7 @@ export const ProfileTabNav = () => {
                 Overview
             </SecondaryLinkItem>
 
-            <SecondaryLinkItem
+            {/* <SecondaryLinkItem
                 href="/dashboard/settings"
                 isActive={segment === "settings"}
             >
@@ -26,13 +26,7 @@ export const ProfileTabNav = () => {
                 isActive={segment === "settings"}
             >
                 Bounties
-            </SecondaryLinkItem>
-            <SecondaryLinkItem
-                href="/dashboard/settings"
-                isActive={segment === "settings"}
-            >
-                Items
-            </SecondaryLinkItem>
+            </SecondaryLinkItem> */}
         </div>
     )
 }

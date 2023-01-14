@@ -17,7 +17,8 @@ import { UserProjectList } from "@/components/profile/u/profile-project-list"
 import { Suspense } from "react"
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
-
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { UserBountySubmissionList } from "@/components/profile/u/profile-bounty-submissions"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -57,7 +58,7 @@ export default async function ProjectPage({
                                     className="rounded-full overflow-hidden border border-sm border-zinc-700/50"
                                     alt={`${user.name} avatar`}
                                 />
-                                <div className="overflow-hidden rounded-full px-3 py-1 hidden items-center justify-center sm:flex m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
+                                <div className="overflow-hidden rounded-full hidden px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
                                     <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
                                         x{user.blood}
                                     </span>
@@ -73,9 +74,24 @@ export default async function ProjectPage({
                                 <span className="text-brandtext-700  tracking-tight text-md font-bold">
                                     Level {getUserLevel(user.blood)}
                                 </span>
-                                <h1 className="mt-1 text-lg font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
+
+                                <h1 className="mt-1 text-xl font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
                                     {user.name}{" "}
                                 </h1>
+                                <div>
+                                    <div className="mt-3 overflow-hidden w-fit sm:hidden rounded-full px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 gap-1 ">
+                                        <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
+                                            x{user.blood}
+                                        </span>
+                                        <Image
+                                            alt="potion"
+                                            height={24}
+                                            width={24}
+                                            src="/achievements/blood.png"
+                                        />
+                                    </div>
+                                </div>
+
                                 {/* <div className="w-full mt-0 mb-2 h-4  rounded-md overflow-hidden relative border border-zinc-700/50 ">
                                     <div className="grid grid-cols-5 absolute inset-0 w-full">
                                         <div className="h-8 w-px  bg-raised-border opacity-0" />
@@ -93,7 +109,7 @@ export default async function ProjectPage({
                             </div>
                         </div>
 
-                        <div className="mt-2 flex flex-col items-start gap-2">
+                        <div className="mt-4 flex flex-col items-start gap-2">
                             <ExternalLink href={githubUser.html_url}>
                                 <p className="text-sm font-medium text-brandtext-700 flex items-center gap-2 w-full">
                                     <Icons.gitHub size={16} />
@@ -118,49 +134,16 @@ export default async function ProjectPage({
                                     </p>
                                 </ExternalLink>
                             )}
+
                             <Separator className="my-2" />
 
                             <div>
                                 <p className="font-bold tracking-tight">
                                     Achievements
                                 </p>
-                                <p className="text-brandtext-700">
-                                    You don't have any achievements yet!{" "}
+                                <p className="text-brandtext-700 mt-2 text-sm">
+                                    Coming soon
                                 </p>
-                                {/* <div className="grid grid-cols-4 mt-4 w-full place-items-center gap-4">
-                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
-                                        <Image
-                                            alt="potion"
-                                            height={32}
-                                            width={32}
-                                            src="/achievements/key.png"
-                                        />
-                                    </div>
-                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
-                                        <Image
-                                            alt="potion"
-                                            height={32}
-                                            width={32}
-                                            src="/achievements/gold.png"
-                                        />
-                                    </div>
-                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
-                                        <Image
-                                            alt="potion"
-                                            height={32}
-                                            width={32}
-                                            src="/achievements/potion.png"
-                                        />
-                                    </div>
-                                    <div className="overflow-hidden rounded-full p-3 flex items-center justify-center relative flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
-                                        <Image
-                                            alt="potion"
-                                            height={32}
-                                            width={32}
-                                            src="/achievements/silver.png"
-                                        />
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -178,6 +161,20 @@ export default async function ProjectPage({
                         <Suspense fallback={<UserProjectList.Skeleton />}>
                             {/* @ts-expect-error Server Component */}
                             <UserProjectList
+                                user={{
+                                    id: user.id,
+                                }}
+                            />
+                        </Suspense>
+                        <h3 className="mt-8 text-lg font-bold tracking-tight text-brandtext-500 flex gap-8 w-full">
+                            Activity
+                        </h3>
+
+                        <Suspense
+                            fallback={<UserBountySubmissionList.Skeleton />}
+                        >
+                            {/* @ts-expect-error Server Component */}
+                            <UserBountySubmissionList
                                 user={{
                                     id: user.id,
                                 }}
