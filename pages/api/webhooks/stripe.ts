@@ -68,6 +68,7 @@ export default async function handler(
                 },
                 data: {
                     resolved: true,
+                    resolvedAt: new Date(Date.now()).toISOString(),
                     bountySubmissions: {
                         update: {
                             where: {
@@ -76,6 +77,7 @@ export default async function handler(
                             },
                             data: {
                                 accepted: true,
+                                acceptedAt: new Date(Date.now()),
                             },
                         },
                     },

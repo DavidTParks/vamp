@@ -4,6 +4,8 @@ import Image from "next/image"
 import { UserAvatar } from "../dashboard/user-avatar"
 import { Skeleton } from "@/ui/skeleton"
 import { Pagination } from "@/ui/pagination"
+import Link from "next/link"
+import { ExternalLink } from "@/ui/external-link"
 
 export const LeaderBoardLoading = () => {
     return (
@@ -189,11 +191,15 @@ export async function LeaderBoard({
                                                                 }}
                                                             />
                                                         </div>
-                                                        <div className="ml-2">
-                                                            <div className=" text-brandtext-500">
-                                                                {user.name}
+                                                        <Link
+                                                            href={`/u/${user.id}`}
+                                                        >
+                                                            <div className="ml-2 hover:underline hover:brightness-150">
+                                                                <div className=" text-brandtext-500">
+                                                                    {user.name}
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </Link>
                                                     </div>
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-brandtext-500">

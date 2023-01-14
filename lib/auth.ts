@@ -2,8 +2,7 @@ import { db } from "@/lib/db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
-import { sendMarketingMail } from "../emails"
-import WelcomeEmail from "@/emails/WelcomeEmail"
+import { Octokit } from "octokit"
 
 export const authOptions: NextAuthOptions = {
     // huh any! I know.
@@ -23,7 +22,9 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async session({ token, session, user }) {
+        async session({ token, session }) {
+            const octokit = new Octokit({ auth: token.accessToken })
+
             if (token) {
                 session.user.accessToken = token.accessToken
                 session.user.id = token.id
@@ -31,6 +32,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.email = token.email
                 session.user.image = token.picture
                 session.user.stripeCustomerId = token.stripeCustomerId
+                session.user.octokit = octokit
             }
 
             return session

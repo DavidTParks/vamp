@@ -4,16 +4,12 @@ import Link from "next/link"
 import * as React from "react"
 
 import { Icons } from "@/components/icons"
-import { MobileNav } from "@/components/mobile-nav"
-import { Button } from "@/ui/button"
-import { Project, User } from "@prisma/client"
-import Image from "next/image"
-import { MainNavItem } from "types"
-import { MobileNavButton } from "@/ui/mobile-nav-button"
-import { Select } from "@/ui/select"
-import { useRouter } from "next/navigation"
-import { DropdownMenu } from "@/ui/dropdown"
 import { cn } from "@/lib/utils"
+import { DropdownMenu } from "@/ui/dropdown"
+import { Project } from "@prisma/client"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { MainNavItem } from "types"
 
 import { trpc } from "@/client/trpcClient"
 
@@ -62,7 +58,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                     <Image
                                         fill={true}
                                         alt="Avatar"
-                                        src={`https://avatar.vercel.sh/${project.id}${project.name}`}
+                                        src={`https://avatar.vercel.sh/${project.name}`}
                                     />
                                 </div>
                                 <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
@@ -75,7 +71,14 @@ export function ProjectNav({ project }: MainNavProps) {
                         <DropdownMenu.Portal>
                             <DropdownMenu.Content className="mt-2 w-24 z-50 md:min-w-[16rem] overflow-hidden truncate dropdown">
                                 {userProjects?.map((userProject) => (
-                                    <DropdownMenu.Item key={userProject.id}>
+                                    <DropdownMenu.Item
+                                        onSelect={() => {
+                                            router.push(
+                                                `/project/${userProject.id}`
+                                            )
+                                        }}
+                                        key={userProject.id}
+                                    >
                                         <Link
                                             href={`/project/${userProject.id}`}
                                             className="w-full inline-flex gap-2 items-center relative"
@@ -89,7 +92,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                                 <Image
                                                     fill={true}
                                                     alt="Avatar"
-                                                    src={`https://avatar.vercel.sh/${userProject.id}${userProject.name}`}
+                                                    src={`https://avatar.vercel.sh/${userProject.id}`}
                                                 />
                                             </div>
                                             <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">

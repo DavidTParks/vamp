@@ -28,9 +28,11 @@ export default async function GithubOrgRepoList({ orgId }: TGithbOrgRepoList) {
                             <div className="text-slate-500 text-2xl">
                                 &middot;
                             </div>
-                            <div className="text-xs text-slate-500">
-                                {dateToNow(new Date(repo.pushed_at))}
-                            </div>
+                            {repo?.pushed_at && (
+                                <div className="text-xs text-slate-500">
+                                    {dateToNow(new Date(repo.pushed_at))}
+                                </div>
+                            )}
                         </div>
                         <GithubRepoSelect repo={repo} />
                     </div>

@@ -2,6 +2,10 @@ import { Icons } from "@/components/icons"
 import { User } from "@prisma/client"
 import type { Icon } from "lucide-react"
 
+export type Await<T> = T extends PromiseLike<infer U> ? U : T
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+    ArrayType extends readonly (infer ElementType)[] ? ElementType : never
+
 export type NavItem = {
     title: string
     href: string

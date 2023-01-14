@@ -2,13 +2,14 @@ import { Button } from "@/ui/button"
 import Link from "next/link"
 import { GithubOrg, GithubRepository } from "types"
 import { preloadOrgRepos } from "@/lib/github"
+import { TGetUserOrgElement } from "@/lib/github"
 
 export type TOnSelectRepo = React.Dispatch<
     React.SetStateAction<GithubRepository>
 >
 
 type TGithubOrgCard = {
-    org: GithubOrg
+    org: TGetUserOrgElement
 }
 
 export async function GithubOrgCard({ org }: TGithubOrgCard) {

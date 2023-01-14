@@ -1,5 +1,6 @@
 import NextAuth, { DefaultSession } from "next-auth"
 import { JWT } from "next-auth/jwt"
+import { Octokit } from "octokit"
 
 declare module "next-auth" {
     /**
@@ -7,10 +8,10 @@ declare module "next-auth" {
      */
     interface Session {
         user: {
-            /** The user's postal address. */
             id: string
             accessToken: string
             stripeCustomerId: string
+            octokit: Octokit
         } & DefaultSession["user"]
     }
 }

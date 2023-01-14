@@ -13,7 +13,7 @@ export function ExternalLink({ children, className, ...props }: TExternalLink) {
         <a
             className={cn(
                 className,
-                "hover:text-brandtext-500 hover:underline"
+                "hover:text-brandtext-500 hover:underline hover:brightness-150"
             )}
             rel="noopener noreferrer"
             target="_blank"
