@@ -24,12 +24,20 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                 <div className="p-4 h-full flex flex-col">
                     <div className="flex items-center w-full justify-between h-full">
                         <div className="flex items-center gap-4">
-                            <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
-                                <Image
-                                    fill={true}
-                                    alt="Avatar"
-                                    src={`https://avatar.vercel.sh/${projectUser.project.id}`}
-                                />
+                            <div className="h-12 w-12 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                                {projectUser.project.image ? (
+                                    <Image
+                                        fill={true}
+                                        alt="Avatar"
+                                        src={projectUser.project.image}
+                                    />
+                                ) : (
+                                    <Image
+                                        fill={true}
+                                        alt="Avatar"
+                                        src={`https://avatar.vercel.sh/${projectUser.project.id}`}
+                                    />
+                                )}
                             </div>
                             <div className="flex flex-col gap-2">
                                 <Link

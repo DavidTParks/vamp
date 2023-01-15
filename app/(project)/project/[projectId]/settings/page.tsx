@@ -4,6 +4,7 @@ import { DashboardShell } from "@/components/dashboard/shell"
 import { ProjectNameForm } from "@/components/project/settings/project-name-form"
 import { getProject } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
+import { ProjectImageForm } from "@/components/project/settings/project-image-form"
 interface ProjectSettingsPageProps {
     params: { projectId: string }
 }
@@ -25,6 +26,13 @@ export default async function ProjectSettingsPage({
 
     return (
         <DashboardShell>
+            <ProjectImageForm
+                project={{
+                    id: project.id,
+                    image: project.image,
+                    name: project.name,
+                }}
+            />
             <ProjectNameForm
                 project={{
                     id: project.id,

@@ -3,7 +3,7 @@ import { notificationRouter } from "./notifications"
 import { userRouter } from "./user"
 import { bountyRouter } from "./bounties"
 import { bountySubmissionRouter } from "./bountySubmission"
-import { axiomMiddleware } from "../trpc"
+import { projectRouter } from "./project"
 
 export const appRouter = router({
     whoami: publicProcedure.query(({ ctx }) => ctx.user),
@@ -12,6 +12,7 @@ export const appRouter = router({
     user: userRouter,
     bounty: bountyRouter,
     bountySubmission: bountySubmissionRouter,
+    project: projectRouter,
 })
 
 export type AppRouter = typeof appRouter

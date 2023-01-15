@@ -12,15 +12,17 @@ import { useRouter } from "next/navigation"
 import { MainNavItem } from "types"
 
 import { trpc } from "@/client/trpcClient"
+import { Skeleton } from "@/ui/skeleton"
 
 interface MainNavProps {
     items?: MainNavItem[]
     children?: React.ReactNode
-    project: Pick<Project, "id" | "name">
+    project: Pick<Project, "id" | "name" | "image">
 }
 
 export function ProjectNav({ project }: MainNavProps) {
-    const { data: userProjects } = trpc.user.getUserProjects.useQuery()
+    const { data: userProjects, isLoading } =
+        trpc.user.getUserProjects.useQuery()
 
     const router = useRouter()
     return (
@@ -55,11 +57,19 @@ export function ProjectNav({ project }: MainNavProps) {
                                 )}
                             >
                                 <div className="h-6 w-6 rounded-full overflow-hidden inline-flex items-center justify-center relative">
-                                    <Image
-                                        fill={true}
-                                        alt="Avatar"
-                                        src={`https://avatar.vercel.sh/${project.name}`}
-                                    />
+                                    {project.image ? (
+                                        <Image
+                                            fill={true}
+                                            alt="Avatar"
+                                            src={project.image}
+                                        />
+                                    ) : (
+                                        <Image
+                                            fill={true}
+                                            alt="Avatar"
+                                            src={`https://avatar.vercel.sh/${project.id}`}
+                                        />
+                                    )}
                                 </div>
                                 <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
                                     {" "}
@@ -70,6 +80,11 @@ export function ProjectNav({ project }: MainNavProps) {
                         </DropdownMenu.Trigger>
                         <DropdownMenu.Portal>
                             <DropdownMenu.Content className="mt-2 w-24 z-50 md:min-w-[16rem] overflow-hidden truncate dropdown">
+                                {isLoading && (
+                                    <div className="p-2">
+                                        <Skeleton className="h-8 w-full" />
+                                    </div>
+                                )}
                                 {userProjects?.map((userProject) => (
                                     <DropdownMenu.Item
                                         onSelect={() => {
@@ -89,11 +104,19 @@ export function ProjectNav({ project }: MainNavProps) {
                                                 </div>
                                             )}
                                             <div className="h-6 w-6 rounded-full overflow-hidden inline-flex items-center justify-center relative flex-shrink-0">
-                                                <Image
-                                                    fill={true}
-                                                    alt="Avatar"
-                                                    src={`https://avatar.vercel.sh/${userProject.id}`}
-                                                />
+                                                {userProject.image ? (
+                                                    <Image
+                                                        fill={true}
+                                                        alt="Avatar"
+                                                        src={userProject.image}
+                                                    />
+                                                ) : (
+                                                    <Image
+                                                        fill={true}
+                                                        alt="Avatar"
+                                                        src={`https://avatar.vercel.sh/${userProject.id}`}
+                                                    />
+                                                )}
                                             </div>
                                             <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
                                                 {" "}

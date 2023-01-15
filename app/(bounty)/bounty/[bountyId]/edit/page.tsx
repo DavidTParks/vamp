@@ -41,6 +41,7 @@ export default async function CreatePage({ params }: BountyEditPageProps) {
                     <div className="flex h-16 items-center justify-between">
                         <ProjectNav
                             project={{
+                                image: bounty.project.image,
                                 name: bounty.project.name,
                                 id: bounty.project.id,
                             }}
