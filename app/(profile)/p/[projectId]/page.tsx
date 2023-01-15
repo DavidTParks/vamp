@@ -66,11 +66,19 @@ export default async function ProjectPage({
                         <div className="border border-raised-border rounded-lg p-4 py-6 w-full">
                             <div className="flex flex-col items-center">
                                 <div className="h-16 w-16 rounded-full overflow-hidden inline-flex items-center justify-center relative">
-                                    <Image
-                                        fill={true}
-                                        alt="Project avatar"
-                                        src={`https://avatar.vercel.sh/${project.name}${project.id}`}
-                                    />
+                                    {project.image ? (
+                                        <Image
+                                            fill={true}
+                                            alt="Project avatar"
+                                            src={project.image}
+                                        />
+                                    ) : (
+                                        <Image
+                                            fill={true}
+                                            alt="Project avatar"
+                                            src={`https://avatar.vercel.sh/${project.id}`}
+                                        />
+                                    )}
                                 </div>
                                 <div className="mt-8">
                                     <span className="text-brandtext-500 font-bold text-xl inline-flex gap-2 items-center text-center">

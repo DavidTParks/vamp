@@ -1,24 +1,17 @@
 import { DashboardShell } from "@/components/dashboard/shell"
 import { Icons } from "@/components/icons"
-import BountyList from "@/components/project/bounty-list"
-import { getBountiesForProject } from "@/lib/bounties"
-import { db } from "@/lib/db"
-import { getRepo } from "@/lib/github"
+import { UserBountySubmissionList } from "@/components/profile/u/profile-bounty-submissions"
+import { UserProjectList } from "@/components/profile/u/profile-project-list"
+import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
+import { getGithubUserById } from "@/lib/github"
+import { getUserById } from "@/lib/users"
+import { getUserLevel } from "@/lib/utils"
 import { ExternalLink } from "@/ui/external-link"
+import { Separator } from "@/ui/separator"
+import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { getUserById } from "@/lib/users"
-import { getCurrentUser } from "@/lib/session"
-import { getGithubUserById } from "@/lib/github"
-import { Separator } from "@/ui/separator"
-import { Button } from "@/ui/button"
-import { getUserLevel } from "@/lib/utils"
-import { UserProjectList } from "@/components/profile/u/profile-project-list"
 import { Suspense } from "react"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
-import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
-import { UserBountySubmissionList } from "@/components/profile/u/profile-bounty-submissions"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -58,17 +51,23 @@ export default async function ProjectPage({
                                     className="rounded-full overflow-hidden border border-sm border-zinc-700/50"
                                     alt={`${user.name} avatar`}
                                 />
-                                <div className="overflow-hidden rounded-full hidden px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
-                                    <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
-                                        x{user.blood}
-                                    </span>
-                                    <Image
-                                        alt="potion"
-                                        height={24}
-                                        width={24}
-                                        src="/achievements/blood.png"
-                                    />
-                                </div>
+                                <Tooltip
+                                    content={
+                                        "A users Blood score reflects how many bounty submissions they have had accepted."
+                                    }
+                                >
+                                    <div className="overflow-hidden rounded-full hidden px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
+                                        <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
+                                            x{user.blood}
+                                        </span>
+                                        <Image
+                                            alt="potion"
+                                            height={24}
+                                            width={24}
+                                            src="/achievements/blood.png"
+                                        />
+                                    </div>
+                                </Tooltip>
                             </div>
                             <div className="flex flex-col w-full">
                                 <span className="text-brandtext-700  tracking-tight text-md font-bold">
