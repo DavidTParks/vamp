@@ -86,7 +86,7 @@ export function toast(opts: ToastOpts) {
                 className={cn("relative pl-10", {
                     "bg-red-600 text-white": type === "error",
                     "bg-raised border border-raised-border text-primary dropdown":
-                        type === "success",
+                        type === "success" || type === "default",
                 })}
             >
                 {type === "success" && (

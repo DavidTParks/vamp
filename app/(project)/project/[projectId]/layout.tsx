@@ -44,6 +44,7 @@ export default async function ProjectLayout({
                                 project={{
                                     name: project.name,
                                     id: project.id,
+                                    image: project.image,
                                 }}
                                 items={dashboardConfig.mainNav}
                             />
