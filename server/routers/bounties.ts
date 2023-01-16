@@ -106,12 +106,20 @@ const editBounty = withBounty
         }
 
         let stripePrice
-        if (bountyPrice) {
+        if (bountyPrice && !bountyRange) {
             stripePrice = await stripe.prices.create({
                 unit_amount: bountyPrice * 100,
                 currency: "usd",
                 product: existingBounty.project.stripeProductId,
             })
+        }
+
+        if (bountyRange && bountyPriceMax && bountyPriceMin) {
+            if (bountyPriceMin > bountyPriceMax) {
+                throw new Error(
+                    "Bounty price minimum cannot be larger than the maximum"
+                )
+            }
         }
 
         return await db.bounty.update({

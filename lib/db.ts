@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-
+import { formatDollars } from "./utils"
 declare global {
     // eslint-disable-next-line no-var
     var cachedPrisma: PrismaClient
@@ -61,4 +61,30 @@ prisma.$use(async (params, next) => {
     return next(params)
 })
 
-export const db = prisma
+const prismaWithExtensions = prisma.$extends({
+    result: {
+        bounty: {
+            computedBountyPrice: {
+                // the dependencies
+                needs: {
+                    bountyRange: true,
+                    bountyPrice: true,
+                    bountyPriceMax: true,
+                    bountyPriceMin: true,
+                },
+                compute(data) {
+                    // the computation logic
+                    if (data.bountyRange) {
+                        return `${formatDollars(
+                            data?.bountyPriceMin ?? 0
+                        )} - ${formatDollars(data?.bountyPriceMax ?? 0)}`
+                    } else {
+                        return `${formatDollars(data?.bountyPrice ?? 0)}`
+                    }
+                },
+            },
+        },
+    },
+})
+
+export const db = prismaWithExtensions
