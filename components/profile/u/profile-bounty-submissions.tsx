@@ -62,9 +62,10 @@ export async function UserBountySubmissionList({ user }: IUserProjectList) {
             ) : (
                 <EmptyPlaceholder className="mt-4 min-h-[100px]">
                     <EmptyPlaceholder.Icon name="logo" />
-                    <EmptyPlaceholder.Title>No projects</EmptyPlaceholder.Title>
+                    <EmptyPlaceholder.Title>No Activity</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description className="mb-0">
-                        This user does not have any projects
+                        This user has not posted any bounties or submissions
+                        yet.
                     </EmptyPlaceholder.Description>
                 </EmptyPlaceholder>
             )}

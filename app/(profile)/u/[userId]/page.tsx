@@ -12,6 +12,8 @@ import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import { Button } from "@/ui/button"
+import { ProfileDonate } from "@/components/profile/u/profile-donate"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -138,6 +140,15 @@ export default async function ProjectPage({
                                         {githubUser.twitter_username}
                                     </p>
                                 </ExternalLink>
+                            )}
+                            {user.stripeCustomerId && (
+                                <div className="mt-4 w-full">
+                                    <ProfileDonate
+                                        user={{
+                                            id: user.id,
+                                        }}
+                                    />
+                                </div>
                             )}
 
                             <Separator className="my-2" />

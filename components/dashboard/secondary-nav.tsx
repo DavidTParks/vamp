@@ -58,7 +58,7 @@ export const SecondaryLinkItem = ({
             <div className="inline-flex items-center gap-2 rounded-md px-3 py-2">
                 {icon}
                 <p className="text-sm">{children}</p>
-                <div className="flex-shrink-0">{badge}</div>
+                {badge}
             </div>
         </Link>
     )
