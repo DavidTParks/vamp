@@ -34,6 +34,7 @@ export default async function BountyPage({
 
                     {/* @ts-expect-error Server Component */}
                     <BountyContent bountyId={params.bountyId} />
+
                     <div className="mt-24 flex flex-col">
                         <Suspense fallback={<BountyActivity.Skeleton />}>
                             {/* @ts-expect-error Server Component */}

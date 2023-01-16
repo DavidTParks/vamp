@@ -7,6 +7,7 @@ import { ExternalLink } from "@/ui/external-link"
 import { generateHTML } from "@tiptap/html"
 import { JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
+import { Skeleton } from "@/ui/skeleton"
 interface TBountyContent {
     bountyId: string
 }
@@ -57,6 +58,21 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                     ]),
                 }}
             ></div>
+        </>
+    )
+}
+
+BountyContent.Skeleton = function BountyActivitySkeleton() {
+    return (
+        <>
+            <Skeleton className="mb-8 w-1/5" />
+            <div className="break-words font-display text-xl font-bold leading-8 text-brandtext-500 sm:text-2xl">
+                <Skeleton className="h-8 w-full" />
+            </div>
+            <div className="my-8">
+                <Skeleton className="h-10 w-4/5" />
+            </div>
+            <Skeleton className="h-32 w-full" />
         </>
     )
 }
