@@ -360,7 +360,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             />
                         </div>
                     </div>
-                    <RadioGroup>
+                    {/* <RadioGroup>
                         <RadioGroup.Item id="fixed" value="fixed">
                             Fixed Price
                             <small className="text-brandtext-700">
@@ -374,8 +374,8 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 quality of the submission you receive.
                             </small>
                         </RadioGroup.Item>
-                    </RadioGroup>
-                    <div className="mt-4 grid gap-1">
+                    </RadioGroup> */}
+                    <div className="mt-4 mb-4 grid gap-1">
                         <Input
                             step="0.01"
                             label="Bounty price *"
@@ -387,7 +387,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         />
                     </div>
 
-                    <Label className="dropdown mb-4" htmlFor="details">
+                    <Label className="dropdown my-4 block" htmlFor="details">
                         Bounty Details
                     </Label>
                     <div className="mt-1">
