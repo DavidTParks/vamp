@@ -104,19 +104,13 @@ export function ProjectNav({ project }: MainNavProps) {
                                                 </div>
                                             )}
                                             <div className="relative inline-flex h-6 w-6 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
-                                                {userProject.image ? (
-                                                    <Image
-                                                        fill={true}
-                                                        alt="Avatar"
-                                                        src={userProject.image}
-                                                    />
-                                                ) : (
-                                                    <Image
-                                                        fill={true}
-                                                        alt="Avatar"
-                                                        src={`https://avatar.vercel.sh/${userProject.id}`}
-                                                    />
-                                                )}
+                                                <Image
+                                                    fill={true}
+                                                    alt="Avatar"
+                                                    src={
+                                                        userProject.computedProjectImage
+                                                    }
+                                                />
                                             </div>
                                             <span className="hidden max-w-[128px] truncate text-sm text-brandtext-500 md:block">
                                                 {" "}

@@ -3,10 +3,12 @@ import {
     AlertTriangle,
     ArrowRight,
     Check,
+    Home,
     ChevronLeft,
     ChevronRight,
     ChevronDown,
     ChevronUp,
+    Book,
     Command,
     Bell,
     CreditCard,
@@ -68,6 +70,8 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    book: Book,
+    home: Home,
     mail: Mail,
     arrowLeft: ArrowLeft,
     bell: Bell,

@@ -84,6 +84,22 @@ const prismaWithExtensions = prisma.$extends({
                 },
             },
         },
+        project: {
+            computedProjectImage: {
+                // the dependencies
+                needs: {
+                    image: true,
+                    id: true,
+                },
+                compute(data) {
+                    if (data.image) {
+                        return data.image
+                    } else {
+                        return `https://avatar.vercel.sh/${project.id}`
+                    }
+                },
+            },
+        },
     },
 })
 

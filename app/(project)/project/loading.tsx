@@ -39,13 +39,26 @@ export default function DashboardLoading() {
                         <Skeleton className="h-8 w-8 overflow-hidden rounded-full" />
                     </div>
                     <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
-                        <SecondaryLinkItem href={`#`} isActive={true}>
+                        <SecondaryLinkItem
+                            icon={<Icons.home size={16} />}
+                            href={`#`}
+                            isActive={true}
+                        >
                             Overview
                         </SecondaryLinkItem>
-                        <SecondaryLinkItem href="#" isActive={false}>
+
+                        <SecondaryLinkItem
+                            icon={<Icons.circleDot size={16} />}
+                            href="#"
+                            isActive={false}
+                        >
                             Issues
                         </SecondaryLinkItem>
-                        <SecondaryLinkItem href={"#"} isActive={false}>
+                        <SecondaryLinkItem
+                            icon={<Icons.settings size={16} />}
+                            href={"#"}
+                            isActive={false}
+                        >
                             Settings
                         </SecondaryLinkItem>
                     </div>

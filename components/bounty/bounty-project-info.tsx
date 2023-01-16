@@ -16,19 +16,11 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
         <div className="col-span-4 rounded-lg border border-raised-border p-4 py-6">
             <div className="flex flex-col items-center">
                 <div className="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full">
-                    {bounty.project.image ? (
-                        <Image
-                            fill={true}
-                            alt="Project avatar"
-                            src={bounty.project.image}
-                        />
-                    ) : (
-                        <Image
-                            fill={true}
-                            alt="Project avatar"
-                            src={`https://avatar.vercel.sh/${bounty.project.id}`}
-                        />
-                    )}
+                    <Image
+                        fill={true}
+                        alt="Project avatar"
+                        src={bounty.project.computedProjectImage}
+                    />
                 </div>
                 <div className="mt-8">
                     <span className="inline-flex items-center gap-2 text-xl font-bold text-brandtext-500">

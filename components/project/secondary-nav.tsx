@@ -3,6 +3,7 @@
 import { Project } from "@prisma/client"
 import { useSelectedLayoutSegment } from "next/navigation"
 import { SecondaryLinkItem } from "../dashboard/secondary-nav"
+import { Icons } from "../icons"
 
 export type TProject = Pick<Project, "id">
 
@@ -21,6 +22,7 @@ export const ProjectSecondaryNav = ({
             <SecondaryLinkItem
                 href={`/project/${project.id}`}
                 isActive={!segment}
+                icon={<Icons.home size={16} />}
             >
                 Overview
             </SecondaryLinkItem>
@@ -30,12 +32,14 @@ export const ProjectSecondaryNav = ({
                         {issueCount}
                     </span>
                 }
+                icon={<Icons.circleDot size={16} />}
                 href={`/project/${project.id}/issues`}
                 isActive={segment === "issues"}
             >
                 Issues
             </SecondaryLinkItem>
             <SecondaryLinkItem
+                icon={<Icons.settings size={16} />}
                 href={`/project/${project.id}/settings`}
                 isActive={segment === "settings"}
             >

@@ -53,7 +53,7 @@ export async function UserProjectList({ user }: IUserProjectList) {
                                         <Image
                                             fill={true}
                                             alt="Project avatar"
-                                            src={`https://avatar.vercel.sh/${project.id}`}
+                                            src={project.computedProjectImage}
                                         />
                                     </div>
                                     <div className="mt-4 max-w-[128px] truncate">
