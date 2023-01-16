@@ -28,7 +28,15 @@ export default async function ProjectPage({
                 },
             },
             githubRepo: true,
-            bounties: true,
+            bounties: {
+                where: {
+                    NOT: [
+                        {
+                            deleted: true,
+                        },
+                    ],
+                },
+            },
         },
     })
 
