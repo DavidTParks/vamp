@@ -68,7 +68,10 @@ const editBounty = withBounty
         z.object({
             bountyId: z.string().cuid(),
             title: z.string().min(3).max(128).optional(),
-            bountyPrice: z.number().min(1).positive(),
+            bountyPrice: z.coerce.number().min(1).positive().optional(),
+            bountyRange: z.boolean().default(false),
+            bountyPriceMin: z.coerce.number().min(1).positive().optional(),
+            bountyPriceMax: z.coerce.number().min(1).positive().optional(),
             issueLink: z.string().optional(),
             content: z.any().optional(),
             html: z.any().optional(),
@@ -76,8 +79,18 @@ const editBounty = withBounty
         })
     )
     .mutation(async ({ ctx, input }) => {
-        const { title, bountyId, bountyPrice, issueLink, content, html, type } =
-            input
+        const {
+            title,
+            bountyId,
+            bountyPrice,
+            bountyRange,
+            bountyPriceMin,
+            bountyPriceMax,
+            issueLink,
+            content,
+            html,
+            type,
+        } = input
 
         const existingBounty = await db.bounty.findUniqueOrThrow({
             where: {
@@ -92,11 +105,14 @@ const editBounty = withBounty
             throw new Error("No stripe product ID for project")
         }
 
-        const stripePrice = await stripe.prices.create({
-            unit_amount: bountyPrice * 100,
-            currency: "usd",
-            product: existingBounty.project.stripeProductId,
-        })
+        let stripePrice
+        if (bountyPrice) {
+            stripePrice = await stripe.prices.create({
+                unit_amount: bountyPrice * 100,
+                currency: "usd",
+                product: existingBounty.project.stripeProductId,
+            })
+        }
 
         return await db.bounty.update({
             where: {
@@ -108,8 +124,11 @@ const editBounty = withBounty
                 content,
                 html,
                 bountyPrice,
+                bountyRange,
+                bountyPriceMax,
+                bountyPriceMin,
                 published: true,
-                stripePriceId: stripePrice.id,
+                stripePriceId: stripePrice?.id ?? undefined,
                 type,
             },
         })

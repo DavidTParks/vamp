@@ -230,7 +230,15 @@ const MenuBar = ({ editor }: TMenuBar) => {
 
 type TBounty = Pick<
     Bounty,
-    "id" | "title" | "content" | "issueLink" | "bountyPrice" | "published"
+    | "id"
+    | "title"
+    | "content"
+    | "issueLink"
+    | "bountyPrice"
+    | "published"
+    | "bountyPriceMax"
+    | "bountyPriceMin"
+    | "bountyRange"
 > & {
     issue?: any
 }
@@ -253,6 +261,9 @@ const Tiptap = ({ bounty }: TTipTap) => {
             title: bounty?.title,
             githubIssueLink: bounty?.issueLink ?? "",
             bountyPrice: bounty?.bountyPrice ?? undefined,
+            bountyPriceMax: bounty?.bountyPriceMax ?? undefined,
+            bountyPriceMin: bounty?.bountyPriceMin ?? undefined,
+            bountyRange: bounty.bountyRange,
         },
     })
 
@@ -272,20 +283,17 @@ const Tiptap = ({ bounty }: TTipTap) => {
         },
     })
 
-    async function onSubmit(data: FormData) {
-        if (!data.bountyPrice) {
-            return toast({
-                title: "Bounty price required",
-                message: "Please enter a bounty price greater than 0",
-                type: "error",
-            })
-        }
+    const bountyRangeEnabled = methods.watch("bountyRange")
 
+    async function onSubmit(data: FormData) {
         try {
             const editedBounty = await editBounty.mutateAsync({
                 issueLink: data.githubIssueLink,
                 bountyId: bounty.id,
                 bountyPrice: data.bountyPrice,
+                bountyRange: data.bountyRange,
+                bountyPriceMin: data.bountyPriceMin,
+                bountyPriceMax: data.bountyPriceMax,
                 title: data.title,
                 content: editor?.getJSON(),
                 html: editor?.getHTML(),
@@ -320,6 +328,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         <Input
                             label="Title *"
                             id="title"
+                            type="text"
                             className="bg-appbg"
                             placeholder="Enter a title for your Bounty"
                         />
@@ -350,8 +359,8 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                     </div>
 
-                    <div className="my-6 grid grid-cols-1 gap-4">
-                        <div className="grid gap-1">
+                    <div className="my-6 grid grid-cols-3 gap-4">
+                        <div className="col-span-2 grid gap-1">
                             <Input
                                 label="Github issue link"
                                 id="githubIssueLink"
@@ -360,32 +369,99 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             />
                         </div>
                     </div>
-                    {/* <RadioGroup>
-                        <RadioGroup.Item id="fixed" value="fixed">
-                            Fixed Price
-                            <small className="text-brandtext-700">
-                                A fixed, unchanging price for this bounty.
-                            </small>
-                        </RadioGroup.Item>
-                        <RadioGroup.Item id="range" value="range">
-                            Range
-                            <small className="text-brandtext-700">
-                                A price range for this bounty, based on the
-                                quality of the submission you receive.
-                            </small>
-                        </RadioGroup.Item>
-                    </RadioGroup> */}
-                    <div className="mt-4 mb-4 grid gap-1">
-                        <Input
-                            step="0.01"
-                            label="Bounty price *"
-                            id="bountyPrice"
-                            type="number"
-                            placeholder="0.00"
-                            className="bg-appbg"
-                            aria-describedby="bountyPrice"
-                        />
+                    <Label>Bounty price*</Label>
+                    <div className="mt-2">
+                        <RadioGroup
+                            defaultValue={
+                                bounty.bountyRange ? "range" : "fixed"
+                            }
+                            onValueChange={(e) => {
+                                console.log("Value changed", e)
+                                if (e === "fixed") {
+                                    methods.setValue("bountyRange", false)
+                                } else {
+                                    methods.setValue("bountyRange", true)
+                                }
+                            }}
+                        >
+                            <RadioGroup.Item id="fixed" value="fixed">
+                                Fixed Price
+                                <small className="text-sm text-brandtext-700">
+                                    A fixed, unchanging price for this bounty.
+                                </small>
+                            </RadioGroup.Item>
+                            <RadioGroup.Item id="range" value="range">
+                                Range
+                                <small className="text-sm text-brandtext-700">
+                                    A price range for this bounty, based on the
+                                    quality of the submission you receive.
+                                </small>
+                            </RadioGroup.Item>
+                        </RadioGroup>
                     </div>
+
+                    {!bountyRangeEnabled && (
+                        <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
+                            <Input
+                                step="0.01"
+                                label="Bounty price *"
+                                id="bountyPrice"
+                                type="number"
+                                placeholder="10.00"
+                                className="bg-appbg"
+                                aria-describedby="bountyPrice"
+                            >
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <span
+                                        className="text-gray-500 sm:text-sm"
+                                        id="price-currency"
+                                    >
+                                        USD
+                                    </span>
+                                </div>
+                            </Input>
+                        </div>
+                    )}
+                    {bountyRangeEnabled && (
+                        <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
+                            <Input
+                                step="0.01"
+                                label="Bounty price minimum *"
+                                id="bountyPriceMin"
+                                type="number"
+                                placeholder="1.00"
+                                className="bg-appbg"
+                                aria-describedby="bountyPriceMin"
+                            >
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <span
+                                        className="text-gray-500 sm:text-sm"
+                                        id="price-currency"
+                                    >
+                                        USD
+                                    </span>
+                                </div>
+                            </Input>
+                            <Input
+                                step="0.01"
+                                label="Bounty price maximum *"
+                                id="bountyPriceMax"
+                                type="number"
+                                placeholder="100.00"
+                                className="bg-appbg"
+                                aria-describedby="bountyPriceMax"
+                            >
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <span
+                                        className="text-gray-500 sm:text-sm"
+                                        id="price-currency"
+                                    >
+                                        USD
+                                    </span>
+                                </div>
+                            </Input>
+                        </div>
+                    )}
 
                     <Label className="dropdown my-4 block" htmlFor="details">
                         Bounty Details

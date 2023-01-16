@@ -15,6 +15,8 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
 
     const githubIssue = bounty?.githubIssue as any
 
+    const bountyRangeEnabled =
+        bounty.bountyRange && bounty?.bountyPriceMin && bounty.bountyPriceMax
     return (
         <div className="col-span-4 rounded-lg border border-raised-border">
             <div className="border-b border-raised-border p-4">
@@ -23,10 +25,20 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
                 </p>
             </div>
             <div className="flex w-full flex-col justify-between space-y-4 overflow-hidden p-4 text-brandtext-500">
-                <KeyValue
-                    label="Bounty"
-                    value={formatDollars(bounty?.bountyPrice ?? 0)}
-                />
+                {bountyRangeEnabled ? (
+                    <KeyValue
+                        label="Bounty"
+                        value={`${formatDollars(
+                            bounty?.bountyPriceMin ?? 0
+                        )} - ${formatDollars(bounty?.bountyPriceMax ?? 0)}`}
+                    />
+                ) : (
+                    <KeyValue
+                        label="Bounty"
+                        value={formatDollars(bounty?.bountyPrice ?? 0)}
+                    />
+                )}
+
                 <KeyValue
                     label="Posted"
                     value={formatDate(bounty.project.createdAt?.toString())}

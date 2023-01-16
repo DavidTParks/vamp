@@ -36,6 +36,7 @@ export function Input({
     className,
     name,
     label,
+    children,
     id,
     isPending = false,
     ...props
@@ -61,12 +62,24 @@ export function Input({
                     <input
                         id={id}
                         {...register(id, {
-                            valueAsNumber:
-                                props.type === "number" ? true : false,
+                            // valueAsNumber:
+                            //     props.type === "number" ? true : false,
+                            setValueAs: (v) => {
+                                if (props.type === "number") {
+                                    if (v === "") {
+                                        return undefined
+                                    } else {
+                                        return parseFloat(v).toFixed(2)
+                                    }
+                                } else {
+                                    return v
+                                }
+                            },
                         })}
                         className={cn(inputStyles({ intent }), className)}
                         {...props}
                     />
+                    {children}
                 </div>
             </div>
         </>
