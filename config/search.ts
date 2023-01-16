@@ -11,10 +11,20 @@ export const sortQueryToOrderBy = {
     createdAsc: {
         createdAt: "asc",
     },
-    priceDesc: {
-        bountyPrice: "desc",
-    },
-    priceAsc: {
-        bountyPrice: "asc",
-    },
+    priceDesc: [
+        {
+            bountyPrice: "desc",
+        },
+        {
+            bountyPriceMax: "desc",
+        },
+    ],
+    priceAsc: [
+        {
+            bountyPrice: "asc",
+        },
+        {
+            bountyPriceMax: "asc",
+        },
+    ],
 }

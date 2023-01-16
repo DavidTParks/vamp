@@ -1,4 +1,5 @@
 "use client"
+
 import { trpc } from "@/client/trpcClient"
 import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
@@ -24,7 +25,6 @@ export type DonationAcceptSchema = z.infer<typeof donationAcceptSchema>
 
 export function ProfileDonate({ user }: IProfileDonate) {
     const donateToUser = trpc.user.donateToUser.useMutation()
-    const router = useRouter()
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
     const searchParams = useSearchParams()
@@ -33,13 +33,15 @@ export function ProfileDonate({ user }: IProfileDonate) {
     const from = searchParams.get("from") as string
 
     React.useEffect(() => {
-        toast({
-            title: "Donation completed!",
-            message:
-                "Your donation has been sent to the user. Thanks for making open-source a better place.",
-            type: "success",
-        })
-    }, [from, router, searchParams])
+        if (from === "donationCompleted") {
+            toast({
+                title: "Donation completed!",
+                message:
+                    "Your donation has been sent to the user. Thanks for making open-source a better place.",
+                type: "success",
+            })
+        }
+    }, [from])
 
     const methods = useForm<DonationAcceptSchema>({
         resolver: zodResolver(donationAcceptSchema),
@@ -63,22 +65,24 @@ export function ProfileDonate({ user }: IProfileDonate) {
     }
 
     return (
-        <>
+        <div>
             <Tooltip
                 content={
                     "Like what this user is doing? Show your appreciation by donating to them!"
                 }
             >
-                <Button
-                    isLoading={donateToUser.isLoading}
-                    disabled={donateToUser.isLoading}
-                    onClick={() => setIsModalOpen(true)}
-                    size="small"
-                    fullWidth={true}
-                    intent="secondary"
-                >
-                    Donate
-                </Button>
+                <div>
+                    <Button
+                        isLoading={donateToUser.isLoading}
+                        disabled={donateToUser.isLoading}
+                        onClick={() => setIsModalOpen(true)}
+                        size="small"
+                        fullWidth={true}
+                        intent="secondary"
+                    >
+                        Donate
+                    </Button>
+                </div>
             </Tooltip>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Content>
@@ -114,6 +118,6 @@ export function ProfileDonate({ user }: IProfileDonate) {
                     </FormProvider>
                 </Modal.Content>
             </Modal>
-        </>
+        </div>
     )
 }
