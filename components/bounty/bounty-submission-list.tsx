@@ -81,6 +81,12 @@ export async function BountySubmissionList({
                                 isOwner &&
                                 submission?.user?.stripeCustomerId && (
                                     <BountyPayoutButton
+                                        computedBountyPrice={
+                                            bounty?.computedBountyPrice
+                                        }
+                                        bountyRange={bounty?.bountyRange}
+                                        bountyPriceMax={bounty?.bountyPriceMax}
+                                        bountyPriceMin={bounty?.bountyPriceMin}
                                         bountyId={submission.bountyId}
                                         submissionId={submission.id}
                                         bountyStripePriceId={

@@ -28,6 +28,7 @@ const inputStyles = cva(
 export interface Props extends InputProps, VariantProps<typeof inputStyles> {
     id: string
     label?: string
+    isUSD?: boolean
     isPending?: boolean
 }
 
@@ -39,6 +40,7 @@ export function Input({
     children,
     id,
     isPending = false,
+    isUSD = false,
     ...props
 }: Props) {
     const { register } = useFormContext()
@@ -79,6 +81,16 @@ export function Input({
                         className={cn(inputStyles({ intent }), className)}
                         {...props}
                     />
+                    {isUSD && (
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <span
+                                className="text-gray-500 sm:text-sm"
+                                id="price-currency"
+                            >
+                                USD
+                            </span>
+                        </div>
+                    )}
                     {children}
                 </div>
             </div>

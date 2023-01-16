@@ -59,7 +59,7 @@ export function NotificationList({ user }: INotificationList) {
                     {query.data?.pages.map((page, index) => (
                         <Fragment key={index}>
                             {page.items.map((notification) => (
-                                <>
+                                <Fragment key={notification.id}>
                                     {notification?.bounty &&
                                         notification?.bountySubmission && (
                                             <Link
@@ -111,7 +111,7 @@ export function NotificationList({ user }: INotificationList) {
                                                 )}
                                             </Link>
                                         )}
-                                </>
+                                </Fragment>
                             ))}
                         </Fragment>
                     ))}

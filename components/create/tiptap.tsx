@@ -369,7 +369,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                             />
                         </div>
                     </div>
-                    <Label>Bounty price*</Label>
+                    <Label>Price type*</Label>
                     <div className="mt-2">
                         <RadioGroup
                             defaultValue={
@@ -403,6 +403,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                     {!bountyRangeEnabled && (
                         <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
                             <Input
+                                isUSD
                                 step="0.01"
                                 label="Bounty price *"
                                 id="bountyPrice"
@@ -410,21 +411,13 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 placeholder="10.00"
                                 className="bg-appbg"
                                 aria-describedby="bountyPrice"
-                            >
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <span
-                                        className="text-gray-500 sm:text-sm"
-                                        id="price-currency"
-                                    >
-                                        USD
-                                    </span>
-                                </div>
-                            </Input>
+                            ></Input>
                         </div>
                     )}
                     {bountyRangeEnabled && (
                         <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
                             <Input
+                                isUSD
                                 step="0.01"
                                 label="Bounty price minimum *"
                                 id="bountyPriceMin"
@@ -432,17 +425,9 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 placeholder="1.00"
                                 className="bg-appbg"
                                 aria-describedby="bountyPriceMin"
-                            >
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <span
-                                        className="text-gray-500 sm:text-sm"
-                                        id="price-currency"
-                                    >
-                                        USD
-                                    </span>
-                                </div>
-                            </Input>
+                            ></Input>
                             <Input
+                                isUSD
                                 step="0.01"
                                 label="Bounty price maximum *"
                                 id="bountyPriceMax"
@@ -450,16 +435,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 placeholder="100.00"
                                 className="bg-appbg"
                                 aria-describedby="bountyPriceMax"
-                            >
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <span
-                                        className="text-gray-500 sm:text-sm"
-                                        id="price-currency"
-                                    >
-                                        USD
-                                    </span>
-                                </div>
-                            </Input>
+                            ></Input>
                         </div>
                     )}
 

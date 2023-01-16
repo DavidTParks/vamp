@@ -1,6 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority"
 import { ComponentProps } from "react"
 import { cn } from "@/lib/utils"
+import { Icons } from "@/components/icons"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -41,14 +42,19 @@ const buttonStyles = cva(
 
 export interface TButtonProps
     extends ButtonProps,
-        VariantProps<typeof buttonStyles> {}
+        VariantProps<typeof buttonStyles> {
+    isLoading?: boolean
+    children?: React.ReactNode
+}
 
 export function Button({
     intent = "primary",
     borderRadius,
+    isLoading,
     size,
     fullWidth,
     className,
+    children,
     ...props
 }: TButtonProps) {
     return (
@@ -58,6 +64,11 @@ export function Button({
                 className
             )}
             {...props}
-        />
+        >
+            {isLoading ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
+            {children}
+        </button>
     )
 }
