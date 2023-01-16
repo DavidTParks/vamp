@@ -36,13 +36,12 @@ export default async function Head({ params }: IBountyHeadProps) {
             <title>{bounty.title}</title>
             <link rel="canonical" href={`/bounty/${bounty.id}`} />
             <meta name="description" content={bounty?.description ?? ""} />
-            <meta property="og:type" content="website" />
             <meta property="og:title" content={bounty.title} />
             <meta
                 property="og:description"
                 content={bounty?.description ?? ""}
             />
-            <meta property="og:url" content={url} />
+            {/* <meta property="og:url" content={url} /> */}
             <meta property="og:image" content={ogUrl.toString()} />
             <meta name="twitter:title" content={bounty.title} />
             <meta
