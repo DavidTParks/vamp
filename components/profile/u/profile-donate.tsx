@@ -65,25 +65,17 @@ export function ProfileDonate({ user }: IProfileDonate) {
     }
 
     return (
-        <div>
-            <Tooltip
-                content={
-                    "Like what this user is doing? Show your appreciation by donating to them!"
-                }
+        <>
+            <Button
+                isLoading={donateToUser.isLoading}
+                disabled={donateToUser.isLoading}
+                onClick={() => setIsModalOpen(true)}
+                size="small"
+                fullWidth={true}
+                intent="secondary"
             >
-                <div>
-                    <Button
-                        isLoading={donateToUser.isLoading}
-                        disabled={donateToUser.isLoading}
-                        onClick={() => setIsModalOpen(true)}
-                        size="small"
-                        fullWidth={true}
-                        intent="secondary"
-                    >
-                        Donate
-                    </Button>
-                </div>
-            </Tooltip>
+                Donate
+            </Button>
             <Modal onOpenChange={setIsModalOpen} open={isModalOpen}>
                 <Modal.Content>
                     <Modal.Title>Donate</Modal.Title>
@@ -118,6 +110,6 @@ export function ProfileDonate({ user }: IProfileDonate) {
                     </FormProvider>
                 </Modal.Content>
             </Modal>
-        </div>
+        </>
     )
 }
