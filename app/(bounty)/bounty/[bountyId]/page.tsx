@@ -9,6 +9,7 @@ import { UserNav } from "@/components/user-nav"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
+import { Suspense } from "react"
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
     searchParams: { id: string }
@@ -49,15 +50,26 @@ export default async function BountyPage({
                                 {/* @ts-expect-error Server Component */}
                                 <BountyContent bountyId={params.bountyId} />
                                 <div className="mt-24 flex flex-col">
-                                    {/* @ts-expect-error Server Component */}
-                                    <BountyActivity
-                                        bountyId={params.bountyId}
-                                    />
+                                    <Suspense
+                                        fallback={<BountyActivity.Skeleton />}
+                                    >
+                                        {/* @ts-expect-error Server Component */}
+                                        <BountyActivity
+                                            bountyId={params.bountyId}
+                                        />
+                                    </Suspense>
                                 </div>
                             </div>
                             <div className="mt-12 w-full space-y-8 sm:mt-0 lg:w-4/12 lg:min-w-[321px]">
-                                {/* @ts-expect-error Server Component */}
-                                <BountyProjectInfo bountyId={params.bountyId} />
+                                <Suspense
+                                    fallback={<BountyProjectInfo.Skeleton />}
+                                >
+                                    {/* @ts-expect-error Server Component */}
+                                    <BountyProjectInfo
+                                        bountyId={params.bountyId}
+                                    />
+                                </Suspense>
+
                                 {/* @ts-expect-error Server Component */}
                                 <BountyInfoBox bountyId={params.bountyId} />
                             </div>

@@ -8,6 +8,8 @@ import Image from "next/image"
 import { BountyPayoutButton } from "./bounty-payout-button"
 import { UserAvatar } from "@/components/dashboard/user-avatar"
 import { getBountyById } from "@/lib/bounties"
+import Link from "next/link"
+import { Tooltip } from "@/ui/tooltip"
 interface MainNavProps {
     bountyId: string
     resolved: boolean
@@ -49,10 +51,14 @@ export async function BountySubmissionList({
                                         }}
                                     />
                                 </div>
+
                                 <div className="flex flex-col">
-                                    <span className="text-sm font-bold text-brandtext-500">
-                                        {submission.user.name}
-                                    </span>
+                                    <Link href={`/u/${submission.user.id}`}>
+                                        <span className="text-sm font-bold text-brandtext-500">
+                                            {submission.user.name}
+                                        </span>
+                                    </Link>
+
                                     <span className="text-sm text-brandtext-600">
                                         {formatDate(
                                             submission.createdAt.toString()

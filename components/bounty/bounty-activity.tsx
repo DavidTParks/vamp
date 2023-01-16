@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/session"
 import Link from "next/link"
 import { Button } from "@/ui/button"
 import { StripeNotConnectedModal } from "@/ui/stripe-not-connected-modal"
+import { Skeleton } from "@/ui/skeleton"
 
 interface TBountyActivity {
     bountyId: string
@@ -70,5 +71,16 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
                 </>
             )}
         </>
+    )
+}
+
+BountyActivity.Skeleton = function BountyActivitySkeleton() {
+    return (
+        <div className="mb-4 flex w-full flex-col items-start justify-between">
+            <h3 className="text-2xl font-bold text-brandtext-500">Activity</h3>
+            <div className="mt-4 w-full">
+                <Skeleton className="h-32 w-full" />
+            </div>
+        </div>
     )
 }
