@@ -185,6 +185,11 @@ const acceptBountyRangeSubmission = withBounty
             product: bounty.project.stripeProductId,
         })
 
+        ctx.log.info("User initiated bounty range payout", {
+            bounty,
+            stripePrice,
+        })
+
         if (!stripePrice.unit_amount) {
             throw new Error("No unit amount for stripe price")
         }
