@@ -81,7 +81,7 @@ export function NotificationsForm({
                     </Card.Header>
                     <Card.Content className="flex flex-col items-start gap-8 pb-4">
                         <Checkbox id="newSubmission" label="New submissions">
-                            <span className="text-sm text-brandtext-700 mt-2">
+                            <span className="mt-2 text-sm text-brandtext-700">
                                 An email every time there is a new submission on
                                 a posted bounty.
                             </span>
@@ -90,7 +90,7 @@ export function NotificationsForm({
                             id="submissionAccepted"
                             label="Submission accepted"
                         >
-                            <span className="text-sm text-brandtext-700 mt-2">
+                            <span className="mt-2 text-sm text-brandtext-700">
                                 An email when your bounty submission is accepted
                                 by a project owner.
                             </span>

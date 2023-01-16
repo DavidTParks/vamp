@@ -29,13 +29,13 @@ export default function LoginPage() {
                 <UserAuthForm />
                 <p className="px-8 text-center text-sm text-brandtext-600">
                     By clicking continue, you agree to our{" "}
-                    <Link href="/tos" className="underline hover:text-brand">
+                    <Link href="/tos" className="hover:text-brand underline">
                         Terms of Service
                     </Link>{" "}
                     and{" "}
                     <Link
                         href="/privacy-policy"
-                        className="underline hover:text-brand"
+                        className="hover:text-brand underline"
                     >
                         Privacy Policy
                     </Link>

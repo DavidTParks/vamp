@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+    "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+    "plugins": ["tailwindcss"],
+    "settings": {
+        "tailwindcss": {
+            "callees": ["cn"]
+        }
+    }
 }

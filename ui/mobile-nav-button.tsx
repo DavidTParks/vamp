@@ -16,7 +16,7 @@ export function MobileNavButton() {
             <Button
                 intent="tertiary"
                 size="small"
-                className="flex items-center space-x-2 md:hidden px-2"
+                className="flex items-center space-x-2 px-2 md:hidden"
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
                 {showMobileMenu ? (

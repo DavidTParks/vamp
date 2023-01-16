@@ -17,7 +17,7 @@ DropdownMenu.Trigger = React.forwardRef<
 >(function DropdownMenuTrigger({ ...props }, ref) {
     return (
         <DropdownMenuPrimitive.Trigger
-            className="focus:outline-none rounded-md   text-white focus:ring-rose-500 focus:ring-1 focus:ring-offset-rose-700 ring-offset-1 overflow-hidden"
+            className="overflow-hidden rounded-md   text-white ring-offset-1 focus:outline-none focus:ring-1 focus:ring-rose-500 focus:ring-offset-rose-700"
             {...props}
             ref={ref}
         />
@@ -36,7 +36,7 @@ DropdownMenu.Content = React.forwardRef<
                 ref={ref}
                 align="end"
                 className={cn(
-                    "overflow-hidden rounded-md border border-palette-300 shadow-lg animate-in slide-in-from-top-1 md:w-32 dropdown z-30",
+                    "dropdown z-30 overflow-hidden rounded-md border border-palette-300 shadow-lg animate-in slide-in-from-top-1 md:w-32",
                     className
                 )}
                 {...props}
@@ -57,7 +57,7 @@ DropdownMenu.Item = React.forwardRef<
             }}
             ref={ref}
             className={cn(
-                "flex cursor-default select-none items-center py-2 px-3 m-1 rounded-md text-sm text-slate-100 outline-none focus:bg-palette-150 focus:text-white hover:brightness-200",
+                "m-1 flex cursor-default select-none items-center rounded-md py-2 px-3 text-sm text-slate-100 outline-none hover:brightness-200 focus:bg-palette-150 focus:text-white",
                 className
             )}
             {...props}

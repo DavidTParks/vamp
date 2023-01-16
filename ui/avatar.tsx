@@ -9,7 +9,7 @@ export function Avatar({ className, ...props }: AvatarProps) {
     return (
         <AvatarPrimitive.Root
             className={cn(
-                "flex h-10 w-10 overflow-hidden relative flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0",
+                "relative flex h-10 w-10 flex-none items-center justify-center overflow-hidden rounded-full border border-zinc-700/50  bg-zinc-800 shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5",
                 className
             )}
             {...props}

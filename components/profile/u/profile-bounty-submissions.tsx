@@ -35,23 +35,23 @@ export async function UserBountySubmissionList({ user }: IUserProjectList) {
     return (
         <>
             {bountySubmissions?.length ? (
-                <div className="flex flex-col relative divide-y divide-palette-300">
+                <div className="relative flex flex-col divide-y divide-palette-300">
                     {bountySubmissions.map((submission) => (
                         <div key={submission.id}>
                             <Link
-                                className="p-4 pr-0 pl-0 flex items-center hover:brightness-150"
+                                className="flex items-center p-4 pr-0 pl-0 hover:brightness-150"
                                 href={`/bounty/${submission.bounty.id}`}
                             >
-                                <div className="flex items-center justify-between w-full">
-                                    <div className="flex items-center w-full text-brandtext-700 gap-2 text-sm ">
+                                <div className="flex w-full items-center justify-between">
+                                    <div className="flex w-full items-center gap-2 text-sm text-brandtext-700 ">
                                         <span className="hidden sm:block">
                                             Submit a solution to
                                         </span>
-                                        <div className="text-brandtext-500 truncate max-w-[204px] sm:max-w-[256px] block">
+                                        <div className="block max-w-[204px] truncate text-brandtext-500 sm:max-w-[256px]">
                                             {submission.bounty.title}
                                         </div>{" "}
                                     </div>
-                                    <div className="text-brandtext-600 text-sm whitespace-nowrap">
+                                    <div className="whitespace-nowrap text-sm text-brandtext-600">
                                         {dateToNow(submission.createdAt)} ago
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@ export async function UserBountySubmissionList({ user }: IUserProjectList) {
                     ))}
                 </div>
             ) : (
-                <EmptyPlaceholder className="min-h-[100px] mt-4">
+                <EmptyPlaceholder className="mt-4 min-h-[100px]">
                     <EmptyPlaceholder.Icon name="logo" />
                     <EmptyPlaceholder.Title>No projects</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description className="mb-0">
@@ -74,20 +74,20 @@ export async function UserBountySubmissionList({ user }: IUserProjectList) {
 
 UserBountySubmissionList.Skeleton = function CardSkeleton() {
     return (
-        <div className="flex flex-col relative divide-y divide-palette-300 w-full">
-            <div className="p-4 pr-0 pl-0 flex items-center w-full">
+        <div className="relative flex w-full flex-col divide-y divide-palette-300">
+            <div className="flex w-full items-center p-4 pr-0 pl-0">
                 <Skeleton className="h-8 w-full" />
             </div>
-            <div className="p-4 pr-0 pl-0 flex items-center w-full">
+            <div className="flex w-full items-center p-4 pr-0 pl-0">
                 <Skeleton className="h-8 w-full" />
             </div>
-            <div className="p-4 pr-0 pl-0 flex items-center w-full">
+            <div className="flex w-full items-center p-4 pr-0 pl-0">
                 <Skeleton className="h-8 w-full" />
             </div>
-            <div className="p-4 pr-0 pl-0 flex items-center w-full">
+            <div className="flex w-full items-center p-4 pr-0 pl-0">
                 <Skeleton className="h-8 w-full" />
             </div>
-            <div className="p-4 pr-0 pl-0 flex items-center w-full">
+            <div className="flex w-full items-center p-4 pr-0 pl-0">
                 <Skeleton className="h-8 w-full" />
             </div>
         </div>

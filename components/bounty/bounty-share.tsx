@@ -36,7 +36,7 @@ export function BountyShare({ bounty }: BountyShareProps) {
                     </div>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
-                    <DropdownMenu.Content className="mt-2 z-50 dropdown">
+                    <DropdownMenu.Content className="dropdown z-50 mt-2">
                         <DropdownMenu.Item>
                             <a
                                 rel="noopener noreferrer"

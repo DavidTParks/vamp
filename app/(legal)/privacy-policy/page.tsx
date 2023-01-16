@@ -4,13 +4,13 @@ export default async function PrivacyPolicyPage() {
             <div className="my-8">
                 <div className="mx-auto  px-4 sm:px-6 lg:px-8">
                     <div className="text-center">
-                        <p className="mt-1 text-4xl font-bold tracking-tight text-brandtext-500 sm:text-5xl lg:text-6xl flex gap-8 justify-center w-full items-center">
+                        <p className="mt-1 flex w-full items-center justify-center gap-8 text-4xl font-bold tracking-tight text-brandtext-500 sm:text-5xl lg:text-6xl">
                             Privacy Policy
                         </p>
                     </div>
                 </div>
             </div>
-            <div className="prose prose-lg prose-invert w-full max-w-4xl mx-auto">
+            <div className="prose prose-lg prose-invert mx-auto w-full max-w-4xl">
                 At our platform, we are committed to protecting your privacy. We
                 use the information we collect about you to provide you with a
                 personalized and efficient experience on our platform. This

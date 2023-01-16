@@ -25,7 +25,7 @@ Select.Trigger = React.forwardRef<
         <SelectPrimitive.Trigger
             className={cn(
                 className,
-                "inline-flex items-center text-sm gap-2 border border-raised-border rounded-md overflow-hidden px-3 py-2 hover:brightness-150 focus:outline-none focus:ring-0 text-white focus:border-rose-500"
+                "inline-flex items-center gap-2 overflow-hidden rounded-md border border-raised-border px-3 py-2 text-sm text-white hover:brightness-150 focus:border-rose-500 focus:outline-none focus:ring-0"
             )}
             ref={ref}
             {...props}
@@ -68,7 +68,7 @@ Select.Content = React.forwardRef<
         <SelectPrimitive.Content
             ref={ref}
             className={cn(
-                "overflow-hidden rounded-md border border-palette-300 shadow-lg animate-in slide-in-from-top-1 md:min-xw-32 dropdown z-30",
+                "md:min-xw-32 dropdown z-30 overflow-hidden rounded-md border border-palette-300 shadow-lg animate-in slide-in-from-top-1",
                 className
             )}
             {...props}
@@ -86,7 +86,7 @@ Select.Item = React.forwardRef<HTMLDivElement, SelectPrimitive.SelectItemProps>(
                 }}
                 ref={ref}
                 className={cn(
-                    "relative flex gap-2 cursor-default select-none items-center py-2 px-3 m-1  pl-8 rounded-md text-sm text-brandtext-500 outline-none focus:bg-palette-150 focus:text-white hover:brightness-200",
+                    "relative m-1 flex cursor-default select-none items-center gap-2 rounded-md py-2  px-3 pl-8 text-sm text-brandtext-500 outline-none hover:brightness-200 focus:bg-palette-150 focus:text-white",
                     className
                 )}
                 {...props}

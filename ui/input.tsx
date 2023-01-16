@@ -46,15 +46,15 @@ export function Input({
             <div className="grid gap-1">
                 {label && <Label htmlFor={id}>{capitalize(label)}</Label>}
 
-                <div className="w-full relative">
+                <div className="relative w-full">
                     {isPending && (
-                        <div className="absolute right-0 my-auto  inline-flex items-center h-full z-10">
+                        <div className="absolute right-0 z-10  my-auto inline-flex h-full items-center">
                             <Icons.spinner className="mr-3 h-4 w-4 animate-spin text-brandtext-600" />
                         </div>
                     )}
                     {intent === "search" && (
                         <Icons.search
-                            className="text-brandtext-600 absolute left-2 ml-1 top-0 bottom-0 m-auto h-full"
+                            className="absolute left-2 top-0 bottom-0 m-auto ml-1 h-full text-brandtext-600"
                             size={16}
                         />
                     )}

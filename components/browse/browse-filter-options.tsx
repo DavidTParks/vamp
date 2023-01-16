@@ -55,7 +55,7 @@ export function BrowseFilterOptions({
                 <DropdownMenu.Trigger className="rounded-l-none" asChild>
                     <div>
                         <Button
-                            className="flex-shrink-0 h-9 border-l-0 rounded-l-none text-brandtext-600 gap-2"
+                            className="h-9 flex-shrink-0 gap-2 rounded-l-none border-l-0 text-brandtext-600"
                             intent="outline"
                         >
                             <span className="text-brandtext-500">Sort</span>{" "}
@@ -71,7 +71,7 @@ export function BrowseFilterOptions({
                     </div>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
-                    <DropdownMenu.Content className="mt-2 z-50 dropdown">
+                    <DropdownMenu.Content className="dropdown z-50 mt-2">
                         <DropdownMenu.Separator />
                         {sortOptions.map((option) => (
                             <DropdownMenu.Item

@@ -15,12 +15,12 @@ export default async function SettingsPage() {
     }
 
     return (
-        <div className="max-w-lg mx-auto w-full">
+        <div className="mx-auto w-full max-w-lg">
             <div className="my-8">
                 <Link href={`/dashboard`}>
                     <Button
                         intent="tertiary"
-                        className="inline-flex items-center justify-start gap-2 mb-8"
+                        className="mb-8 inline-flex items-center justify-start gap-2"
                         size="small"
                     >
                         <Icons.chevronLeft size={16} />

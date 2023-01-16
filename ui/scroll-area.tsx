@@ -31,7 +31,7 @@ ScrollArea.ScrollBar = React.forwardRef<
 >(function Scrollbar({ className, ...props }, ref) {
     return (
         <ScrollAreaPrimitive.Scrollbar
-            className={cn("bg-slate-800 select-none flex w-3 p-1", className)}
+            className={cn("flex w-3 select-none bg-slate-800 p-1", className)}
             {...props}
             ref={ref}
         />
@@ -44,7 +44,7 @@ ScrollArea.Thumb = React.forwardRef<
 >(function Thumb({ className, ...props }, ref) {
     return (
         <ScrollAreaPrimitive.Thumb
-            className={cn("relative flex-1 bg-slate-700 rounded-lg", className)}
+            className={cn("relative flex-1 rounded-lg bg-slate-700", className)}
             {...props}
             ref={ref}
         />

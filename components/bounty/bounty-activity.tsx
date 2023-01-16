@@ -21,8 +21,8 @@ export async function BountyActivity({ bountyId }: TBountyActivity) {
 
     return (
         <>
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="text-brandtext-500 text-2xl font-bold">
+            <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-brandtext-500">
                     Activity
                 </h3>
                 {bounty?.bountySubmissions?.length &&

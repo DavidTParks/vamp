@@ -20,10 +20,10 @@ export async function GithubOrgCard({ org }: TGithubOrgCard) {
             <Button
                 aria-label={`Select from ${org.login} repositories`}
                 intent="tertiary"
-                className="w-full p-4 border-raised-border border rounded-md"
+                className="w-full rounded-md border border-raised-border p-4"
                 key={org.id}
             >
-                <span className="text-brandtext-500 font-bold">
+                <span className="font-bold text-brandtext-500">
                     {org.login}
                 </span>
             </Button>

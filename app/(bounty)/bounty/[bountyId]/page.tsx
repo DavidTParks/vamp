@@ -19,7 +19,7 @@ export default async function BountyPage({
     searchParams,
 }: ProjectPageProps) {
     return (
-        <div className="mx-auto flex flex-col min-h-screen relative">
+        <div className="relative mx-auto flex min-h-screen flex-col">
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
@@ -28,8 +28,8 @@ export default async function BountyPage({
                     </div>
                 </div>
             </header>
-            <main className=" px-4 lg:px-8 z-10 mt-12">
-                <div className="mx-auto max-w-screen-xl  px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
+            <main className=" z-10 mt-12 px-4 lg:px-8">
+                <div className="mx-auto flex  w-full max-w-screen-xl flex-1 flex-col overflow-hidden px-2.5 md:px-20">
                     <div className="mx-auto w-full">
                         <div className="lg:flex">
                             <div className="relative w-full lg:w-8/12 lg:pr-5">
@@ -37,7 +37,7 @@ export default async function BountyPage({
                                     <Link href={`/browse`}>
                                         <Button
                                             intent="tertiary"
-                                            className="inline-flex items-center justify-start gap-2 mb-8"
+                                            className="mb-8 inline-flex items-center justify-start gap-2"
                                             size="small"
                                         >
                                             <Icons.chevronLeft size={16} />
@@ -55,7 +55,7 @@ export default async function BountyPage({
                                     />
                                 </div>
                             </div>
-                            <div className="w-full lg:w-4/12 lg:min-w-[321px] mt-12 sm:mt-0 space-y-8">
+                            <div className="mt-12 w-full space-y-8 sm:mt-0 lg:w-4/12 lg:min-w-[321px]">
                                 {/* @ts-expect-error Server Component */}
                                 <BountyProjectInfo bountyId={params.bountyId} />
                                 {/* @ts-expect-error Server Component */}

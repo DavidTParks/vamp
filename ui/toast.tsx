@@ -63,7 +63,7 @@ Toast.Description = function ToastDescription({
 }: ToastDescriptionProps) {
     return (
         <p
-            className={cn("text-sm opacity-80 text-brandtext-300", className)}
+            className={cn("text-sm text-brandtext-300 opacity-80", className)}
             {...props}
         />
     )
@@ -85,7 +85,7 @@ export function toast(opts: ToastOpts) {
                 visible={visible}
                 className={cn("relative pl-10", {
                     "bg-red-600 text-white": type === "error",
-                    "bg-raised border border-raised-border text-primary dropdown":
+                    "dropdown border border-raised-border bg-raised text-primary":
                         type === "success" || type === "default",
                 })}
             >

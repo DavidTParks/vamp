@@ -45,7 +45,7 @@ export default function IssueListPagination({
                     {totalCount} results
                 </p>
             </div>
-            <div className="flex flex-1 justify-between sm:justify-end gap-4">
+            <div className="flex flex-1 justify-between gap-4 sm:justify-end">
                 {previousPage && (
                     <Button
                         onClick={() => {

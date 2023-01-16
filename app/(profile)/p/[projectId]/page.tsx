@@ -61,11 +61,11 @@ export default async function ProjectPage({
     return (
         <DashboardShell>
             <div className="mt-12">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    <div className="w-full space-y-8 col-span-4 lg:col-span-1">
-                        <div className="border border-raised-border rounded-lg p-4 py-6 w-full">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
+                    <div className="col-span-4 w-full space-y-8 lg:col-span-1">
+                        <div className="w-full rounded-lg border border-raised-border p-4 py-6">
                             <div className="flex flex-col items-center">
-                                <div className="h-16 w-16 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                                <div className="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full">
                                     {project.image ? (
                                         <Image
                                             fill={true}
@@ -81,12 +81,12 @@ export default async function ProjectPage({
                                     )}
                                 </div>
                                 <div className="mt-8">
-                                    <span className="text-brandtext-500 font-bold text-xl inline-flex gap-2 items-center text-center">
+                                    <span className="inline-flex items-center gap-2 text-center text-xl font-bold text-brandtext-500">
                                         {project.name}{" "}
                                     </span>
                                 </div>
                                 <div className="mt-2">
-                                    <span className="text-brandtext-600 inline-flex gap-2 items-center">
+                                    <span className="inline-flex items-center gap-2 text-brandtext-600">
                                         {project.bounties.length} Bounties
                                     </span>
                                 </div>
@@ -111,7 +111,7 @@ export default async function ProjectPage({
                             </div>
                         </div>
                     </div>
-                    <div className="w-full col-span-4 lg:col-span-3">
+                    <div className="col-span-4 w-full lg:col-span-3">
                         {/* @ts-expect-error Server Component */}
                         <BountyList
                             bountyPromise={bountyPromise}

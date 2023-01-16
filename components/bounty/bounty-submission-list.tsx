@@ -27,21 +27,21 @@ export async function BountySubmissionList({
     const isOwner = await isBountyOwner(bountyId)
 
     return (
-        <div className="border border-raised-border rounded-lg col-span-4">
-            <div className="p-4 border-b border-raised-border">
-                <p className="text-brandtext-500 font-bold text-lg">
+        <div className="col-span-4 rounded-lg border border-raised-border">
+            <div className="border-b border-raised-border p-4">
+                <p className="text-lg font-bold text-brandtext-500">
                     Submissions ({bountySubmissions?.length})
                 </p>
             </div>
-            <div className="divide-y divide-raised-border flex flex-col">
+            <div className="flex flex-col divide-y divide-raised-border">
                 {bountySubmissions.map((submission) => (
                     <div
                         key={submission.id}
-                        className="text-brandtext-500 gap-4 p-4 flex flex-col"
+                        className="flex flex-col gap-4 p-4 text-brandtext-500"
                     >
-                        <div className="flex justify-between items-center">
+                        <div className="flex items-center justify-between">
                             <div className="inline-flex items-center gap-4">
-                                <div className="h-8 w-8 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                                <div className="relative inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full">
                                     <UserAvatar
                                         user={{
                                             id: submission.user.id,
@@ -50,7 +50,7 @@ export async function BountySubmissionList({
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-brandtext-500 font-bold text-sm">
+                                    <span className="text-sm font-bold text-brandtext-500">
                                         {submission.user.name}
                                     </span>
                                     <span className="text-sm text-brandtext-600">
@@ -76,7 +76,7 @@ export async function BountySubmissionList({
                         <div className="text-sm text-brandtext-500">
                             {submission.comments}{" "}
                         </div>
-                        <div className="flex gap-4 items-center">
+                        <div className="flex items-center gap-4">
                             {!resolved &&
                                 isOwner &&
                                 submission?.user?.stripeCustomerId && (

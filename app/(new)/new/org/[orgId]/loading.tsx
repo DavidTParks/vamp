@@ -6,20 +6,20 @@ import { Icons } from "@/components/icons"
 
 const RepoLoadingItem = () => {
     return (
-        <div className="p-4 pr-0 flex justify-between items-center">
-            <Skeleton className="w-full h-8" />
+        <div className="flex items-center justify-between p-4 pr-0">
+            <Skeleton className="h-8 w-full" />
         </div>
     )
 }
 
 export default function NewLoading() {
     return (
-        <div className="max-w-lg mx-auto w-full">
+        <div className="mx-auto w-full max-w-lg">
             <div className="my-8">
                 <Link href={`/new`}>
                     <Button
                         intent="tertiary"
-                        className="inline-flex items-center justify-start gap-2 mb-8"
+                        className="mb-8 inline-flex items-center justify-start gap-2"
                         size="small"
                     >
                         <Icons.chevronLeft size={16} />
@@ -31,7 +31,7 @@ export default function NewLoading() {
                     text="Import a Github Repository to get started posting bounties"
                 />
             </div>
-            <div className="flex flex-col relative divide-y divide-palette-300">
+            <div className="relative flex flex-col divide-y divide-palette-300">
                 <RepoLoadingItem />
                 <RepoLoadingItem />
                 <RepoLoadingItem />

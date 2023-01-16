@@ -45,7 +45,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
         <>
             <DropdownMenu>
                 <DropdownMenu.Trigger>
-                    <div className="h-8 w-8 rounded-full overflow-hidden border border-raised-border hover:brightness-200 p-1 inline-flex items-center justify-center transition-all duration-100 cursor-pointer focus:outline-none">
+                    <div className="inline-flex h-8 w-8 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-raised-border p-1 transition-all duration-100 hover:brightness-200 focus:outline-none">
                         <Icons.ellipsis
                             size={16}
                             className="text-brandtext-400"
@@ -54,7 +54,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                     <span className="sr-only">Open</span>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
-                    <DropdownMenu.Content className="mt-2 z-50 dropdown">
+                    <DropdownMenu.Content className="dropdown z-50 mt-2">
                         <DropdownMenu.Item>
                             <Link
                                 href={`/project/${project.id}/settings`}
@@ -87,7 +87,7 @@ export function ProjectOperations({ project }: PostOperationsProps) {
                     <Alert.Footer>
                         <Alert.Cancel>Cancel</Alert.Cancel>
                         <Alert.Action
-                            className="disabled:opacity-50 disabled:pointer-events-none"
+                            className="disabled:pointer-events-none disabled:opacity-50"
                             disabled={isDeleteLoading}
                             onClick={async (event) => {
                                 event.preventDefault()

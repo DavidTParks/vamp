@@ -30,9 +30,9 @@ const navigation = {
 
 export function SiteFooter() {
     return (
-        <footer className="mx-auto mt-32 w-full max-w-container px-4 sm:px-6 lg:px-8 z-50 relative">
+        <footer className="max-w-container relative z-50 mx-auto mt-32 w-full px-4 sm:px-6 lg:px-8">
             <div className="border-t border-raised-border py-10">
-                <div className="mx-auto max-w-sm h-5 w-auto text-center flex items-center justify-center text-brandtext-500 gap-2 font-bold">
+                <div className="mx-auto flex h-5 w-auto max-w-sm items-center justify-center gap-2 text-center font-bold text-brandtext-500">
                     <Icons.logo size={24} /> Vamp
                 </div>
                 <div className="mt-8 flex justify-center space-x-6">

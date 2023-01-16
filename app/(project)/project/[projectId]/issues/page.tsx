@@ -43,11 +43,11 @@ export default async function ProjectPage({
 
     return (
         <div>
-            <div className="w-full border border-raised-border rounded-md flex justify-center items-center p-4 flex-col gap-2 my-8">
-                <p className="text-brandtext-500 font-medium text-lg">
+            <div className="my-8 flex w-full flex-col items-center justify-center gap-2 rounded-md border border-raised-border p-4">
+                <p className="text-lg font-medium text-brandtext-500">
                     Import an existing Github issue
                 </p>
-                <p className="text-brandtext-600 text-sm">
+                <p className="text-sm text-brandtext-600">
                     Reference an open issue on your repository in a new bounty
                 </p>
             </div>

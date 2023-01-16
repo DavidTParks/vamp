@@ -18,13 +18,13 @@ export default function IssueList({ issues, project, page }: TIssueList) {
     return (
         <ul
             role="list"
-            className="flex flex-col relative divide-y divide-palette-300"
+            className="relative flex flex-col divide-y divide-palette-300"
         >
             {issues?.items?.length ? (
                 <>
                     {issues?.items?.map((issue) => (
                         <li className="p-4 pr-0 pl-0" key={issue.id}>
-                            <div className="flex flex-col sm:flex-row items-start justify-between sm:items-center gap-4 sm:gap-0">
+                            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center sm:gap-0">
                                 <div className="flex items-center gap-2">
                                     <Icons.circleDot
                                         size={16}
@@ -34,13 +34,13 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                                         target="_blank"
                                         rel="noreferrer"
                                         href={issue.html_url}
-                                        className="text-white font-medium text-sm hover:underline max-w-[256px] md:max-w-[400px] truncate"
+                                        className="max-w-[256px] truncate text-sm font-medium text-white hover:underline md:max-w-[400px]"
                                     >
                                         {issue.title}
                                     </a>
                                 </div>
-                                <div className="w-full block md:hidden">
-                                    <p className="text-brandtext-600 text-xs pl-0 md:pl-6">
+                                <div className="block w-full md:hidden">
+                                    <p className="pl-0 text-xs text-brandtext-600 md:pl-6">
                                         #{issue.number} opened by{" "}
                                         <ExternalLink
                                             href={issue.user.html_url}
@@ -63,8 +63,8 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                                     New bounty
                                 </BountyCreateButton>
                             </div>
-                            <div className="w-full hidden md:block">
-                                <p className="text-brandtext-600 text-xs pl-0 md:pl-6">
+                            <div className="hidden w-full md:block">
+                                <p className="pl-0 text-xs text-brandtext-600 md:pl-6">
                                     #{issue.number} opened by{" "}
                                     <ExternalLink href={issue.user.html_url}>
                                         {issue.user.login}

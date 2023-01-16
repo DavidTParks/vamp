@@ -2,7 +2,7 @@ import { Skeleton } from "@/ui/skeleton"
 
 export default function NewLoading() {
     return (
-        <div className="max-w-4xl mx-auto w-full">
+        <div className="mx-auto w-full max-w-4xl">
             <div className="my-8">
                 <div className="mx-auto  px-4 sm:px-6 lg:px-8">
                     <div className="text-center">

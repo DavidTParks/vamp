@@ -7,12 +7,12 @@ import { Button } from "@/ui/button"
 
 export default function DashboardLoading() {
     return (
-        <div className="mx-auto flex flex-col min-h-screen relative">
+        <div className="relative mx-auto flex min-h-screen flex-col">
             <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg px-4 lg:px-8">
                 <div className="mx-auto max-w-screen-xl px-2.5 md:px-20">
                     <div className="flex h-16 items-center justify-between">
-                        <div className="flex gap-6 md:gap-10 text-red-50">
-                            <div className=" gap-4 items-center flex">
+                        <div className="flex gap-6 text-red-50 md:gap-10">
+                            <div className=" flex items-center gap-4">
                                 <Icons.logo size={32} color="white" />
                                 <svg
                                     data-testid="geist-icon"
@@ -28,8 +28,8 @@ export default function DashboardLoading() {
                                 >
                                     <path d="M16.88 3.549L7.12 20.451"></path>
                                 </svg>
-                                <div className="flex items-center gap-4 w-32 md:w-56">
-                                    <span className="hidden md:block text-sm text-brandtext-500 truncate">
+                                <div className="flex w-32 items-center gap-4 md:w-56">
+                                    <span className="hidden truncate text-sm text-brandtext-500 md:block">
                                         {" "}
                                         <Skeleton className="h-8 w-72" />
                                     </span>
@@ -52,8 +52,8 @@ export default function DashboardLoading() {
                 </div>
             </header>
             <div>
-                <div className="flex h-36 items-center border-b border-palette-300 bg-palette-400 z-10 relative px-4 lg:px-8">
-                    <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 undefined">
+                <div className="relative z-10 flex h-36 items-center border-b border-palette-300 bg-palette-400 px-4 lg:px-8">
+                    <div className="undefined mx-auto w-full max-w-screen-xl px-2.5 md:px-20">
                         <div className="flex items-center justify-between">
                             <h1 className="text-2xl font-medium text-brandtext-500">
                                 Overview
@@ -66,8 +66,8 @@ export default function DashboardLoading() {
                     </div>
                 </div>
             </div>
-            <main className=" px-4 lg:px-8 z-10">
-                <div className="mx-auto max-w-screen-xl px-2.5 md:px-20 flex w-full flex-1 flex-col overflow-hidden">
+            <main className=" z-10 px-4 lg:px-8">
+                <div className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col overflow-hidden px-2.5 md:px-20">
                     <DashboardShell>
                         <div className="mt-12">
                             <div className="mb-8">
@@ -77,14 +77,14 @@ export default function DashboardLoading() {
                                 />
                             </div>
                             <>
-                                <Skeleton className="w-full h-9" />
+                                <Skeleton className="h-9 w-full" />
                                 <div className="mt-4">
-                                    <div className="divide-y space-y-4 divide-raised-border rounded-md overflow-hidden ">
-                                        <Skeleton className="w-full h-16" />
-                                        <Skeleton className="w-full h-16" />
-                                        <Skeleton className="w-full h-16" />
-                                        <Skeleton className="w-full h-16" />
-                                        <Skeleton className="w-full h-16" />
+                                    <div className="space-y-4 divide-y divide-raised-border overflow-hidden rounded-md ">
+                                        <Skeleton className="h-16 w-full" />
+                                        <Skeleton className="h-16 w-full" />
+                                        <Skeleton className="h-16 w-full" />
+                                        <Skeleton className="h-16 w-full" />
+                                        <Skeleton className="h-16 w-full" />
                                     </div>
                                 </div>
                             </>

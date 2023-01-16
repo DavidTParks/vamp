@@ -35,6 +35,7 @@ export default async function Head({ params }: IBountyHeadProps) {
         <>
             <title>{bounty.title}</title>
             <link rel="canonical" href={`/bounty/${bounty.id}`} />
+            <link rel="icon" href="/vamp.svg" />
             <meta name="description" content={bounty?.description ?? ""} />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={bounty.title} />

@@ -25,7 +25,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
     const markAllUnread = trpc.notification.markAllUnread.useMutation()
 
     return (
-        <div className="flex items-center gap-4 relative">
+        <div className="relative flex items-center gap-4">
             <DropdownMenu
                 onOpenChange={async (e) => {
                     if (e) {
@@ -36,7 +36,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
             >
                 <DropdownMenu.Trigger
                     asChild
-                    className="flex items-center gap-2 overflow-hidden focus:ring-0 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none"
+                    className="focus:ring-brand-900 flex items-center gap-2 overflow-hidden focus:ring-0 focus:ring-offset-2 focus-visible:outline-none"
                 >
                     <div>
                         {children}
@@ -52,7 +52,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                        className="mt-2 w-72 md:w-96 z-50"
+                        className="z-50 mt-2 w-72 md:w-96"
                         align="end"
                     >
                         <div className="flex items-center justify-between gap-2 p-4">
@@ -70,7 +70,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                 </DropdownMenu.Portal>
             </DropdownMenu>
             <DropdownMenu>
-                <DropdownMenu.Trigger className="flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-brand-900 focus:ring-offset-2 focus-visible:outline-none">
+                <DropdownMenu.Trigger className="focus:ring-brand-900 flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-offset-2 focus-visible:outline-none">
                     <UserAvatar
                         user={{
                             id: user.id,
@@ -81,7 +81,7 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                        className="mt-2 md:w-[240px] z-50"
+                        className="z-50 mt-2 md:w-[240px]"
                         align="end"
                     >
                         <div className="flex items-center justify-start gap-2 p-4">

@@ -14,10 +14,10 @@ export default async function GithubRepoList() {
         <>
             {organizations?.length ? (
                 <div className="mb-8">
-                    <h4 className="text-brandtext-500 font-medium text-lg">
+                    <h4 className="text-lg font-medium text-brandtext-500">
                         Your organizations
                     </h4>
-                    <div className="flex flex-col space-y-4 mt-4">
+                    <div className="mt-4 flex flex-col space-y-4">
                         {organizations.map((org) => (
                             <>
                                 {/* @ts-expect-error Server Component */}
@@ -27,13 +27,13 @@ export default async function GithubRepoList() {
                     </div>
                 </div>
             ) : null}
-            <h4 className="text-brandtext-500 font-medium text-lg">
+            <h4 className="text-lg font-medium text-brandtext-500">
                 Your repositories
             </h4>
-            <div className="flex flex-col relative divide-y divide-palette-300">
+            <div className="relative flex flex-col divide-y divide-palette-300">
                 {repos?.map((repo) => (
                     <div
-                        className="p-4 pr-0 flex justify-between items-center"
+                        className="flex items-center justify-between p-4 pr-0"
                         key={repo.id}
                     >
                         <div className="flex items-center gap-2">
@@ -41,11 +41,11 @@ export default async function GithubRepoList() {
                                 target="_blank"
                                 rel="noreferrer"
                                 href={repo.html_url}
-                                className="text-white text-sm font-medium hover:underline max-w-[128px] md:max-w-[256px] truncate"
+                                className="max-w-[128px] truncate text-sm font-medium text-white hover:underline md:max-w-[256px]"
                             >
                                 {repo.name}
                             </a>
-                            <div className="text-slate-500 text-2xl">
+                            <div className="text-2xl text-slate-500">
                                 &middot;
                             </div>
                             {repo?.pushed_at && (

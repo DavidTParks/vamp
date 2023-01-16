@@ -13,9 +13,9 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
     if (!bounty) return null
 
     return (
-        <div className="border border-raised-border rounded-lg col-span-4 p-4 py-6">
+        <div className="col-span-4 rounded-lg border border-raised-border p-4 py-6">
             <div className="flex flex-col items-center">
-                <div className="h-16 w-16 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                <div className="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full">
                     {bounty.project.image ? (
                         <Image
                             fill={true}
@@ -31,12 +31,12 @@ export async function BountyProjectInfo({ bountyId }: TBountyInfoBox) {
                     )}
                 </div>
                 <div className="mt-8">
-                    <span className="text-brandtext-500 font-bold text-xl inline-flex gap-2 items-center">
+                    <span className="inline-flex items-center gap-2 text-xl font-bold text-brandtext-500">
                         {bounty.project.name}{" "}
                     </span>
                 </div>
                 <div className="mt-2">
-                    <span className="text-brandtext-600 inline-flex gap-2 items-center">
+                    <span className="inline-flex items-center gap-2 text-brandtext-600">
                         {bounty.project.bounties.length} Bounties
                     </span>
                 </div>

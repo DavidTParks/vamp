@@ -13,11 +13,11 @@ export async function DashboardNav() {
     }
 
     return (
-        <div className="flex gap-6 md:gap-10 text-red-50">
-            <div className=" gap-4 items-center flex">
+        <div className="flex gap-6 text-red-50 md:gap-10">
+            <div className=" flex items-center gap-4">
                 <Link
                     href="/"
-                    className="items-center space-x-2 md:flex text-2xl"
+                    className="items-center space-x-2 text-2xl md:flex"
                 >
                     <Icons.logo size={32} color="white" />
                 </Link>
@@ -36,7 +36,7 @@ export async function DashboardNav() {
                 >
                     <path d="M16.88 3.549L7.12 20.451"></path>
                 </svg>
-                <div className="hidden md:flex items-center gap-2 w-32 md:w-56">
+                <div className="hidden w-32 items-center gap-2 md:flex md:w-56">
                     <UserAvatar
                         user={{
                             id: user.id,
@@ -44,7 +44,7 @@ export async function DashboardNav() {
                             image: user.image,
                         }}
                     />
-                    <span className="text-sm text-brandtext-500 truncate">
+                    <span className="truncate text-sm text-brandtext-500">
                         {" "}
                         {user.email}
                     </span>

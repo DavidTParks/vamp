@@ -16,13 +16,13 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
     const githubIssue = bounty?.githubIssue as any
 
     return (
-        <div className="border border-raised-border rounded-lg col-span-4">
-            <div className="p-4 border-b border-raised-border">
-                <p className="text-brandtext-500 font-bold text-lg">
+        <div className="col-span-4 rounded-lg border border-raised-border">
+            <div className="border-b border-raised-border p-4">
+                <p className="text-lg font-bold text-brandtext-500">
                     Information
                 </p>
             </div>
-            <div className="w-full justify-between text-brandtext-500 p-4 space-y-4 flex flex-col overflow-hidden">
+            <div className="flex w-full flex-col justify-between space-y-4 overflow-hidden p-4 text-brandtext-500">
                 <KeyValue
                     label="Bounty"
                     value={formatDollars(bounty?.bountyPrice ?? 0)}
@@ -46,7 +46,7 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
                         value={
                             <ExternalLink
                                 href={bounty?.issueLink ?? ""}
-                                className="truncate  max-w-[48px]"
+                                className="max-w-[48px]  truncate"
                             >
                                 Issue #{githubIssue.number}
                             </ExternalLink>

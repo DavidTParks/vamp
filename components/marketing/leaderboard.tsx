@@ -31,7 +31,7 @@ export const LeaderBoardLoading = () => {
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-sm font-semibold text-brandtext-500 inline-flex items-center gap-2"
+                                            className="inline-flex items-center gap-2 px-3 py-3.5 text-left text-sm font-semibold text-brandtext-500"
                                         >
                                             Blood{" "}
                                             <Image
@@ -49,14 +49,14 @@ export const LeaderBoardLoading = () => {
                                             <tr key={e}>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                                     <div className="flex items-center justify-start gap-4">
-                                                        <Skeleton className="w-full h-9" />
+                                                        <Skeleton className="h-9 w-full" />
                                                     </div>
                                                 </td>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
-                                                    <Skeleton className="w-full h-9" />
+                                                    <Skeleton className="h-9 w-full" />
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-brandtext-500">
-                                                    <Skeleton className="w-full h-9" />
+                                                    <Skeleton className="h-9 w-full" />
                                                 </td>
                                             </tr>
                                         )
@@ -129,7 +129,7 @@ export async function LeaderBoard({
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-3 py-3.5 text-left text-sm font-semibold text-brandtext-500 inline-flex items-center gap-2"
+                                                className="inline-flex items-center gap-2 px-3 py-3.5 text-left text-sm font-semibold text-brandtext-500"
                                             >
                                                 Blood{" "}
                                                 <Image

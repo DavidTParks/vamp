@@ -55,7 +55,7 @@ export function Tooltip({
                         <TooltipPrimitive.Content
                             sideOffset={4}
                             side="top"
-                            className="z-30 hidden animate-slide-up-fade items-center overflow-hidden rounded-md border border-raised-border bg-appbg drop-shadow-lg sm:block"
+                            className="animate-slide-up-fade z-30 hidden items-center overflow-hidden rounded-md border border-raised-border bg-appbg drop-shadow-lg sm:block"
                         >
                             <TooltipPrimitive.Arrow className="fill-current text-brandtext-500" />
                             {typeof content === "string" ? (

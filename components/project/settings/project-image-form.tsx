@@ -104,8 +104,8 @@ export function ProjectImageForm({
                 <Card.Description>Update your Project photo</Card.Description>
             </Card.Header>
             <Card.Content>
-                <div className="w-24 h-24 relative">
-                    <div className="w-24 h-24 overflow-hidden rounded-full flex items-center justify-center">
+                <div className="relative h-24 w-24">
+                    <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full">
                         {project.image ? (
                             <Image
                                 alt={`${project.name} avatar`}
@@ -130,7 +130,7 @@ export function ProjectImageForm({
 
                     <label
                         htmlFor="desktop-user-photo"
-                        className="absolute inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-75 text-sm font-medium text-white opacity-0 focus-within:opacity-100 hover:opacity-100 rounded-full overflow-hidden"
+                        className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-black bg-opacity-75 text-sm font-medium text-white opacity-0 focus-within:opacity-100 hover:opacity-100"
                     >
                         <span>Change</span>
                         <span className="sr-only"> project photo</span>

@@ -42,12 +42,12 @@ export const SecondaryLinkItem = ({
         <Link
             {...props}
             className={cn(
-                "border-b-2 p-1 border-transparent text-brandtext-400 font-bold hover:text-white",
+                "border-b-2 border-transparent p-1 font-bold text-brandtext-400 hover:text-white",
                 isActive ? activeClass : null
             )}
             href={href}
         >
-            <div className="rounded-md px-3 py-2 inline-flex gap-2">
+            <div className="inline-flex gap-2 rounded-md px-3 py-2">
                 <p className="text-sm">{children}</p>
                 {badge}
             </div>

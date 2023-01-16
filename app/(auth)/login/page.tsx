@@ -30,7 +30,7 @@ export default function LoginPage() {
                 <p className="px-8 text-center text-sm text-slate-200">
                     <Link
                         href="/register"
-                        className="underline hover:text-brand"
+                        className="hover:text-brand underline"
                     >
                         Don&apos;t have an account? Sign Up
                     </Link>

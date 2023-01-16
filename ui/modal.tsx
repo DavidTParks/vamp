@@ -23,7 +23,7 @@ Modal.Title = React.forwardRef<HTMLDivElement, Dialog.DialogTitleProps>(
     function ModalTitle({ className, ...props }, ref) {
         return (
             <Dialog.Title
-                className="text-default text-xl font-bold"
+                className="text-xl font-bold text-default"
                 {...props}
                 ref={ref}
             />
@@ -35,12 +35,12 @@ Modal.Content = React.forwardRef<HTMLDivElement, Dialog.DialogContentProps>(
     function ModalContent({ className, ...props }, ref) {
         return (
             <Dialog.Portal>
-                <Dialog.Overlay className="fixed inset-0 z-40 opacity-100 transition-opacity animate-in fade-in backdrop-blur-sm	" />
+                <Dialog.Overlay className="fixed inset-0 z-40 opacity-100 backdrop-blur-sm transition-opacity animate-in fade-in	" />
                 <div className="fixed inset-0 z-40 flex items-center justify-center">
                     <Dialog.Content
                         ref={ref}
                         className={cn(
-                            "fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl dropdown shadow-lg p-6 opacity-100 animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75 md:w-full",
+                            "dropdown fixed z-50 grid w-[95vw] max-w-md scale-100 gap-4 rounded-xl p-6 opacity-100 shadow-lg animate-in fade-in-90 zoom-in-90 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75 md:w-full",
                             className
                         )}
                         {...props}

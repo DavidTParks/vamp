@@ -62,10 +62,10 @@ export default async function IndexPage() {
                         </span>
                     </div>
                 </div>
-                <h1 className="mt-5 font-extrabold leading-[1.15] text-white sm:text-7xl sm:leading-[1.15] inline bg-gradient-to-r from-white  to-brandtext-500 bg-clip-text text-5xl tracking-tight text-transparent">
+                <h1 className="mt-5 inline bg-gradient-to-r from-white to-brandtext-500 bg-clip-text text-5xl font-extrabold leading-[1.15]  tracking-tight text-white text-transparent sm:text-7xl sm:leading-[1.15]">
                     Contribute to Open Source
                     <br />
-                    <span className="bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent red-glow">
+                    <span className="red-glow bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent">
                         Get Paid
                     </span>
                 </h1>
@@ -86,15 +86,15 @@ export default async function IndexPage() {
                     )}
                     <ExternalLink href="https://github.com/DavidTParks/vamp">
                         <Button intent="secondary">
-                            <p className="text-sm mr-2">Star on GitHub</p>
+                            <p className="mr-2 text-sm">Star on GitHub</p>
                             <Icons.star size={16} />
                         </Button>
                     </ExternalLink>
                 </div>
             </div>
 
-            <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
-                <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
+            <section className="container grid place-items-center items-center justify-center gap-6 py-8 text-center md:py-12 lg:py-24">
+                <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         Sync Github Issues with ease
                     </h2>
@@ -103,13 +103,13 @@ export default async function IndexPage() {
                         referencing issues directly.
                     </p>
                 </div>
-                <div className="rounded-lg overflow-hidden w-full flex justify-center items-center h-full">
+                <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg">
                     <VideoPlayer />
                 </div>
             </section>
 
-            <section className="container grid gap-6 py-8 md:py-12 lg:py-24 text-center">
-                <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
+            <section className="container grid gap-6 py-8 text-center md:py-12 lg:py-24">
+                <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         Make your mark
                     </h2>
@@ -121,11 +121,11 @@ export default async function IndexPage() {
                 <Suspense fallback={<LeaderBoardLoading />}>
                     {/* @ts-expect-error Server Component */}
                     <LeaderBoard pageSize={10} page={1} />
-                    <div className="max-w-md w-full mx-auto flex justify-center">
+                    <div className="mx-auto flex w-full max-w-md justify-center">
                         <Link href="/leaderboard">
                             <Button
                                 intent="primary"
-                                className="inline-flex gap-2 items-center"
+                                className="inline-flex items-center gap-2"
                             >
                                 <Image
                                     alt="gold"
@@ -140,8 +140,8 @@ export default async function IndexPage() {
                 </Suspense>
             </section>
 
-            <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24 text-center items-center place-items-center">
-                <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem] items-center">
+            <section className="container grid place-items-center items-center justify-center gap-6 py-8 text-center md:py-12 lg:py-24">
+                <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         Completely Open Source
                     </h2>

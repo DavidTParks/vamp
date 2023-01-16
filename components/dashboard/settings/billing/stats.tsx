@@ -29,7 +29,7 @@ export default function Stats({ balance, payouts }: TStats) {
                 {stats.map((item) => (
                     <div
                         key={item.name}
-                        className="overflow-hidden rounded-lg bg-palette-400 border-raised px-4 py-5 shadow sm:p-6"
+                        className="overflow-hidden rounded-lg border-raised bg-palette-400 px-4 py-5 shadow sm:p-6"
                     >
                         <dt className="truncate text-sm font-medium text-brandtext-400">
                             {item.name}

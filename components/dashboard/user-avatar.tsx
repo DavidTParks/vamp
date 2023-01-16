@@ -15,7 +15,7 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
         <Avatar {...props}>
             <Image
                 src={`https://vamp.sh/api/avatar/${user.id}`}
-                className="w-8 h-8 rounded-full overflow-hidden border border-sm border-zinc-700/50"
+                className="border-sm h-8 w-8 overflow-hidden rounded-full border border-zinc-700/50"
                 height={32}
                 width={32}
                 alt={`${user.name} avatar`}

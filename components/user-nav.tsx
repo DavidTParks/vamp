@@ -48,7 +48,7 @@ async function Wrapper() {
                 }}
             >
                 {unreadNotificationCount > 0 && (
-                    <div className="font-bold inline-flex justify-center items-center absolute top-0 left-0 -m-1 text-xs rounded-full h-5 min-w-[1.25rem] bg-rose-600 text-brandtext-500 pointer-events-none">
+                    <div className="pointer-events-none absolute top-0 left-0 -m-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-brandtext-500">
                         {unreadNotificationCount}
                     </div>
                 )}

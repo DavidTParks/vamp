@@ -40,7 +40,7 @@ export function Pagination({
 
     return (
         <nav
-            className="flex items-center justify-between border-t px-0 border-raised-border bg-appbg py-3 px-0"
+            className="flex items-center justify-between border-t border-raised-border bg-appbg px-0 px-0 py-3"
             aria-label="Pagination"
         >
             <div className="block">
@@ -53,7 +53,7 @@ export function Pagination({
                     {itemCount} results
                 </p>
             </div>
-            <div className="flex flex-1 justify-end gap-4 w-full">
+            <div className="flex w-full flex-1 justify-end gap-4">
                 {" "}
                 {previousPage ? (
                     <Button

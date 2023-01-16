@@ -8,9 +8,9 @@ interface KeyValueProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function KeyValue({ className, label, value, ...props }: KeyValueProps) {
     return (
-        <div className="flex justify-between items-center text-sm w-full">
-            <span className="text-brandtext-600 font-bold">{label}</span>
-            <span className="text-brandtext-500 font-medium">{value}</span>
+        <div className="flex w-full items-center justify-between text-sm">
+            <span className="font-bold text-brandtext-600">{label}</span>
+            <span className="font-medium text-brandtext-500">{value}</span>
         </div>
     )
 }

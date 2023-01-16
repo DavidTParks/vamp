@@ -38,7 +38,7 @@ export default function IssueSearch({ project }: TIssueSearch) {
 
     return (
         <FormProvider {...methods}>
-            <div className="w-full relative">
+            <div className="relative w-full">
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <Input
                         isPending={isPending}

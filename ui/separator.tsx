@@ -4,5 +4,5 @@ type TSeparator = {
     className?: string
 }
 export function Separator({ className }: TSeparator) {
-    return <div className={cn("h-px bg-palette-300 w-full", className)} />
+    return <div className={cn("h-px w-full bg-palette-300", className)} />
 }

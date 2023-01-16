@@ -40,15 +40,15 @@ export default async function ProjectPage({
     return (
         <DashboardShell>
             <div className="mt-8 sm:mt-8">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div className="w-full col-span-4 lg:col-span-4">
-                        <div className="flex items-center sm:flex-col sm:items-start gap-4">
-                            <div className="relative w-32 h-32 sm:w-64 sm:h-64  flex flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+                    <div className="col-span-4 w-full lg:col-span-4">
+                        <div className="flex items-center gap-4 sm:flex-col sm:items-start">
+                            <div className="relative flex h-32 w-32 flex-none  items-center justify-center rounded-full border border-zinc-700/50 bg-zinc-800 shadow-md  shadow-zinc-800/5 ring-0 ring-zinc-900/5 sm:h-64 sm:w-64">
                                 <Image
                                     height={240}
                                     width={240}
                                     src={`https://vamp.sh/api/avatar/${user.id}`}
-                                    className="rounded-full overflow-hidden border border-sm border-zinc-700/50"
+                                    className="border-sm overflow-hidden rounded-full border border-zinc-700/50"
                                     alt={`${user.name} avatar`}
                                 />
                                 <Tooltip
@@ -56,8 +56,8 @@ export default async function ProjectPage({
                                         "A users Blood score reflects how many bounty submissions they have had accepted."
                                     }
                                 >
-                                    <div className="overflow-hidden rounded-full hidden px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 absolute gap-1 bottom-0 right-0">
-                                        <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
+                                    <div className="absolute bottom-0 right-0 flex hidden flex-none items-center justify-center gap-1 overflow-hidden rounded-full border border-zinc-700/50  bg-zinc-800 px-3 py-1 shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5 sm:m-3 sm:flex">
+                                        <span className="font-display text-sm font-bold tracking-tight text-brandtext-500">
                                             x{user.blood}
                                         </span>
                                         <Image
@@ -69,17 +69,17 @@ export default async function ProjectPage({
                                     </div>
                                 </Tooltip>
                             </div>
-                            <div className="flex flex-col w-full">
-                                <span className="text-brandtext-700  tracking-tight text-md font-bold">
+                            <div className="flex w-full flex-col">
+                                <span className="text-md  font-bold tracking-tight text-brandtext-700">
                                     Level {getUserLevel(user.blood)}
                                 </span>
 
-                                <h1 className="mt-1 text-xl font-bold tracking-tight text-brandtext-500 sm:text-2xl flex gap-8 w-full">
+                                <h1 className="mt-1 flex w-full gap-8 text-xl font-bold tracking-tight text-brandtext-500 sm:text-2xl">
                                     {user.name}{" "}
                                 </h1>
                                 <div>
-                                    <div className="mt-3 overflow-hidden w-fit sm:hidden rounded-full px-3 py-1 flex items-center justify-center sm:flex sm:m-3 flex-none shadow-md shadow-zinc-800/5  ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 gap-1 ">
-                                        <span className="text-sm tracking-tight font-bold text-brandtext-500 font-display">
+                                    <div className="mt-3 flex w-fit flex-none items-center justify-center gap-1 overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800 px-3 py-1 shadow-md  shadow-zinc-800/5 ring-0 ring-zinc-900/5 sm:m-3 sm:flex sm:hidden ">
+                                        <span className="font-display text-sm font-bold tracking-tight text-brandtext-500">
                                             x{user.blood}
                                         </span>
                                         <Image
@@ -110,14 +110,14 @@ export default async function ProjectPage({
 
                         <div className="mt-4 flex flex-col items-start gap-2">
                             <ExternalLink href={githubUser.html_url}>
-                                <p className="text-sm font-medium text-brandtext-700 flex items-center gap-2 w-full">
+                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
                                     <Icons.gitHub size={16} />
                                     {githubUser.login}
                                 </p>
                             </ExternalLink>
 
                             <ExternalLink href={`mailto:${user.email}`}>
-                                <p className="text-sm font-medium text-brandtext-700 flex items-center gap-2 w-full">
+                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
                                     <Icons.mail size={16} />
                                     {user.email}
                                 </p>
@@ -127,7 +127,7 @@ export default async function ProjectPage({
                                 <ExternalLink
                                     href={`https://www.twitter.com/${githubUser.twitter_username}`}
                                 >
-                                    <p className="text-sm font-medium text-brandtext-700 flex items-center gap-2 w-full">
+                                    <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
                                         <Icons.twitter size={16} />
                                         {githubUser.twitter_username}
                                     </p>
@@ -140,13 +140,13 @@ export default async function ProjectPage({
                                 <p className="font-bold tracking-tight">
                                     Achievements
                                 </p>
-                                <p className="text-brandtext-700 mt-2 text-sm">
+                                <p className="mt-2 text-sm text-brandtext-700">
                                     Coming soon
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div className="w-full col-span-4 lg:col-span-8">
+                    <div className="col-span-4 w-full lg:col-span-8">
                         <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg">
                             <div className="mx-auto max-w-screen-xl">
                                 <div className="flex h-12 items-center justify-between">
@@ -154,7 +154,7 @@ export default async function ProjectPage({
                                 </div>
                             </div>
                         </header>
-                        <h3 className="mt-8 text-lg font-bold tracking-tight text-brandtext-500 flex gap-8 w-full">
+                        <h3 className="mt-8 flex w-full gap-8 text-lg font-bold tracking-tight text-brandtext-500">
                             Projects
                         </h3>
                         <Suspense fallback={<UserProjectList.Skeleton />}>
@@ -165,7 +165,7 @@ export default async function ProjectPage({
                                 }}
                             />
                         </Suspense>
-                        <h3 className="mt-8 text-lg font-bold tracking-tight text-brandtext-500 flex gap-8 w-full">
+                        <h3 className="mt-8 flex w-full gap-8 text-lg font-bold tracking-tight text-brandtext-500">
                             Activity
                         </h3>
 

@@ -150,6 +150,9 @@ model Bounty {
   html              Json?
   issueLink         String?
   bountyPrice       Float?
+  bountyRange       Boolean            @default(false)
+  bountyPriceMin    Float?
+  bountyPriceMax    Float?
   deadline          DateTime?
   published         Boolean            @default(false)
   resolved          Boolean            @default(false)

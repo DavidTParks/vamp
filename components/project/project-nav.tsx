@@ -26,11 +26,11 @@ export function ProjectNav({ project }: MainNavProps) {
 
     const router = useRouter()
     return (
-        <div className="flex gap-6 md:gap-10 text-red-50">
-            <div className=" gap-4 items-center flex">
+        <div className="flex gap-6 text-red-50 md:gap-10">
+            <div className=" flex items-center gap-4">
                 <Link
                     href="/dashboard"
-                    className="items-center space-x-2 md:flex text-2xl"
+                    className="items-center space-x-2 text-2xl md:flex"
                 >
                     <Icons.logo size={32} color="white" />
                 </Link>
@@ -53,10 +53,10 @@ export function ProjectNav({ project }: MainNavProps) {
                         <DropdownMenu.Trigger>
                             <div
                                 className={cn(
-                                    "inline-flex items-center text-sm gap-2 border border-raised-border rounded-md overflow-hidden px-3 py-2 hover:brightness-150 "
+                                    "inline-flex items-center gap-2 overflow-hidden rounded-md border border-raised-border px-3 py-2 text-sm hover:brightness-150 "
                                 )}
                             >
-                                <div className="h-6 w-6 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                                <div className="relative inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
                                     {project.image ? (
                                         <Image
                                             fill={true}
@@ -71,7 +71,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                         />
                                     )}
                                 </div>
-                                <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
+                                <span className="hidden max-w-[128px] truncate text-sm text-brandtext-500 md:block">
                                     {" "}
                                     {project.name}
                                 </span>
@@ -79,7 +79,7 @@ export function ProjectNav({ project }: MainNavProps) {
                             </div>
                         </DropdownMenu.Trigger>
                         <DropdownMenu.Portal>
-                            <DropdownMenu.Content className="mt-2 w-24 z-50 md:min-w-[16rem] overflow-hidden truncate dropdown">
+                            <DropdownMenu.Content className="dropdown z-50 mt-2 w-24 overflow-hidden truncate md:min-w-[16rem]">
                                 {isLoading && (
                                     <div className="p-2">
                                         <Skeleton className="h-8 w-full" />
@@ -96,14 +96,14 @@ export function ProjectNav({ project }: MainNavProps) {
                                     >
                                         <Link
                                             href={`/project/${userProject.id}`}
-                                            className="w-full inline-flex gap-2 items-center relative"
+                                            className="relative inline-flex w-full items-center gap-2"
                                         >
                                             {userProject.id === project.id && (
                                                 <div className="absolute right-0 flex items-center">
                                                     <Icons.check size={16} />
                                                 </div>
                                             )}
-                                            <div className="h-6 w-6 rounded-full overflow-hidden inline-flex items-center justify-center relative flex-shrink-0">
+                                            <div className="relative inline-flex h-6 w-6 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
                                                 {userProject.image ? (
                                                     <Image
                                                         fill={true}
@@ -118,7 +118,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                                     />
                                                 )}
                                             </div>
-                                            <span className="hidden md:block text-sm text-brandtext-500 truncate max-w-[128px]">
+                                            <span className="hidden max-w-[128px] truncate text-sm text-brandtext-500 md:block">
                                                 {" "}
                                                 {userProject.name}
                                             </span>
@@ -128,7 +128,7 @@ export function ProjectNav({ project }: MainNavProps) {
                                 <DropdownMenu.Item>
                                     <Link
                                         href={`/new`}
-                                        className="w-full inline-flex gap-2 items-center text-brandtext-600"
+                                        className="inline-flex w-full items-center gap-2 text-brandtext-600"
                                     >
                                         <Icons.add size={16} />{" "}
                                         <span className="hidden md:block">

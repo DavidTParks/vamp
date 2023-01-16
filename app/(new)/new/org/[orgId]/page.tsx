@@ -23,12 +23,12 @@ export default async function OrgRepoPage({
     }
 
     return (
-        <div className="max-w-lg mx-auto w-full">
+        <div className="mx-auto w-full max-w-lg">
             <div className="my-8">
                 <Link href={`/new`}>
                     <Button
                         intent="tertiary"
-                        className="inline-flex items-center justify-start gap-2 mb-8"
+                        className="mb-8 inline-flex items-center justify-start gap-2"
                         size="small"
                     >
                         <Icons.chevronLeft size={16} />

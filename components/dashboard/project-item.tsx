@@ -20,11 +20,11 @@ export function ProjectItem({ projectUser }: TProjectItem) {
 
     return (
         <div key={projectUser.id} className="relative ">
-            <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease  hover:shadow-xl">
-                <div className="p-4 h-full flex flex-col">
-                    <div className="flex items-center w-full justify-between h-full">
+            <div className="ease block h-full overflow-hidden rounded-lg border border-palette-300 bg-palette-400 shadow-lg transition-all duration-150  hover:shadow-xl">
+                <div className="flex h-full flex-col p-4">
+                    <div className="flex h-full w-full items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 rounded-full overflow-hidden inline-flex items-center justify-center relative">
+                            <div className="relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full">
                                 {projectUser.project.image ? (
                                     <Image
                                         fill={true}
@@ -42,13 +42,13 @@ export function ProjectItem({ projectUser }: TProjectItem) {
                             <div className="flex flex-col gap-2">
                                 <Link
                                     href={`/project/${projectUser.project.id}`}
-                                    className="hover:underline inline-flex"
+                                    className="inline-flex hover:underline"
                                 >
-                                    <span className="text-white font-medium hover:underline max-w-[216px] truncate">
+                                    <span className="max-w-[216px] truncate font-medium text-white hover:underline">
                                         {projectUser.project.name}
                                     </span>
                                 </Link>
-                                <span className="items-center text-sm inline-flex gap-2 text-brandtext-600">
+                                <span className="inline-flex items-center gap-2 text-sm text-brandtext-600">
                                     <Icons.gitHub size={16} />
                                     <span className="max-w-[216px] truncate">
                                         {projectUser?.project?.githubRepo?.name}
@@ -73,7 +73,7 @@ export function ProjectItem({ projectUser }: TProjectItem) {
 ProjectItem.Skeleton = function ProjectItemSkeleton() {
     return (
         <div className="space-y-3">
-            <div className="block bg-palette-400 border border-palette-300 shadow-lg rounded-lg overflow-hidden h-full transition-all duration-150 ease hover:border-brandtext-500 hover:shadow-xl p-4 space-y-4">
+            <div className="ease block h-full space-y-4 overflow-hidden rounded-lg border border-palette-300 bg-palette-400 p-4 shadow-lg transition-all duration-150 hover:border-brandtext-500 hover:shadow-xl">
                 <Skeleton className="h-5 w-2/5" />
                 <Skeleton className="h-4 w-4/5" />
             </div>

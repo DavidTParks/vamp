@@ -41,14 +41,14 @@ export function BountySearch({ baseUrl = "/browse" }: IBountySearch) {
 
     return (
         <FormProvider {...methods}>
-            <div className="w-full relative flex">
+            <div className="relative flex w-full">
                 <form
                     className="flex-1"
                     onSubmit={methods.handleSubmit(onSubmit)}
                 >
                     <Input
                         isPending={isPending}
-                        className="bg-appbg rounded-r-none"
+                        className="rounded-r-none bg-appbg"
                         intent="search"
                         id="search"
                         placeholder="Search all bounties"

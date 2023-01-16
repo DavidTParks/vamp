@@ -22,7 +22,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
 
     return (
         <>
-            <div className="text-brandtext-500 font-bold break-words text-2xl leading-8 sm:text-4xl">
+            <div className="break-words text-2xl font-bold leading-8 text-brandtext-500 sm:text-4xl">
                 <h1>{bounty.title}</h1>
             </div>
             <div className="my-8 flex justify-between">
@@ -31,7 +31,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                     {bounty.resolved && <Chip intent="default">Resolved</Chip>}
                     <ExternalLink className="" href={repo.html_url}>
                         <Chip
-                            className="inline-flex gap-2 items-center max-w-[204px] overflow-hidden"
+                            className="inline-flex max-w-[204px] items-center gap-2 overflow-hidden"
                             intent="default"
                         >
                             <Icons.gitHub className="flex-shrink-0" size={16} />

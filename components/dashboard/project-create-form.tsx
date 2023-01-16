@@ -85,7 +85,7 @@ export function ProjectCreateForm({
 
     return (
         <FormProvider {...methods}>
-            <div className={cn("grid gap-6 mt-4", className)}>
+            <div className={cn("mt-4 grid gap-6", className)}>
                 <form onSubmit={methods.handleSubmit(onClick)}>
                     <div className="grid gap-8">
                         <div className="grid gap-1">

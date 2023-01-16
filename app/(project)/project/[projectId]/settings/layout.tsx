@@ -22,7 +22,7 @@ export default async function DashboardLayout({
     preloadStripeDetails(user.id)
 
     return (
-        <div className="grid gap-12 md:grid-cols-[200px_1fr] mt-12">
+        <div className="mt-12 grid gap-12 md:grid-cols-[200px_1fr]">
             <aside className="hidden w-[200px] flex-col md:flex">
                 <ProjectSettingsNav
                     items={dynamicProjectSidebar(params.projectId).sidebarNav}

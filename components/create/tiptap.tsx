@@ -25,6 +25,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 import { Icons } from "../icons"
 import { useState } from "react"
+import { RadioGroup } from "@/ui/radio-group"
 
 type ButtonProps = ComponentProps<"button">
 
@@ -94,7 +95,7 @@ const MenuBar = ({ editor }: TMenuBar) => {
     }
 
     return (
-        <div className="text-white flex flex-wrap rounded-t border-t border-raised-border overflow-hidden border-l border-r p-2 gap-4 text-sm bg-palette-200">
+        <div className="flex flex-wrap gap-4 overflow-hidden rounded-t border-t border-l border-r border-raised-border bg-palette-200 p-2 text-sm text-white">
             <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -312,7 +313,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
         <FormProvider {...methods}>
             <form
                 onSubmit={methods.handleSubmit(onSubmit)}
-                className="border border-raised-border rounded-lg bg-palette-400"
+                className="rounded-lg border border-raised-border bg-palette-400"
             >
                 <div className="p-4">
                     <div className="grid gap-1">
@@ -349,7 +350,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 my-6">
+                    <div className="my-6 grid grid-cols-1 gap-4">
                         <div className="grid gap-1">
                             <Input
                                 label="Github issue link"
@@ -358,17 +359,32 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 placeholder="https://www.github.com/issue..."
                             />
                         </div>
-                        <div className="grid gap-1">
-                            <Input
-                                step="0.01"
-                                label="Bounty price *"
-                                id="bountyPrice"
-                                type="number"
-                                placeholder="0.00"
-                                className="bg-appbg"
-                                aria-describedby="bountyPrice"
-                            />
-                        </div>
+                    </div>
+                    <RadioGroup>
+                        <RadioGroup.Item id="fixed" value="fixed">
+                            Fixed Price
+                            <small className="text-brandtext-700">
+                                A fixed, unchanging price for this bounty.
+                            </small>
+                        </RadioGroup.Item>
+                        <RadioGroup.Item id="range" value="range">
+                            Range
+                            <small className="text-brandtext-700">
+                                A price range for this bounty, based on the
+                                quality of the submission you receive.
+                            </small>
+                        </RadioGroup.Item>
+                    </RadioGroup>
+                    <div className="mt-4 grid gap-1">
+                        <Input
+                            step="0.01"
+                            label="Bounty price *"
+                            id="bountyPrice"
+                            type="number"
+                            placeholder="0.00"
+                            className="bg-appbg"
+                            aria-describedby="bountyPrice"
+                        />
                     </div>
 
                     <Label className="dropdown mb-4" htmlFor="details">
@@ -378,7 +394,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         <MenuBar editor={editor} />
                         {editor && (
                             <BubbleMenu
-                                className="dropdown text-white rounded-lg overflow-hidden p-2 px-3 py-1 text-sm flex gap-4 dropdown"
+                                className="dropdown dropdown flex gap-4 overflow-hidden rounded-lg p-2 px-3 py-1 text-sm text-white"
                                 editor={editor}
                                 tippyOptions={{ duration: 100 }}
                             >
@@ -434,12 +450,12 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         )}
                         <EditorContent editor={editor} />
                     </div>
-                    <small className="text-brandtext-600 mt-4 flex items-center gap-2">
+                    <small className="mt-4 flex items-center gap-2 text-brandtext-600">
                         <Icons.markdown size={16} />
                         Styling with Markdown supported
                     </small>
                 </div>
-                <div className="flex w-full justify-end gap-4 mt-8 border-t p-4 border-raised-border">
+                <div className="mt-8 flex w-full justify-end gap-4 border-t border-raised-border p-4">
                     <Button
                         type="submit"
                         disabled={editBounty.isLoading || editBounty.isSuccess}

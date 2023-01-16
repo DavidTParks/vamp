@@ -40,7 +40,7 @@ export function NotificationList({ user }: INotificationList) {
     return (
         <ul
             role="list"
-            className="divide-y divide-palette-300 max-h-[400px] overflow-y-scroll"
+            className="max-h-[400px] divide-y divide-palette-300 overflow-y-scroll"
         >
             {query.isLoading ? (
                 <>
@@ -64,9 +64,9 @@ export function NotificationList({ user }: INotificationList) {
                                         notification?.bountySubmission && (
                                             <Link
                                                 href={`/bounty/${notification.bounty.id}`}
-                                                className="p-4 hover:bg-palette-300 flex items-start gap-4 w-full"
+                                                className="flex w-full items-start gap-4 p-4 hover:bg-palette-300"
                                             >
-                                                <div className="overflow-hidden rounded-full relative flex-shrink-0">
+                                                <div className="relative flex-shrink-0 overflow-hidden rounded-full">
                                                     <UserAvatar
                                                         user={{
                                                             name: notification
@@ -80,8 +80,8 @@ export function NotificationList({ user }: INotificationList) {
                                                 </div>
                                                 {notification.type ===
                                                     "SUBMISSIONRECIEVED" && (
-                                                    <div className="flex flex-col w-full gap-2 overflow-hidden">
-                                                        <span className="text-brandtext-600 inline-flex gap-1 flex-wrap text-sm line-clamp-2">
+                                                    <div className="flex w-full flex-col gap-2 overflow-hidden">
+                                                        <span className="inline-flex flex-wrap gap-1 text-sm text-brandtext-600 line-clamp-2">
                                                             <span className="text-brandtext-500">
                                                                 {
                                                                     notification
@@ -127,7 +127,7 @@ export function NotificationList({ user }: INotificationList) {
                                     query.fetchNextPage()
                                 }}
                                 className={
-                                    "p-4 w-full cursor-pointer" +
+                                    "w-full cursor-pointer p-4" +
                                     (!query.hasNextPage ? " opacity-50" : "")
                                 }
                             >

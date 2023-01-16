@@ -59,8 +59,8 @@ export default async function BountyList({
         <>
             {bounties.length ? (
                 <>
-                    <div className="divide-y divide-raised-border rounded-md overflow-hidden border-raised-border border">
-                        <div className="flex items-center p-6 py-3 gap-6 bg-raised">
+                    <div className="divide-y divide-raised-border overflow-hidden rounded-md border border-raised-border">
+                        <div className="flex items-center gap-6 bg-raised p-6 py-3">
                             <Suspense fallback={<Skeleton className="w-72" />}>
                                 {showDrafts && (
                                     <>
@@ -99,7 +99,7 @@ export default async function BountyList({
                                 </BountyCount>
                             </Suspense>
                         </div>
-                        <div className="divide-y divide divide-raised-border">
+                        <div className="divide divide-y divide-raised-border">
                             {bounties?.map((bounty) => (
                                 <Link
                                     className="block"
@@ -110,7 +110,7 @@ export default async function BountyList({
                                             : `/bounty/${bounty.id}/edit`
                                     }
                                 >
-                                    <div className="hover:bg-palette-150 cursor-pointer">
+                                    <div className="cursor-pointer hover:bg-palette-150">
                                         <h3 className="sr-only">
                                             Bounty placed on{" "}
                                             <time
@@ -129,21 +129,21 @@ export default async function BountyList({
                                                             !bounty.resolved && (
                                                                 <Icons.edit2
                                                                     size={24}
-                                                                    className="text-yellow-600 mt-2"
+                                                                    className="mt-2 text-yellow-600"
                                                                 />
                                                             )}
                                                         {bounty.published &&
                                                             !bounty.resolved && (
                                                                 <Icons.circleDot
                                                                     size={24}
-                                                                    className="text-green-600 mt-2"
+                                                                    className="mt-2 text-green-600"
                                                                 />
                                                             )}
 
                                                         {bounty.resolved && (
                                                             <Icons.check
                                                                 size={24}
-                                                                className="text-purple-600 mt-2"
+                                                                className="mt-2 text-purple-600"
                                                             />
                                                         )}
                                                     </div>
@@ -156,8 +156,8 @@ export default async function BountyList({
                                                                 ? "(Draft)"
                                                                 : null}
                                                         </dt>
-                                                        <dd className="mt-1 text-brandtext-500 inline-flex items-center gap-2">
-                                                            <span className=" line-clamp-1 flex">
+                                                        <dd className="mt-1 inline-flex items-center gap-2 text-brandtext-500">
+                                                            <span className=" flex line-clamp-1">
                                                                 {bounty.title}
                                                             </span>
                                                         </dd>
@@ -191,7 +191,7 @@ export default async function BountyList({
                                                     </div>
                                                 </div>
                                                 {showControls && (
-                                                    <div className="flex-shrink-0 items-center hidden sm:inline-flex justify-end w-full">
+                                                    <div className="hidden w-full flex-shrink-0 items-center justify-end sm:inline-flex">
                                                         <BountyOperations
                                                             project={{
                                                                 id: project.id,
@@ -243,7 +243,7 @@ async function BountyCount({ promise, children, label }: TBountyCount) {
     const count = await promise
 
     return (
-        <div className="text-white inline-flex gap-1 items-center">
+        <div className="inline-flex items-center gap-1 text-white">
             {children}
             <span className="text-sm text-brandtext-600">
                 {count} {label}
