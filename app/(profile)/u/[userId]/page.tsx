@@ -12,6 +12,8 @@ import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import { Button } from "@/ui/button"
+import { ProfileDonate } from "@/components/profile/u/profile-donate"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -78,17 +80,23 @@ export default async function ProjectPage({
                                     {user.name}{" "}
                                 </h1>
                                 <div>
-                                    <div className="mt-3 flex w-fit flex-none items-center justify-center gap-1 overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800 px-3 py-1 shadow-md  shadow-zinc-800/5 ring-0 ring-zinc-900/5 sm:m-3 sm:flex sm:hidden ">
-                                        <span className="font-display text-sm font-bold tracking-tight text-brandtext-500">
-                                            x{user.blood}
-                                        </span>
-                                        <Image
-                                            alt="potion"
-                                            height={24}
-                                            width={24}
-                                            src="/achievements/blood.png"
-                                        />
-                                    </div>
+                                    <Tooltip
+                                        content={
+                                            "A users Blood score reflects how many bounty submissions they have had accepted."
+                                        }
+                                    >
+                                        <div className="mt-3 flex w-fit flex-none items-center justify-center gap-1 overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800 px-3 py-1 shadow-md  shadow-zinc-800/5 ring-0 ring-zinc-900/5 sm:m-3 sm:flex sm:hidden ">
+                                            <span className="font-display text-sm font-bold tracking-tight text-brandtext-500">
+                                                x{user.blood}
+                                            </span>
+                                            <Image
+                                                alt="potion"
+                                                height={24}
+                                                width={24}
+                                                src="/achievements/blood.png"
+                                            />
+                                        </div>
+                                    </Tooltip>
                                 </div>
 
                                 {/* <div className="w-full mt-0 mb-2 h-4  rounded-md overflow-hidden relative border border-zinc-700/50 ">
@@ -133,6 +141,15 @@ export default async function ProjectPage({
                                     </p>
                                 </ExternalLink>
                             )}
+                            {user.stripeCustomerId && (
+                                <div className="mt-4 w-full">
+                                    <ProfileDonate
+                                        user={{
+                                            id: user.id,
+                                        }}
+                                    />
+                                </div>
+                            )}
 
                             <Separator className="my-2" />
 
@@ -147,7 +164,7 @@ export default async function ProjectPage({
                         </div>
                     </div>
                     <div className="col-span-4 w-full lg:col-span-8">
-                        <header className=" sticky top-0 left-0 right-0 z-30 border-b border-palette-300 bg-appbg">
+                        <header className=" top-0 left-0 right-0 border-b border-palette-300 bg-appbg">
                             <div className="mx-auto max-w-screen-xl">
                                 <div className="flex h-12 items-center justify-between">
                                     <ProfileTabNav />

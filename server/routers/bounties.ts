@@ -7,7 +7,12 @@ import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
 import { BountyType } from "@prisma/client"
 import { z } from "zod"
-import { router, withBounty, withProject } from "../trpc"
+import {
+    router,
+    withBounty,
+    withBountyWithNoSubmissions,
+    withProject,
+} from "../trpc"
 
 /**
  * Default selector for Post.
@@ -63,12 +68,15 @@ const createBounty = withProject
         return bounty
     })
 
-const editBounty = withBounty
+const editBounty = withBountyWithNoSubmissions
     .input(
         z.object({
             bountyId: z.string().cuid(),
             title: z.string().min(3).max(128).optional(),
-            bountyPrice: z.number().min(1).positive(),
+            bountyPrice: z.coerce.number().min(1).positive().optional(),
+            bountyRange: z.boolean().default(false),
+            bountyPriceMin: z.coerce.number().min(1).positive().optional(),
+            bountyPriceMax: z.coerce.number().min(1).positive().optional(),
             issueLink: z.string().optional(),
             content: z.any().optional(),
             html: z.any().optional(),
@@ -76,8 +84,18 @@ const editBounty = withBounty
         })
     )
     .mutation(async ({ ctx, input }) => {
-        const { title, bountyId, bountyPrice, issueLink, content, html, type } =
-            input
+        const {
+            title,
+            bountyId,
+            bountyPrice,
+            bountyRange,
+            bountyPriceMin,
+            bountyPriceMax,
+            issueLink,
+            content,
+            html,
+            type,
+        } = input
 
         const existingBounty = await db.bounty.findUniqueOrThrow({
             where: {
@@ -92,11 +110,27 @@ const editBounty = withBounty
             throw new Error("No stripe product ID for project")
         }
 
-        const stripePrice = await stripe.prices.create({
-            unit_amount: bountyPrice * 100,
-            currency: "usd",
-            product: existingBounty.project.stripeProductId,
-        })
+        let stripePrice
+
+        if (!bountyRange && bountyPrice && bountyPrice < 1) {
+            throw new Error("Bounty price must be greater than 0")
+        }
+
+        if (bountyPrice && !bountyRange) {
+            stripePrice = await stripe.prices.create({
+                unit_amount: bountyPrice * 100,
+                currency: "usd",
+                product: existingBounty.project.stripeProductId,
+            })
+        }
+
+        if (bountyRange && bountyPriceMax && bountyPriceMin) {
+            if (bountyPriceMin > bountyPriceMax) {
+                throw new Error(
+                    "Bounty price minimum cannot be larger than the maximum"
+                )
+            }
+        }
 
         return await db.bounty.update({
             where: {
@@ -108,8 +142,11 @@ const editBounty = withBounty
                 content,
                 html,
                 bountyPrice,
+                bountyRange,
+                bountyPriceMax,
+                bountyPriceMin,
                 published: true,
-                stripePriceId: stripePrice.id,
+                stripePriceId: stripePrice?.id ?? undefined,
                 type,
             },
         })

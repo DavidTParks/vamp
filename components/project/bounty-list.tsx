@@ -183,26 +183,26 @@ export default async function BountyList({
                                                             Bounty reward
                                                         </dt>
                                                         <dd className="mt-1 text-brandtext-500">
-                                                            {formatDollars(
-                                                                bounty?.bountyPrice ??
-                                                                    0
-                                                            )}
+                                                            {
+                                                                bounty.computedBountyPrice
+                                                            }
                                                         </dd>
                                                     </div>
                                                 </div>
-                                                {showControls && (
-                                                    <div className="hidden w-full flex-shrink-0 items-center justify-end sm:inline-flex">
-                                                        <BountyOperations
-                                                            project={{
-                                                                id: project.id,
-                                                            }}
-                                                            bounty={{
-                                                                id: bounty.id,
-                                                                title: bounty.title,
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
+                                                {showControls &&
+                                                    !bounty.resolved && (
+                                                        <div className="hidden w-full flex-shrink-0 items-center justify-end sm:inline-flex">
+                                                            <BountyOperations
+                                                                project={{
+                                                                    id: project.id,
+                                                                }}
+                                                                bounty={{
+                                                                    id: bounty.id,
+                                                                    title: bounty.title,
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
                                             </dl>
                                         </div>
                                     </div>

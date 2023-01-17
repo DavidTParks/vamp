@@ -25,7 +25,7 @@ export default async function DashboardPage({}) {
         <DashboardShell>
             <div className="mt-12">
                 {projectUsers?.length ? (
-                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
                         {projectUsers.map((projectUser) => (
                             <ProjectItem
                                 projectUser={projectUser}

@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  previewFeatures = ["fullTextSearch", "fullTextIndex", "clientExtensions"]
 }
 
 datasource db {
@@ -59,6 +59,8 @@ model User {
   bounties                       Bounty[]
   notifications                  UserNotifications[]
   stripeCustomerId               String?             @unique @map(name: "stripe_customer_id")
+  stripeCustomerProductId        String?             @unique @map(name: "stripe_customer_product_id")
+  stripeCustomerDonationPriceId  String?             @unique @map(name: "stripe_customer_donation_price_id")
   blood                          Int                 @default(0) // Blood is earned after a bounty submission is resolved
   notificationNewSubmission      Boolean             @default(true)
   notificationSubmissionAccepted Boolean             @default(true)

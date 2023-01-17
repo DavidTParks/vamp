@@ -7,11 +7,18 @@ import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
 import { BountyType } from "@prisma/client"
 import { z } from "zod"
-import { router, withBounty, withProject, privateProcedure } from "../trpc"
+import {
+    router,
+    withBounty,
+    withProject,
+    privateProcedure,
+    publicProcedure,
+} from "../trpc"
 import { NOTIFICATIONTYPE } from "@prisma/client"
 import { sendMarketingMail } from "@/emails/index"
 import SubmissionReceived from "@/emails/SubmissionReceived"
 import { getBaseUrl } from "@/lib/utils"
+import { platformFee } from "@/lib/stripe"
 
 /**
  * Default selector for Post.
@@ -151,10 +158,81 @@ const createBountySubmission = privateProcedure
         return newSubmission
     })
 
+// Accepting a bounty submission for a bounty with a price range
+// Need to dynamically create stripe price ID before initiating checkout event
+const acceptBountyRangeSubmission = withBounty
+    .input(
+        z.object({
+            submissionId: z.string().cuid(),
+            bountyId: z.string().cuid(),
+            bountyPrice: z.coerce.number().min(1),
+            bountySubmissionUserId: z.string().min(1),
+            bountySubmissionUserStripeId: z.string().min(1),
+        })
+    )
+    .mutation(async ({ ctx, input }) => {
+        const bounty = await db.bounty.findUniqueOrThrow({
+            where: {
+                id: input.bountyId,
+            },
+            include: {
+                project: true,
+            },
+        })
+
+        if (!bounty.project.stripeProductId)
+            throw new Error(
+                "Project does not have a Stripe product ID associated"
+            )
+
+        const stripePrice = await stripe.prices.create({
+            unit_amount: input.bountyPrice * 100,
+            currency: "usd",
+            product: bounty.project.stripeProductId,
+        })
+
+        ctx.log.info("User initiated bounty range payout", {
+            bounty,
+            stripePrice,
+        })
+
+        if (!stripePrice.unit_amount) {
+            throw new Error("No unit amount for stripe price")
+        }
+
+        return await stripe.paymentLinks.create({
+            line_items: [
+                {
+                    price: stripePrice.id,
+                    quantity: 1,
+                },
+            ],
+            after_completion: {
+                type: "redirect",
+                redirect: {
+                    url: `${getBaseUrl()}/bounty/${input.bountyId}`,
+                },
+            },
+            transfer_data: {
+                destination: input.bountySubmissionUserStripeId,
+            },
+            application_fee_amount: parseInt(
+                platformFee(stripePrice.unit_amount).toString()
+            ),
+            metadata: {
+                bountyId: input.bountyId,
+                submissionId: input.submissionId,
+                bountySubmissionUserId: input.bountySubmissionUserId,
+                userId: ctx.user.id,
+            },
+        })
+    })
+
 /**
  * Router for Bounties
  */
 export const bountySubmissionRouter = router({
     // Private
     createBountySubmission: createBountySubmission,
+    acceptBountyRangeSubmission: acceptBountyRangeSubmission,
 })

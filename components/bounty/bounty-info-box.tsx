@@ -23,10 +23,8 @@ export async function BountyInfoBox({ bountyId }: TBountyInfoBox) {
                 </p>
             </div>
             <div className="flex w-full flex-col justify-between space-y-4 overflow-hidden p-4 text-brandtext-500">
-                <KeyValue
-                    label="Bounty"
-                    value={formatDollars(bounty?.bountyPrice ?? 0)}
-                />
+                <KeyValue label="Bounty" value={bounty.computedBountyPrice} />
+
                 <KeyValue
                     label="Posted"
                     value={formatDate(bounty.project.createdAt?.toString())}

@@ -8,6 +8,7 @@ import { getRepoIssues } from "@/lib/github"
 import { getProject, isProjectOwner } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
 export default async function ProjectLayout({
     children,

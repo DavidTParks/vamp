@@ -12,3 +12,7 @@ export const bountyAcceptSchema = z.object({
     bountySubmissionUserId: z.string().min(1),
     bountySubmissionUserStripeId: z.string().min(1),
 })
+
+export const bountyRangeAcceptSchema = z.object({
+    bountyPrice: z.coerce.number().min(1),
+})

@@ -10,6 +10,8 @@ import { db } from "@/lib/db"
 import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
+import { RadioGroup } from "@/ui/radio-group"
+
 interface BountyEditPageProps {
     params: { projectId: string; bountyId: string }
 }
@@ -71,6 +73,9 @@ export default async function CreatePage({ params }: BountyEditPageProps) {
                         <div className="mt-8">
                             <Tiptap
                                 bounty={{
+                                    bountyPriceMax: bounty.bountyPriceMax,
+                                    bountyPriceMin: bounty.bountyPriceMin,
+                                    bountyRange: bounty.bountyRange,
                                     title: bounty.title,
                                     id: bounty.id,
                                     bountyPrice: bounty.bountyPrice,

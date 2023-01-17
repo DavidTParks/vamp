@@ -2,6 +2,7 @@
 import { useSelectedLayoutSegment } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { Icons } from "../icons"
 
 const activeClass = "border-rose-600 text-white"
 
@@ -10,11 +11,16 @@ export const DashboardSecondaryNav = () => {
 
     return (
         <div className="-mb-0.5 flex h-12 items-center justify-start space-x-2">
-            <SecondaryLinkItem href="/dashboard" isActive={!segment}>
+            <SecondaryLinkItem
+                icon={<Icons.book size={16} />}
+                href="/dashboard"
+                isActive={!segment}
+            >
                 Projects
             </SecondaryLinkItem>
 
             <SecondaryLinkItem
+                icon={<Icons.settings size={16} />}
                 href="/dashboard/settings"
                 isActive={segment === "settings"}
             >
@@ -29,9 +35,11 @@ type TSecondaryLinkItem = {
     badge?: React.ReactNode
     isActive: boolean
     href: string
+    icon?: React.ReactElement
 }
 
 export const SecondaryLinkItem = ({
+    icon,
     children,
     badge,
     isActive,
@@ -47,7 +55,8 @@ export const SecondaryLinkItem = ({
             )}
             href={href}
         >
-            <div className="inline-flex gap-2 rounded-md px-3 py-2">
+            <div className="inline-flex items-center gap-2 rounded-md px-3 py-2">
+                {icon}
                 <p className="text-sm">{children}</p>
                 {badge}
             </div>
