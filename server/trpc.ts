@@ -165,3 +165,31 @@ export const withBounty = privateProcedure.use(async (opts) => {
         },
     })
 })
+
+export const withBountyWithNoSubmissions = withBounty.use(async (opts) => {
+    const json = opts.ctx.req?.body["0"]?.json
+    const bountyId = json?.bountyId
+
+    // If we have submissions, prevent editing the bounty
+    const count = await db.bountySubmission.count({
+        where: {
+            bounty: {
+                id: bountyId,
+            },
+        },
+    })
+
+    if (count > 1) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message:
+                "This bounty has submissions already, you cannot edit it unless you delete it.",
+        })
+    }
+
+    return opts.next({
+        ctx: {
+            user: opts.ctx.user,
+        },
+    })
+})

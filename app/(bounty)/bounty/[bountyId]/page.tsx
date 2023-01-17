@@ -8,7 +8,7 @@ import Link from "next/link"
 import { Suspense } from "react"
 interface ProjectPageProps {
     params: { projectId: string; bountyId: string }
-    searchParams: { id: string }
+    searchParams: { id: string; cursor: string }
 }
 
 export default async function BountyPage({
@@ -38,7 +38,10 @@ export default async function BountyPage({
                     <div className="mt-24 flex flex-col">
                         <Suspense fallback={<BountyActivity.Skeleton />}>
                             {/* @ts-expect-error Server Component */}
-                            <BountyActivity bountyId={params.bountyId} />
+                            <BountyActivity
+                                cursor={searchParams.cursor}
+                                bountyId={params.bountyId}
+                            />
                         </Suspense>
                     </div>
                 </div>

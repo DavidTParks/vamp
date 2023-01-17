@@ -7,7 +7,13 @@ import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
 import { BountyType } from "@prisma/client"
 import { z } from "zod"
-import { router, withBounty, withProject, privateProcedure } from "../trpc"
+import {
+    router,
+    withBounty,
+    withProject,
+    privateProcedure,
+    publicProcedure,
+} from "../trpc"
 import { NOTIFICATIONTYPE } from "@prisma/client"
 import { sendMarketingMail } from "@/emails/index"
 import SubmissionReceived from "@/emails/SubmissionReceived"

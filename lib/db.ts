@@ -95,7 +95,7 @@ const prismaWithExtensions = prisma.$extends({
                     if (data.image) {
                         return data.image
                     } else {
-                        return `https://avatar.vercel.sh/${project.id}`
+                        return `https://avatar.vercel.sh/${data.id}`
                     }
                 },
             },

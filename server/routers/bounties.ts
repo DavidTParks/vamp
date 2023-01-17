@@ -7,7 +7,12 @@ import { getRenderedMarkdown } from "@/lib/markdown"
 import { stripe } from "@/lib/stripe"
 import { BountyType } from "@prisma/client"
 import { z } from "zod"
-import { router, withBounty, withProject } from "../trpc"
+import {
+    router,
+    withBounty,
+    withBountyWithNoSubmissions,
+    withProject,
+} from "../trpc"
 
 /**
  * Default selector for Post.
@@ -63,7 +68,7 @@ const createBounty = withProject
         return bounty
     })
 
-const editBounty = withBounty
+const editBounty = withBountyWithNoSubmissions
     .input(
         z.object({
             bountyId: z.string().cuid(),
@@ -106,6 +111,11 @@ const editBounty = withBounty
         }
 
         let stripePrice
+
+        if (!bountyRange && bountyPrice && bountyPrice < 1) {
+            throw new Error("Bounty price must be greater than 0")
+        }
+
         if (bountyPrice && !bountyRange) {
             stripePrice = await stripe.prices.create({
                 unit_amount: bountyPrice * 100,

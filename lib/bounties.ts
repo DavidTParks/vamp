@@ -6,6 +6,9 @@ import { db } from "./db"
 import { getCurrentUser } from "./session"
 import { Prisma } from "@prisma/client"
 import { sortQueryToOrderBy } from "@/config/search"
+import { z } from "zod"
+import { BountySubmission, User } from "@prisma/client"
+import { Await, ArrayElement } from "types"
 
 type TBountiesForProject = {
     pageSize: number
@@ -137,5 +140,70 @@ export const fetchBounties = cache(
         })
 
         return bounties
+    }
+)
+
+export const fetchSubmissionsPaginatedSchema = z.object({
+    bountyId: z.string().cuid(),
+    limit: z.number().min(1).max(100).default(10),
+    cursor: z.string().nullish(),
+    initialCursor: z.string().nullish(),
+})
+
+type TFetchSubmissionsPaginated = z.infer<
+    typeof fetchSubmissionsPaginatedSchema
+>
+
+// In memory cache to preserve bounty submission cursor based pagination results
+const cachedItems: (BountySubmission & {
+    user: User
+})[] = []
+
+export const fetchSubmissionsPaginated = cache(
+    async (params: TFetchSubmissionsPaginated) => {
+        const { bountyId, limit, cursor, initialCursor } =
+            fetchSubmissionsPaginatedSchema.parse(params)
+
+        const items = await db.bountySubmission.findMany({
+            // get an extra item to know if there's a next page
+            take: limit + 1,
+            where: {
+                bounty: {
+                    id: bountyId,
+                },
+            },
+            include: {
+                user: true,
+            },
+            cursor: cursor
+                ? {
+                      id: cursor,
+                  }
+                : undefined,
+            orderBy: {
+                createdAt: "desc",
+            },
+        })
+
+        let nextCursor: string | undefined = undefined
+
+        if (items.length > limit) {
+            // Remove the last item and use it as next cursor
+
+            const lastItem = items.pop()!
+            nextCursor = lastItem.id
+        }
+
+        // This is pretty hacky, if you know a better way to preserve cursor based paginated items please open a PR
+        // Basically, just preserve an in-memory cache and deduplicate items on concat of new items
+        cachedItems.push(...items)
+        const arrUniq = cachedItems.filter(
+            (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i
+        )
+
+        return {
+            items: arrUniq,
+            nextCursor,
+        }
     }
 )
