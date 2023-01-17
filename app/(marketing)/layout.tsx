@@ -4,7 +4,7 @@ import { preloadProjects } from "@/lib/projects"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import Link from "next/link"
-
+import { MarketingNav } from "@/components/marketing/marketing-nav"
 interface MarketingLayoutProps {
     children: React.ReactNode
 }
@@ -12,12 +12,6 @@ interface MarketingLayoutProps {
 export default async function MarketingLayout({
     children,
 }: MarketingLayoutProps) {
-    const user = await getCurrentUser()
-
-    if (user) {
-        preloadProjects(user.id)
-    }
-
     return (
         <div className="flex min-h-screen flex-col">
             <header className="container z-40 ">
@@ -30,19 +24,7 @@ export default async function MarketingLayout({
                                 Bounties
                             </Button>
                         </Link>
-                        {user ? (
-                            <Link href="/dashboard">
-                                <Button intent="primary" borderRadius="full">
-                                    Dashboard
-                                </Button>
-                            </Link>
-                        ) : (
-                            <Link href="/login">
-                                <Button intent="primary" borderRadius="full">
-                                    Login
-                                </Button>
-                            </Link>
-                        )}
+                        <MarketingNav />
                     </nav>
                 </div>
             </header>
