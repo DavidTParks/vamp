@@ -1,12 +1,7 @@
-import { db } from "@/lib/db"
-import { Button } from "@/ui/button"
-import Image from "next/image"
-import { UserAvatar } from "../dashboard/user-avatar"
-import { Skeleton } from "@/ui/skeleton"
-import { Pagination } from "@/ui/pagination"
-import Link from "next/link"
-import { ExternalLink } from "@/ui/external-link"
 import { siteConfig } from "@/config/site"
+import { Button } from "@/ui/button"
+import { ExternalLink } from "@/ui/external-link"
+import { Skeleton } from "@/ui/skeleton"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
