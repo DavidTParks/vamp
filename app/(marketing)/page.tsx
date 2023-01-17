@@ -7,7 +7,6 @@ import {
 } from "@/components/marketing/leaderboard"
 import { Stars } from "@/components/marketing/stars"
 import VideoPlayer from "@/components/marketing/video-player"
-import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
 import { ExternalLink } from "@/ui/external-link"
 import Image from "next/image"
@@ -15,8 +14,6 @@ import Link from "next/link"
 import { Suspense } from "react"
 
 export default async function IndexPage() {
-    const user = await getCurrentUser()
-
     return (
         <>
             <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
@@ -47,15 +44,9 @@ export default async function IndexPage() {
                     great.
                 </h2>
                 <div className="mx-auto mt-10 flex max-w-fit space-x-4">
-                    {user ? (
-                        <Link href="/browse">
-                            <Button>Browse Bounties</Button>
-                        </Link>
-                    ) : (
-                        <Link href="/register">
-                            <Button>Start For Free</Button>
-                        </Link>
-                    )}
+                    <Link href="/browse">
+                        <Button>Browse Bounties</Button>
+                    </Link>
                     <ExternalLink href="https://github.com/DavidTParks/vamp">
                         <Button intent="secondary">
                             <p className="mr-2 text-sm">Star on GitHub</p>
