@@ -1,8 +1,7 @@
+import { Icons } from "@/components/icons"
+import { Button } from "@/ui/button"
 import { Headline } from "@/ui/headline"
 import { Skeleton } from "@/ui/skeleton"
-import Link from "next/link"
-import { Button } from "@/ui/button"
-import { Icons } from "@/components/icons"
 
 const RepoLoadingItem = () => {
     return (
@@ -16,16 +15,14 @@ export default function NewLoading() {
     return (
         <div className="mx-auto w-full max-w-lg">
             <div className="my-8">
-                <Link href={`/dashboard`}>
-                    <Button
-                        intent="tertiary"
-                        className="mb-8 inline-flex items-center justify-start gap-2"
-                        size="small"
-                    >
-                        <Icons.chevronLeft size={16} />
-                        Back
-                    </Button>
-                </Link>
+                <Button
+                    intent="tertiary"
+                    className="mb-8 inline-flex items-center justify-start gap-2"
+                    size="small"
+                >
+                    <Icons.chevronLeft size={16} />
+                    Back
+                </Button>
                 <Headline
                     heading="Almost there!"
                     text="Please follow the steps to configure your Project and create it."

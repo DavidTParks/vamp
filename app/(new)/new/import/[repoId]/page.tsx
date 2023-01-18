@@ -44,7 +44,15 @@ export default async function ImportRepoPage({ params }: ImportPageProps) {
                     <span className="max-w-xs truncate">{repo.full_name}</span>
                 </Chip>
             </div>
-            <ProjectCreateForm repo={repo} user={user} />
+            <ProjectCreateForm
+                repo={{
+                    id: repo.id,
+                    owner: repo.owner,
+                    description: repo.description,
+                    name: repo.name,
+                    html_url: repo.html_url,
+                }}
+            />
         </div>
     )
 }

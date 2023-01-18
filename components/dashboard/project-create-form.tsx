@@ -17,8 +17,10 @@ import * as z from "zod"
 import { TUser } from "./user-account-nav"
 
 interface ProjectCreateForm extends React.HTMLAttributes<HTMLButtonElement> {
-    repo: GithubRepository
-    user: TUser
+    repo: Pick<
+        GithubRepository,
+        "id" | "name" | "description" | "html_url" | "owner"
+    >
 }
 
 export type CreateProjectFormData = z.infer<typeof projectCreateSchema>
@@ -26,7 +28,6 @@ export type CreateProjectFormData = z.infer<typeof projectCreateSchema>
 export function ProjectCreateForm({
     className,
     children,
-    user,
     repo,
     ...props
 }: ProjectCreateForm) {

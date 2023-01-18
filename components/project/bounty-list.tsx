@@ -10,6 +10,7 @@ import { db } from "@/lib/db"
 import { PrismaPromise } from "@prisma/client"
 import { Suspense } from "react"
 import { Skeleton } from "@/ui/skeleton"
+import { isProjectOwner } from "@/lib/projects"
 
 type TBountyList = {
     bountyPromise: Promise<TProjectBountyReturn>
@@ -26,6 +27,8 @@ export default async function BountyList({
     showDrafts = true,
     showControls = true,
 }: TBountyList) {
+    const isOwner = await isProjectOwner(project.id)
+
     const bounties = await bountyPromise
 
     const draftPromise = db.bounty.count({
@@ -218,14 +221,16 @@ export default async function BountyList({
                         No Bounties created
                     </EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        You do not have any feature requests or issue bounties
-                        yet. Create one and reward contributors!
+                        There aren't any requests or issue bounties yet. Create
+                        one and reward contributors!
                     </EmptyPlaceholder.Description>
-                    <BountyCreateButton
-                        project={{
-                            id: project.id,
-                        }}
-                    />
+                    {isOwner && (
+                        <BountyCreateButton
+                            project={{
+                                id: project.id,
+                            }}
+                        />
+                    )}
                 </EmptyPlaceholder>
             )}
             {children}
