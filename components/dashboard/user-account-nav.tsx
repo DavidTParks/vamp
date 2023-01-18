@@ -23,11 +23,11 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
     const router = useRouter()
     const markAllRead = trpc.notification.markAllRead.useMutation()
 
-    router.prefetch(`/dashboard`)
-    router.prefetch(`/browse`)
-    router.prefetch(`/dashboard/settings`)
-    router.prefetch(`/dashboard/settings/billing`)
-    router.prefetch(`/u/${user.id}`)
+    // router.prefetch(`/dashboard`)
+    // router.prefetch(`/browse`)
+    // router.prefetch(`/dashboard/settings`)
+    // router.prefetch(`/dashboard/settings/billing`)
+    // router.prefetch(`/u/${user.id}`)
 
     return (
         <div className="relative flex items-center gap-4">
