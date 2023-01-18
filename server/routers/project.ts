@@ -31,21 +31,22 @@ const createProject = privateProcedure
         const { repoId, name, description, url, owner, repoName } = input
 
         // Get topics for repo to import, tag to project for filtering down the line
-        const { data } = await ctx.user.octokit.rest.repos.getAllTopics({
-            owner: ctx.githubUser.login,
-            repo: repoName,
-        })
-
-        const projectBountyProduct = await stripe.products.create({
-            name: `${repoName} Bounties`,
-            metadata: {
-                name,
-                description: description ?? "",
-                repoId,
-                url,
-                owner,
-            },
-        })
+        const [{ data }, projectBountyProduct] = await Promise.all([
+            ctx.user.octokit.rest.repos.getAllTopics({
+                owner: ctx.githubUser.login,
+                repo: repoName,
+            }),
+            stripe.products.create({
+                name: `${repoName} Bounties`,
+                metadata: {
+                    name,
+                    description: description ?? "",
+                    repoId,
+                    url,
+                    owner,
+                },
+            }),
+        ])
 
         return db.project.create({
             data: {
