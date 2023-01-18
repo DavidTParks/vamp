@@ -13,12 +13,12 @@ export async function PayoutList() {
     const { data } = await getStripePayouts(user.id)
 
     return (
-        <div>
+        <>
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-xl font-semibold text-brandtext-500">
+                    <h3 className="text-xl font-semibold text-brandtext-500">
                         Payouts
-                    </h1>
+                    </h3>
                     <p className="mt-2 text-sm text-brandtext-600">
                         Track money moving from Stripe into your bank account
                     </p>
@@ -27,8 +27,8 @@ export async function PayoutList() {
             {data?.length ? (
                 <div className="mt-4 flex flex-col">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                        <div className=" min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div className="overflow-hidden shadow ring-1 ring-raised ring-opacity-5 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-raised-border">
                                     <thead className="bg-raised">
                                         <tr>
@@ -106,6 +106,6 @@ export async function PayoutList() {
                     </EmptyPlaceholder>
                 </>
             )}
-        </div>
+        </>
     )
 }

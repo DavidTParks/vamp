@@ -21,7 +21,7 @@ export default async function DashboardLayout({
 
     return (
         <div className="mt-12 grid gap-12 md:grid-cols-[200px_1fr]">
-            <aside className="hidden w-[200px] flex-col md:flex">
+            <aside className="hidden flex-col md:flex md:w-[200px]">
                 <SettingsNav items={settingsConfig.sidebarNav} />
             </aside>
             {children}

@@ -30,7 +30,7 @@ export default async function SettingsPage() {
             />
 
             {stripeDetails?.stripeCustomerId && (
-                <>
+                <div className="w-full">
                     <div className="mt-8">
                         <Stats
                             balance={stripeBalance}
@@ -41,7 +41,7 @@ export default async function SettingsPage() {
                         {/* @ts-expect-error Server Component */}
                         <PayoutList />
                     </div>
-                </>
+                </div>
             )}
         </DashboardShell>
     )
