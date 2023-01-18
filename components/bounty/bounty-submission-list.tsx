@@ -23,12 +23,6 @@ export async function BountySubmissionList({
     bountyId,
     cursor,
 }: MainNavProps) {
-    const { items, nextCursor } = await fetchSubmissionsPaginated({
-        cursor: cursor ?? null,
-        bountyId,
-        limit: 5,
-    })
-
     const bounty = await getBountyById(bountyId)
     const isOwner = await isBountyOwner(bountyId)
 
@@ -41,7 +35,7 @@ export async function BountySubmissionList({
                     </p>
                 </div>
                 <div className="flex flex-col divide-y divide-raised-border">
-                    {items.map((submission) => (
+                    {bounty?.bountySubmissions.map((submission) => (
                         <div
                             key={submission.id}
                             className="flex flex-col gap-4 p-4 text-brandtext-500"
@@ -120,12 +114,6 @@ export async function BountySubmissionList({
                     ))}
                 </div>
             </div>
-            {nextCursor && (
-                <BountySubmissionsLoadMore
-                    bountyId={bountyId}
-                    nextCursor={nextCursor}
-                />
-            )}
         </>
     )
 }
