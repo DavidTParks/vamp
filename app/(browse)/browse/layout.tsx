@@ -1,6 +1,8 @@
 import { MainNav } from "@/components/main-nav"
 import { UserNav } from "@/components/user-nav"
 
+export const revalidate = 0
+
 export default async function ProjectLayout({
     children,
 }: {
