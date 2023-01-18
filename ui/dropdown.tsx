@@ -57,7 +57,7 @@ DropdownMenu.Item = React.forwardRef<
             }}
             ref={ref}
             className={cn(
-                "m-1 flex cursor-default select-none items-center rounded-md py-2 px-3 text-sm text-slate-100 outline-none hover:brightness-200 focus:bg-palette-150 focus:text-white",
+                "m-1 flex cursor-pointer select-none items-center rounded-md py-2 px-3 text-sm text-slate-100 outline-none hover:brightness-200 focus:bg-palette-150 focus:text-white",
                 className
             )}
             {...props}

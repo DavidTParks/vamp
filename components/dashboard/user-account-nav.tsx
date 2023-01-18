@@ -22,7 +22,12 @@ export interface UserAccountNavProps
 export function UserAccountNav({ user, children }: UserAccountNavProps) {
     const router = useRouter()
     const markAllRead = trpc.notification.markAllRead.useMutation()
-    const markAllUnread = trpc.notification.markAllUnread.useMutation()
+
+    router.prefetch(`/dashboard`)
+    router.prefetch(`/browse`)
+    router.prefetch(`/dashboard/settings`)
+    router.prefetch(`/dashboard/settings/billing`)
+    router.prefetch(`/u/${user.id}`)
 
     return (
         <div className="relative flex items-center gap-4">
@@ -99,34 +104,41 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                             </div>
                         </div>
                         <DropdownMenu.Separator />
-                        <DropdownMenu.Item>
-                            <Link href={`/u/${user.id}`} className="w-full">
-                                Profile
-                            </Link>
+                        <DropdownMenu.Item
+                            onSelect={() => {
+                                router.push(`/u/${user.id}`)
+                            }}
+                        >
+                            Profile
                         </DropdownMenu.Item>
-                        <DropdownMenu.Item>
-                            <Link href="/dashboard" className="w-full">
-                                Dashboard
-                            </Link>
+                        <DropdownMenu.Item
+                            onSelect={() => {
+                                router.push(`/dashboard`)
+                            }}
+                        >
+                            Dashboard
                         </DropdownMenu.Item>
-                        <DropdownMenu.Item>
-                            <Link href="/browse" className="w-full">
-                                Browse
-                            </Link>
+                        <DropdownMenu.Item
+                            onSelect={() => {
+                                router.push(`/browse`)
+                            }}
+                        >
+                            Browse
                         </DropdownMenu.Item>
 
-                        <DropdownMenu.Item>
-                            <Link href="/dashboard/settings" className="w-full">
-                                Settings
-                            </Link>
+                        <DropdownMenu.Item
+                            onSelect={() => {
+                                router.push(`/dashboard/settings`)
+                            }}
+                        >
+                            Settings
                         </DropdownMenu.Item>
-                        <DropdownMenu.Item>
-                            <Link
-                                href="/dashboard/settings/billing"
-                                className="w-full"
-                            >
-                                Billing
-                            </Link>
+                        <DropdownMenu.Item
+                            onSelect={() => {
+                                router.push(`/dashboard/settings/billing`)
+                            }}
+                        >
+                            Billing
                         </DropdownMenu.Item>
                         <DropdownMenu.Separator />
                         <DropdownMenu.Item>

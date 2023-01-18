@@ -93,6 +93,18 @@ model Project {
   stripeProductId String?           @unique @map(name: "stripe_product_id")
   notifications   Notification[]
   deleted         Boolean           @default(false)
+  tags            ProjectTag[]
+}
+
+model ProjectTag {
+  id             String    @id @default(cuid())
+  slug           String    @unique
+  tagDescription String?
+  tagProjectUrl  String?
+  tagMetadata    Json?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  projects       Project[]
 }
 
 model ProjectInvite {
