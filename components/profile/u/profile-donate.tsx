@@ -54,7 +54,9 @@ export function ProfileDonate({ user }: IProfileDonate) {
                 donationAmount: data.donationAmount,
             })
 
-            window.location.href = donateLink.url
+            if (typeof window !== "undefined") {
+                window.location.href = donateLink.url
+            }
         } catch (e) {
             return toast({
                 title: "Something went wrong.",
