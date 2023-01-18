@@ -221,8 +221,8 @@ export default async function BountyList({
                         No Bounties created
                     </EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        There aren't any requests or issue bounties yet. Create
-                        one and reward contributors!
+                        There are no feature requests or issue bounties yet.
+                        Create one and reward contributors!
                     </EmptyPlaceholder.Description>
                     {isOwner && (
                         <BountyCreateButton
