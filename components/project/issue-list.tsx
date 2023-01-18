@@ -79,7 +79,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                 <EmptyPlaceholder className="mt-4">
                     <EmptyPlaceholder.Icon name="gitHub" />
                     <EmptyPlaceholder.Title>No issues</EmptyPlaceholder.Title>
-                    <EmptyPlaceholder.Description>
+                    <EmptyPlaceholder.Description className="mb-0">
                         This Github repository does not have any issues, or any
                         issues that match this search query.
                     </EmptyPlaceholder.Description>

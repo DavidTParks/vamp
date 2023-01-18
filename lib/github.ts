@@ -137,3 +137,15 @@ export const getRepoIssues = cache(
         }).then((res) => res.json())
     }
 )
+
+export const getRepoTopics = async (repo: string) => {
+    const octokit = await getOctokitClient()
+    const user = await getGithubUser()
+
+    const data = await octokit.rest.repos.getAllTopics({
+        owner: user.login,
+        repo,
+    })
+
+    return data?.data
+}

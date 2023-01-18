@@ -5,9 +5,9 @@ import { Icons } from "@/components/icons"
 import { getRepo } from "@/lib/github"
 import { getCurrentUser } from "@/lib/session"
 import { Button } from "@/ui/button"
+import { Chip } from "@/ui/chip"
 import { Headline } from "@/ui/headline"
 import Link from "next/link"
-import { Chip } from "@/ui/chip"
 
 interface ImportPageProps {
     params: { repoId: number }

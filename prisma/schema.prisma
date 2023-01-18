@@ -93,10 +93,10 @@ model Project {
   stripeProductId String?           @unique @map(name: "stripe_product_id")
   notifications   Notification[]
   deleted         Boolean           @default(false)
-  tags            ProjectTag[]
+  tags            Tag[]
 }
 
-model ProjectTag {
+model Tag {
   id             String    @id @default(cuid())
   slug           String    @unique
   tagDescription String?
