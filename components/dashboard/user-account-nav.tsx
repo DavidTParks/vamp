@@ -23,11 +23,11 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
     const router = useRouter()
     const markAllRead = trpc.notification.markAllRead.useMutation()
 
-    // router.prefetch(`/dashboard`)
-    // router.prefetch(`/browse`)
-    // router.prefetch(`/dashboard/settings`)
-    // router.prefetch(`/dashboard/settings/billing`)
-    // router.prefetch(`/u/${user.id}`)
+    router.prefetch(`/dashboard`)
+    router.prefetch(`/browse`)
+    router.prefetch(`/dashboard/settings`)
+    router.prefetch(`/dashboard/settings/billing`)
+    router.prefetch(`/u/${user.id}`)
 
     return (
         <div className="relative flex items-center gap-4">
@@ -155,9 +155,11 @@ export function UserAccountNav({ user, children }: UserAccountNavProps) {
                             className="cursor-pointer"
                             onSelect={(event) => {
                                 event.preventDefault()
-                                signOut({
-                                    callbackUrl: `${window.location.origin}/login`,
-                                })
+                                if (typeof window !== "undefined") {
+                                    signOut({
+                                        callbackUrl: `${window.location.origin}/login`,
+                                    })
+                                }
                             }}
                         >
                             Sign out

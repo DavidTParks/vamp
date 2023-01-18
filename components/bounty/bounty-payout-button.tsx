@@ -91,7 +91,7 @@ export function BountyPayoutButton({
             // This could be a checkout page for initial upgrade.
             // Or portal to manage existing subscription.
             const session = await response.json()
-            if (session) {
+            if (session && typeof window !== "undefined") {
                 window.location.href = session.url
             }
         }
@@ -106,7 +106,9 @@ export function BountyPayoutButton({
                 bountyPrice: methods.getValues("bountyPrice"),
                 bountySubmissionUserId,
             })
-            window.location.href = link.url
+            if (typeof window !== "undefined") {
+                window.location.href = link.url
+            }
         } catch (e) {
             return toast({
                 title: "Something went wrong.",
