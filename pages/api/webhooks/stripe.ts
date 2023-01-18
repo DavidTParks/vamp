@@ -60,73 +60,67 @@ export default async function handler(
             }
         )
 
-        if (!sessionWithLineItems?.metadata?.donatingUser) {
-            const [bounty, user] = await db.$transaction([
-                // Resolve bounty and accept submission
-                db.bounty.update({
-                    where: {
-                        id: sessionWithLineItems?.metadata?.bountyId,
-                    },
-                    data: {
-                        resolved: true,
-                        resolvedAt: new Date(Date.now()).toISOString(),
-                        bountySubmissions: {
-                            update: {
-                                where: {
-                                    id: sessionWithLineItems?.metadata
-                                        ?.submissionId,
-                                },
-                                data: {
-                                    accepted: true,
-                                    acceptedAt: new Date(Date.now()),
-                                },
+        const [bounty, user] = await db.$transaction([
+            // Resolve bounty and accept submission
+            db.bounty.update({
+                where: {
+                    id: sessionWithLineItems?.metadata?.bountyId,
+                },
+                data: {
+                    resolved: true,
+                    resolvedAt: new Date(Date.now()).toISOString(),
+                    bountySubmissions: {
+                        update: {
+                            where: {
+                                id: sessionWithLineItems?.metadata
+                                    ?.submissionId,
+                            },
+                            data: {
+                                accepted: true,
+                                acceptedAt: new Date(Date.now()),
                             },
                         },
                     },
-                    select: {
-                        id: true,
-                        title: true,
+                },
+                select: {
+                    id: true,
+                    title: true,
+                },
+            }),
+            // Increment users blood score for leaderboard tracking
+            db.user.update({
+                where: {
+                    id: sessionWithLineItems?.metadata?.bountySubmissionUserId,
+                },
+                data: {
+                    blood: {
+                        increment: 1,
                     },
-                }),
-                // Increment users blood score for leaderboard tracking
-                db.user.update({
-                    where: {
-                        id: sessionWithLineItems?.metadata
-                            ?.bountySubmissionUserId,
-                    },
-                    data: {
-                        blood: {
-                            increment: 1,
-                        },
-                    },
-                    select: {
-                        notificationSubmissionAccepted: true,
-                        id: true,
-                        email: true,
-                    },
-                }),
-            ])
+                },
+                select: {
+                    notificationSubmissionAccepted: true,
+                    id: true,
+                    email: true,
+                },
+            }),
+        ])
 
-            if (user.notificationSubmissionAccepted) {
-                await fetch(
-                    `${getBaseUrl()}/api/send-mail/submission-accepted`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            apiKey: process.env.PROTECTED_API_ROUTE_KEY,
-                            bountyId: bounty.id,
-                            bountyTitle: bounty.title,
-                            user: {
-                                id: user.id,
-                                email: user.email,
-                            },
-                        }),
-                    }
-                )
-            }
+        if (user.notificationSubmissionAccepted) {
+            await fetch(`${getBaseUrl()}/api/send-mail/submission-accepted`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    apiKey: process.env.PROTECTED_API_ROUTE_KEY,
+                    bountyId: bounty.id,
+                    bountyTitle: bounty.title,
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                    },
+                }),
+            })
         }
     }
 

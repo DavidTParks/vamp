@@ -75,18 +75,24 @@ export const mergeRouters = t.mergeRouters
  * Create an private procedure
  * @see https://trpc.io/docs/v10/procedures
  **/
-export const privateProcedure = loggedProcedure.use((opts) => {
+export const privateProcedure = loggedProcedure.use(async (opts) => {
     if (!opts.ctx.user) {
         throw new TRPCError({
             code: "UNAUTHORIZED",
             message: "You have to be logged in to do this",
         })
     }
+
+    // Get authenticated user for Octoclient context
+    const { data: githubUser } =
+        await opts.ctx.user.octokit.rest.users.getAuthenticated()
+
     return opts.next({
         ctx: {
             req: opts.ctx.req,
             res: opts.ctx.res,
             user: opts.ctx.user,
+            githubUser,
         },
     })
 })
