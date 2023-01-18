@@ -25,7 +25,7 @@ export default function Stats({ balance, payouts }: TStats) {
 
     return (
         <div>
-            <h3 className="text-lg font-medium leading-6 text-brandtext-500">
+            <h3 className="text-xl font-semibold text-brandtext-500">
                 Payout info
             </h3>
             <p className="mt-2 text-sm text-brandtext-600">
