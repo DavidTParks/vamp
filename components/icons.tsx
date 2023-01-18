@@ -8,6 +8,7 @@ import {
     ChevronRight,
     ChevronDown,
     ChevronUp,
+    ArrowUpDown,
     Book,
     Command,
     Bell,
@@ -70,6 +71,7 @@ import type { Icon as LucideIcon } from "lucide-react"
 export type Icon = LucideIcon
 
 export const Icons = {
+    arrowUpDown: ArrowUpDown,
     book: Book,
     home: Home,
     mail: Mail,
