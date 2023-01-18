@@ -8,6 +8,9 @@ interface TStats {
 }
 
 export default function Stats({ balance, payouts }: TStats) {
+    const totalPaidOut = payouts.data.reduce((accumulator, payout) => {
+        return accumulator + payout.amount
+    }, 0)
     const stats = [
         {
             name: "Available balance",
@@ -17,7 +20,7 @@ export default function Stats({ balance, payouts }: TStats) {
             name: "Pending balance",
             stat: (balance.pending[0].amount / 100).toFixed(2),
         },
-        { name: "Total paid out", stat: 0 },
+        { name: "Total paid out", stat: totalPaidOut / 100 },
     ]
 
     return (
@@ -25,6 +28,10 @@ export default function Stats({ balance, payouts }: TStats) {
             <h3 className="text-lg font-medium leading-6 text-brandtext-500">
                 Payout info
             </h3>
+            <p className="mt-2 text-sm text-brandtext-600">
+                Payments are collected in your Stripe account balance and paid
+                out on a daily rolling basis.
+            </p>
             <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
                 {stats.map((item) => (
                     <div

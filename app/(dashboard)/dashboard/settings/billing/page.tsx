@@ -8,6 +8,7 @@ import {
     getStripePayouts,
 } from "@/lib/stripe"
 import { notFound } from "next/navigation"
+import { PayoutList } from "@/components/dashboard/settings/billing/payout-list"
 
 export default async function SettingsPage() {
     const user = await getCurrentUser()
@@ -24,12 +25,24 @@ export default async function SettingsPage() {
 
     return (
         <DashboardShell>
-            {stripeDetails?.stripeCustomerId && (
-                <Stats balance={stripeBalance} payouts={stripePayouts} />
-            )}
             <BillingForm
                 user={{ stripeCustomerId: stripeDetails.stripeCustomerId }}
             />
+
+            {stripeDetails?.stripeCustomerId && (
+                <>
+                    <div className="mt-8">
+                        <Stats
+                            balance={stripeBalance}
+                            payouts={stripePayouts}
+                        />
+                    </div>
+                    <div className="mt-8">
+                        {/* @ts-expect-error Server Component */}
+                        <PayoutList />
+                    </div>
+                </>
+            )}
         </DashboardShell>
     )
 }
