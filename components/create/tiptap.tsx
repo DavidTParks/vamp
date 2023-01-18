@@ -401,7 +401,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                     </div>
 
                     {!bountyRangeEnabled && (
-                        <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
+                        <div className="mt-4 mb-8 grid grid-cols-2 gap-4">
                             <Input
                                 isUSD
                                 step="0.01"
@@ -415,7 +415,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                     )}
                     {bountyRangeEnabled && (
-                        <div className="mt-4 mb-4 grid grid-cols-2 gap-4">
+                        <div className="mt-4 mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <Input
                                 isUSD
                                 step="0.01"
@@ -439,7 +439,10 @@ const Tiptap = ({ bounty }: TTipTap) => {
                         </div>
                     )}
 
-                    <Label className="dropdown my-4 block" htmlFor="details">
+                    <Label
+                        className="dropdown my-4 mt-6 block"
+                        htmlFor="details"
+                    >
                         Bounty Details
                     </Label>
                     <div className="mt-1">

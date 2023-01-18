@@ -56,7 +56,7 @@ export const SecondaryLinkItem = ({
             href={href}
         >
             <div className="inline-flex items-center gap-2 rounded-md px-3 py-2">
-                {icon}
+                <div className="hidden sm:inline-flex ">{icon}</div>
                 <p className="text-sm">{children}</p>
                 {badge}
             </div>
