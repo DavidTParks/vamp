@@ -99,17 +99,17 @@ export default async function ProjectPage({
                                     </Tooltip>
                                 </div>
 
-                                {/* <div className="w-full mt-0 mb-2 h-4  rounded-md overflow-hidden relative border border-zinc-700/50 ">
-                                    <div className="grid grid-cols-5 absolute inset-0 w-full">
+                                {/* <div className="relative mt-0 mb-2 h-8  w-full overflow-hidden rounded-md border border-zinc-700/50 ">
+                                    <div className="absolute inset-0 grid w-full grid-cols-5">
                                         <div className="h-8 w-px  bg-raised-border opacity-0" />
                                         <div className="h-8 w-px bg-raised-border" />
                                         <div className="h-8 w-px bg-raised-border" />
                                         <div className="h-8 w-px bg-raised-border" />
                                         <div className="h-8 w-px bg-raised-border" />
                                         <div className="h-8 w-px bg-raised-border" />
-                                        <div className="h-8 w-[20%] absolute inset-0 bg-gradient-to-r from-red-500/10 via-red-500/75 to-red-500/90"></div>
+                                        <div className="absolute inset-0 h-8 w-[20%] bg-gradient-to-r from-red-500/10 via-red-500/75 to-red-500/90"></div>
                                     </div>
-                                    <span className="absolute inset-0 flex items-center justify-center font-medium test-sm tracking-tight">
+                                    <span className="test-sm absolute inset-0 flex items-center justify-center font-medium tracking-tight">
                                         50%
                                     </span>
                                 </div> */}
@@ -153,13 +153,22 @@ export default async function ProjectPage({
 
                             <Separator className="my-2" />
 
-                            <div>
+                            <div className="w-full">
                                 <p className="font-bold tracking-tight">
                                     Achievements
                                 </p>
-                                <p className="mt-2 text-sm text-brandtext-700">
-                                    Coming soon
-                                </p>
+                                {/* <div className="mt-4 grid w-full grid-cols-4 place-items-center gap-2">
+                                    {user.blood > 0 && (
+                                        <div className="relative flex flex-none items-center justify-center overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800  p-3 shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5">
+                                            <Image
+                                                alt="blood achievement"
+                                                height={40}
+                                                width={40}
+                                                src="/achievements/blood.png"
+                                            />
+                                        </div>
+                                    )}
+                                </div> */}
                             </div>
                         </div>
                     </div>
