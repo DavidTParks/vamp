@@ -31,16 +31,6 @@ export default async function ProjectPage({
         searchParams.search
     )
 
-    const nextPreloadPage = searchParams.page
-        ? parseInt(searchParams.page) + 1
-        : 2
-
-    preloadRepoIssues(
-        project.githubRepo.githubRepoId,
-        nextPreloadPage,
-        searchParams.search
-    )
-
     return (
         <div>
             <div className="my-8 flex w-full flex-col items-center justify-center gap-2 rounded-md border border-raised-border p-4">
@@ -56,13 +46,15 @@ export default async function ProjectPage({
                     id: project.id,
                 }}
             />
-            <IssueList
-                page={searchParams.page}
-                project={{
-                    id: project.id,
-                }}
-                issues={issues}
-            />
+            <div className="mt-6">
+                <IssueList
+                    page={searchParams.page}
+                    project={{
+                        id: project.id,
+                    }}
+                    issues={issues}
+                />
+            </div>
         </div>
     )
 }

@@ -127,14 +127,25 @@ export const getRepoIssues = cache(
 
         const user = await getCurrentUser()
 
-        return await fetch(url, {
+        const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${
                     user?.accessToken ?? FALLBACK_ACCESS_TOKEN
                 }`,
             },
-        }).then((res) => res.json())
+        })
+
+        if (!response.ok) {
+            return await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${FALLBACK_ACCESS_TOKEN}`,
+                },
+            }).then((res) => res.json())
+        } else {
+            return response.json()
+        }
     }
 )
 

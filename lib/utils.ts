@@ -117,3 +117,27 @@ export function getBaseUrl() {
 export function getUserLevel(blood: number) {
     return Math.floor(blood / 5)
 }
+
+export function deleteSearchParamByKeyValue(
+    searchParams: URLSearchParams,
+    key: string,
+    value: string
+) {
+    const allKeys = []
+    const entriesToKeep = []
+
+    for (const [k, v] of searchParams.entries()) {
+        if (k === undefined || v === undefined) continue
+        allKeys.push(k)
+        if (k === key && v === value) continue
+        entriesToKeep.push([k, v])
+    }
+
+    for (const k of allKeys) {
+        searchParams.delete(k)
+    }
+
+    for (const [k, v] of entriesToKeep) {
+        searchParams.append(k, v)
+    }
+}
