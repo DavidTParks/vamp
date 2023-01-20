@@ -11,7 +11,7 @@ import { TProject } from "./secondary-nav"
 import { GithubIssue } from "types"
 import { TButtonProps } from "@/ui/button"
 import { trpc } from "@/client/trpcClient"
-
+import { useStore } from "@/store"
 interface BountyCreateButtonProps extends TButtonProps {
     issue?: GithubIssue
     project: TProject
@@ -25,6 +25,7 @@ export function BountyCreateButton({
     size,
     ...props
 }: BountyCreateButtonProps) {
+    const { selectedIssues } = useStore()
     const router = useRouter()
 
     const createBounty = trpc.bounty.createBounty.useMutation()
@@ -57,6 +58,8 @@ export function BountyCreateButton({
             })
         }
     }
+
+    if (selectedIssues?.length > 0) return null
 
     return (
         <Button

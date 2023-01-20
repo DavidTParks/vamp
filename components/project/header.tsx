@@ -13,6 +13,8 @@ interface ProjectHeaderProps {
 export function ProjectHeader({ project }: ProjectHeaderProps) {
     const segment = useSelectedLayoutSegment()
 
+    console.log("Segment", segment)
+
     return (
         <>
             {!segment ? (

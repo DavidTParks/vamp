@@ -13,6 +13,7 @@ import {
     withBountyWithNoSubmissions,
     withProject,
 } from "../trpc"
+import { GithubIssue } from "@/types"
 
 /**
  * Default selector for Post.
@@ -20,16 +21,16 @@ import {
  * @see https://github.com/prisma/prisma/issues/9353
  */
 
+const createBountySingle = z.object({
+    title: z.string(),
+    content: z.any().optional(),
+    projectId: z.string().cuid(),
+    issue: z.any().optional(),
+    issueLink: z.string().optional().nullable(),
+})
+
 const createBounty = withProject
-    .input(
-        z.object({
-            title: z.string(),
-            content: z.any().optional(),
-            projectId: z.string().cuid(),
-            issue: z.any().optional(),
-            issueLink: z.string().optional().nullable(),
-        })
-    )
+    .input(createBountySingle)
     .mutation(async ({ ctx, input }) => {
         const { title, content, projectId, issue, issueLink } = input
 
@@ -169,6 +170,124 @@ const deleteBounty = withBounty
         return deleted
     })
 
+const createMultipleBounties = withProject
+    .input(
+        z.object({
+            issues: z.array(createBountySingle),
+        })
+    )
+    .mutation(async ({ ctx, input }) => {
+        const { issues } = input
+
+        const markdownContentForIssues = await Promise.all(
+            issues.map((issue) => {
+                return getRenderedMarkdown(issue.issue.body, ctx.user)
+            })
+        )
+
+        // Current workaround since createMany does not return the created records
+        // We need the Ids to redirect to a multi-edit page
+        const bounties = await db.$transaction(
+            issues.map((issue, index) =>
+                db.bounty.create({
+                    data: {
+                        title: issue?.title ?? "Untitled Bounty",
+                        description: issue?.issue?.description ?? "",
+                        issueLink: issue.issueLink,
+                        content: markdownContentForIssues[index] ?? undefined,
+                        projectId: issue.projectId,
+                        githubIssue: issue,
+                        userId: ctx.user?.id,
+                    },
+                    select: {
+                        id: true,
+                    },
+                })
+            )
+        )
+
+        ctx.log.info("User created multiple bounties", bounties)
+        return bounties
+    })
+
+const editMultipleBounties = withProject
+    .input(
+        z.object({
+            projectId: z.string().cuid(),
+            bountyIds: z.array(z.string().cuid()),
+            bountyPrice: z.coerce.number().min(1).positive().optional(),
+            bountyRange: z.boolean().default(false),
+            bountyPriceMin: z.coerce.number().min(1).positive().optional(),
+            bountyPriceMax: z.coerce.number().min(1).positive().optional(),
+        })
+    )
+    .mutation(async ({ ctx, input }) => {
+        const {
+            projectId,
+            bountyIds,
+            bountyPrice,
+            bountyRange,
+            bountyPriceMin,
+            bountyPriceMax,
+        } = input
+
+        console.log("Bounty IDs", bountyIds)
+
+        let stripePrice
+
+        if (!bountyRange && bountyPrice && bountyPrice < 1) {
+            throw new Error("Bounty price must be greater than 0")
+        }
+
+        const project = await db.project.findUniqueOrThrow({
+            where: {
+                id: projectId,
+            },
+            select: {
+                stripeProductId: true,
+            },
+        })
+
+        if (!project.stripeProductId) {
+            throw new Error("No stripe product ID for project")
+        }
+
+        if (bountyPrice && !bountyRange) {
+            stripePrice = await stripe.prices.create({
+                unit_amount: bountyPrice * 100,
+                currency: "usd",
+                product: project.stripeProductId,
+            })
+        }
+
+        if (bountyRange && bountyPriceMax && bountyPriceMin) {
+            if (bountyPriceMin > bountyPriceMax) {
+                throw new Error(
+                    "Bounty price minimum cannot be larger than the maximum"
+                )
+            }
+        }
+
+        const updatedBounties = await db.bounty.updateMany({
+            where: {
+                id: {
+                    in: bountyIds,
+                },
+            },
+            data: {
+                bountyPrice,
+                bountyRange,
+                bountyPriceMax,
+                bountyPriceMin,
+                published: true,
+                stripePriceId: stripePrice?.id ?? undefined,
+            },
+        })
+
+        ctx.log.info("User created multiple bounties", updatedBounties)
+        return updatedBounties
+    })
+
 /**
  * Router for Bounties
  */
@@ -177,4 +296,6 @@ export const bountyRouter = router({
     createBounty: createBounty,
     editBounty: editBounty,
     deleteBounty: deleteBounty,
+    createMultipleBounties: createMultipleBounties,
+    editMultipleBounties: editMultipleBounties,
 })
