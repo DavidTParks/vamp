@@ -230,6 +230,7 @@ const MenuBar = ({ editor }: TMenuBar) => {
 
 type TBounty = Pick<
     Bounty,
+    | "html"
     | "id"
     | "title"
     | "content"
@@ -268,7 +269,7 @@ const Tiptap = ({ bounty }: TTipTap) => {
     })
 
     const editor = useEditor({
-        content: bounty?.content ? (bounty.content as Content) : null,
+        content: bounty?.html ? (bounty.html as Content) : null,
         extensions: [
             StarterKit,
             Placeholder.configure({

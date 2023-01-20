@@ -4,8 +4,8 @@ import { getBountyById } from "@/lib/bounties"
 import { getRepo } from "@/lib/github"
 import { Chip } from "@/ui/chip"
 import { ExternalLink } from "@/ui/external-link"
-import { generateHTML } from "@tiptap/html"
-import { JSONContent } from "@tiptap/react"
+import { generateHTML, generateJSON } from "@tiptap/html"
+import { HTMLContent, JSONContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Skeleton } from "@/ui/skeleton"
 interface TBountyContent {
@@ -49,15 +49,30 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                     />
                 </div>
             </div>
-
-            <div
-                className="prose prose-invert"
-                dangerouslySetInnerHTML={{
-                    __html: generateHTML(bounty.content as JSONContent, [
-                        StarterKit,
-                    ]),
-                }}
-            ></div>
+            {bounty?.content ? (
+                <div
+                    className="prose prose-invert"
+                    dangerouslySetInnerHTML={{
+                        __html: generateHTML(bounty.content as JSONContent, [
+                            StarterKit,
+                        ]),
+                    }}
+                ></div>
+            ) : (
+                <>
+                    {bounty?.html && (
+                        <div
+                            className="prose prose-invert"
+                            dangerouslySetInnerHTML={{
+                                __html: generateHTML(
+                                    generateJSON(bounty.html, [StarterKit]),
+                                    [StarterKit]
+                                ),
+                            }}
+                        ></div>
+                    )}
+                </>
+            )}
         </>
     )
 }

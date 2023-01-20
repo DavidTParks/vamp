@@ -15,6 +15,7 @@ import { isProjectOwner } from "@/lib/projects"
 type TBountyList = {
     bountyPromise: Promise<TProjectBountyReturn>
     project: TProject
+    showToolbar?: boolean
     showDrafts?: boolean
     showControls?: boolean
     children: React.ReactNode
@@ -24,6 +25,7 @@ export default async function BountyList({
     children,
     bountyPromise,
     project,
+    showToolbar = true,
     showDrafts = true,
     showControls = true,
 }: TBountyList) {
@@ -63,45 +65,50 @@ export default async function BountyList({
             {bounties.length ? (
                 <>
                     <div className="divide-y divide-raised-border overflow-hidden rounded-md border border-raised-border">
-                        <div className="flex items-center gap-6 bg-raised p-6 py-3">
-                            <Suspense fallback={<Skeleton className="w-72" />}>
-                                {showDrafts && (
-                                    <>
-                                        {/* @ts-expect-error Server Component */}
-                                        <BountyCount
-                                            label="Drafts"
-                                            promise={draftPromise}
-                                        >
-                                            <Icons.edit2
-                                                size={16}
-                                                className="text-brandtext-600"
-                                            />
-                                        </BountyCount>
-                                    </>
-                                )}
-                                {/* @ts-expect-error Server Component */}
-                                <BountyCount
-                                    label="Active"
-                                    promise={activePromise}
+                        {showToolbar && (
+                            <div className="flex items-center gap-6 bg-raised p-6 py-3">
+                                <Suspense
+                                    fallback={<Skeleton className="w-72" />}
                                 >
-                                    <Icons.circleDot
-                                        size={16}
-                                        className="text-brandtext-600"
-                                    />
-                                </BountyCount>
+                                    {showDrafts && (
+                                        <>
+                                            {/* @ts-expect-error Server Component */}
+                                            <BountyCount
+                                                label="Drafts"
+                                                promise={draftPromise}
+                                            >
+                                                <Icons.edit2
+                                                    size={16}
+                                                    className="text-brandtext-600"
+                                                />
+                                            </BountyCount>
+                                        </>
+                                    )}
+                                    {/* @ts-expect-error Server Component */}
+                                    <BountyCount
+                                        label="Active"
+                                        promise={activePromise}
+                                    >
+                                        <Icons.circleDot
+                                            size={16}
+                                            className="text-brandtext-600"
+                                        />
+                                    </BountyCount>
 
-                                {/* @ts-expect-error Server Component */}
-                                <BountyCount
-                                    label="Resolved"
-                                    promise={resolvedPromise}
-                                >
-                                    <Icons.check
-                                        size={16}
-                                        className="text-brandtext-600"
-                                    />
-                                </BountyCount>
-                            </Suspense>
-                        </div>
+                                    {/* @ts-expect-error Server Component */}
+                                    <BountyCount
+                                        label="Resolved"
+                                        promise={resolvedPromise}
+                                    >
+                                        <Icons.check
+                                            size={16}
+                                            className="text-brandtext-600"
+                                        />
+                                    </BountyCount>
+                                </Suspense>
+                            </div>
+                        )}
+
                         <div className="divide divide-y divide-raised-border">
                             {bounties?.map((bounty) => (
                                 <Link

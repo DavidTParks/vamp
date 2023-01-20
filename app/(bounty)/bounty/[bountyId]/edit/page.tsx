@@ -55,6 +55,7 @@ export default async function CreatePage({ params }: BountyEditPageProps) {
             <div className="mt-8">
                 <Tiptap
                     bounty={{
+                        html: bounty.html,
                         bountyPriceMax: bounty.bountyPriceMax,
                         bountyPriceMin: bounty.bountyPriceMin,
                         bountyRange: bounty.bountyRange,

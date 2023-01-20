@@ -11,8 +11,8 @@ import { BountySubmission, User } from "@prisma/client"
 import { Await, ArrayElement } from "types"
 
 type TBountiesForProject = {
-    pageSize: number
-    skip: number
+    pageSize?: number
+    skip?: number
     sort?: string
     whereQuery: Prisma.BountyWhereInput
 }
