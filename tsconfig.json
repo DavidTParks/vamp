@@ -16,18 +16,7 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
-            "@/components/*": ["components/*"],
-            "@/ui/*": ["ui/*"],
-            "@/hooks/*": ["hooks/*"],
-            "@/app/*": ["app/*"],
-            "@/lib/*": ["lib/*"],
-            "@/config/*": ["config/*"],
-            "@/server/*": ["server/*"],
-            "@/client/*": ["client/*"],
-            "@/styles/*": ["styles/*"],
-            "@/prisma/*": ["prisma/*"],
-            "@/emails/*": ["emails/*"],
-            "contentlayer/generated": ["./.contentlayer/generated"]
+            "@/*": ["./*"]
         },
         "plugins": [
             {
