@@ -6,14 +6,12 @@ import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
 import { RadioGroup } from "@/ui/radio-group"
+import { toast } from "@/ui/toast"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { BountyType } from "@prisma/client"
 import { useRouter } from "next/navigation"
-import { ComponentProps, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 import { Icons } from "../icons"
-import { toast } from "@/ui/toast"
 
 interface BountyMultiEdit {
     bounties: string[]
@@ -33,8 +31,6 @@ export const BountyMultiEditForm = ({
     bounties,
     projectId,
 }: BountyMultiEdit) => {
-    const [bountyType, setBountyType] = useState<BountyType>(BountyType.BUG)
-
     const editMultipleBounties = trpc.bounty.editMultipleBounties.useMutation()
 
     const router = useRouter()
@@ -45,8 +41,6 @@ export const BountyMultiEditForm = ({
             bountyRange: false,
         },
     })
-
-    console.log(methods.formState.errors)
 
     const bountyRangeEnabled = methods.watch("bountyRange")
 

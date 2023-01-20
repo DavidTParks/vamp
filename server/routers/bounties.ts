@@ -13,7 +13,6 @@ import {
     withBountyWithNoSubmissions,
     withProject,
 } from "../trpc"
-import { GithubIssue } from "@/types"
 
 /**
  * Default selector for Post.
@@ -231,8 +230,6 @@ const editMultipleBounties = withProject
             bountyPriceMin,
             bountyPriceMax,
         } = input
-
-        console.log("Bounty IDs", bountyIds)
 
         let stripePrice
 
