@@ -161,7 +161,7 @@ model Bounty {
   title             String
   description       String?            @db.LongText
   content           Json?
-  html              Json?
+  html              String?            @db.LongText
   issueLink         String?
   bountyPrice       Float?
   bountyRange       Boolean            @default(false)

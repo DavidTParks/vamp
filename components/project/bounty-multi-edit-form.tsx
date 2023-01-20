@@ -20,7 +20,14 @@ interface BountyMultiEdit {
     projectId: string
 }
 
-type FormData = z.infer<typeof bountyPatchSchema>
+const bountyMultiEditSchema = z.object({
+    bountyPrice: z.coerce.number().min(1).positive().optional(),
+    bountyRange: z.boolean().default(false),
+    bountyPriceMin: z.coerce.number().min(1).positive().optional(),
+    bountyPriceMax: z.coerce.number().min(1).positive().optional(),
+})
+
+type FormData = z.infer<typeof bountyMultiEditSchema>
 
 export const BountyMultiEditForm = ({
     bounties,
@@ -35,12 +42,11 @@ export const BountyMultiEditForm = ({
     const methods = useForm<FormData>({
         resolver: zodResolver(bountyPatchSchema),
         defaultValues: {
-            bountyPrice: 0,
-            bountyPriceMax: 100,
-            bountyPriceMin: 1,
             bountyRange: false,
         },
     })
+
+    console.log(methods.formState.errors)
 
     const bountyRangeEnabled = methods.watch("bountyRange")
 

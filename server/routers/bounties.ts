@@ -46,7 +46,7 @@ const createBounty = withProject
         const bounty = await db.bounty.create({
             data: {
                 title: title,
-                content: issueContent ?? undefined,
+                html: issueContent ?? undefined,
                 description: issue?.description ?? "",
                 issueLink: issueLink,
                 project: {
@@ -194,7 +194,8 @@ const createMultipleBounties = withProject
                         title: issue?.title ?? "Untitled Bounty",
                         description: issue?.issue?.description ?? "",
                         issueLink: issue.issueLink,
-                        content: markdownContentForIssues[index] ?? undefined,
+                        html: markdownContentForIssues[index] ?? undefined,
+                        // content: markdownContentForIssues[index] ?? undefined,
                         projectId: issue.projectId,
                         githubIssue: issue,
                         userId: ctx.user?.id,

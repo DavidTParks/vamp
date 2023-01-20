@@ -9,6 +9,7 @@ import { getBountiesForProject } from "@/lib/bounties"
 import BountyList from "@/components/project/bounty-list"
 import { BountyMultiEditForm } from "@/components/project/bounty-multi-edit-form"
 import { Headline } from "@/ui/headline"
+import { isArray } from "util"
 
 interface ProjectPageProps {
     params: { projectId: string }
@@ -27,6 +28,10 @@ export default async function EditMultiplePage({
         },
     })
 
+    const bountyIds = isArray(searchParams.bountyId)
+        ? [...searchParams.bountyId]
+        : [searchParams.bountyId]
+
     // console.log(searchParams.bountyId)
     return (
         <div>
@@ -39,7 +44,7 @@ export default async function EditMultiplePage({
             <div className="w-full ">
                 <BountyMultiEditForm
                     projectId={params.projectId}
-                    bounties={searchParams.bountyId}
+                    bounties={bountyIds}
                 />
             </div>
 
