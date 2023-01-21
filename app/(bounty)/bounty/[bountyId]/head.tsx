@@ -1,7 +1,7 @@
 import { db } from "@/lib/db"
 import { getBaseUrl } from "@/lib/utils"
 import { notFound } from "next/navigation"
-
+import DefaultTags from "@/app/DefaultTags"
 interface IBountyHeadProps {
     params: { bountyId: string }
 }
@@ -20,8 +20,6 @@ export default async function Head({ params }: IBountyHeadProps) {
         return notFound()
     }
 
-    const url = process.env.NEXT_PUBLIC_APP_URL
-
     const ogUrl = new URL(`${getBaseUrl()}/api/og`)
     ogUrl.searchParams.set("heading", bounty.title)
     ogUrl.searchParams.set("type", bounty.project.name)
@@ -34,6 +32,7 @@ export default async function Head({ params }: IBountyHeadProps) {
     return (
         <>
             <title>{bounty.title}</title>
+            <DefaultTags />
             <link rel="canonical" href={`/bounty/${bounty.id}`} />
             <meta name="description" content={bounty?.description ?? ""} />
             <meta property="og:title" content={bounty.title} />
