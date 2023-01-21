@@ -49,22 +49,23 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
 
     if (user?.projects) {
         achievements.push({
-            title: "Key to Transylvania",
-            description: "You've connected a Github project on Vamp",
+            title: "Nosferatu's Coffer Key",
+            description: "You've connected a Github project on Vamp.",
             image: "/achievements/key.png",
         })
     }
+
     if (user?.bounties) {
         achievements.push({
             title: "Bloodsport",
-            description: "You've posted a bounty for one of your projects",
+            description: "You've posted a bounty for one of your projects.",
             image: "/achievements/blood.png",
         })
     }
     if (user?.bountySubmissions) {
         achievements.push({
             title: "Dracula's Tonic",
-            description: "You've submit a bounty submission",
+            description: "You've submit a bounty submission.",
             image: "/achievements/potion.png",
         })
     }
@@ -72,7 +73,7 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
     if (!!hasUserHadBountyAccepted) {
         achievements.push({
             title: "Van Helsing's Skull",
-            description: "One of your bounty submissions has been accepted",
+            description: "One of your bounty submissions has been accepted.",
             image: "/achievements/skull.png",
         })
     }
@@ -80,8 +81,16 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
     if (user?.stripeCustomerId) {
         achievements.push({
             title: "Nandor's Coin",
-            description: "You've connected your Stripe account to Vamp",
+            description: "You've connected your Stripe account to Vamp.",
             image: "/achievements/coin.png",
+        })
+    }
+
+    if (user?.blood && user?.blood >= 5) {
+        achievements.push({
+            title: "Orlok's Night Blade",
+            description: "You've collected 5+ Blood from solving bounties.",
+            image: "/achievements/sword.png",
         })
     }
 
