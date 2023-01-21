@@ -165,9 +165,9 @@ export default async function IndexPage() {
                 )}
             </section>
 
-            <FAQSection />
-
             <Cta />
+
+            <FAQSection />
         </>
     )
 }
