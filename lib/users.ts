@@ -29,14 +29,22 @@ export interface Achievement {
 }
 
 export const getUserAchievements = cache(async (userId: User["id"]) => {
-    const user = await db.user.findUnique({
+    const user = await db.user.findUniqueOrThrow({
         where: {
             id: userId,
         },
         include: {
             projects: true,
-            bounties: true,
-            bountySubmissions: true,
+            bounties: {
+                where: {
+                    deleted: false,
+                },
+            },
+            bountySubmissions: {
+                where: {
+                    deleted: false,
+                },
+            },
             accounts: true,
         },
     })
@@ -57,12 +65,14 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
 
     if (user?.bounties) {
         achievements.push({
-            title: "Bloodsport",
-            description: "You've posted a bounty for one of your projects.",
+            title: "Viago's Heart",
+            description:
+                "You've posted and published a bounty for one of your projects.",
             image: "/achievements/blood.png",
         })
     }
-    if (user?.bountySubmissions) {
+
+    if (user.bountySubmissions.length > 0) {
         achievements.push({
             title: "Dracula's Tonic",
             description: "You've submit a bounty submission.",
@@ -82,7 +92,7 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
         achievements.push({
             title: "Nandor's Coin",
             description: "You've connected your Stripe account to Vamp.",
-            image: "/achievements/coin.png",
+            image: "/achievements/nandors-coin.png",
         })
     }
 

@@ -31,10 +31,10 @@ export async function UserAchievements({ user }: IUserProjectList) {
                                                 width={64}
                                                 src={achievement.image}
                                             />
-                                            <h4 className="mt-4 text-lg font-bold text-brandtext-500">
+                                            <h4 className="mt-4 text-center text-lg font-bold text-brandtext-500">
                                                 {achievement.title}
                                             </h4>
-                                            <p className="mt-2 text-sm text-brandtext-600">
+                                            <p className="mt-2 max-w-[256px] text-center text-sm text-brandtext-600">
                                                 {achievement.description}
                                             </p>
                                         </div>
@@ -57,10 +57,10 @@ export async function UserAchievements({ user }: IUserProjectList) {
                 <EmptyPlaceholder className="mt-4 min-h-[100px]">
                     <EmptyPlaceholder.Icon name="trophy" />
                     <EmptyPlaceholder.Title>
-                        No Achievements
+                        No Evil Relics
                     </EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description className="mb-0">
-                        Post or solve Bounties to begin earning Achievements.
+                        Post or solve Bounties to begin earning Evil Relics.
                     </EmptyPlaceholder.Description>
                 </EmptyPlaceholder>
             )}
