@@ -29,7 +29,6 @@ export function BountyCreateMultipleButton({
 
     const createBounty = trpc.bounty.createMultipleBounties.useMutation({
         onSuccess: (data) => {
-            console.log("Success data", data)
             toast({
                 title: "Multiple bounties initialized!",
                 message: "Redirecting to multi-editor",
