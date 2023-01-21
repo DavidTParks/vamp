@@ -74,7 +74,10 @@ UserAchievements.Skeleton = function AchievementsSkeleton() {
             <div className="mt-4 grid w-full grid-cols-4 place-items-center gap-2">
                 {Array.from(Array(8), (e, i) => {
                     return (
-                        <div className="relative flex flex-none items-center justify-center overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800 p-3  shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5 hover:brightness-150">
+                        <div
+                            key={e}
+                            className="relative flex flex-none items-center justify-center overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800 p-3  shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5 hover:brightness-150"
+                        >
                             <Skeleton className="inline-flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full" />
                         </div>
                     )
