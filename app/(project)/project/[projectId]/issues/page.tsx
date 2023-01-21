@@ -25,6 +25,12 @@ export default async function ProjectPage({
         return notFound()
     }
 
+    const githubIssues = await getRepoIssues(
+        project.githubRepo.githubRepoId,
+        1,
+        null
+    )
+
     const issues = await getRepoIssues(
         project.githubRepo.githubRepoId,
         searchParams.page ?? "1",
@@ -48,6 +54,7 @@ export default async function ProjectPage({
             />
             <div className="mt-6">
                 <IssueList
+                    totalCount={githubIssues.total_count}
                     page={searchParams.page}
                     project={{
                         id: project.id,

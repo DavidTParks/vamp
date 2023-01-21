@@ -9,14 +9,21 @@ import { TProject } from "./secondary-nav"
 import { IssueSelect } from "./issue-select"
 import { useStore } from "@/store"
 import { BountyCreateMultipleButton } from "./bounty-create-multiple-button"
+import { Pagination } from "@/ui/pagination"
 
 type TIssueList = {
     issues: GithubIssueSearch
     project: TProject
     page: number | string
+    totalCount: number
 }
 
-export default function IssueList({ issues, project, page }: TIssueList) {
+export default function IssueList({
+    issues,
+    project,
+    page,
+    totalCount,
+}: TIssueList) {
     return (
         <>
             {issues?.items?.length ? (
@@ -29,7 +36,7 @@ export default function IssueList({ issues, project, page }: TIssueList) {
                                     className="text-brandtext-600"
                                 />
                                 <span className="text-sm text-brandtext-600">
-                                    {issues?.items?.length} Open
+                                    {totalCount} Open
                                 </span>
                             </span>
                             <BountyCreateMultipleButton
@@ -118,11 +125,10 @@ export default function IssueList({ issues, project, page }: TIssueList) {
             )}
             {issues?.total_count > 30 && (
                 <div className="mb-16 mt-8">
-                    <IssueListPagination
-                        totalCount={issues.total_count}
-                        project={{
-                            id: project.id,
-                        }}
+                    <Pagination
+                        baseUrl={`/project/${project.id}/issues`}
+                        pageSize={30}
+                        itemCount={totalCount}
                     />
                 </div>
             )}
