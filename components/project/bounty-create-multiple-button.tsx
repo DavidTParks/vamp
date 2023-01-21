@@ -13,6 +13,7 @@ import { TButtonProps } from "@/ui/button"
 import { trpc } from "@/client/trpcClient"
 import { useStore } from "@/store"
 import { Tooltip } from "@/ui/tooltip"
+import { getBaseUrl } from "@/lib/utils"
 
 interface BountyCreateButtonProps extends TButtonProps {
     issue?: GithubIssue
@@ -34,7 +35,9 @@ export function BountyCreateMultipleButton({
                 message: "Redirecting to multi-editor",
                 type: "success",
             })
-            const redirectUrl = new URL(`${window.location.href}/edit-multiple`)
+            const redirectUrl = new URL(
+                `${getBaseUrl()}/project/${project.id}/issues/edit-multiple`
+            )
             data.forEach((bounty) => {
                 redirectUrl.searchParams.append("bountyId", bounty.id)
             })
