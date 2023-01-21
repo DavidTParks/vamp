@@ -19,9 +19,13 @@ export function IssueSelect({ issue }: TIssueSelect) {
     const { selectIssue, removeIssue, selectedIssues } = useStore()
     const router = useRouter()
 
+    const isIssueInSelected = selectedIssues.find(
+        (selectedIssue) => selectedIssue.id === issue.id
+    )
+
     const methods = useForm<TSearch>({
         defaultValues: {
-            issueSelected: false,
+            issueSelected: !!isIssueInSelected ? true : false,
         },
     })
 
