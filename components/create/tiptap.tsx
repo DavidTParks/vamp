@@ -287,6 +287,24 @@ const Tiptap = ({ bounty }: TTipTap) => {
     const bountyRangeEnabled = methods.watch("bountyRange")
 
     async function onSubmit(data: FormData) {
+        if (
+            data.bountyRange &&
+            (!data.bountyPriceMax || !data.bountyPriceMin)
+        ) {
+            return toast({
+                title: "Bounty price required",
+                message:
+                    "Your bounty was not saved. Please adjust the form fields and try again.",
+                type: "error",
+            })
+        } else if (!data.bountyRange && !data.bountyPrice) {
+            return toast({
+                title: "Bounty price required",
+                message:
+                    "Your bounty was not saved. Please adjust the form fields and try again.",
+                type: "error",
+            })
+        }
         try {
             const editedBounty = await editBounty.mutateAsync({
                 issueLink: data.githubIssueLink,
