@@ -11,9 +11,11 @@ import { Separator } from "@/ui/separator"
 import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { Suspense } from "react"
+import { Fragment, Suspense } from "react"
 import { Button } from "@/ui/button"
 import { ProfileDonate } from "@/components/profile/u/profile-donate"
+import { getUserAchievements } from "@/lib/users"
+import { UserAchievements } from "@/components/profile/u/profile-achievements"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -36,6 +38,8 @@ export default async function ProjectPage({
     if (!providerAccountId) return notFound()
 
     const githubUser = await getGithubUserById(providerAccountId)
+
+    const achievements = await getUserAchievements(user.id)
 
     if (!githubUser) return notFound()
 
@@ -154,21 +158,20 @@ export default async function ProjectPage({
                             <Separator className="my-2" />
 
                             <div className="w-full">
-                                <p className="font-bold tracking-tight">
+                                <p className="inline-flex items-center gap-2 font-bold tracking-tight">
+                                    <Icons.trophy size={16} />
                                     Achievements
                                 </p>
-                                {/* <div className="mt-4 grid w-full grid-cols-4 place-items-center gap-2">
-                                    {user.blood > 0 && (
-                                        <div className="relative flex flex-none items-center justify-center overflow-hidden rounded-full border border-zinc-700/50 bg-zinc-800  p-3 shadow-md shadow-zinc-800/5 ring-0 ring-zinc-900/5">
-                                            <Image
-                                                alt="blood achievement"
-                                                height={40}
-                                                width={40}
-                                                src="/achievements/blood.png"
-                                            />
-                                        </div>
-                                    )}
-                                </div> */}
+                                <Suspense
+                                    fallback={<UserAchievements.Skeleton />}
+                                >
+                                    {/* @ts-expect-error Server Component */}
+                                    <UserAchievements
+                                        user={{
+                                            id: user.id,
+                                        }}
+                                    />
+                                </Suspense>
                             </div>
                         </div>
                     </div>
