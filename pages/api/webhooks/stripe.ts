@@ -60,6 +60,8 @@ export default async function handler(
             }
         )
 
+        const checkoutAmount = sessionWithLineItems.amount_total
+
         const [bounty, user] = await db.$transaction([
             // Resolve bounty and accept submission
             db.bounty.update({
@@ -95,6 +97,9 @@ export default async function handler(
                 data: {
                     blood: {
                         increment: 1,
+                    },
+                    gold: {
+                        increment: checkoutAmount ? checkoutAmount / 100 : 0,
                     },
                 },
                 select: {

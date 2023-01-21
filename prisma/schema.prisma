@@ -62,6 +62,7 @@ model User {
   stripeCustomerProductId        String?             @unique @map(name: "stripe_customer_product_id")
   stripeCustomerDonationPriceId  String?             @unique @map(name: "stripe_customer_donation_price_id")
   blood                          Int                 @default(0) // Blood is earned after a bounty submission is resolved
+  gold                           Float               @default(0.00) // Gold is earned proportional to the price of the bounty solved. 1$ = 1 gold. Remainder is silver. Both solvers and posters earn gold. 
   notificationNewSubmission      Boolean             @default(true)
   notificationSubmissionAccepted Boolean             @default(true)
   notificationMarketing          Boolean             @default(true)
