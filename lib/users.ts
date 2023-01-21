@@ -38,6 +38,7 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
             bounties: {
                 where: {
                     deleted: false,
+                    published: true,
                 },
             },
             bountySubmissions: {
