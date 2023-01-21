@@ -56,7 +56,7 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
 
     let achievements: Achievement[] = []
 
-    if (user?.projects) {
+    if (user?.projects?.length > 0) {
         achievements.push({
             title: "Nosferatu's Coffer Key",
             description: "You've connected a Github project on Vamp.",
@@ -64,7 +64,7 @@ export const getUserAchievements = cache(async (userId: User["id"]) => {
         })
     }
 
-    if (user?.bounties) {
+    if (user?.bounties?.length > 0) {
         achievements.push({
             title: "Viago's Heart",
             description:
