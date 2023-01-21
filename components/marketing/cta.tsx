@@ -1,5 +1,6 @@
 import { Button } from "@/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 
 /* This example requires Tailwind CSS v3.0+ */
 export function Cta() {
@@ -50,12 +51,13 @@ export function Cta() {
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                             <Button>Get started</Button>
-                            <a
-                                href="#"
+                            <Link
+                                href="/browse"
                                 className="text-base font-semibold leading-7 text-white"
                             >
-                                Learn more <span aria-hidden="true">→</span>
-                            </a>
+                                Browse bounties{" "}
+                                <span aria-hidden="true">→</span>
+                            </Link>
                         </div>
                     </div>
                     <div className="relative mt-16 h-80 lg:mt-8">
