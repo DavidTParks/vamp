@@ -50,7 +50,13 @@ export function Cta() {
                             submission is received.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                            <Button>Get started</Button>
+                            <Link
+                                href="/register"
+                                className="text-base font-semibold leading-7 text-white"
+                            >
+                                <Button>Get started</Button>
+                            </Link>
+
                             <Link
                                 href="/browse"
                                 className="text-base font-semibold leading-7 text-white"
