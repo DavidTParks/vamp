@@ -71,14 +71,14 @@ export default async function ProjectPage({
                                 </Tooltip>
                             </div>
                             <div className="flex w-full flex-col">
-                                {/* <span className="text-md  font-bold tracking-tight text-brandtext-700">
+                                {/* <span className="text-md  font-bold tracking-tight text-brandtext-600">
                                     Level {getUserLevel(user.blood)}
                                 </span> */}
 
                                 <h1 className="mt-1 flex w-full gap-8 text-xl font-bold tracking-tight text-brandtext-500 sm:text-2xl">
                                     {user.name}{" "}
                                 </h1>
-                                <Tooltip content="Gold and silver can be collected by solving bounties. 1$ = 1 gold and 1 silver = 1 cent. Be on the lookout for fun uses for gold and silver in the future.">
+                                <Tooltip content="Gold and silver are earned proportional to the price of bounties you solve. 1$ = 1 gold. 1 cent = 1 silver.">
                                     <div className="mt-2 flex items-center gap-1">
                                         <span className="font-display font-bold tracking-tight text-brandtext-500">
                                             {Math.floor(
@@ -145,14 +145,14 @@ export default async function ProjectPage({
 
                         <div className="mt-4 flex flex-col items-start gap-2">
                             <ExternalLink href={githubUser.html_url}>
-                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
+                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-600">
                                     <Icons.gitHub size={16} />
                                     {githubUser.login}
                                 </p>
                             </ExternalLink>
 
                             <ExternalLink href={`mailto:${user.email}`}>
-                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
+                                <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-600">
                                     <Icons.mail size={16} />
                                     {user.email}
                                 </p>
@@ -162,7 +162,7 @@ export default async function ProjectPage({
                                 <ExternalLink
                                     href={`https://www.twitter.com/${githubUser.twitter_username}`}
                                 >
-                                    <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-700">
+                                    <p className="flex w-full items-center gap-2 text-sm font-medium text-brandtext-600">
                                         <Icons.twitter size={16} />
                                         {githubUser.twitter_username}
                                     </p>

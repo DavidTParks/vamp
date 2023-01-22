@@ -12,7 +12,7 @@ export default function VideoPlayer() {
             muted
             loop
             streamType="on-demand"
-            playbackId="SdcfSjNWbZRQknd01EXCtHua7gDEFz1Y1RHfWZR00SbKg"
+            playbackId="1gNOGV02e5orWZYplavv008hEfg00VMwSzVYo7rHVjxtx8"
         />
     )
 }

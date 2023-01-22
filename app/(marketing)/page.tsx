@@ -12,6 +12,8 @@ import { ExternalLink } from "@/ui/external-link"
 import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
+import { MaintainerFeatureSection } from "@/components/marketing/maintainer-feature-section"
+import { ContributorFeatureSection } from "@/components/marketing/contributors-feature-section"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -84,10 +86,10 @@ export default async function IndexPage() {
                 </div>
             </div>
 
-            <section className="container grid place-items-center items-center justify-center gap-6 py-8 text-center md:py-12 lg:py-24">
+            <section className="container grid place-items-center items-center justify-center gap-6  py-8 text-center md:py-12 lg:py-24">
                 <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
-                        Sync Github Issues with ease
+                        For Maintainers
                     </h2>
                     <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
                         Link existing Github repositories and post bounties by
@@ -99,36 +101,41 @@ export default async function IndexPage() {
                 </div>
             </section>
 
-            <section className="container grid gap-6 py-8 text-center md:py-12 lg:py-24">
-                <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
-                    <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
-                        Make your mark
-                    </h2>
-                    <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
-                        Collect Blood for each accepted bounty submission. Climb
-                        the leaderboard and make a name for yourself!
-                    </p>
-                </div>
-                <Suspense fallback={<LeaderBoardLoading />}>
-                    {/* @ts-expect-error Server Component */}
-                    <LeaderBoard pageSize={10} page={1} />
-                    <div className="mx-auto flex w-full max-w-md justify-center">
-                        <Link href="/leaderboard">
-                            <Button
-                                intent="primary"
-                                className="inline-flex items-center gap-2"
-                            >
-                                <Image
-                                    alt="gold"
-                                    src="/achievements/gold.png"
-                                    height={16}
-                                    width={16}
-                                />
-                                View Leaderboard
-                            </Button>
-                        </Link>
+            <MaintainerFeatureSection />
+            <ContributorFeatureSection />
+
+            <section className=" grid gap-6 py-8 text-center md:py-12 lg:py-24">
+                <div className="container">
+                    <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
+                        <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
+                            Make your mark
+                        </h2>
+                        <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
+                            Collect Blood for each accepted bounty submission.
+                            Climb the leaderboard and make a name for yourself!
+                        </p>
                     </div>
-                </Suspense>
+                    <Suspense fallback={<LeaderBoardLoading />}>
+                        {/* @ts-expect-error Server Component */}
+                        <LeaderBoard pageSize={10} page={1} />
+                        <div className="mx-auto mt-8 flex w-full max-w-md justify-center">
+                            <Link href="/leaderboard">
+                                <Button
+                                    intent="primary"
+                                    className="inline-flex items-center gap-2"
+                                >
+                                    <Image
+                                        alt="gold"
+                                        src="/achievements/gold.png"
+                                        height={16}
+                                        width={16}
+                                    />
+                                    View Leaderboard
+                                </Button>
+                            </Link>
+                        </div>
+                    </Suspense>
+                </div>
             </section>
 
             <section className="container grid place-items-center items-center justify-center gap-6 py-8 text-center md:py-12 lg:py-24">
