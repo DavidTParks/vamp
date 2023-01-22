@@ -1,21 +1,18 @@
 import { DashboardShell } from "@/components/dashboard/shell"
 import { Icons } from "@/components/icons"
+import { UserAchievements } from "@/components/profile/u/profile-achievements"
 import { UserBountySubmissionList } from "@/components/profile/u/profile-bounty-submissions"
+import { ProfileDonate } from "@/components/profile/u/profile-donate"
 import { UserProjectList } from "@/components/profile/u/profile-project-list"
 import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
 import { getGithubUserById } from "@/lib/github"
 import { getUserById } from "@/lib/users"
-import { getUserLevel } from "@/lib/utils"
 import { ExternalLink } from "@/ui/external-link"
 import { Separator } from "@/ui/separator"
 import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { Fragment, Suspense } from "react"
-import { Button } from "@/ui/button"
-import { ProfileDonate } from "@/components/profile/u/profile-donate"
-import { getUserAchievements } from "@/lib/users"
-import { UserAchievements } from "@/components/profile/u/profile-achievements"
+import { Suspense } from "react"
 interface ProfilePageProps {
     params: { userId: string }
     searchParams?: { page: string; search: string; sort: string }
@@ -38,8 +35,6 @@ export default async function ProjectPage({
     if (!providerAccountId) return notFound()
 
     const githubUser = await getGithubUserById(providerAccountId)
-
-    const achievements = await getUserAchievements(user.id)
 
     if (!githubUser) return notFound()
 
@@ -76,9 +71,9 @@ export default async function ProjectPage({
                                 </Tooltip>
                             </div>
                             <div className="flex w-full flex-col">
-                                <span className="text-md  font-bold tracking-tight text-brandtext-700">
+                                {/* <span className="text-md  font-bold tracking-tight text-brandtext-700">
                                     Level {getUserLevel(user.blood)}
-                                </span>
+                                </span> */}
 
                                 <h1 className="mt-1 flex w-full gap-8 text-xl font-bold tracking-tight text-brandtext-500 sm:text-2xl">
                                     {user.name}{" "}
