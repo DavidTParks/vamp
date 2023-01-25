@@ -8,7 +8,7 @@ export function Hero() {
     return (
         <div className="relative isolate -mt-24 overflow-hidden bg-transparent">
             <svg
-                className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+                className="absolute inset-0 -z-10 h-full w-full stroke-brandtext-500/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
                 aria-hidden="true"
             >
                 <defs>
@@ -60,7 +60,7 @@ export function Hero() {
                         gradientUnits="userSpaceOnUse"
                     >
                         <stop stopColor="#bb2424" />
-                        <stop offset={1} stopColor="#80CAFF" />
+                        <stop offset={1} stopColor="#ec4848" />
                     </linearGradient>
                 </defs>
             </svg>
