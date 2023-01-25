@@ -13,7 +13,7 @@ interface ProfilePageProps {
 export default async function Head({ params }: ProfilePageProps) {
     const user = await getUserById(params.userId)
 
-    if (!user || !user.name || !user.gold) {
+    if (!user) {
         return notFound()
     }
 
