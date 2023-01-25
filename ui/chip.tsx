@@ -4,24 +4,27 @@ import { cn } from "@/lib/utils"
 
 type ChipProps = ComponentProps<"span">
 
-const chipStyles = cva("inline-flex items-center rounded-full font-medium", {
-    variants: {
-        intent: {
-            green: "bg-green-900 text-green-100",
-            default: "bg-palette-300 text-brandtext-400",
-            purple: "bg-purple-900 text-purple-100",
-            rose: "bg-rose-300 text-rose-900",
+const chipStyles = cva(
+    "inline-flex items-center rounded-full font-semibold leading-6 ring-1 ring-inset",
+    {
+        variants: {
+            intent: {
+                green: "bg-green-500/10 text-green-400 ring-green-500/20",
+                default: "bg-slate-500/10 text-brandtext-500 ring-slate-500/20",
+                purple: "bg-purple-500/10 text-purple-400 ring-purple-500/20",
+                rose: " bg-rose-500/10 text-rose-400 ring-rose-500/20",
+            },
+            size: {
+                small: "px-3 py-1 text-xs",
+                regular: " px-3 py-1 text-sm",
+            },
         },
-        size: {
-            small: "px-3 py-1 text-xs",
-            regular: " px-3 py-1 text-sm",
+        defaultVariants: {
+            intent: "default",
+            size: "regular",
         },
-    },
-    defaultVariants: {
-        intent: "default",
-        size: "regular",
-    },
-})
+    }
+)
 
 export interface TChipProps
     extends ChipProps,

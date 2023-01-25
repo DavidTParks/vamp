@@ -1,9 +1,10 @@
 import { Button } from "@/ui/button"
+import { ExternalLink } from "@/ui/external-link"
 import { ChevronRightIcon } from "@heroicons/react/20/solid"
 import Image from "next/image"
 import Link from "next/link"
-import { Icons } from "../icons"
-import { ExternalLink } from "@/ui/external-link"
+import { Chip } from "@/ui/chip"
+
 export function Hero() {
     return (
         <div className="relative isolate -mt-24 overflow-hidden bg-transparent">
@@ -68,9 +69,7 @@ export function Hero() {
                 <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
                     <div className="mt-24 sm:mt-32 lg:mt-16">
                         <div className="inline-flex space-x-6">
-                            <span className="rounded-full bg-rose-500/10 px-3 py-1 text-sm font-semibold leading-6 text-rose-400 ring-1 ring-inset ring-rose-500/20">
-                                Beta
-                            </span>
+                            <Chip intent="rose">Beta</Chip>
                             <ExternalLink
                                 className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-brandtext-600"
                                 href="https://github.com/DavidTParks/vamp"

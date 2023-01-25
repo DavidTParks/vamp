@@ -29,7 +29,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
             <div className="my-8 flex justify-between">
                 <div className="inline-flex items-center gap-4">
                     {!bounty.resolved && <Chip intent="green">Open</Chip>}
-                    {bounty.resolved && <Chip intent="default">Resolved</Chip>}
+                    {bounty.resolved && <Chip intent="purple">Resolved</Chip>}
                     <ExternalLink className="" href={repo.html_url}>
                         <Chip
                             className="inline-flex max-w-[204px] items-center gap-2 overflow-hidden"
