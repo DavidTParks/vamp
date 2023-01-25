@@ -14,6 +14,8 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { MaintainerFeatureSection } from "@/components/marketing/maintainer-feature-section"
 import { ContributorFeatureSection } from "@/components/marketing/contributors-feature-section"
+import { Hero } from "@/components/marketing/hero"
+import { LogoCloud } from "@/components/marketing/logo-cloud"
 
 async function getGitHubStars(): Promise<string | null> {
     try {
@@ -46,7 +48,8 @@ export default async function IndexPage() {
 
     return (
         <>
-            <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
+            <Hero />
+            {/* <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-brandtext-500/10 hover:ring-white/20">
                         <span className="text-brandtext-500">
@@ -84,7 +87,9 @@ export default async function IndexPage() {
                         </Button>
                     </ExternalLink>
                 </div>
-            </div>
+            </div> */}
+
+            <LogoCloud />
 
             <section className="container grid place-items-center items-center justify-center gap-6  py-8 text-center md:py-12 lg:py-24">
                 <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
@@ -92,8 +97,8 @@ export default async function IndexPage() {
                         For Maintainers
                     </h2>
                     <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
-                        Link existing Github repositories and post bounties by
-                        referencing issues directly.
+                        Sync your Github issues and reference them in bounties
+                        directly. Save time rewarding your contributors.
                     </p>
                 </div>
                 <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg">

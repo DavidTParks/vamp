@@ -31,9 +31,11 @@ export function ContributorFeatureSection() {
                                     Turn your expertise into a side hustle
                                 </h2>
                                 <p className="mt-4 text-lg text-brandtext-600">
-                                    Track your payments via a powerful billing
-                                    dashboard, and leverage your coding
-                                    expertise to bring in some side income.
+                                    Leverage your skills in web development,
+                                    design or community management by
+                                    contributing to open-source projects that
+                                    power the web. Track your payouts via a
+                                    comprehensive dashboard.
                                 </p>
                                 <div className="mt-6">
                                     <Link href="/register">
@@ -72,7 +74,7 @@ export function ContributorFeatureSection() {
                                 <h2 className="text-3xl font-bold tracking-tight text-brandtext-500">
                                     Build your resume
                                 </h2>
-                                <p className="text-brandtet-600 mt-4 text-lg">
+                                <p className="text-brandtet-600 mt-4 text-lg text-brandtext-600">
                                     Collect achievements and tokens for
                                     completing bounties. Show off your progress
                                     and open-source resume to the world.
