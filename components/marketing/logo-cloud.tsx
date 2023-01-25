@@ -3,9 +3,9 @@ import Image from "next/image"
 export function LogoCloud() {
     return (
         <div className="dropdown text-center">
-            <h3 className="mt-8 text-2xl font-bold tracking-tight text-brandtext-500">
+            <p className="mt-8 text-2xl font-bold tracking-tight text-brandtext-500">
                 Powered by the best tech on the web
-            </h3>
+            </p>
             <div className="mx-auto max-w-7xl py-12 px-6 lg:px-8">
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
                     <div className="col-span-1 flex justify-center saturate-0 md:col-span-2 lg:col-span-1">
