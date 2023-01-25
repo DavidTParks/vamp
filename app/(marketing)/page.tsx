@@ -49,45 +49,6 @@ export default async function IndexPage() {
     return (
         <>
             <Hero />
-            {/* <div className="mx-auto mt-24 mb-10 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
-                <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                    <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-brandtext-500/10 hover:ring-white/20">
-                        <span className="text-brandtext-500">
-                            Announcing Vamp.sh.{" "}
-                            <a href="#" className="font-semibold text-rose-600">
-                                <span
-                                    className="absolute inset-0"
-                                    aria-hidden="true"
-                                />
-                                Read more <span aria-hidden="true">&rarr;</span>
-                            </a>
-                        </span>
-                    </div>
-                </div>
-                <h1 className="mt-5 inline bg-gradient-to-r from-white to-brandtext-500 bg-clip-text text-5xl font-extrabold leading-[1.15]  tracking-tight text-white text-transparent sm:text-7xl sm:leading-[1.15]">
-                    Contribute to Open Source
-                    <br />
-                    <span className="red-glow bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent">
-                        Get Paid
-                    </span>
-                </h1>
-                <h2 className="mt-5 text-lg text-brandtext-500 sm:text-xl">
-                    Vamp is an open-source bounty platform designed to empower
-                    project maintainers, and the contributors that make them
-                    great.
-                </h2>
-                <div className="mx-auto mt-10 flex max-w-fit space-x-4">
-                    <Link href="/browse">
-                        <Button>Browse Bounties</Button>
-                    </Link>
-                    <ExternalLink href="https://github.com/DavidTParks/vamp">
-                        <Button intent="secondary">
-                            <p className="mr-2 text-sm">Star on GitHub</p>
-                            <Icons.star size={16} />
-                        </Button>
-                    </ExternalLink>
-                </div>
-            </div> */}
 
             <LogoCloud />
 
