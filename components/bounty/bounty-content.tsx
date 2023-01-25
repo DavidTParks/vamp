@@ -36,7 +36,7 @@ export async function BountyContent({ bountyId }: TBountyContent) {
                             intent="default"
                         >
                             <Icons.gitHub className="flex-shrink-0" size={16} />
-                            <span className="truncate">Github Repository</span>
+                            <span className="truncate">{repo.name}</span>
                         </Chip>
                     </ExternalLink>
                 </div>
