@@ -26,7 +26,7 @@ export default async function Head({ params }: ProfilePageProps) {
     const githubUser = await getGithubUserById(providerAccountId)
 
     const ogUrl = new URL(`${getBaseUrl()}/api/user-og`)
-    ogUrl.searchParams.set("heading", user.name)
+    ogUrl.searchParams.set("heading", user?.name ?? "Vamp User")
     ogUrl.searchParams.set("blood", user.blood?.toString())
     ogUrl.searchParams.set("gold", user.gold?.toString())
     ogUrl.searchParams.set("userId", user.id)
@@ -38,10 +38,10 @@ export default async function Head({ params }: ProfilePageProps) {
         <>
             <DefaultTags />
             <link rel="canonical" href={`/u/${user.id}`} />
-            <meta property="og:title" content={user.name} />
+            <meta property="og:title" content={user.name ?? "Vamp User"} />
             {/* <meta property="og:url" content={url} /> */}
             <meta property="og:image" content={ogUrl.toString()} />
-            <meta name="twitter:title" content={user.name} />
+            <meta name="twitter:title" content={user.name ?? "Vamp User"} />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:image" content={ogUrl.toString()} />
         </>
