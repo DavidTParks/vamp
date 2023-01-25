@@ -85,7 +85,7 @@ export function Hero() {
                             </ExternalLink>
                         </div>
                     </div>
-                    <h1 className="mt-10 bg-gradient-to-r from-white to-brandtext-500 bg-clip-text text-5xl font-extrabold leading-[1.15]  tracking-tight text-white text-transparent sm:text-7xl sm:leading-[1.15]">
+                    <h1 className="mt-10 bg-gradient-to-r from-white to-brandtext-500 bg-clip-text text-5xl font-extrabold leading-[1.15]  tracking-tight  text-transparent sm:text-7xl sm:leading-[1.15]">
                         Contribute to Open Source
                         <br />
                         <span className="red-glow bg-gradient-to-r from-rose-600 to-rose-500 bg-clip-text text-transparent">
