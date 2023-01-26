@@ -37,6 +37,10 @@ export default async function handler(req: NextRequest) {
     const lighterBase = `hsl(${hue}, ${saturation}, ${newBrightness})`
     const darkerBase = `hsl(${hue}, ${saturation}, ${newDarkness})`
 
+    // Used for custom sizing
+    const twoAndTwoThirds = 2 + 2 / 3
+    const oneAndOneThird = 1 + 1 / 3
+
     const avatar = (
         <svg
             version="1.1"
@@ -46,51 +50,311 @@ export default async function handler(req: NextRequest) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <rect width="256" height="256" fill={baseColor} />
-            <rect y="0" x="0" width="32" height="32" fill={lighterBase} />
-            <rect y="0" x="96" width="32" height="32" fill={lighterBase} />
-            <rect y="0" x="192" width="32" height="32" fill={lighterBase} />
-            <rect y="32" x="224" width="32" height="32" fill={lighterBase} />
-            <rect y="224" x="96" width="32" height="32" fill={darkerBase} />
-            <rect y="32" width="32" height="32" fill="#DBDEFF" />
-            <rect y="32" width="32" height="32" fill="#DBDEFF" />
-            <rect x="160" y="64" width="32" height="32" fill="#DBDEFF" />
-            <rect x="160" y="96" width="32" height="32" fill="#DBDEFF" />
-            <rect x="32" y="192" width="32" height="32" fill="#DBDEFF" />
-            <rect x="96" y="192" width="32" height="32" fill="#DBDEFF" />
-            <rect x="192" y="96" width="32" height="32" fill="#C8CFFF" />
-            <rect x="192" y="64" width="32" height="32" fill="#DBDEFF" />
-            <rect x="192" y="32" width="32" height="32" fill="#DBDEFF" />
-            <rect x="192" y="32" width="32" height="32" fill="#DBDEFF" />
-            <rect x="32" y="64" width="32" height="32" fill="#010411" />
-            <rect x="32" y="96" width="32" height="32" fill="#010411" />
-            <rect x="64" y="96" width="32" height="32" fill="#010411" />
-            <rect x="64" y="128" width="32" height="32" fill="#010411" />
-            <rect x="32" y="160" width="32" height="32" fill="#010411" />
-            <rect x="64" y="160" width="32" height="32" fill="#010411" />
-            <rect x="96" y="160" width="32" height="32" fill="#010411" />
-            <rect x="128" y="160" width="32" height="32" fill="#010411" />
-            <rect x="128" y="128" width="32" height="32" fill="#010411" />
-            <rect x="160" y="128" width="32" height="32" fill="#010411" />
-            <rect x="160" y="160" width="32" height="32" fill="#010411" />
-            <rect x="192" y="160" width="32" height="32" fill="#010411" />
-            <rect x="160" y="192" width="32" height="32" fill="#010411" />
-            <rect x="192" y="192" width="32" height="32" fill="#010411" />
-            <rect x="224" y="192" width="32" height="32" fill="#010411" />
-            <rect x="224" y="224" width="32" height="32" fill="#010411" />
-            <rect x="128" y="224" width="32" height="32" fill="#010411" />
-            <rect x="160" y="224" width="32" height="32" fill="#010411" />
-            <rect x="192" y="224" width="32" height="32" fill="#010411" />
-            <rect x="128" y="192" width="32" height="32" fill="#010411" />
-            <rect x="64" y="64" width="32" height="32" fill="#010411" />
-            <rect x="96" y="64" width="32" height="32" fill="#010411" />
-            <rect x="128" y="64" width="32" height="32" fill="#010411" />
-            <rect x="96" y="96" width="32" height="32" fill="#010411" />
-            <rect x="128" y="96" width="32" height="32" fill="#010411" />
-            <rect y="96" width="32" height="32" fill="#DBDEFF" />
-            <rect x="32" y="128" width="32" height="32" fill="#DBDEFF" />
-            <rect x="96" y="128" width="32" height="32" fill="#DBDEFF" />
-            <rect y="64" width="32" height="32" fill="#C8CFFF" />
+            <rect width={size} height={size} fill={baseColor} />
+            <rect
+                y="0"
+                x="0"
+                width={size / 8}
+                height={size / 8}
+                fill={lighterBase}
+            />
+            <rect
+                y="0"
+                x={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill={lighterBase}
+            />
+            <rect
+                y="0"
+                x={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill={lighterBase}
+            />
+            <rect
+                y={size / 8}
+                x={size / 1.14285714286}
+                width={size / 8}
+                height={size / 8}
+                fill={lighterBase}
+            />
+            <rect
+                y={size / 1.14285714286}
+                x={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill={darkerBase}
+            />
+            <rect
+                y={size / 8}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                y={size / 8}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / 8}
+                y={size / 1.3333333}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / twoAndTwoThirds}
+                y={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#C8CFFF"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / 8}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / 8}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / 8}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 8}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 4}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 4}
+                y={size / 2}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 8}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 4}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / twoAndTwoThirds}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / 2}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / 2}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / 1.6}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.14285714286}
+                y={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.14285714286}
+                y={size / 1.14285714286}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / 1.14285714286}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 1.6}
+                y={size / 1.14285714286}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / oneAndOneThird}
+                y={size / 1.14285714286}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / oneAndOneThird}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 4}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / twoAndTwoThirds}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / twoAndTwoThirds}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                x={size / 2}
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#010411"
+            />
+            <rect
+                y={size / twoAndTwoThirds}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / 8}
+                y={size / 2}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                x={size / twoAndTwoThirds}
+                y={size / 2}
+                width={size / 8}
+                height={size / 8}
+                fill="#DBDEFF"
+            />
+            <rect
+                y={size / 4}
+                width={size / 8}
+                height={size / 8}
+                fill="#C8CFFF"
+            />
         </svg>
     )
 

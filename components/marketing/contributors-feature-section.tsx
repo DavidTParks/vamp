@@ -10,7 +10,7 @@ export function ContributorFeatureSection() {
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
                         For Contributors
                     </h2>
-                    <p className="max-w-[85%] leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
+                    <p className="max-w-[85%] text-center leading-normal text-brandtext-600 sm:text-lg sm:leading-7">
                         Powerful, fun tools for Contributors to build their
                         open-source resume, and make money while doing it.
                     </p>
