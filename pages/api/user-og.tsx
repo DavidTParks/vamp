@@ -29,8 +29,6 @@ export default async function handler(req: NextRequest) {
 
         const url = new URL(req.url)
 
-        console.log("Generating")
-
         const values = userOgImageSchema.parse(
             Object.fromEntries(url.searchParams)
         )

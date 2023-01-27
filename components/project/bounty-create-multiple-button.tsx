@@ -40,7 +40,6 @@ export function BountyCreateMultipleButton({
             data.forEach((bounty) => {
                 redirectUrl.searchParams.append("bountyId", bounty.id)
             })
-            console.log("Redirect URL", redirectUrl.toString())
             router.push(redirectUrl.toString())
             router.refresh()
         },

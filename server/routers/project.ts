@@ -48,7 +48,7 @@ const createProject = privateProcedure
             }),
         ])
 
-        return db.project.create({
+        const project = await db.project.create({
             data: {
                 name: name,
                 description: description,
@@ -80,6 +80,9 @@ const createProject = privateProcedure
                 id: true,
             },
         })
+        ctx.log.info("User created project", project)
+
+        return project
     })
 
 const updatePhoto = withProject

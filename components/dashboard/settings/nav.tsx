@@ -18,8 +18,6 @@ export function SettingsNav({ items }: SettingsNavProps) {
         return null
     }
 
-    console.log("Path", path)
-
     return (
         <nav className="grid items-start gap-2">
             {items.map((item, index) => {

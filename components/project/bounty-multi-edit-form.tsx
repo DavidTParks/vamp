@@ -80,7 +80,6 @@ export const BountyMultiEditForm = ({
             router.refresh()
             router.push(`/project/${projectId}`)
         } catch (e) {
-            console.log(e)
             toast({
                 title: "Something went wrong.",
                 message: "Your project was not deleted. Please try again.",
@@ -101,7 +100,6 @@ export const BountyMultiEditForm = ({
                         <RadioGroup
                             defaultValue={"fixed"}
                             onValueChange={(e) => {
-                                console.log("Value changed", e)
                                 if (e === "fixed") {
                                     methods.setValue("bountyRange", false)
                                 } else {

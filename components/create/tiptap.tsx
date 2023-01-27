@@ -395,7 +395,6 @@ const Tiptap = ({ bounty }: TTipTap) => {
                                 bounty.bountyRange ? "range" : "fixed"
                             }
                             onValueChange={(e) => {
-                                console.log("Value changed", e)
                                 if (e === "fixed") {
                                     methods.setValue("bountyRange", false)
                                 } else {

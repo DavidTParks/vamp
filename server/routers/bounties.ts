@@ -34,12 +34,12 @@ const createBounty = withProject
         const { title, content, projectId, issue, issueLink } = input
 
         let issueContent: any = undefined
-        try {
-            if (issue) {
+        if (issue) {
+            try {
                 issueContent = await getRenderedMarkdown(issue.body, ctx.user)
+            } catch (e) {
+                console.log(e)
             }
-        } catch (e) {
-            console.log(e)
         }
 
         const bounty = await db.bounty.create({
@@ -282,7 +282,10 @@ const editMultipleBounties = withProject
             },
         })
 
-        ctx.log.info("User created multiple bounties", updatedBounties)
+        ctx.log.info(
+            "User edited and published multiple bounties",
+            updatedBounties
+        )
         return updatedBounties
     })
 
