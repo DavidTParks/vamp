@@ -1,7 +1,5 @@
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { UserNav } from "@/components/user-nav"
-import { getCurrentUser } from "@/lib/session"
-import { notFound } from "next/navigation"
 
 export const revalidate = 0
 

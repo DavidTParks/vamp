@@ -8,11 +8,5 @@ export default async function ProjectLayout({
 }: {
     children: React.ReactNode
 }) {
-    const user = await getCurrentUser()
-
-    if (!user) {
-        return notFound()
-    }
-
     return <>{children}</>
 }
