@@ -2,8 +2,6 @@ import { DashboardNav } from "@/components/dashboard/dashboard-nav"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { DashboardSecondaryNav } from "@/components/dashboard/secondary-nav"
 import { UserNav } from "@/components/user-nav"
-import { getCurrentUser } from "@/lib/session"
-import { notFound } from "next/navigation"
 
 export const revalidate = 0
 
@@ -12,12 +10,6 @@ export default async function DashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    const user = await getCurrentUser()
-
-    if (!user) {
-        return notFound()
-    }
-
     return (
         <>
             <div className="relative mx-auto flex min-h-screen flex-col">
