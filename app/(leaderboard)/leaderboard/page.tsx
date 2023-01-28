@@ -1,5 +1,6 @@
 import { LeaderBoard } from "@/components/marketing/leaderboard"
-
+import { Suspense } from "react"
+import { LeaderBoardLoading } from "@/components/marketing/leaderboard"
 interface LeaderboardPageProps {
     searchParams?: { page: string; search: string; sort: string }
 }
@@ -25,14 +26,16 @@ export default async function LeaderboardPage({
                 </div>
             </div>
 
-            {/* @ts-expect-error Server Component */}
-            <LeaderBoard
-                showPagination={true}
-                sortQuery={searchParams?.sort}
-                pageSize={10}
-                search={searchParams?.search}
-                page={searchParams?.page ? parseInt(searchParams.page) : 1}
-            />
+            <Suspense fallback={<LeaderBoardLoading />}>
+                {/* @ts-expect-error Server Component */}
+                <LeaderBoard
+                    showPagination={true}
+                    sortQuery={searchParams?.sort}
+                    pageSize={10}
+                    search={searchParams?.search}
+                    page={searchParams?.page ? parseInt(searchParams.page) : 1}
+                />
+            </Suspense>
         </div>
     )
 }
