@@ -7,6 +7,9 @@ import { SiteFooter } from "@/components/site-footer"
 import { AnalyticsWrapper } from "@/components/analytics"
 import { Providers } from "./providers"
 export { reportWebVitals } from "next-axiom"
+import { Web3Providers } from "./web3Providers"
+import "@rainbow-me/rainbowkit/styles.css"
+import Script from "next/script"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",
@@ -42,10 +45,12 @@ export default function RootLayout({
       */}
                 <head />
                 <body className="min-h-screen">
-                    {children}
-                    <Toaster position="bottom-right" />
-                    <SiteFooter />
-                    <AnalyticsWrapper />
+                    <Web3Providers>
+                        {children}
+                        <Toaster position="bottom-right" />
+                        <SiteFooter />
+                        <AnalyticsWrapper />
+                    </Web3Providers>
                 </body>
             </html>
         </Providers>
