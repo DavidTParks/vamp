@@ -137,6 +137,34 @@ export const withProject = privateProcedure.use(async (opts) => {
 })
 
 /**
+ * User is an owner of this account
+ **/
+export const withUser = privateProcedure.use(async (opts) => {
+    if (!opts.ctx.user) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "You have to be logged in to do this",
+        })
+    }
+
+    const json = opts.ctx.req?.body["0"]?.json
+    const userId = json?.userId
+
+    if (userId !== opts.ctx.user.id) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "You do not have access to this project",
+        })
+    }
+
+    return opts.next({
+        ctx: {
+            user: opts.ctx.user,
+        },
+    })
+})
+
+/**
  * User is an owner of the project and therefore the bounty
  **/
 export const withBounty = privateProcedure.use(async (opts) => {

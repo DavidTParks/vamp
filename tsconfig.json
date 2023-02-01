@@ -32,7 +32,7 @@
         ".contentlayer/generated",
         "content/pages/about.mdx",
         "pages/sitemap.xml.js",
-        "pages/sitemap.xml.js"
+        "types/**/*.d.ts"
     ],
     "exclude": ["node_modules"]
 }

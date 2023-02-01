@@ -66,8 +66,23 @@ model User {
   notificationNewSubmission      Boolean             @default(true)
   notificationSubmissionAccepted Boolean             @default(true)
   notificationMarketing          Boolean             @default(true)
+  wallets                        UserWallet[]
 
   @@map(name: "users")
+}
+
+model UserWallet {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  chainId   Int // Used to track which chain the user authorized on
+  address   String   @db.Char(42)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  default   Boolean  @default(true)
+
+  @@unique([userId, address, chainId])
+  @@index([userId])
 }
 
 model VerificationToken {

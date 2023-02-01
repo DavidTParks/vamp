@@ -60,13 +60,14 @@ import {
 
 import { GiBat as Bat, GiFangs } from "react-icons/gi"
 
-import { FaGithub, FaMarkdown } from "react-icons/fa"
+import { FaGithub, FaMarkdown, FaEthereum } from "react-icons/fa"
 
 import type { Icon as LucideIcon } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+    eth: FaEthereum,
     arrowUpDown: ArrowUpDown,
     book: Book,
     home: Home,

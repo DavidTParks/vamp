@@ -4,7 +4,11 @@ const { withAxiom } = require("next-axiom")
 const nextConfig = {
     experimental: {
         appDir: true,
-        serverComponentsExternalPackages: ["@prisma/client"],
+        serverComponentsExternalPackages: [
+            "@prisma/client",
+            "@rainbow-me/rainbowkit",
+            "@rainbow-me/rainbowkit/wallets",
+        ],
     },
     images: {
         domains: [
