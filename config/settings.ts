@@ -18,9 +18,9 @@ export const settingsConfig: SettingsConfig = {
             icon: "bell",
         },
         {
-            title: "Crypto Wallet",
+            title: "Wallets",
             href: "/dashboard/settings/wallet",
-            icon: "billing",
+            icon: "eth",
         },
     ],
 }

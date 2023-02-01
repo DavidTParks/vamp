@@ -70,7 +70,7 @@ Alert.Description = React.forwardRef<
     return (
         <AlertDialogPrimitives.Description
             ref={ref}
-            className={cn("text-sm text-brandtext-600", className)}
+            className={cn("my-2 text-sm text-brandtext-600", className)}
             {...props}
         />
     )
@@ -91,6 +91,7 @@ Alert.Cancel = React.forwardRef<
 >(function AlertCancel({ className, children, ...props }, ref) {
     return (
         <AlertDialogPrimitives.Cancel
+            asChild
             onClick={(e) => {
                 e.stopPropagation()
                 e.nativeEvent.stopImmediatePropagation()
@@ -110,6 +111,7 @@ Alert.Action = React.forwardRef<
 >(function AlertAction({ className, children, ...props }, ref) {
     return (
         <AlertDialogPrimitives.Action
+            asChild
             ref={ref}
             className={cn(className)}
             {...props}
