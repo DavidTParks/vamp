@@ -100,6 +100,7 @@ export const ConnectWallet = () => {
                                     </Button>
 
                                     <Button
+                                        intent="secondary"
                                         onClick={openAccountModal}
                                         type="button"
                                     >
