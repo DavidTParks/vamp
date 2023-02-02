@@ -1,15 +1,14 @@
+import { AnalyticsWrapper } from "@/components/analytics"
+import { SiteFooter } from "@/components/site-footer"
+import { cn } from "@/lib/utils"
+import { Toaster } from "@/ui/toast"
 import { Inter as FontSans } from "@next/font/google"
 import localFont from "@next/font/local"
-import "./globals.css"
-import { Toaster } from "@/ui/toast"
-import { cn } from "@/lib/utils"
-import { SiteFooter } from "@/components/site-footer"
-import { AnalyticsWrapper } from "@/components/analytics"
-import { Providers } from "./providers"
-export { reportWebVitals } from "next-axiom"
-import { Web3Providers } from "./web3Providers"
 import "@rainbow-me/rainbowkit/styles.css"
-import Script from "next/script"
+import "./globals.css"
+import { Providers } from "./providers"
+import { Web3Providers } from "./web3Providers"
+export { reportWebVitals } from "next-axiom"
 
 const satoshi = localFont({
     src: "./Satoshi-Variable.woff2",

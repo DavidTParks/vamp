@@ -7,8 +7,9 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "compile-contract-types": "typechain --target ethers-v5 --out-dir './contracts/types' './contracts/*.json'",
         "stripewebhooks": "stripe listen --forward-to localhost:3000/api/webhooks/stripe",
-        "postinstall": "prisma generate"
+        "postinstall": "prisma generate && typechain --target ethers-v5 --out-dir './contracts/types' './contracts/*.json'"
     },
     "dependencies": {
         "@headlessui/react": "^1.7.7",
@@ -95,9 +96,11 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.8",
+        "@typechain/ethers-v5": "^10.2.0",
         "@types/color-hash": "^1.0.2",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "mailing": "^0.9.7",
-        "prisma": "^4.9.0"
+        "prisma": "^4.9.0",
+        "typechain": "^8.1.1"
     }
 }

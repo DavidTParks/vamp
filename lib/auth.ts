@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import { Octokit } from "octokit"
+import { ethers } from "ethers"
 
 export const authOptions: NextAuthOptions = {
     // huh any! I know.
