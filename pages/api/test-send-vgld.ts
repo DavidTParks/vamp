@@ -1,13 +1,13 @@
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { getVGLDBalance } from "@/lib/web3/itxUtils"
 import { NextApiRequest, NextApiResponse } from "next"
-import { mintVGLD } from "@/lib/web3/itxUtils"
+import { mintVgldWithForwarder } from "@/lib/web3/itxUtils"
 import { formatBytes32String } from "ethers/lib/utils.js"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
         try {
-            const hash = await mintVGLD()
+            const hash = await mintVgldWithForwarder()
 
             res.status(200).json({ hash })
         } catch (error) {

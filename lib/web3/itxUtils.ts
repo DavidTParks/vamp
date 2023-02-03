@@ -1,8 +1,10 @@
 import { VGLD__factory } from "@/contracts/types"
 import { ethers } from "ethers"
 import { formatEther } from "ethers/lib/utils.js"
+import { Forwarder__factory } from "@/contracts/types"
 
 const VGLD_CONTRACT = "0x31539a675De86fd616403e6dad52539F8D5a8F8E"
+const FORWARDER_CONTRACT = "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0"
 
 export const itx = new ethers.providers.InfuraProvider(
     "goerli", // or 'goerli'
@@ -44,31 +46,6 @@ export async function signRequest(tx: TInfuraTransaction) {
     return await signer.signMessage(ethers.utils.arrayify(relayTransactionHash))
 }
 
-export async function mintVGLD() {
-    const iface = new ethers.utils.Interface([
-        "function mint(address to, uint256 amount)",
-    ])
-    const data = iface.encodeFunctionData("mint", [
-        "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
-        "1000000000000000000000",
-    ])
-
-    const tx = {
-        to: "0x31539a675De86fd616403e6dad52539F8D5a8F8E",
-        data: data,
-        gas: "100001",
-        schedule: "fast",
-    }
-    const signature = await signRequest(tx)
-
-    const relayTransactionHash = await itx.send("relay_sendTransaction", [
-        tx,
-        signature,
-    ])
-    console.log(`ITX relay hash: ${relayTransactionHash}`)
-    return relayTransactionHash
-}
-
 const wait = (milliseconds: number) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
@@ -99,8 +76,74 @@ export async function waitTransaction(relayTransactionHash: string) {
     }
 }
 
+export async function mintVGLD() {
+    const iface = new ethers.utils.Interface([
+        "function mint(address to, uint256 amount)",
+    ])
+    const data = iface.encodeFunctionData("mint", [
+        "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
+        "1000000000000000000000",
+    ])
+
+    const tx = {
+        to: "0x31539a675De86fd616403e6dad52539F8D5a8F8E",
+        data: data,
+        gas: "100001",
+        schedule: "fast",
+    }
+    const signature = await signRequest(tx)
+
+    const relayTransactionHash = await itx.send("relay_sendTransaction", [
+        tx,
+        signature,
+    ])
+    console.log(`ITX relay hash: ${relayTransactionHash}`)
+    return relayTransactionHash
+}
+
 export async function getVGLDBalance(address: string) {
     const vgld = VGLD__factory.connect(VGLD_CONTRACT, signer)
     const balance = await vgld.balanceOf(address)
     return formatEther(balance?.toString())
+}
+
+async function buildRequest() {}
+
+export async function mintVgldWithForwarder() {
+    const forwarder = Forwarder__factory.connect(FORWARDER_CONTRACT, signer)
+
+    const iface = new ethers.utils.Interface([
+        "function mint(address to, uint256 amount)",
+    ])
+    const data = iface.encodeFunctionData("mint", [
+        "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
+        "1000000000000000000001",
+    ])
+
+    const nonce = await forwarder
+        .getNonce("0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A")
+        .then((nonce) => nonce.toString())
+
+    const request = {
+        value: 0,
+        gas: "100000",
+        nonce,
+        from: "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
+        to: "0x5923b451c5a61097B9Ad89dE2C409d50c3feF7Ac",
+        data,
+        schedule: "fast",
+    }
+
+    const signature = await signRequest(request)
+
+    const gasLimit = (parseInt(request.gas) + 50000).toString()
+    return await forwarder.execute(request, signature, { gasLimit })
+    console.log(signature)
+
+    // const relayTransactionHash = await itx.send("relay_sendTransaction", [
+    //     request,
+    //     signature,
+    // ])
+    // console.log(`ITX relay hash: ${relayTransactionHash}`)
+    // return relayTransactionHash
 }
