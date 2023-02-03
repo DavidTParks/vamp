@@ -22,6 +22,29 @@ export const getUserById = cache(async (userId: User["id"]) => {
     })
 })
 
+export const getUserBountySubmissions = cache(async (userId: User["id"]) => {
+    return await db.user.findUnique({
+        where: {
+            id: userId,
+        },
+        include: {
+            projects: true,
+            bounties: true,
+            bountySubmissions: {
+                include: {
+                    user: true,
+                },
+                where: {
+                    bounty: {
+                        deleted: false,
+                    },
+                },
+            },
+            accounts: true,
+        },
+    })
+})
+
 export interface Achievement {
     title: string
     description: string

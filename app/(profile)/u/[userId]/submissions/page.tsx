@@ -1,16 +1,17 @@
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { DashboardShell } from "@/components/dashboard/shell"
 import { Icons } from "@/components/icons"
 import { UserAchievements } from "@/components/profile/u/profile-achievements"
-import { UserBountySubmissionList } from "@/components/profile/u/profile-bounty-submissions"
 import { ProfileDonate } from "@/components/profile/u/profile-donate"
-import { UserProjectList } from "@/components/profile/u/profile-project-list"
 import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
 import { getGithubUserById } from "@/lib/github"
-import { getUserById } from "@/lib/users"
+import { getUserBountySubmissions } from "@/lib/users"
+import { Chip } from "@/ui/chip"
 import { ExternalLink } from "@/ui/external-link"
 import { Separator } from "@/ui/separator"
 import { Tooltip } from "@/ui/tooltip"
 import Image from "next/image"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 interface ProfilePageProps {
@@ -22,7 +23,7 @@ export default async function ProjectPage({
     params,
     searchParams,
 }: ProfilePageProps) {
-    const user = await getUserById(params.userId)
+    const user = await getUserBountySubmissions(params.userId)
 
     if (!user) {
         notFound()
@@ -196,30 +197,63 @@ export default async function ProjectPage({
                             </div>
                         </header>
                         <h3 className="mt-8 flex w-full gap-8 text-lg font-bold tracking-tight text-brandtext-500">
-                            Projects
+                            Submissions
                         </h3>
-                        <Suspense fallback={<UserProjectList.Skeleton />}>
-                            {/* @ts-expect-error Server Component */}
-                            <UserProjectList
-                                user={{
-                                    id: user.id,
-                                }}
-                            />
-                        </Suspense>
-                        <h3 className="mt-8 flex w-full gap-8 text-lg font-bold tracking-tight text-brandtext-500">
-                            Activity
-                        </h3>
-
-                        <Suspense
-                            fallback={<UserBountySubmissionList.Skeleton />}
-                        >
-                            {/* @ts-expect-error Server Component */}
-                            <UserBountySubmissionList
-                                user={{
-                                    id: user.id,
-                                }}
-                            />
-                        </Suspense>
+                        <div className="flex flex-col divide-y divide-raised-border">
+                            {user?.bountySubmissions?.length ? (
+                                <>
+                                    {user?.bountySubmissions.map(
+                                        (submission) => (
+                                            <div
+                                                key={submission.id}
+                                                className="flex flex-col gap-4 py-4 text-brandtext-500"
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <Link
+                                                        href={`/bounty/${submission.bountyId}`}
+                                                    >
+                                                        <Chip className="inline-flex gap-2 hover:brightness-150">
+                                                            Bounty{" "}
+                                                            <Icons.arrowRight
+                                                                size={16}
+                                                            />
+                                                        </Chip>
+                                                    </Link>
+                                                    {!submission.accepted && (
+                                                        <Chip>Pending</Chip>
+                                                    )}
+                                                    {submission.accepted && (
+                                                        <Chip intent="green">
+                                                            Accepted
+                                                        </Chip>
+                                                    )}
+                                                </div>
+                                                <ExternalLink
+                                                    className="text-rose-500"
+                                                    href={
+                                                        submission?.solutionLink ??
+                                                        "#"
+                                                    }
+                                                >
+                                                    {submission.solutionLink}
+                                                </ExternalLink>
+                                                <div className="text-sm text-brandtext-500">
+                                                    {submission.comments}{" "}
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
+                                </>
+                            ) : (
+                                <EmptyPlaceholder className="mt-4 min-h-[100px]">
+                                    <EmptyPlaceholder.Icon name="logo" />
+                                    <EmptyPlaceholder.Title>
+                                        This user has not submitted any
+                                        solutions to bounties
+                                    </EmptyPlaceholder.Title>
+                                </EmptyPlaceholder>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

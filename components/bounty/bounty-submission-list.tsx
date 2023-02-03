@@ -1,15 +1,10 @@
 import { UserAvatar } from "@/components/dashboard/user-avatar"
-import {
-    fetchSubmissionsPaginated,
-    getBountyById,
-    isBountyOwner,
-} from "@/lib/bounties"
+import { getBountyById, isBountyOwner } from "@/lib/bounties"
 import { formatDate } from "@/lib/utils"
 import { Chip } from "@/ui/chip"
 import { ExternalLink } from "@/ui/external-link"
 import Link from "next/link"
 import { BountyPayoutButton } from "./bounty-payout-button"
-import { BountySubmissionsLoadMore } from "./bounty-submissions-load-more"
 interface MainNavProps {
     bountyId: string
     resolved: boolean

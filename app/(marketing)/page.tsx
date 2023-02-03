@@ -50,8 +50,6 @@ export default async function IndexPage() {
         <>
             <Hero />
 
-            <LogoCloud />
-
             <section className="container grid place-items-center items-center justify-center gap-6  py-8 text-center md:py-12 lg:py-24">
                 <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[52rem]">
                     <h2 className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight">
