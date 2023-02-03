@@ -1,7 +1,7 @@
 import { withMethods } from "@/lib/api-middlewares/with-methods"
 import { getVGLDBalance } from "@/lib/web3/itxUtils"
 import { NextApiRequest, NextApiResponse } from "next"
-import { mintVgldWithForwarder } from "@/lib/web3/itxUtils"
+import { mintVgldWithForwarder, mintVGLD } from "@/lib/web3/itxUtils"
 import { formatBytes32String } from "ethers/lib/utils.js"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -6,6 +6,15 @@ import { Forwarder__factory } from "@/contracts/types"
 const VGLD_CONTRACT = "0x31539a675De86fd616403e6dad52539F8D5a8F8E"
 const FORWARDER_CONTRACT = "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0"
 
+const ForwardRequest = [
+    { name: "from", type: "address" },
+    { name: "to", type: "address" },
+    { name: "value", type: "uint256" },
+    { name: "gas", type: "uint256" },
+    { name: "nonce", type: "uint256" },
+    { name: "data", type: "bytes" },
+]
+
 export const itx = new ethers.providers.InfuraProvider(
     "goerli", // or 'goerli'
     "3964a09090a649239a4b2ff61128b8b0"
@@ -86,7 +95,7 @@ export async function mintVGLD() {
     ])
 
     const tx = {
-        to: "0x31539a675De86fd616403e6dad52539F8D5a8F8E",
+        to: "0x5923b451c5a61097B9Ad89dE2C409d50c3feF7Ac",
         data: data,
         gas: "100001",
         schedule: "fast",
@@ -107,8 +116,6 @@ export async function getVGLDBalance(address: string) {
     return formatEther(balance?.toString())
 }
 
-async function buildRequest() {}
-
 export async function mintVgldWithForwarder() {
     const forwarder = Forwarder__factory.connect(FORWARDER_CONTRACT, signer)
 
@@ -125,25 +132,48 @@ export async function mintVgldWithForwarder() {
         .then((nonce) => nonce.toString())
 
     const request = {
-        value: 0,
         gas: "100000",
         nonce,
         from: "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
-        to: "0x5923b451c5a61097B9Ad89dE2C409d50c3feF7Ac",
+        to: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
         data,
-        schedule: "fast",
+        value: 0,
     }
 
-    const signature = await signRequest(request)
+    const domain = {
+        name: "MinimalForwarder",
+        version: "0.0.1",
+        chainId: 5,
+        verifyingContract: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
+    }
 
-    const gasLimit = (parseInt(request.gas) + 50000).toString()
-    return await forwarder.execute(request, signature, { gasLimit })
-    console.log(signature)
+    const types = {
+        ForwardRequest,
+    }
 
-    // const relayTransactionHash = await itx.send("relay_sendTransaction", [
-    //     request,
-    //     signature,
-    // ])
-    // console.log(`ITX relay hash: ${relayTransactionHash}`)
-    // return relayTransactionHash
+    const typedSignature = await signer._signTypedData(domain, types, request)
+
+    const executeData = forwarder.interface.encodeFunctionData("execute", [
+        request,
+        typedSignature,
+    ])
+
+    const forwardRequest = {
+        gas: "100000",
+        nonce,
+        from: "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
+        to: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
+        data: executeData,
+        schedule: "fast",
+        value: 0,
+    }
+
+    const signature = await signRequest(forwardRequest)
+
+    const relayTransactionHash = await itx.send("relay_sendTransaction", [
+        forwardRequest,
+        signature,
+    ])
+    console.log(`ITX relay hash: ${relayTransactionHash}`)
+    return relayTransactionHash
 }

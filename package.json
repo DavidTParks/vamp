@@ -55,6 +55,7 @@
         "encoding": "^0.1.13",
         "eslint": "8.28.0",
         "eslint-config-next": "13.0.5",
+        "eth-sig-util": "^3.0.1",
         "ethers": "^5.5.1",
         "focus-trap-react": "^10.0.1",
         "framer-motion": "^7.10.2",
