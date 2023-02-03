@@ -2,7 +2,6 @@ import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
 import { DashboardShell } from "@/components/dashboard/shell"
 import { Icons } from "@/components/icons"
 import { UserAchievements } from "@/components/profile/u/profile-achievements"
-import { ProfileDonate } from "@/components/profile/u/profile-donate"
 import { ProfileTabNav } from "@/components/profile/u/profile-tab-nav"
 import { getGithubUserById } from "@/lib/github"
 import { getUserBountySubmissions } from "@/lib/users"
@@ -153,15 +152,6 @@ export default async function ProjectPage({
                                         {githubUser.twitter_username}
                                     </p>
                                 </ExternalLink>
-                            )}
-                            {user.stripeCustomerId && (
-                                <div className="mt-4 w-full">
-                                    <ProfileDonate
-                                        user={{
-                                            id: user.id,
-                                        }}
-                                    />
-                                </div>
                             )}
 
                             <Separator className="my-2" />
