@@ -131,41 +131,48 @@ export async function mintVgldWithForwarder() {
         .getNonce("0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A")
         .then((nonce) => nonce.toString())
 
-    const request = {
-        gas: "100000",
-        nonce,
+    const mintRequest = {
         from: "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
-        to: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
+        to: "0x5923b451c5a61097B9Ad89dE2C409d50c3feF7Ac",
         data,
-        value: 0,
     }
 
     const domain = {
-        name: "MinimalForwarder",
-        version: "0.0.1",
+        name: "VGLD_Forwarder_Polygon",
+        version: "1.0.0",
         chainId: 5,
         verifyingContract: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
+    }
+
+    const forwardData = {
+        ...mintRequest,
+        gas: "100000000",
+        nonce,
+        value: "0",
     }
 
     const types = {
         ForwardRequest,
     }
 
-    const typedSignature = await signer._signTypedData(domain, types, request)
+    const typedSignature = await signer._signTypedData(
+        domain,
+        types,
+        forwardData
+    )
 
     const executeData = forwarder.interface.encodeFunctionData("execute", [
-        request,
+        forwardData,
         typedSignature,
     ])
 
     const forwardRequest = {
-        gas: "100000",
-        nonce,
+        gas: "100002",
         from: "0x02Ed30865C7e66cC6CeaeB9C3B6aA8643B98Ac9A",
         to: "0x1E95F2b4739e6BB7376Ac584748EB4984C7665B0",
         data: executeData,
         schedule: "fast",
-        value: 0,
+        nonce,
     }
 
     const signature = await signRequest(forwardRequest)
